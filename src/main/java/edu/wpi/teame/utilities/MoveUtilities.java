@@ -6,6 +6,7 @@ import edu.wpi.teame.map.MoveAttribute;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,9 @@ public class MoveUtilities {
     today = new Date();
     formatter = new SimpleDateFormat("yyyy-MM-dd");
   }
+
+
+  /////////////// Getters (from database) ////////////////
 
   public MoveAttribute findMoveAttribute(String longName) {
     List<MoveAttribute> listOfMoveAtt = SQLRepo.INSTANCE.getMoveList();
@@ -32,10 +36,25 @@ public class MoveUtilities {
     List<MoveAttribute> movesAtDate =
         SQLRepo.INSTANCE.getMoveList().stream()
             .filter(movAt -> (movAt.getLongName().equals(longName)))
-            .filter(movAt -> afterDate(movAt, date) >= 0)
-            .toList();
+            .filter(movAt -> afterDate(movAt, date) <= 0) //before or on date
+            .sorted(new Comparator<MoveAttribute>() {
+              @Override
+              public int compare(MoveAttribute o1, MoveAttribute o2){
+                try {
+                  return formatter.parse(o1.getDate()).compareTo(formatter.parse(o2.getDate()));
+                }catch(ParseException e){
+                  System.out.println(e);
+                  return 0;
+                }
+              }
+            }).toList();
 
-    return null;
+    try {
+      return movesAtDate.get(movesAtDate.size() - 1);
+    } catch (IndexOutOfBoundsException e){
+      System.out.println("This location does not have a node for this date");
+      return null;
+    }
   }
 
   public int afterDate(MoveAttribute move) {
@@ -58,4 +77,21 @@ public class MoveUtilities {
         .truncatedTo(ChronoUnit.DAYS)
         .compareTo(day.toInstant().truncatedTo(ChronoUnit.DAYS));
   }
+
+  public List<MoveAttribute> getCurrentMoves(){
+    return SQLRepo.INSTANCE.getMoveList().stream().filter(move -> afterDate(move) == 0).toList();
+  }
+
+  public List<MoveAttribute> getFutureMoves(){
+    return SQLRepo.INSTANCE.getMoveList().stream().filter(move -> afterDate(move) > 0).toList();
+  }
+
+  public List<String> getCurrentMoveMessages(){
+    return getCurrentMoves().stream()
+            .map(move -> move.getLongName() + " to Node " + move.getNodeID())
+            .toList();
+  }
+
+
+  ////////////////// Setters (sending new move data to database) ///////////////////////
 }
