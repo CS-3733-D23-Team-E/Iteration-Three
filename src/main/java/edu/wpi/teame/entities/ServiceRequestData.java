@@ -2,11 +2,12 @@ package edu.wpi.teame.entities;
 
 import static javax.swing.UIManager.getString;
 
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 import lombok.Getter;
 import lombok.Setter;
 
-public abstract class ServiceRequestData {
+public abstract class ServiceRequestData implements ORM {
   public enum Status {
     PENDING,
     IN_PROGRESS,
@@ -79,5 +80,24 @@ public abstract class ServiceRequestData {
     this.requestType = requestType;
     this.requestStatus = requestStatus;
     this.assignedStaff = assignedStaff;
+  }
+
+  public void applyChanges(HashMap<String, String> changes) {
+    if (changes.containsKey("requestID")) {
+      this.requestID = Integer.parseInt(changes.get("requestID"));
+    }
+    if (changes.containsKey("requestType")) {
+      this.requestType = RequestType.stringToRequestType(changes.get("requestType"));
+    }
+    if (changes.containsKey("requestStatus")) {
+      this.requestStatus = Status.stringToStatus(changes.get("requestStatus"));
+    }
+    if (changes.containsKey("assignedStaff")) {
+      this.assignedStaff = changes.get("assignedStaff");
+    }
+  }
+
+  public String getPrimaryKey() {
+      return "\"requestID\" = " + requestID;
   }
 }

@@ -447,7 +447,7 @@ public class DatabaseTableViewController {
     try {
       nodeX = parseInt(xField.getText());
       nodeY = parseInt(yField.getText());
-      toAdd = new HospitalNode(new NodeInitializer(nodeI, nodeX, nodeY, flr, building));
+      toAdd = new HospitalNode(nodeI, nodeX, nodeY, Floor.stringToFloor(flr), building);
       // DatabaseController.INSTANCE.addToTable(DatabaseController.Table.NODE, toAdd);
       SQLRepo.INSTANCE.addNode(toAdd);
       confirmPop.show(App.getPrimaryStage());

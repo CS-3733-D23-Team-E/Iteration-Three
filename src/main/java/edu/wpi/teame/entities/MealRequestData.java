@@ -3,6 +3,8 @@ package edu.wpi.teame.entities;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashMap;
+
 public class MealRequestData extends ServiceRequestData {
   @Getter @Setter private String name;
   @Getter @Setter private String room;
@@ -63,5 +65,40 @@ public class MealRequestData extends ServiceRequestData {
     this.drink = drink;
     this.allergies = allergies;
     this.notes = notes;
+  }
+
+  public String getTable() {
+    return "MealDelivery";
+  }
+
+  public void applyChanges(HashMap<String, String> changes) {
+    super.applyChanges(changes);
+    if (changes.containsKey("name")) {
+      this.name = changes.get("name");
+    }
+    if (changes.containsKey("room")) {
+      this.room = changes.get("room");
+    }
+    if (changes.containsKey("deliveryDate")) {
+      this.deliveryDate = changes.get("deliveryDate");
+    }
+    if (changes.containsKey("deliveryTime")) {
+      this.deliveryTime = changes.get("deliveryTime");
+    }
+    if (changes.containsKey("mainCourse")) {
+      this.mainCourse = changes.get("mainCourse");
+    }
+    if (changes.containsKey("sideCourse")) {
+      this.sideCourse = changes.get("sideCourse");
+    }
+    if (changes.containsKey("drink")) {
+      this.drink = changes.get("drink");
+    }
+    if (changes.containsKey("allergies")) {
+      this.allergies = changes.get("allergies");
+    }
+    if (changes.containsKey("notes")) {
+      this.notes = changes.get("notes");
+    }
   }
 }

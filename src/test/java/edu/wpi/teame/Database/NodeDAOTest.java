@@ -2,8 +2,9 @@ package edu.wpi.teame.Database;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import edu.wpi.teame.map.Floor;
 import edu.wpi.teame.map.HospitalNode;
-import edu.wpi.teame.map.NodeInitializer;
+
 import java.io.File;
 import java.util.List;
 import javax.swing.filechooser.FileSystemView;
@@ -24,11 +25,11 @@ public class NodeDAOTest {
     List<HospitalNode> originalNodes = SQLRepo.INSTANCE.getNodeList();
     assertEquals(581, originalNodes.size());
 
-    SQLRepo.INSTANCE.addNode(new HospitalNode(new NodeInitializer("0", 0, 0, "L2", "Test")));
+    SQLRepo.INSTANCE.addNode(new HospitalNode("0", 0, 0, Floor.stringToFloor("L2"), "Test"));
     List<HospitalNode> addedNodes = SQLRepo.INSTANCE.getNodeList();
     assertEquals(582, addedNodes.size());
 
-    SQLRepo.INSTANCE.deletenode(new HospitalNode(new NodeInitializer("0", 0, 0, "L2", "Test")));
+    SQLRepo.INSTANCE.deletenode(new HospitalNode("0", 0, 0, Floor.stringToFloor("L2"), "Test"));
     List<HospitalNode> deletedNodes = SQLRepo.INSTANCE.getNodeList();
     assertEquals(581, deletedNodes.size());
 
@@ -39,7 +40,7 @@ public class NodeDAOTest {
   public void testUpdate() {
     SQLRepo.INSTANCE.connectToDatabase("teame", "teame50");
 
-    HospitalNode hn = new HospitalNode(new NodeInitializer("1200", 1608, 2737, "1", "BTM"));
+    HospitalNode hn = new HospitalNode("1200", 1608, 2737, Floor.stringToFloor("1"), "BTM");
     SQLRepo.INSTANCE.updateNode(hn, "floor", "1");
 
     SQLRepo.INSTANCE.exitDatabaseProgram();

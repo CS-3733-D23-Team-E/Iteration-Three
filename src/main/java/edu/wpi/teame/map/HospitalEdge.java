@@ -1,6 +1,10 @@
 package edu.wpi.teame.map;
 
-public class HospitalEdge {
+import edu.wpi.teame.entities.ORM;
+
+import java.util.HashMap;
+
+public class HospitalEdge implements ORM {
   String nodeOneID;
   String nodeTwoID;
   int edgeWeight;
@@ -27,5 +31,25 @@ public class HospitalEdge {
 
   public int getEdgeWeight() {
     return this.edgeWeight;
+  }
+
+  public String getTable(){
+    return "Edge";
+  }
+
+  public void applyChanges(HashMap<String, String> changes){
+    if(changes.containsKey("startNode")){
+      this.nodeOneID = changes.get("nodeOneID");
+    }
+    if(changes.containsKey("endNode")){
+      this.nodeTwoID = changes.get("nodeTwoID");
+    }
+  }
+
+  public String getPrimaryKey(){
+    return "\"endNode\" = "
+            + nodeOneID
+            + " AND \"startNode\" = "
+            + nodeTwoID;
   }
 }

@@ -5,9 +5,11 @@ import static java.util.Objects.hash;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
+
+import edu.wpi.teame.entities.ORM;
 import lombok.Getter;
 
-public class LocationName {
+public class LocationName implements ORM {
 
   public static HashMap<String, LocationName> allLocations = new HashMap<>();
 
@@ -123,5 +125,26 @@ public class LocationName {
   @Override
   public int hashCode() {
     return hash(longName);
+  }
+
+  public String getTable() {
+    return longName;
+  }
+
+  public void applyChanges(HashMap<String, String> changes) {
+    if (changes.containsKey("longName")) {
+      this.longName = changes.get("longName");
+    }
+    if (changes.containsKey("shortName")) {
+      this.shortName = changes.get("shortName");
+    }
+    if (changes.containsKey("nodeType")) {
+      this.nodeType = NodeType.stringToNodeType(changes.get("nodeType"));
+    }
+  }
+
+  public String getPrimaryKey(){
+    return "\"longName\" = "
+            + longName;
   }
 }

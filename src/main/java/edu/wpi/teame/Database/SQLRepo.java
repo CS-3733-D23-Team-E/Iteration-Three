@@ -127,6 +127,10 @@ public enum SQLRepo {
   }
 
   // ALL DATABASE UTILITY
+  public void handleDiffs(List<Diff<?>> changes){
+    this.dbUtility.handleDiffs(changes);
+  }
+
   public int getNodeIDFromName(String longName) {
     return this.dbUtility.getNodeIDFromName(longName);
   }

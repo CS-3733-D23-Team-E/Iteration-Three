@@ -3,9 +3,11 @@ package edu.wpi.teame.map;
 import static java.util.Objects.hash;
 
 import java.util.*;
+
+import edu.wpi.teame.entities.ORM;
 import lombok.Getter;
 
-public class HospitalNode {
+public class HospitalNode implements ORM {
   public static HashMap<String, HospitalNode> allNodes = new HashMap<>();
 
   @Getter List<HospitalNode> neighbors;
@@ -26,8 +28,6 @@ public class HospitalNode {
     this.yCoord = yCoord;
     this.floor = floor;
     this.building = building;
-    // Add this node to the collection of all nodes
-    allNodes.put(nodeID, this);
   }
 
   public HospitalNode() {
@@ -40,15 +40,6 @@ public class HospitalNode {
 
   public HospitalNode(String id, int xCoord, int yCoord) {
     this(id, xCoord, yCoord, Floor.LOWER_ONE, "Unknown");
-  }
-
-  public HospitalNode(NodeInitializer nodeInitializer) {
-    this(
-        nodeInitializer.nodeID,
-        nodeInitializer.xCoord,
-        nodeInitializer.yCoord,
-        nodeInitializer.floor,
-        nodeInitializer.building);
   }
 
   @Override
@@ -113,5 +104,33 @@ public class HospitalNode {
     buildings.add("BTM");
     buildings.add("Shapiro");
     return buildings;
+  }
+
+
+  public String getTable(){
+    return "Node";
+  }
+
+  public void applyChanges(HashMap<String,String> changes) {
+    if(changes.containsKey("nodeID")){
+      this.nodeID = changes.get("nodeID");
+    }
+    if(changes.containsKey("xcoord")){
+      this.xCoord = Integer.parseInt(changes.get("xcoord"));
+    }
+    if(changes.containsKey("ycoord")){
+      this.yCoord = Integer.parseInt(changes.get("ycoord"));
+    }
+    if(changes.containsKey("floor")){
+      this.floor = Floor.stringToFloor(changes.get("floor"));
+    }
+    if(changes.containsKey("building")){
+      this.building = changes.get("building");
+    }
+  }
+
+  public String getPrimaryKey(){
+    return "\"nodeID\" = " +
+            nodeID;
   }
 }

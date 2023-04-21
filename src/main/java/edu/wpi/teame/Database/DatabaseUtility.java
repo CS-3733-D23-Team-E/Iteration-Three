@@ -1,5 +1,6 @@
 package edu.wpi.teame.Database;
 
+import edu.wpi.teame.entities.Diff;
 import edu.wpi.teame.map.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class DatabaseUtility {
 
@@ -171,17 +173,39 @@ public class DatabaseUtility {
       while (rs.next()) {
         nodeList.add(
             new HospitalNode(
-                new NodeInitializer(
-                    rs.getInt("nodeID") + "",
-                    rs.getInt("xcoord"),
-                    rs.getInt("ycoord"),
-                    rs.getString("floor"),
-                    rs.getString("building"))));
+                rs.getInt("nodeID") + "",
+                rs.getInt("xcoord"),
+                rs.getInt("ycoord"),
+                Floor.stringToFloor(rs.getString("floor")),
+                rs.getString("building")));
       }
       if (nodeList.isEmpty()) System.out.println("There was a problem returning the nodes");
     } catch (SQLException e) {
       throw new RuntimeException("There was a problem retrieving the nodes");
     }
     return nodeList;
+  }
+
+  public void handleDiffs(List<Diff<?>> diffs){
+    StringBuilder query = new StringBuilder();
+    for(Diff<?> diff : diffs) {
+      for(Map.Entry<String, String> changes : diff.getChanges().entrySet()) {
+        query.append("UPDATE \"" + diff.getOld().getTable() + "\" "
+                + "SET \""
+                + changes.getKey()
+                + "\" = "
+                + changes.getValue()
+                + " WHERE "
+                + diff.getOld().getPrimaryKey()
+                + ";");
+      }
+    }
+    try {
+      Statement stmt = activeConnection.createStatement();
+      stmt.executeUpdate(query.toString());
+      stmt.close();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
   }
 }

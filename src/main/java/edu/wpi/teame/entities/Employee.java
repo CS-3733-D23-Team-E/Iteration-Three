@@ -3,11 +3,12 @@ package edu.wpi.teame.entities;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Employee {
+public class Employee implements ORM{
 
   public enum Permission {
     STAFF,
@@ -79,5 +80,29 @@ public class Employee {
     } catch (NoSuchAlgorithmException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  public String getTable() {
+    return "Employee";
+  }
+
+  public void applyChanges(HashMap<String,String> changes) {
+    if (changes.containsKey("fullName")) {
+      this.fullName = changes.get("fullName");
+    }
+    if (changes.containsKey("username")) {
+      this.username = changes.get("username");
+    }
+    if (changes.containsKey("password")) {
+      this.password = changes.get("password");
+    }
+    if (changes.containsKey("permission")) {
+      this.permission = changes.get("permission");
+    }
+  }
+
+  public String getPrimaryKey() {
+    return "\"username\" = '"
+            + username;
   }
 }

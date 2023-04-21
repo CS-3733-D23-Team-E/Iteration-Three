@@ -2,7 +2,7 @@ package edu.wpi.teame.Database;
 
 import edu.wpi.teame.map.Floor;
 import edu.wpi.teame.map.HospitalNode;
-import edu.wpi.teame.map.NodeInitializer;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -35,12 +35,11 @@ public class NodeDAO<E> extends DAO<HospitalNode> {
       while (rs.next()) {
         nodeList.add(
             new HospitalNode(
-                new NodeInitializer(
-                    rs.getInt("nodeID") + "",
-                    rs.getInt("xcoord"),
-                    rs.getInt("ycoord"),
-                    rs.getString("floor"),
-                    rs.getString("building"))));
+              rs.getInt("nodeID") + "",
+              rs.getInt("xcoord"),
+              rs.getInt("ycoord"),
+              Floor.stringToFloor(rs.getString("floor")),
+              rs.getString("building")));
       }
       if (nodeList.isEmpty()) System.out.println("There was a problem returning the nodes");
     } catch (SQLException e) {
