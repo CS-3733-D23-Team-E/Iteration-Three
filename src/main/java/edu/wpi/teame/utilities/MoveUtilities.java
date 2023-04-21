@@ -1,6 +1,7 @@
 package edu.wpi.teame.utilities;
 
 import edu.wpi.teame.Database.SQLRepo;
+import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.map.MoveAttribute;
 
 import java.text.ParseException;
@@ -89,6 +90,18 @@ public class MoveUtilities {
   public List<String> getCurrentMoveMessages(){
     return getCurrentMoves().stream()
             .map(move -> move.getLongName() + " to Node " + move.getNodeID())
+            .toList();
+  }
+
+  public List<MoveAttribute> getMovesForDepartments(){
+    return SQLRepo.INSTANCE.getMoveList().stream()
+            .filter(
+                    (move) -> // Filter out hallways and long names with no corresponding
+                            // LocationName
+                            LocationName.allLocations.get(move.getLongName()) == null
+                                    ? false
+                                    : LocationName.allLocations.get(move.getLongName()).getNodeType()
+                                    == LocationName.NodeType.DEPT) //NOTE: Before this statement was just filtering out Hall, Stair, Elevator, and Restrooms
             .toList();
   }
 
