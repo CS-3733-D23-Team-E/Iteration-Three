@@ -2,7 +2,6 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -10,7 +9,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -85,7 +83,7 @@
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="860.0" spacing="5.0">
                <children>
-                  <TabPane prefHeight="373.0" prefWidth="675.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane prefHeight="373.0" prefWidth="675.0" stylesheets="@../styles/eStyleSheet.css" tabClosingPolicy="UNAVAILABLE">
                      <tabs>
                         <Tab fx:id="moveTab" text="Move Department">
                            <content>
@@ -137,38 +135,41 @@
                            </content>
                         </Tab>
                         <Tab fx:id="swapTab" text="Swap Departments">
-                           <content>
-                              <AnchorPane>
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <VBox>
+                                    <VBox alignment="TOP_CENTER" prefHeight="341.5" prefWidth="852.5" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Swap Departments">
-                                             <Tooltip text="Swap the location names of two nodes for a given date" />
+                                          <Label text="Swap Department Nodes:">
                                              <font>
-                                                <Font size="32.0" />
+                                                <Font name="Roboto" size="32.0" />
                                              </font>
-                                          </Text>
-                                          <HBox alignment="TOP_CENTER" spacing="10.0">
+                                          </Label>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="60.0" VBox.vgrow="ALWAYS">
                                              <children>
-                                                <VBox>
+                                                <VBox alignment="CENTER">
                                                    <children>
-                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location 1:">
+                                                      <Label text="Department 1">
                                                          <font>
-                                                            <Font size="24.0" />
+                                                            <Font name="Roboto" size="32.0" />
                                                          </font>
-                                                      </Text>
-                                                      <SearchableComboBox fx:id="departmentOneSelector" maxWidth="150.0" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
+                                                      </Label>
+                                                      <SearchableComboBox fx:id="departmentOneSelector" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="300.0" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
                                                    </children>
                                                 </VBox>
-                                                <Line endY="100.0" />
-                                                <VBox>
+                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/swapping_arrows-removebg-preview.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <VBox alignment="CENTER">
                                                    <children>
-                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location 2:">
+                                                      <Label text="Deprtment 2">
                                                          <font>
-                                                            <Font size="24.0" />
+                                                            <Font name="Roboto" size="32.0" />
                                                          </font>
-                                                      </Text>
-                                                      <SearchableComboBox fx:id="departmentTwoSelector" maxWidth="150.0" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
+                                                      </Label>
+                                                      <SearchableComboBox fx:id="departmentTwoSelector" minHeight="30.0" minWidth="300.0" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
                                                    </children>
                                                 </VBox>
                                              </children>
@@ -177,7 +178,7 @@
                                     </VBox>
                                  </children>
                               </AnchorPane>
-                           </content>
+                          </content>
                         </Tab>
                      </tabs>
                   </TabPane>
