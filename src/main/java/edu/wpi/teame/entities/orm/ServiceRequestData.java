@@ -1,4 +1,4 @@
-package edu.wpi.teame.entities;
+package edu.wpi.teame.entities.orm;
 
 import static javax.swing.UIManager.getString;
 

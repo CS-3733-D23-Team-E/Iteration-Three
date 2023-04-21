@@ -1,7 +1,7 @@
 package edu.wpi.teame.Database;
 
-import edu.wpi.teame.map.Floor;
-import edu.wpi.teame.map.HospitalNode;
+import edu.wpi.teame.entities.Floor;
+import edu.wpi.teame.entities.orm.HospitalNode;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

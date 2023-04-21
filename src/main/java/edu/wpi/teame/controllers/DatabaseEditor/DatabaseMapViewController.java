@@ -1,9 +1,13 @@
 package edu.wpi.teame.controllers.DatabaseEditor;
 
-import static edu.wpi.teame.map.HospitalNode.allNodes;
+import static edu.wpi.teame.entities.orm.HospitalNode.allNodes;
 
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.map.*;
+import edu.wpi.teame.entities.Floor;
+import edu.wpi.teame.entities.orm.HospitalEdge;
+import edu.wpi.teame.entities.orm.HospitalNode;
+import edu.wpi.teame.entities.orm.LocationName;
+import edu.wpi.teame.entities.orm.MoveAttribute;
 import edu.wpi.teame.utilities.MapUtilities;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
@@ -417,6 +421,7 @@ public class DatabaseMapViewController {
             currentFloor,
             buildingSelector.getValue());
     SQLRepo.INSTANCE.addNode(node);
+    allNodes.put(id + "", node);
     // add respective move
     MoveAttribute move =
         new MoveAttribute(id, longNameSelector.getValue(), LocalDate.now().toString());

@@ -3,7 +3,7 @@ package edu.wpi.teame.controllers;
 import static javafx.scene.paint.Color.WHITE;
 
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.entities.Employee;
+import edu.wpi.teame.entities.orm.Employee;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;

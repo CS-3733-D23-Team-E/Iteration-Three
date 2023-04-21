@@ -1,15 +1,15 @@
-package edu.wpi.teame.map.pathfinding;
+package edu.wpi.teame.pathfinding;
 
-import edu.wpi.teame.map.HospitalNode;
+import edu.wpi.teame.entities.orm.HospitalNode;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-class DFSPathfinder extends AbstractPathfinder {
+class BFSPathfinder extends AbstractPathfinder {
 
   /**
-   * * Finds the shortest path from the starting HospitalNode to the target HospitalNode using Depth
-   * First Search
+   * * Finds the shortest path from the starting HospitalNode to the target HospitalNode using
+   * Breadth First Search
    *
    * @param from the starting HospitalNode
    * @param to the target HospitalNode
@@ -18,20 +18,20 @@ class DFSPathfinder extends AbstractPathfinder {
    */
   @Override
   public List<HospitalNode> findPath(HospitalNode from, HospitalNode to) {
-    LinkedList<HospitalNode> stack = new LinkedList<HospitalNode>();
+    LinkedList<HospitalNode> queue = new LinkedList<HospitalNode>();
     HashMap<HospitalNode, HospitalNode> parentMap = new HashMap<HospitalNode, HospitalNode>();
-    stack.add(from);
+    queue.add(from);
     parentMap.put(from, null);
 
-    while (!stack.isEmpty()) {
-      HospitalNode current = stack.removeLast();
+    while (!queue.isEmpty()) {
+      HospitalNode current = queue.remove();
       if (current.equals(to)) {
         return reconstructPath(parentMap, current);
       }
       for (HospitalNode neighbor : current.getNeighbors()) {
         if (!parentMap.containsKey(neighbor)) {
           // Parent map doubles as a visited set
-          stack.add(neighbor);
+          queue.add(neighbor);
           parentMap.put(neighbor, current);
         }
       }

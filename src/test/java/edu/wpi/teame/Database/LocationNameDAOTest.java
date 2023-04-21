@@ -2,7 +2,7 @@ package edu.wpi.teame.Database;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import edu.wpi.teame.map.LocationName;
+import edu.wpi.teame.entities.orm.LocationName;
 import java.io.File;
 import java.util.List;
 import javax.swing.filechooser.FileSystemView;

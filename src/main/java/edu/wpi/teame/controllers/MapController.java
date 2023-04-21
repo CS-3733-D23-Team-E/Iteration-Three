@@ -4,13 +4,13 @@ import static javafx.scene.paint.Color.WHITE;
 
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.Main;
-import edu.wpi.teame.map.Floor;
-import edu.wpi.teame.map.HospitalNode;
-import edu.wpi.teame.map.LocationName;
-import edu.wpi.teame.map.pathfinding.AbstractPathfinder;
+import edu.wpi.teame.entities.Floor;
+import edu.wpi.teame.entities.orm.HospitalNode;
+import edu.wpi.teame.entities.orm.LocationName;
+import edu.wpi.teame.pathfinding.AbstractPathfinder;
 import edu.wpi.teame.utilities.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.awt.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.ScaleTransition;

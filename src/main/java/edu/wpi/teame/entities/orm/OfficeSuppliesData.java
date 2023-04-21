@@ -1,74 +1,63 @@
-package edu.wpi.teame.entities;
+package edu.wpi.teame.entities.orm;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashMap;
 
-public class MealRequestData extends ServiceRequestData {
+public class OfficeSuppliesData extends ServiceRequestData {
+
   @Getter @Setter private String name;
   @Getter @Setter private String room;
-  @Getter @Setter private String deliveryTime;
   @Getter @Setter private String deliveryDate;
-  @Getter @Setter private String mainCourse;
-  @Getter @Setter private String sideCourse;
-  @Getter @Setter private String drink;
-
-  @Getter @Setter private String allergies;
-
+  @Getter @Setter private String deliveryTime;
+  @Getter @Setter private String officeSupply;
   @Getter @Setter private String notes;
+  @Getter @Setter private String quantity;
 
-  public MealRequestData(
+  public OfficeSuppliesData(
       int requestID,
       String name,
       String room,
       String deliveryDate,
       String deliveryTime,
-      String staff,
-      String mainCourse,
-      String sideCourse,
-      String drink,
-      String allergies,
+      String assignedStaff,
+      String officeSupply,
+      String q,
       String notes) {
-    super(requestID, RequestType.MEALDELIVERY, Status.PENDING, staff);
+    super(requestID, RequestType.OFFICESUPPLIESDELIVERY, Status.PENDING, assignedStaff);
     this.name = name;
     this.room = room;
     this.deliveryDate = deliveryDate;
     this.deliveryTime = deliveryTime;
-    this.mainCourse = mainCourse;
-    this.sideCourse = sideCourse;
-    this.drink = drink;
-    this.allergies = allergies;
+    this.officeSupply = officeSupply;
+    this.quantity = q;
     this.notes = notes;
   }
 
-  public MealRequestData(
+  public OfficeSuppliesData(
       int requestID,
       String name,
       String room,
       String deliveryDate,
       String deliveryTime,
-      String staff,
-      String mainCourse,
-      String sideCourse,
-      String drink,
-      String allergies,
+      String assignedStaff,
+      String officeSupply,
+      String q,
       String notes,
       Status status) {
-    super(requestID, RequestType.MEALDELIVERY, status, staff);
+    super(requestID, RequestType.OFFICESUPPLIESDELIVERY, status, assignedStaff);
     this.name = name;
     this.room = room;
     this.deliveryDate = deliveryDate;
     this.deliveryTime = deliveryTime;
-    this.mainCourse = mainCourse;
-    this.sideCourse = sideCourse;
-    this.drink = drink;
-    this.allergies = allergies;
+    this.officeSupply = officeSupply;
+    this.quantity = q;
     this.notes = notes;
   }
 
   public String getTable() {
-    return "MealDelivery";
+    return "OfficeSupplies";
   }
 
   public void applyChanges(HashMap<String, String> changes) {
@@ -85,17 +74,11 @@ public class MealRequestData extends ServiceRequestData {
     if (changes.containsKey("deliveryTime")) {
       this.deliveryTime = changes.get("deliveryTime");
     }
-    if (changes.containsKey("mainCourse")) {
-      this.mainCourse = changes.get("mainCourse");
+    if (changes.containsKey("officeSupply")) {
+      this.officeSupply = changes.get("officeSupply");
     }
-    if (changes.containsKey("sideCourse")) {
-      this.sideCourse = changes.get("sideCourse");
-    }
-    if (changes.containsKey("drink")) {
-      this.drink = changes.get("drink");
-    }
-    if (changes.containsKey("allergies")) {
-      this.allergies = changes.get("allergies");
+    if (changes.containsKey("quantity")) {
+      this.quantity = changes.get("quantity");
     }
     if (changes.containsKey("notes")) {
       this.notes = changes.get("notes");

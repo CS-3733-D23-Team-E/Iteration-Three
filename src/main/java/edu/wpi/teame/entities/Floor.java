@@ -1,4 +1,4 @@
-package edu.wpi.teame.map;
+package edu.wpi.teame.entities;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;

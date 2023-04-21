@@ -1,6 +1,6 @@
 package edu.wpi.teame.Database;
 
-import edu.wpi.teame.entities.Employee;
+import edu.wpi.teame.entities.orm.Employee;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

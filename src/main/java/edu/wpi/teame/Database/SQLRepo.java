@@ -2,7 +2,8 @@ package edu.wpi.teame.Database;
 
 import edu.wpi.teame.Main;
 import edu.wpi.teame.entities.*;
-import edu.wpi.teame.map.*;
+import edu.wpi.teame.entities.orm.*;
+
 import java.sql.*;
 import java.util.List;
 import java.util.NoSuchElementException;

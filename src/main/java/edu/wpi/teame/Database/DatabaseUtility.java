@@ -1,7 +1,11 @@
 package edu.wpi.teame.Database;
 
 import edu.wpi.teame.entities.Diff;
-import edu.wpi.teame.map.*;
+import edu.wpi.teame.entities.Floor;
+import edu.wpi.teame.entities.orm.HospitalNode;
+import edu.wpi.teame.entities.orm.LocationName;
+import edu.wpi.teame.entities.orm.MoveAttribute;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

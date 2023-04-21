@@ -1,4 +1,4 @@
-package edu.wpi.teame.map;
+package edu.wpi.teame.entities.orm;
 
 import static java.util.Objects.hash;
 
@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
-import edu.wpi.teame.entities.ORM;
 import lombok.Getter;
 
 public class LocationName implements ORM {

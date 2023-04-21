@@ -1,8 +1,7 @@
 package edu.wpi.teame.controllers.DatabaseEditor;
 
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.entities.*;
-import edu.wpi.teame.map.*;
+import edu.wpi.teame.entities.orm.*;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;

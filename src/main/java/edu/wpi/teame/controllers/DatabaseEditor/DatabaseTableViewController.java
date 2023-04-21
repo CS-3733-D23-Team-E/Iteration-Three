@@ -4,7 +4,11 @@ import static java.lang.Integer.parseInt;
 
 import edu.wpi.teame.App;
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.map.*;
+import edu.wpi.teame.entities.Floor;
+import edu.wpi.teame.entities.orm.HospitalEdge;
+import edu.wpi.teame.entities.orm.HospitalNode;
+import edu.wpi.teame.entities.orm.LocationName;
+import edu.wpi.teame.entities.orm.MoveAttribute;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -450,6 +454,7 @@ public class DatabaseTableViewController {
       toAdd = new HospitalNode(nodeI, nodeX, nodeY, Floor.stringToFloor(flr), building);
       // DatabaseController.INSTANCE.addToTable(DatabaseController.Table.NODE, toAdd);
       SQLRepo.INSTANCE.addNode(toAdd);
+      HospitalNode.allNodes.put(nodeI, toAdd);
       confirmPop.show(App.getPrimaryStage());
       nodeTable.getItems().add((HospitalNode) toAdd);
       IDFieldLoc.clear();

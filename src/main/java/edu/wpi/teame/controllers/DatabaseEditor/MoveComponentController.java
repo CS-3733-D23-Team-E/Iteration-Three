@@ -1,9 +1,9 @@
 package edu.wpi.teame.controllers.DatabaseEditor;
 
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.map.HospitalNode;
-import edu.wpi.teame.map.LocationName;
-import edu.wpi.teame.map.MoveAttribute;
+import edu.wpi.teame.entities.orm.HospitalNode;
+import edu.wpi.teame.entities.orm.LocationName;
+import edu.wpi.teame.entities.orm.MoveAttribute;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;

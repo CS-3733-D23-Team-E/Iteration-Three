@@ -1,9 +1,9 @@
 package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.entities.Employee;
-import edu.wpi.teame.entities.OfficeSuppliesData;
-import edu.wpi.teame.map.LocationName;
+import edu.wpi.teame.entities.orm.Employee;
+import edu.wpi.teame.entities.orm.OfficeSuppliesData;
+import edu.wpi.teame.entities.orm.LocationName;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;

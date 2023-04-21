@@ -1,8 +1,8 @@
 package edu.wpi.teame.Database;
 
-import static edu.wpi.teame.map.LocationName.NodeType.stringToNodeType;
+import static edu.wpi.teame.entities.orm.LocationName.NodeType.stringToNodeType;
 
-import edu.wpi.teame.map.LocationName;
+import edu.wpi.teame.entities.orm.LocationName;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

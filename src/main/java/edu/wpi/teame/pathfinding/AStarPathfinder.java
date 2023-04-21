@@ -1,6 +1,6 @@
-package edu.wpi.teame.map.pathfinding;
+package edu.wpi.teame.pathfinding;
 
-import edu.wpi.teame.map.HospitalNode;
+import edu.wpi.teame.entities.orm.HospitalNode;
 import java.util.*;
 
 class AStarPathfinder extends AbstractPathfinder {

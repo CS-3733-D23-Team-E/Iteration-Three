@@ -1,6 +1,6 @@
-package edu.wpi.teame.map;
+package edu.wpi.teame.entities.orm;
 
-import edu.wpi.teame.entities.ORM;
+import edu.wpi.teame.entities.orm.ORM;
 import lombok.Getter;
 
 import java.util.HashMap;

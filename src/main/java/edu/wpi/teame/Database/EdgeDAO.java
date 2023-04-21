@@ -1,6 +1,6 @@
 package edu.wpi.teame.Database;
 
-import edu.wpi.teame.map.HospitalEdge;
+import edu.wpi.teame.entities.orm.HospitalEdge;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

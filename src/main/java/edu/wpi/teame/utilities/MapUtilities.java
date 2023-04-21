@@ -1,8 +1,8 @@
 package edu.wpi.teame.utilities;
 
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.map.HospitalNode;
-import edu.wpi.teame.map.LocationName;
+import edu.wpi.teame.entities.orm.HospitalNode;
+import edu.wpi.teame.entities.orm.LocationName;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -11,7 +11,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javax.swing.*;
 
 public class MapUtilities {
   private final int MAP_X = 5000;

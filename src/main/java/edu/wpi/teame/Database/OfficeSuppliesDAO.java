@@ -2,8 +2,8 @@ package edu.wpi.teame.Database;
 
 import static java.lang.Integer.parseInt;
 
-import edu.wpi.teame.entities.OfficeSuppliesData;
-import edu.wpi.teame.entities.ServiceRequestData;
+import edu.wpi.teame.entities.orm.OfficeSuppliesData;
+import edu.wpi.teame.entities.orm.ServiceRequestData;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

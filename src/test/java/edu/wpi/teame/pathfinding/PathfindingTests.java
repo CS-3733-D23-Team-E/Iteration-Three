@@ -1,9 +1,12 @@
-package edu.wpi.teame.map.pathfinding;
+package edu.wpi.teame.pathfinding;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import edu.wpi.teame.map.HospitalNode;
+import edu.wpi.teame.entities.orm.HospitalNode;
 import java.util.List;
+
+import edu.wpi.teame.pathfinding.AStarPathfinder;
+import edu.wpi.teame.pathfinding.AbstractPathfinder;
 import org.junit.jupiter.api.Test;
 
 public class PathfindingTests {
@@ -17,6 +20,14 @@ public class PathfindingTests {
     HospitalNode node5 = new HospitalNode("5", 10, 10);
     // Disconnected node
     HospitalNode node6 = new HospitalNode("6", 12, 12);
+
+    HospitalNode.allNodes.put("1", node1);
+    HospitalNode.allNodes.put("2", node2);
+    HospitalNode.allNodes.put("3", node3);
+    HospitalNode.allNodes.put("4", node4);
+    HospitalNode.allNodes.put("5", node5);
+    HospitalNode.allNodes.put("6", node6);
+
     HospitalNode.addEdge(node1, node2, 1);
     HospitalNode.addEdge(node2, node4, 3);
     HospitalNode.addEdge(node4, node5, 1);

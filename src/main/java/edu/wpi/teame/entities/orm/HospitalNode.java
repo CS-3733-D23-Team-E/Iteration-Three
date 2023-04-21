@@ -1,10 +1,10 @@
-package edu.wpi.teame.map;
+package edu.wpi.teame.entities.orm;
 
 import static java.util.Objects.hash;
 
 import java.util.*;
 
-import edu.wpi.teame.entities.ORM;
+import edu.wpi.teame.entities.Floor;
 import lombok.Getter;
 
 public class HospitalNode implements ORM {
@@ -17,7 +17,8 @@ public class HospitalNode implements ORM {
 
   @Getter int xCoord;
   @Getter int yCoord;
-  @Getter Floor floor;
+  @Getter
+  Floor floor;
   @Getter String building;
 
   public HospitalNode(String id, int xCoord, int yCoord, Floor floor, String building) {
@@ -93,6 +94,12 @@ public class HospitalNode implements ORM {
   public static void processEdgeList(List<HospitalEdge> edgeList) {
     for (HospitalEdge edge : edgeList) {
       addEdge(allNodes.get(edge.nodeOneID), allNodes.get(edge.nodeTwoID), edge.edgeWeight);
+    }
+  }
+
+  public static void processNodeList(List<HospitalNode> nodeList) {
+    for (HospitalNode node : nodeList) {
+      allNodes.put(node.getNodeID(), node);
     }
   }
 

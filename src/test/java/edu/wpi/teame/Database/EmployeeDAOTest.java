@@ -2,7 +2,7 @@ package edu.wpi.teame.Database;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import edu.wpi.teame.entities.Employee;
+import edu.wpi.teame.entities.orm.Employee;
 import java.io.File;
 import javax.swing.filechooser.FileSystemView;
 import org.junit.jupiter.api.Test;

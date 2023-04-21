@@ -2,7 +2,7 @@ package edu.wpi.teame.Database;
 
 import static java.lang.Integer.parseInt;
 
-import edu.wpi.teame.entities.ConferenceRequestData;
+import edu.wpi.teame.entities.orm.ConferenceRequestData;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

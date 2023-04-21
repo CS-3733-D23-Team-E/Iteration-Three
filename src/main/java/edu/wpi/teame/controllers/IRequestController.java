@@ -1,6 +1,6 @@
 package edu.wpi.teame.controllers;
 
-import edu.wpi.teame.entities.ServiceRequestData;
+import edu.wpi.teame.entities.orm.ServiceRequestData;
 
 public interface IRequestController {
 

@@ -2,7 +2,7 @@ package edu.wpi.teame.Database;
 
 import static java.lang.Integer.parseInt;
 
-import edu.wpi.teame.map.MoveAttribute;
+import edu.wpi.teame.entities.orm.MoveAttribute;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.ResultSet;

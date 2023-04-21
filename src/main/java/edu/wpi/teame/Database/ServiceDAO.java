@@ -1,6 +1,6 @@
 package edu.wpi.teame.Database;
 
-import edu.wpi.teame.entities.ServiceRequestData;
+import edu.wpi.teame.entities.orm.ServiceRequestData;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

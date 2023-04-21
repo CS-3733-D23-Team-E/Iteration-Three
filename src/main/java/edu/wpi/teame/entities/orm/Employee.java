@@ -1,14 +1,15 @@
-package edu.wpi.teame.entities;
+package edu.wpi.teame.entities.orm;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
+
 import lombok.Getter;
 import lombok.Setter;
 
-public class Employee implements ORM{
+public class Employee implements ORM {
 
   public enum Permission {
     STAFF,

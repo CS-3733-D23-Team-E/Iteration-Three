@@ -1,63 +1,75 @@
-package edu.wpi.teame.entities;
+package edu.wpi.teame.entities.orm;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashMap;
 
-public class OfficeSuppliesData extends ServiceRequestData {
-
+public class FlowerRequestData extends ServiceRequestData {
   @Getter @Setter private String name;
   @Getter @Setter private String room;
-  @Getter @Setter private String deliveryDate;
   @Getter @Setter private String deliveryTime;
-  @Getter @Setter private String officeSupply;
-  @Getter @Setter private String notes;
-  @Getter @Setter private String quantity;
+  @Getter @Setter private String deliveryDate;
+  @Getter @Setter private String flowerType;
 
-  public OfficeSuppliesData(
+  @Getter @Setter private String quantity;
+  @Getter @Setter private String card;
+
+  @Getter @Setter private String cardMessage;
+
+  @Getter @Setter private String notes;
+
+  public FlowerRequestData(
       int requestID,
       String name,
       String room,
       String deliveryDate,
       String deliveryTime,
-      String assignedStaff,
-      String officeSupply,
-      String q,
+      String staff,
+      String flowerType,
+      String quantity,
+      String card,
+      String cardMessage,
       String notes) {
-    super(requestID, RequestType.OFFICESUPPLIESDELIVERY, Status.PENDING, assignedStaff);
+    super(requestID, RequestType.FLOWERDELIVERY, Status.PENDING, staff);
     this.name = name;
     this.room = room;
     this.deliveryDate = deliveryDate;
     this.deliveryTime = deliveryTime;
-    this.officeSupply = officeSupply;
-    this.quantity = q;
+    this.flowerType = flowerType;
+    this.quantity = quantity;
+    this.card = card;
+    this.cardMessage = cardMessage;
     this.notes = notes;
   }
 
-  public OfficeSuppliesData(
+  public FlowerRequestData(
       int requestID,
       String name,
       String room,
       String deliveryDate,
       String deliveryTime,
-      String assignedStaff,
-      String officeSupply,
-      String q,
+      String staff,
+      String flowerType,
+      String quantity,
+      String card,
+      String cardMessage,
       String notes,
       Status status) {
-    super(requestID, RequestType.OFFICESUPPLIESDELIVERY, status, assignedStaff);
+    super(requestID, RequestType.FLOWERDELIVERY, status, staff);
     this.name = name;
     this.room = room;
     this.deliveryDate = deliveryDate;
     this.deliveryTime = deliveryTime;
-    this.officeSupply = officeSupply;
-    this.quantity = q;
+    this.flowerType = flowerType;
+    this.quantity = quantity;
+    this.card = card;
+    this.cardMessage = cardMessage;
     this.notes = notes;
   }
 
   public String getTable() {
-    return "OfficeSupplies";
+    return "FlowerRequest";
   }
 
   public void applyChanges(HashMap<String, String> changes) {
@@ -74,11 +86,17 @@ public class OfficeSuppliesData extends ServiceRequestData {
     if (changes.containsKey("deliveryTime")) {
       this.deliveryTime = changes.get("deliveryTime");
     }
-    if (changes.containsKey("officeSupply")) {
-      this.officeSupply = changes.get("officeSupply");
+    if (changes.containsKey("flowerType")) {
+      this.flowerType = changes.get("flowerType");
     }
     if (changes.containsKey("quantity")) {
       this.quantity = changes.get("quantity");
+    }
+    if (changes.containsKey("card")) {
+      this.card = changes.get("card");
+    }
+    if (changes.containsKey("cardMessage")) {
+      this.cardMessage = changes.get("cardMessage");
     }
     if (changes.containsKey("notes")) {
       this.notes = changes.get("notes");

@@ -1,57 +1,58 @@
-package edu.wpi.teame.entities;
+package edu.wpi.teame.entities.orm;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashMap;
 
-public class ConferenceRequestData extends ServiceRequestData {
+public class FurnitureRequestData extends ServiceRequestData {
   @Getter @Setter private String name;
   @Getter @Setter private String room;
   @Getter @Setter private String deliveryTime;
   @Getter @Setter private String deliveryDate;
-  @Getter @Setter private String roomRequest;
+  @Getter @Setter private String furnitureType;
+
   @Getter @Setter private String notes;
 
-  public ConferenceRequestData(
+  public FurnitureRequestData(
       int requestID,
       String name,
       String room,
       String deliveryDate,
       String deliveryTime,
       String staff,
-      String roomRequest,
+      String furnitureType,
       String notes) {
-    super(requestID, RequestType.CONFERENCEROOM, Status.PENDING, staff);
+    super(requestID, RequestType.FURNITUREDELIVERY, Status.PENDING, staff);
     this.name = name;
     this.room = room;
     this.deliveryDate = deliveryDate;
     this.deliveryTime = deliveryTime;
-    this.roomRequest = roomRequest;
+    this.furnitureType = furnitureType;
     this.notes = notes;
   }
 
-  public ConferenceRequestData(
+  public FurnitureRequestData(
       int requestID,
       String name,
       String room,
       String deliveryDate,
       String deliveryTime,
       String staff,
-      String roomRequest,
+      String furnitureType,
       String notes,
       Status status) {
-    super(requestID, RequestType.CONFERENCEROOM, status, staff);
+    super(requestID, RequestType.FURNITUREDELIVERY, status, staff);
     this.name = name;
     this.room = room;
     this.deliveryDate = deliveryDate;
     this.deliveryTime = deliveryTime;
-    this.roomRequest = roomRequest;
+    this.furnitureType = furnitureType;
     this.notes = notes;
   }
 
-  public String getTable() {
-    return "ConferenceRequest";
+  public String getTable(){
+    return "FurnitureRequest";
   }
 
   public void applyChanges(HashMap<String, String> changes) {
@@ -68,8 +69,8 @@ public class ConferenceRequestData extends ServiceRequestData {
     if (changes.containsKey("deliveryTime")) {
       this.deliveryTime = changes.get("deliveryTime");
     }
-    if (changes.containsKey("roomRequest")) {
-      this.roomRequest = changes.get("roomRequest");
+    if (changes.containsKey("furnitureType")) {
+      this.furnitureType = changes.get("furnitureType");
     }
     if (changes.containsKey("notes")) {
       this.notes = changes.get("notes");
