@@ -89,6 +89,15 @@ public class HospitalNode implements ORM {
     addEdge(allNodes.get(nodeId1), allNodes.get(nodeId2), edgeWeight);
   }
 
+  public static void removeEdge(HospitalNode node1, HospitalNode node2) {
+    node1.neighbors.remove(node2);
+    node2.neighbors.remove(node1);
+  }
+
+  public static void removeEdge(String nodeId1, String nodeId2) {
+    removeEdge(allNodes.get(nodeId1), allNodes.get(nodeId2));
+  }
+
   public static void processEdgeList(List<HospitalEdge> edgeList) {
     for (HospitalEdge edge : edgeList) {
       addEdge(allNodes.get(edge.nodeOneID), allNodes.get(edge.nodeTwoID), edge.edgeWeight);

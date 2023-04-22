@@ -36,12 +36,14 @@ public class HospitalEdge implements ORM {
   }
 
   public void applyChanges(HashMap<String, String> changes) {
+    HospitalNode.removeEdge(nodeOneID, nodeTwoID);
     if (changes.containsKey("startNode")) {
       this.nodeOneID = changes.get("nodeOneID");
     }
     if (changes.containsKey("endNode")) {
       this.nodeTwoID = changes.get("nodeTwoID");
     }
+    HospitalNode.addEdge(nodeOneID, nodeTwoID);
   }
 
   public String getPrimaryKey() {
