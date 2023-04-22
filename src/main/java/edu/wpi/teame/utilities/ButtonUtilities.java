@@ -135,4 +135,18 @@ public class ButtonUtilities {
     int end = style.substring(loc).indexOf(";");
     return style.substring(loc, loc + end);
   }
+
+  public static void mouseSetup(MFXButton btn) {
+    btn.setOnMouseEntered(
+        event -> {
+          btn.setStyle(
+              "-fx-background-color: #f1f1f1; -fx-alignment: top-left; -fx-border-color:  #001A3C; -fx-border-width: 3;");
+          btn.setTextFill(Color.web("#192d5aff", 1.0));
+        });
+    btn.setOnMouseExited(
+        event -> {
+          btn.setStyle("-fx-background-color:#001A3C; -fx-alignment: top-left;");
+          btn.setTextFill(Color.web("#f1f1f1", 1.0));
+        });
+  }
 }

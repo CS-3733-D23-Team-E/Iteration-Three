@@ -160,11 +160,11 @@ public class HomePageController {
         "images/sign-out-alt-blue.png");
 
     // makes the buttons highlight when they are hovered over
-    mouseSetup(serviceRequestButton);
-    mouseSetup(editSignageButton);
-    mouseSetup(pathfindingButton);
-    mouseSetup(databaseButton);
-    mouseSetup(logoutButton);
+    ButtonUtilities.mouseSetup(serviceRequestButton);
+    ButtonUtilities.mouseSetup(editSignageButton);
+    ButtonUtilities.mouseSetup(pathfindingButton);
+    ButtonUtilities.mouseSetup(databaseButton);
+    ButtonUtilities.mouseSetup(logoutButton);
   }
 
   public void attemptLogin() {
@@ -185,20 +185,6 @@ public class HomePageController {
       password.clear();
       username.clear();
     }
-  }
-
-  private void mouseSetup(MFXButton btn) {
-    btn.setOnMouseEntered(
-        event -> {
-          btn.setStyle(
-              "-fx-background-color: #f1f1f1; -fx-alignment: top-left; -fx-border-color:  #001A3C; -fx-border-width: 3;");
-          btn.setTextFill(Color.web("#192d5aff", 1.0));
-        });
-    btn.setOnMouseExited(
-        event -> {
-          btn.setStyle("-fx-background-color:#001A3C; -fx-alignment: top-left;");
-          btn.setTextFill(Color.web("#f1f1f1", 1.0));
-        });
   }
 
   public void logoutPopup(boolean bool) {
