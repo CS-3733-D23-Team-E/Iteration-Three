@@ -76,6 +76,12 @@
                                     <Font name="Roboto" size="20.0" />
                                  </font>
                               </MFXRadioButton>
+                              <Region layoutX="44.0" layoutY="10.0" minWidth="30.0" HBox.hgrow="ALWAYS" />
+                              <MFXRadioButton fx:id="djikstraButton" layoutX="270.0" layoutY="20.0" radius="10.0" text="Djikstra" toggleGroup="$pathGroup">
+                                 <font>
+                                    <Font name="Roboto" size="20.0" />
+                                 </font>
+                              </MFXRadioButton>
                            </children>
                            <padding>
                               <Insets left="30.0" right="30.0" />

@@ -162,4 +162,44 @@ public class PathfindingTests {
         pathfinder.findPath(HospitalNode.allNodes.get("1"), HospitalNode.allNodes.get("6"));
     assertNull(path);
   }
+
+  /** Test below this point are for Djikstra's Search */
+  @Test
+  public void testDijkstraMiddleCase1() {
+    createTestGraph();
+    AbstractPathfinder pathfinder = AbstractPathfinder.getInstance("Djikstra");
+    List<HospitalNode> path = pathfinder.findPath("1", "5");
+    assertEquals(HospitalNode.allNodes.get("1"), path.get(0));
+    assertEquals(HospitalNode.allNodes.get("2"), path.get(1));
+    assertEquals(HospitalNode.allNodes.get("4"), path.get(2));
+    assertEquals(HospitalNode.allNodes.get("5"), path.get(3));
+  }
+
+  @Test
+  public void testDijkstraMiddleCase2() {
+    createTestGraph();
+    AbstractPathfinder pathfinder = AbstractPathfinder.getInstance("Djikstra");
+    List<HospitalNode> path = pathfinder.findPath("4", "3");
+    assertEquals(HospitalNode.allNodes.get("4"), path.get(0));
+    assertEquals(HospitalNode.allNodes.get("5"), path.get(1));
+    assertEquals(HospitalNode.allNodes.get("3"), path.get(2));
+  }
+
+  @Test
+  public void testDijkstraEdgeCase() {
+    createTestGraph();
+    AbstractPathfinder pathfinder = AbstractPathfinder.getInstance("Djikstra");
+    List<HospitalNode> path = pathfinder.findPath("2", "3");
+    assertEquals(HospitalNode.allNodes.get("2"), path.get(0));
+    assertEquals(HospitalNode.allNodes.get("1"), path.get(1));
+    assertEquals(HospitalNode.allNodes.get("3"), path.get(2));
+  }
+
+  @Test
+  public void testDijkstraFailCase() {
+    createTestGraph();
+    AbstractPathfinder pathfinder = AbstractPathfinder.getInstance("Djikstra");
+    List<HospitalNode> path = pathfinder.findPath("1", "6");
+    assertNull(path);
+  }
 }

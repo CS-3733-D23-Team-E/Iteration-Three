@@ -71,6 +71,7 @@ public class MapController {
   @FXML RadioButton aStarButton;
   @FXML RadioButton dfsButton;
   @FXML RadioButton bfsButton;
+  @FXML RadioButton djikstraButton;
   @FXML GesturePane gesturePaneL2;
   @FXML GesturePane gesturePaneL1;
   @FXML GesturePane gesturePane1;
@@ -218,6 +219,9 @@ public class MapController {
     }
     if (bfsButton.isSelected()) {
       pf = AbstractPathfinder.getInstance("BFS");
+    }
+    if (djikstraButton.isSelected()) {
+      pf = AbstractPathfinder.getInstance("Djikstra");
     }
 
     String toNodeID = SQLRepo.INSTANCE.getNodeIDFromName(to) + "";

@@ -15,6 +15,8 @@ public abstract class AbstractPathfinder {
         return new BFSPathfinder();
       case "DFS":
         return new DFSPathfinder();
+      case "Djikstra":
+        return new DjikstraPathfinder();
       default:
         return null;
     }
