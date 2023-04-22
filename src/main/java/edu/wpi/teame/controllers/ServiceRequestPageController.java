@@ -2,14 +2,12 @@ package edu.wpi.teame.controllers;
 
 import static javafx.scene.paint.Color.WHITE;
 
-import edu.wpi.teame.Main;
 import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
