@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -182,4 +183,31 @@ public class HomePageController {
     menuBarBlank.setVisible(bool);
     menuBar.setVisible(bool);
   }
+
+  public static void mouseSetupMenuBar(
+          MFXButton btn,
+          String alignment,
+          ImageView pic,
+          String unhighlightedPic,
+          String highlightedPic) {
+    Image uPic = new Image(Main.class.getResource(unhighlightedPic).toString());
+    Image hPic = new Image(Main.class.getResource(highlightedPic).toString());
+    btn.setOnMouseEntered(
+            event -> {
+              btn.setStyle(
+                      "-fx-background-color: #f1f1f1; -fx-alignment: "
+                              + alignment
+                              + "; -fx-border-color: #001A3C; -fx-border-width: 0; -fx-font-size: 18;");
+              btn.setTextFill(Color.web("#192d5aff", 1.0));
+              pic.setImage(hPic);
+            });
+    btn.setOnMouseExited(
+            event -> {
+              btn.setStyle(
+                      "-fx-background-color: #001A3C; -fx-alignment: " + alignment + ";-fx-font-size: 18;");
+              btn.setTextFill(WHITE);
+              pic.setImage(uPic);
+            });
+  }
+
 }
