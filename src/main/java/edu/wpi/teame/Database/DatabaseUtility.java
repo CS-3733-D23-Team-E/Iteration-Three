@@ -199,9 +199,16 @@ public class DatabaseUtility {
                 + "\" "
                 + "SET \""
                 + changes.getKey()
-                + "\" = "
-                + changes.getValue()
-                + " WHERE "
+                + "\" = ");
+        try{
+            Integer.parseInt(changes.getValue());
+            query.append(changes.getValue());
+            } catch (NumberFormatException e){
+            query.append("'");
+            query.append(changes.getValue());
+            query.append("'");
+        }
+        query.append(" WHERE "
                 + diff.getOld().getPrimaryKey()
                 + ";");
       }
