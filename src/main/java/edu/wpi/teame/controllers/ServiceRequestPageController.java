@@ -3,6 +3,7 @@ package edu.wpi.teame.controllers;
 import static javafx.scene.paint.Color.WHITE;
 
 import edu.wpi.teame.Main;
+import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -75,33 +76,33 @@ public class ServiceRequestPageController {
     logoutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
 
     // makes the menu bar buttons get highlighted when the mouse hovers over them
-    mouseSetupMenuBar(
+    ButtonUtilities.mouseSetupMenuBar(
         menuBarHome,
         "baseline-left",
         homeI,
         "images/house-blank.png",
         "images/house-blank-blue.png");
-    mouseSetupMenuBar(
+    ButtonUtilities.mouseSetupMenuBar(
         menuBarServices,
         "baseline-left",
         servicesI,
         "images/hand-holding-medical.png",
         "images/hand-holding-medical-blue.png");
-    mouseSetupMenuBar(
+    ButtonUtilities.mouseSetupMenuBar(
         menuBarSignage,
         "baseline-left",
         signageI,
         "images/diamond-turn-right.png",
         "images/diamond-turn-right-blue.png");
-    mouseSetupMenuBar(
+    ButtonUtilities.mouseSetupMenuBar(
         menuBarMaps, "baseline-left", pathfindingI, "images/marker.png", "images/marker-blue.png");
-    mouseSetupMenuBar(
+    ButtonUtilities.mouseSetupMenuBar(
         menuBarDatabase,
         "baseline-left",
         databaseI,
         "images/folder-tree.png",
         "images/folder-tree-blue.png");
-    mouseSetupMenuBar(
+    ButtonUtilities.mouseSetupMenuBar(
         menuBarExit,
         "baseline-center",
         exitI,
@@ -137,32 +138,6 @@ public class ServiceRequestPageController {
         event -> {
           btn.setStyle("-fx-background-color: #192d5aff; -fx-alignment: center;");
           btn.setTextFill(WHITE);
-        });
-  }
-
-  public static void mouseSetupMenuBar(
-      MFXButton btn,
-      String alignment,
-      ImageView pic,
-      String unhighlightedPic,
-      String highlightedPic) {
-    Image uPic = new Image(Main.class.getResource(unhighlightedPic).toString());
-    Image hPic = new Image(Main.class.getResource(highlightedPic).toString());
-    btn.setOnMouseEntered(
-        event -> {
-          btn.setStyle(
-              "-fx-background-color: #f1f1f1; -fx-alignment: "
-                  + alignment
-                  + "; -fx-border-color: #001A3C; -fx-border-width: 0; -fx-font-size: 18;");
-          btn.setTextFill(Color.web("#192d5aff", 1.0));
-          pic.setImage(hPic);
-        });
-    btn.setOnMouseExited(
-        event -> {
-          btn.setStyle(
-              "-fx-background-color: #001A3C; -fx-alignment: " + alignment + ";-fx-font-size: 18;");
-          btn.setTextFill(Color.web("#f1f1f1", 1.0));
-          pic.setImage(uPic);
         });
   }
 }

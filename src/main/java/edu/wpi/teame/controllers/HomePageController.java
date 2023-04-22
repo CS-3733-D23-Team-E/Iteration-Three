@@ -1,6 +1,5 @@
 package edu.wpi.teame.controllers;
 
-import edu.wpi.teame.Main;
 import edu.wpi.teame.entities.LoginData;
 import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
@@ -13,7 +12,6 @@ import java.time.format.DateTimeFormatter;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -147,11 +145,7 @@ public class HomePageController {
         "images/diamond-turn-right.png",
         "images/diamond-turn-right-blue.png");
     ButtonUtilities.mouseSetupMenuBar(
-        menuBarMaps,
-            "baseline-left",
-            pathfindingI,
-            "images/marker.png", 
-            "images/marker-blue.png");
+        menuBarMaps, "baseline-left", pathfindingI, "images/marker.png", "images/marker-blue.png");
     ButtonUtilities.mouseSetupMenuBar(
         menuBarDatabase,
         "baseline-left",
@@ -220,31 +214,5 @@ public class HomePageController {
     menuBarExit.setVisible(bool);
     menuBarBlank.setVisible(bool);
     menuBar.setVisible(bool);
-  }
-
-  public static void mouseSetupMenuBar(
-      MFXButton btn,
-      String alignment,
-      ImageView pic,
-      String unhighlightedPic,
-      String highlightedPic) {
-    Image uPic = new Image(Main.class.getResource(unhighlightedPic).toString());
-    Image hPic = new Image(Main.class.getResource(highlightedPic).toString());
-    btn.setOnMouseEntered(
-        event -> {
-          btn.setStyle(
-              "-fx-background-color: #f1f1f1; -fx-alignment: "
-                  + alignment
-                  + "; -fx-border-color: #001A3C; -fx-border-width: 0; -fx-font-size: 18;");
-          btn.setTextFill(Color.web("#192d5aff", 1.0));
-          pic.setImage(hPic);
-        });
-    btn.setOnMouseExited(
-        event -> {
-          btn.setStyle(
-              "-fx-background-color: #001A3C; -fx-alignment: " + alignment + ";-fx-font-size: 18;");
-          btn.setTextFill(Color.web("#f1f1f1", 1.0));
-          pic.setImage(uPic);
-        });
   }
 }
