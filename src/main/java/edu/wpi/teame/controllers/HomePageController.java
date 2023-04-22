@@ -2,6 +2,7 @@ package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Main;
 import edu.wpi.teame.entities.LoginData;
+import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -127,33 +128,37 @@ public class HomePageController {
     menuBarExit.setOnMouseClicked((event -> Platform.exit()));
 
     // makes the menu bar buttons get highlighted when the mouse hovers over them
-    mouseSetupMenuBar(
+    ButtonUtilities.mouseSetupMenuBar(
         menuBarHome,
         "baseline-left",
         homeI,
         "images/house-blank.png",
         "images/house-blank-blue.png");
-    mouseSetupMenuBar(
+    ButtonUtilities.mouseSetupMenuBar(
         menuBarServices,
         "baseline-left",
         servicesI,
         "images/hand-holding-medical.png",
         "images/hand-holding-medical-blue.png");
-    mouseSetupMenuBar(
+    ButtonUtilities.mouseSetupMenuBar(
         menuBarSignage,
         "baseline-left",
         signageI,
         "images/diamond-turn-right.png",
         "images/diamond-turn-right-blue.png");
-    mouseSetupMenuBar(
-        menuBarMaps, "baseline-left", pathfindingI, "images/marker.png", "images/marker-blue.png");
-    mouseSetupMenuBar(
+    ButtonUtilities.mouseSetupMenuBar(
+        menuBarMaps,
+            "baseline-left",
+            pathfindingI,
+            "images/marker.png", 
+            "images/marker-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
         menuBarDatabase,
         "baseline-left",
         databaseI,
         "images/folder-tree.png",
         "images/folder-tree-blue.png");
-    mouseSetupMenuBar(
+    ButtonUtilities.mouseSetupMenuBar(
         menuBarExit,
         "baseline-center",
         exitI,
