@@ -1,8 +1,9 @@
 package edu.wpi.teame.utilities;
 
-import static javafx.scene.paint.Color.WHITE;
-
+import edu.wpi.teame.Main;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 public class ButtonUtilities {
@@ -83,7 +84,14 @@ public class ButtonUtilities {
         });
   }
 
-  public static void mouseSetupMenuBar(MFXButton btn, String alignment) {
+  public static void mouseSetupMenuBar(
+      MFXButton btn,
+      String alignment,
+      ImageView pic,
+      String unhighlightedPic,
+      String highlightedPic) {
+    Image uPic = new Image(Main.class.getResource(unhighlightedPic).toString());
+    Image hPic = new Image(Main.class.getResource(highlightedPic).toString());
     btn.setOnMouseEntered(
         event -> {
           btn.setStyle(
@@ -91,12 +99,14 @@ public class ButtonUtilities {
                   + alignment
                   + "; -fx-border-color: #001A3C; -fx-border-width: 0; -fx-font-size: 18;");
           btn.setTextFill(Color.web("#192d5aff", 1.0));
+          pic.setImage(hPic);
         });
     btn.setOnMouseExited(
         event -> {
           btn.setStyle(
               "-fx-background-color: #001A3C; -fx-alignment: " + alignment + ";-fx-font-size: 18;");
-          btn.setTextFill(WHITE);
+          btn.setTextFill(Color.web("#f1f1f1", 1.0));
+          pic.setImage(uPic);
         });
   }
 
