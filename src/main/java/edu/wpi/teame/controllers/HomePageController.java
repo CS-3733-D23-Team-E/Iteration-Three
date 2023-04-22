@@ -127,7 +127,6 @@ public class HomePageController {
     menuBarExit.setOnMouseClicked((event -> Platform.exit()));
 
     // makes the menu bar buttons get highlighted when the mouse hovers over them
-    // makes the menu bar buttons get highlighted when the mouse hovers over them
     mouseSetupMenuBar(
         menuBarHome,
         "baseline-left",
