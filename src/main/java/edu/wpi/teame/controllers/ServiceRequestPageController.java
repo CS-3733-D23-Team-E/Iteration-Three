@@ -2,6 +2,7 @@ package edu.wpi.teame.controllers;
 
 import static javafx.scene.paint.Color.WHITE;
 
+import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -65,13 +66,14 @@ public class ServiceRequestPageController {
     menuBarExit.setOnMouseClicked((event -> Platform.exit()));
     logoutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
 
-    // makes the buttons get highlighted when the mouse hovers over them
-    mouseSetup(menuBarHome);
-    mouseSetup(menuBarServices);
-    mouseSetup(menuBarSignage);
-    mouseSetup(menuBarMaps);
-    mouseSetup(menuBarDatabase);
-    mouseSetup(menuBarExit);
+    // makes the menu bar buttons get highlighted when the mouse hovers over them
+    ButtonUtilities.mouseSetupMenuBar(menuBarHome, "baseline-left");
+    ButtonUtilities.mouseSetupMenuBar(menuBarServices, "baseline-left");
+    ButtonUtilities.mouseSetupMenuBar(menuBarSignage, "baseline-left");
+    ButtonUtilities.mouseSetupMenuBar(menuBarMaps, "baseline-left");
+    ButtonUtilities.mouseSetupMenuBar(menuBarDatabase, "baseline-left");
+    ButtonUtilities.mouseSetupMenuBar(menuBarExit, "baseline-center");
+
     mouseSetup(logoutButton);
   }
 
