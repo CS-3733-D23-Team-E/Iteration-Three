@@ -5,7 +5,6 @@ import edu.wpi.teame.entities.Floor;
 import edu.wpi.teame.entities.orm.HospitalNode;
 import edu.wpi.teame.entities.orm.LocationName;
 import edu.wpi.teame.entities.orm.MoveAttribute;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -190,11 +189,14 @@ public class DatabaseUtility {
     return nodeList;
   }
 
-  public void handleDiffs(List<Diff<?>> diffs){
+  public void handleDiffs(List<Diff<?>> diffs) {
     StringBuilder query = new StringBuilder();
-    for(Diff<?> diff : diffs) {
-      for(Map.Entry<String, String> changes : diff.getChanges().entrySet()) {
-        query.append("UPDATE \"" + diff.getOld().getTable() + "\" "
+    for (Diff<?> diff : diffs) {
+      for (Map.Entry<String, String> changes : diff.getChanges().entrySet()) {
+        query.append(
+            "UPDATE \""
+                + diff.getOld().getTable()
+                + "\" "
                 + "SET \""
                 + changes.getKey()
                 + "\" = "

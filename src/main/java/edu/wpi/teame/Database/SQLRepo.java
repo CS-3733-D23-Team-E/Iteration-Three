@@ -3,7 +3,6 @@ package edu.wpi.teame.Database;
 import edu.wpi.teame.Main;
 import edu.wpi.teame.entities.*;
 import edu.wpi.teame.entities.orm.*;
-
 import java.sql.*;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -128,7 +127,7 @@ public enum SQLRepo {
   }
 
   // ALL DATABASE UTILITY
-  public void handleDiffs(List<Diff<?>> changes){
+  public void handleDiffs(List<Diff<?>> changes) {
     this.dbUtility.handleDiffs(changes);
   }
 

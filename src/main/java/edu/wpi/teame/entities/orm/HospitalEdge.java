@@ -1,7 +1,5 @@
 package edu.wpi.teame.entities.orm;
 
-import edu.wpi.teame.entities.orm.ORM;
-
 import java.util.HashMap;
 
 public class HospitalEdge implements ORM {
@@ -33,23 +31,20 @@ public class HospitalEdge implements ORM {
     return this.edgeWeight;
   }
 
-  public String getTable(){
+  public String getTable() {
     return "Edge";
   }
 
-  public void applyChanges(HashMap<String, String> changes){
-    if(changes.containsKey("startNode")){
+  public void applyChanges(HashMap<String, String> changes) {
+    if (changes.containsKey("startNode")) {
       this.nodeOneID = changes.get("nodeOneID");
     }
-    if(changes.containsKey("endNode")){
+    if (changes.containsKey("endNode")) {
       this.nodeTwoID = changes.get("nodeTwoID");
     }
   }
 
-  public String getPrimaryKey(){
-    return "\"endNode\" = "
-            + nodeOneID
-            + " AND \"startNode\" = "
-            + nodeTwoID;
+  public String getPrimaryKey() {
+    return "\"endNode\" = " + nodeOneID + " AND \"startNode\" = " + nodeTwoID;
   }
 }

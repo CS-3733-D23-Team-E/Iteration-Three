@@ -1,9 +1,8 @@
 package edu.wpi.teame.entities.orm;
 
+import java.util.HashMap;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.HashMap;
 
 public class FurnitureRequestData extends ServiceRequestData {
   @Getter @Setter private String name;
@@ -51,7 +50,7 @@ public class FurnitureRequestData extends ServiceRequestData {
     this.notes = notes;
   }
 
-  public String getTable(){
+  public String getTable() {
     return "FurnitureRequest";
   }
 

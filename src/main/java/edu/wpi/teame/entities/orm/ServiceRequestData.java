@@ -98,6 +98,6 @@ public abstract class ServiceRequestData implements ORM {
   }
 
   public String getPrimaryKey() {
-      return "\"requestID\" = " + requestID;
+    return "\"requestID\" = " + requestID;
   }
 }

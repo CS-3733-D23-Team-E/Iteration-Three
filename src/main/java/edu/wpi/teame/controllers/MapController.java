@@ -10,7 +10,6 @@ import edu.wpi.teame.entities.orm.LocationName;
 import edu.wpi.teame.pathfinding.AbstractPathfinder;
 import edu.wpi.teame.utilities.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
-
 import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.ScaleTransition;

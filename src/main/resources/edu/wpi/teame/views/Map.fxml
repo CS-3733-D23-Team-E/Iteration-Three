@@ -327,7 +327,7 @@
                         <Circle fill="#1f93ff00" radius="25.0" stroke="#e5bc3b" strokeType="INSIDE" strokeWidth="3.0" StackPane.alignment="CENTER" />
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true">
                            <image>
-                              <Image url="@../images/user.png" />
+                              <Image url="@../images/circle-user.png" />
                            </image>
                         </ImageView>
                      </children>

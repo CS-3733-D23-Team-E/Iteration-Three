@@ -2,9 +2,8 @@ package edu.wpi.teame.entities.orm;
 
 import static java.util.Objects.hash;
 
-import java.util.*;
-
 import edu.wpi.teame.entities.Floor;
+import java.util.*;
 import lombok.Getter;
 
 public class HospitalNode implements ORM {
@@ -17,8 +16,7 @@ public class HospitalNode implements ORM {
 
   @Getter int xCoord;
   @Getter int yCoord;
-  @Getter
-  Floor floor;
+  @Getter Floor floor;
   @Getter String building;
 
   public HospitalNode(String id, int xCoord, int yCoord, Floor floor, String building) {
@@ -113,31 +111,29 @@ public class HospitalNode implements ORM {
     return buildings;
   }
 
-
-  public String getTable(){
+  public String getTable() {
     return "Node";
   }
 
-  public void applyChanges(HashMap<String,String> changes) {
-    if(changes.containsKey("nodeID")){
+  public void applyChanges(HashMap<String, String> changes) {
+    if (changes.containsKey("nodeID")) {
       this.nodeID = changes.get("nodeID");
     }
-    if(changes.containsKey("xcoord")){
+    if (changes.containsKey("xcoord")) {
       this.xCoord = Integer.parseInt(changes.get("xcoord"));
     }
-    if(changes.containsKey("ycoord")){
+    if (changes.containsKey("ycoord")) {
       this.yCoord = Integer.parseInt(changes.get("ycoord"));
     }
-    if(changes.containsKey("floor")){
+    if (changes.containsKey("floor")) {
       this.floor = Floor.stringToFloor(changes.get("floor"));
     }
-    if(changes.containsKey("building")){
+    if (changes.containsKey("building")) {
       this.building = changes.get("building");
     }
   }
 
-  public String getPrimaryKey(){
-    return "\"nodeID\" = " +
-            nodeID;
+  public String getPrimaryKey() {
+    return "\"nodeID\" = " + nodeID;
   }
 }

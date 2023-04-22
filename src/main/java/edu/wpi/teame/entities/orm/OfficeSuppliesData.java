@@ -1,9 +1,8 @@
 package edu.wpi.teame.entities.orm;
 
+import java.util.HashMap;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.HashMap;
 
 public class OfficeSuppliesData extends ServiceRequestData {
 

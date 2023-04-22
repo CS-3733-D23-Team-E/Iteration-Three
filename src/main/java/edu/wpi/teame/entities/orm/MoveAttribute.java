@@ -1,9 +1,7 @@
 package edu.wpi.teame.entities.orm;
 
-import edu.wpi.teame.entities.orm.ORM;
-import lombok.Getter;
-
 import java.util.HashMap;
+import lombok.Getter;
 
 public class MoveAttribute implements ORM {
   @Getter int nodeID;
@@ -16,29 +14,28 @@ public class MoveAttribute implements ORM {
     this.date = date;
   }
 
-
-  public String getTable(){
+  public String getTable() {
     return "Move";
   }
 
-  public void applyChanges(HashMap<String, String> changes){
-    if(changes.containsKey("nodeID")){
+  public void applyChanges(HashMap<String, String> changes) {
+    if (changes.containsKey("nodeID")) {
       this.nodeID = Integer.parseInt(changes.get("nodeID"));
     }
-    if(changes.containsKey("longName")){
+    if (changes.containsKey("longName")) {
       this.longName = changes.get("longName");
     }
-    if(changes.containsKey("date")){
+    if (changes.containsKey("date")) {
       this.date = changes.get("date");
     }
   }
 
-  public String getPrimaryKey(){
+  public String getPrimaryKey() {
     return "\"nodeID\" = "
-            + nodeID
-            + " AND \"longName\" = '"
-            + longName
-            + " AND \"date\" = '"
-            + date;
+        + nodeID
+        + " AND \"longName\" = '"
+        + longName
+        + " AND \"date\" = '"
+        + date;
   }
 }

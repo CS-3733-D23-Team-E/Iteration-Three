@@ -5,7 +5,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -87,7 +86,7 @@ public class Employee implements ORM {
     return "Employee";
   }
 
-  public void applyChanges(HashMap<String,String> changes) {
+  public void applyChanges(HashMap<String, String> changes) {
     if (changes.containsKey("fullName")) {
       this.fullName = changes.get("fullName");
     }
@@ -103,7 +102,6 @@ public class Employee implements ORM {
   }
 
   public String getPrimaryKey() {
-    return "\"username\" = '"
-            + username;
+    return "\"username\" = '" + username;
   }
 }

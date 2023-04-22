@@ -5,7 +5,6 @@ import static java.util.Objects.hash;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
-
 import lombok.Getter;
 
 public class LocationName implements ORM {
@@ -142,8 +141,7 @@ public class LocationName implements ORM {
     }
   }
 
-  public String getPrimaryKey(){
-    return "\"longName\" = "
-            + longName;
+  public String getPrimaryKey() {
+    return "\"longName\" = " + longName;
   }
 }
