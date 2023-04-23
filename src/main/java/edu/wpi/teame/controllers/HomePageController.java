@@ -47,9 +47,10 @@ public class HomePageController {
   @FXML ImageView pathfindingI;
   @FXML ImageView databaseI;
   @FXML ImageView exitI;
+  @FXML MFXButton spanishButton;
 
   Boolean loggedIn;
-
+  String language = "english";
   boolean menuVisibilty = false;
   boolean logoutVisible = false;
 
@@ -164,6 +165,17 @@ public class HomePageController {
     ButtonUtilities.mouseSetup(pathfindingButton);
     ButtonUtilities.mouseSetup(databaseButton);
     ButtonUtilities.mouseSetup(logoutButton);
+
+    spanishButton.setOnMouseClicked(event -> menuBarHome.setText(("Principal")));
+
+    if (language.equals("english")) {
+      menuBarHome.setText("Home");
+    } else if (language.equals("spanish")) {
+      menuBarHome.setText(("Principal"));
+    } else // throw error for language not being a valid language
+    {
+
+    }
   }
 
   public void attemptLogin() {

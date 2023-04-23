@@ -321,6 +321,14 @@
                      </font>
                   </MFXButton>
                </children></VBox>
+            <MFXButton fx:id="spanishButton" alignment="BOTTOM_CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="70.0" rippleColor="#d30909" text="SPANISH" underline="true" wrapText="true">
+               <StackPane.margin>
+                  <Insets left="500.0" />
+               </StackPane.margin>
+               <graphic>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SPANISH" />
+               </graphic>
+            </MFXButton>
          </children>
       </StackPane>
    </children>
