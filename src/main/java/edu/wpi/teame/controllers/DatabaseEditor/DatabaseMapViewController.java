@@ -8,10 +8,9 @@ import edu.wpi.teame.utilities.MapUtilities;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import java.time.LocalDate;
 import java.util.*;
-
-import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -153,7 +152,6 @@ public class DatabaseMapViewController {
     initializeButtons();
   }
 
-
   private void cancel() {
     if (currentCircle != null) {
       currentCircle.setRadius(5);
@@ -181,12 +179,12 @@ public class DatabaseMapViewController {
                 edge -> HospitalNode.allNodes.get(edge.getNodeOneID()).getFloor() == currentFloor)
             .toList();
 
-      for (HospitalEdge edge : floorEdges) {
-        whichMapUtility(currentFloor)
-                .drawEdge(
-                        HospitalNode.allNodes.get(edge.getNodeOneID()),
-                        HospitalNode.allNodes.get(edge.getNodeTwoID()));
-      }
+    for (HospitalEdge edge : floorEdges) {
+      whichMapUtility(currentFloor)
+          .drawEdge(
+              HospitalNode.allNodes.get(edge.getNodeOneID()),
+              HospitalNode.allNodes.get(edge.getNodeTwoID()));
+    }
     for (HospitalNode node : floorNodes) {
       setupNode(node);
     }
@@ -204,8 +202,7 @@ public class DatabaseMapViewController {
 
     Circle nodeCircle = currentMapUtility.drawHospitalNode(node);
     Label nodeLabel = currentMapUtility.drawHospitalNodeLabel(node);
-    if ()
-    nodeLabel.setVisible(false);
+    nodeLabel.setVisible(isLocationNamesDisplayed);
 
     nodeCircle.setOnMouseClicked(
         event -> {
@@ -540,7 +537,11 @@ public class DatabaseMapViewController {
           removeLocation();
         });
     addLocationButton.setOnAction(event -> addLocationName());
-    locationNameToggle.setOnAction(event -> isLocationNamesDisplayed = locationNameToggle.isSelected());
+    locationNameToggle.setOnAction(
+        event -> {
+          isLocationNamesDisplayed = locationNameToggle.isSelected();
+          loadFloorNodes();
+        });
   }
 
   private void refreshEdgeTable() {
