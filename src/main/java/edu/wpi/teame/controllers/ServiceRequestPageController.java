@@ -1,13 +1,18 @@
 package edu.wpi.teame.controllers;
 
+import static edu.wpi.teame.entities.ServiceRequestData.Status.PENDING;
 import static javafx.scene.paint.Color.WHITE;
 
+import edu.wpi.teame.Database.SQLRepo;
+import edu.wpi.teame.entities.ServiceRequestData;
 import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.util.List;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -30,6 +35,10 @@ public class ServiceRequestPageController {
   @FXML ImageView pathfindingI;
   @FXML ImageView databaseI;
   @FXML ImageView exitI;
+
+  @FXML Label pendingRequestText;
+
+  @FXML Label totalRequestText;
 
   @FXML VBox logoutBox;
   @FXML MFXButton logoutButton;
@@ -108,6 +117,8 @@ public class ServiceRequestPageController {
         "images/sign-out-alt-blue.png");
 
     mouseSetup(logoutButton);
+
+    fillServiceRequestsFields();
   }
 
   public void logoutPopup(boolean bool) {
@@ -137,5 +148,35 @@ public class ServiceRequestPageController {
           btn.setStyle("-fx-background-color: #192d5aff; -fx-alignment: center;");
           btn.setTextFill(WHITE);
         });
+  }
+
+  private void fillServiceRequestsFields() {
+    List<ServiceRequestData> requests =
+        new java.util.ArrayList<>(
+            SQLRepo.INSTANCE.getFlowerRequestsList().stream()
+                .map(request -> (ServiceRequestData) request)
+                .toList());
+    requests.addAll(
+        SQLRepo.INSTANCE.getFurnitureRequestsList().stream()
+            .map(request -> (ServiceRequestData) request)
+            .toList());
+    requests.addAll(
+        SQLRepo.INSTANCE.getMealRequestsList().stream()
+            .map(request -> (ServiceRequestData) request)
+            .toList());
+    requests.addAll(
+        SQLRepo.INSTANCE.getOfficeSupplyList().stream()
+            .map(request -> (ServiceRequestData) request)
+            .toList());
+    requests.addAll(
+        SQLRepo.INSTANCE.getConfList().stream()
+            .map(request -> (ServiceRequestData) request)
+            .toList());
+
+    List<ServiceRequestData> pendingRequests =
+        requests.stream().filter(request -> request.getRequestStatus().equals(PENDING)).toList();
+
+    totalRequestText.setText(requests.size() + "");
+    pendingRequestText.setText(pendingRequests.size() + "");
   }
 }

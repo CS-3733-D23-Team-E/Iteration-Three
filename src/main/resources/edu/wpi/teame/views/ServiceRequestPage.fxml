@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -62,11 +63,11 @@
                                           <StackPane prefHeight="150.0" prefWidth="200.0">
                                              <children>
                                                 <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#f1f1f1" height="160.0" stroke="BLACK" strokeType="INSIDE" width="145.0" />
-                                                <Text fx:id="totalRequestText" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                                <Label fx:id="totalRequestText" text="0">
                                                    <font>
                                                       <Font name="Roboto" size="48.0" />
                                                    </font>
-                                                </Text>
+                                                </Label>
                                              </children>
                                           </StackPane>
                                        </children>
@@ -100,11 +101,11 @@
                                           <StackPane prefHeight="150.0" prefWidth="200.0">
                                              <children>
                                                 <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#f1f1f1" height="160.0" stroke="BLACK" strokeType="INSIDE" width="145.0" />
-                                                <Text fx:id="pendingRequestText" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                                <Label fx:id="pendingRequestText" text="0">
                                                    <font>
                                                       <Font name="Roboto" size="48.0" />
                                                    </font>
-                                                </Text>
+                                                </Label>
                                              </children>
                                           </StackPane>
                                        </children>
