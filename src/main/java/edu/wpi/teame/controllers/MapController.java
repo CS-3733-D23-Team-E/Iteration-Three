@@ -280,6 +280,7 @@ public class MapController {
       Circle intermediateCircle = currentMapUtility.drawStyledCircle(x2, y2, 4);
       intermediateCircle.setViewOrder(-1);
       intermediateCircle.setId(node.getNodeID());
+      intermediateCircle.setVisible(false);
       x1 = x2;
       y1 = y2;
     }
@@ -401,6 +402,7 @@ public class MapController {
                 // reset highlighted node
                 currentCircle.setRadius(4);
                 currentCircle.setViewOrder(-1);
+                currentCircle.setVisible(false);
                 System.out.println("oldcircle: " + currentCircle.getId());
 
                 // Set the selected tab to the floor of the node
@@ -453,6 +455,7 @@ public class MapController {
                 System.out.println("Newcircle: " + currentCircle.getId());
                 currentCircle.setRadius(9);
                 currentCircle.setViewOrder(-5);
+                currentCircle.setVisible(true);
                 System.out.println("currentCircle: " + currentCircle);
                 System.out.println("Node List: " + nodeList);
 
