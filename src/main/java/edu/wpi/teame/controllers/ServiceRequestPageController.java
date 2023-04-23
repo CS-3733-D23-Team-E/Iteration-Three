@@ -1,7 +1,6 @@
 package edu.wpi.teame.controllers;
 
-import static edu.wpi.teame.entities.ServiceRequestData.Status.DONE;
-import static edu.wpi.teame.entities.ServiceRequestData.Status.PENDING;
+import static edu.wpi.teame.entities.ServiceRequestData.Status.*;
 import static javafx.scene.paint.Color.WHITE;
 
 import edu.wpi.teame.Database.SQLRepo;
@@ -42,7 +41,9 @@ public class ServiceRequestPageController {
 
   @FXML Label pendingRequestText;
 
-  @FXML Label totalRequestText;
+  @FXML Label inProgressRequestText;
+
+  @FXML Label completedRequestText;
 
   @FXML Label nonCompletedText;
 
@@ -183,9 +184,16 @@ public class ServiceRequestPageController {
 
     List<ServiceRequestData> pendingRequests =
         requests.stream().filter(request -> request.getRequestStatus().equals(PENDING)).toList();
+    List<ServiceRequestData> inProgressRequests =
+        requests.stream()
+            .filter(request -> request.getRequestStatus().equals(IN_PROGRESS))
+            .toList();
+    List<ServiceRequestData> completedRequests =
+        requests.stream().filter(request -> request.getRequestStatus().equals(DONE)).toList();
 
-    totalRequestText.setText(requests.size() + "");
+    inProgressRequestText.setText(inProgressRequests.size() + "");
     pendingRequestText.setText(pendingRequests.size() + "");
+    completedRequestText.setText(completedRequests.size() + "");
 
     if (Employee.activeEmployee.getPermission().equals("STAFF")) {
       // filter by employee

@@ -55,7 +55,7 @@
                                  <children>
                                     <VBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="161.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Requests">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pending:">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -63,7 +63,7 @@
                                           <StackPane prefHeight="150.0" prefWidth="200.0">
                                              <children>
                                                 <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#f1f1f1" height="160.0" stroke="BLACK" strokeType="INSIDE" width="145.0" />
-                                                <Label fx:id="totalRequestText" text="0">
+                                                <Label fx:id="pendingRequestText" text="0">
                                                    <font>
                                                       <Font name="Roboto" size="48.0" />
                                                    </font>
@@ -74,7 +74,7 @@
                                     </VBox>
                                     <VBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="161.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Request Status">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="In Progress:">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -82,18 +82,18 @@
                                           <StackPane prefHeight="150.0" prefWidth="200.0">
                                              <children>
                                                 <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#f1f1f1" height="160.0" stroke="BLACK" strokeType="INSIDE" width="145.0" />
-                                                <Text fx:id="requestStatusText" strokeType="OUTSIDE" strokeWidth="0.0" text="Delivering">
+                                                <Label fx:id="inProgressRequestText" text="0">
                                                    <font>
-                                                      <Font name="Roboto" size="24.0" />
+                                                      <Font size="48.0" />
                                                    </font>
-                                                </Text>
+                                                </Label>
                                              </children>
                                           </StackPane>
                                        </children>
                                     </VBox>
                                     <VBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="161.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pending Requests">
+                                          <Text fx:id="completedRequestsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Completed:">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -101,7 +101,7 @@
                                           <StackPane prefHeight="150.0" prefWidth="200.0">
                                              <children>
                                                 <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#f1f1f1" height="160.0" stroke="BLACK" strokeType="INSIDE" width="145.0" />
-                                                <Label fx:id="pendingRequestText" text="0">
+                                                <Label fx:id="completedRequestText" text="0">
                                                    <font>
                                                       <Font name="Roboto" size="48.0" />
                                                    </font>
