@@ -6,6 +6,7 @@ import edu.wpi.teame.map.MoveAttribute;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.Date;
@@ -73,12 +74,7 @@ public class MoveUtilities {
    * @return
    */
   public Date toDateFromLocal(LocalDate localDate) {
-    try {
-      return formatter.parse(formatter.format(localDate));
-    } catch (ParseException e) {
-      System.out.println(e);
-      return today;
-    }
+    return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
   }
 
   /**
