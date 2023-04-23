@@ -24,6 +24,7 @@ public class MoveUtilities {
 
   /**
    * find the most recent move attribute associated with the given longName on a given day
+   *
    * @param longName
    * @param date
    * @return
@@ -57,6 +58,7 @@ public class MoveUtilities {
 
   /**
    * Finds the most recent move attribute associated with the given longName today
+   *
    * @param longName
    * @return
    */
@@ -66,6 +68,7 @@ public class MoveUtilities {
 
   /**
    * converts a LocalDate into a Date (for method purposes)
+   *
    * @param localDate
    * @return
    */
@@ -80,6 +83,7 @@ public class MoveUtilities {
 
   /**
    * determines when a move is relative to a LocalDate
+   *
    * @param move
    * @param localDate
    * @return 0 if the dates occur on the same day, -1 if the move is before, 1 is it is after
@@ -91,6 +95,7 @@ public class MoveUtilities {
 
   /**
    * determines when a move is relative to today
+   *
    * @param move
    * @return 0 if the dates occur on the same day, -1 if the move is before, 1 is it is after
    */
@@ -100,6 +105,7 @@ public class MoveUtilities {
 
   /**
    * determines when a move is relative to a Date
+   *
    * @param move
    * @param day
    * @return 0 if the dates occur on the same day, -1 if the move is before, 1 is it is after
@@ -123,6 +129,7 @@ public class MoveUtilities {
 
   /**
    * gets all the moves that happen today
+   *
    * @return
    */
   public List<MoveAttribute> getCurrentMoves() {
@@ -131,6 +138,7 @@ public class MoveUtilities {
 
   /**
    * gets all the moves that are in the future
+   *
    * @return
    */
   public List<MoveAttribute> getFutureMoves() {
@@ -139,6 +147,7 @@ public class MoveUtilities {
 
   /**
    * gets the move message associated all the moves that happen today
+   *
    * @return
    */
   public List<String> getCurrentMoveMessages() {
@@ -149,6 +158,7 @@ public class MoveUtilities {
 
   /**
    * gets a list of only the moves at happen for departments
+   *
    * @return
    */
   public List<MoveAttribute> getMovesForDepartments() {
@@ -166,6 +176,7 @@ public class MoveUtilities {
 
   /**
    * formats today into the formatter's form
+   *
    * @return
    */
   public String formatToday() {
