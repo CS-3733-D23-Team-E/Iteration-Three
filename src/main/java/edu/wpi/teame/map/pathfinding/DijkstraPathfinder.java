@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.PriorityQueue;
 
-class DjikstraPathfinder extends AbstractPathfinder {
+class DijkstraPathfinder extends AbstractPathfinder {
 
   @Override
   public List<HospitalNode> findPath(HospitalNode from, HospitalNode to) {
