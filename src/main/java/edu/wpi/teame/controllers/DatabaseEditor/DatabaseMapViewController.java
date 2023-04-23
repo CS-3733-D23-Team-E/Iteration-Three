@@ -188,7 +188,7 @@ public class DatabaseMapViewController {
 
       // only draw edges on the same floor
       if (node1.getFloor() == node2.getFloor()) {
-              whichMapUtility(currentFloor).drawEdge(node1, node2);
+        whichMapUtility(currentFloor).drawEdge(node1, node2);
       }
     }
 
