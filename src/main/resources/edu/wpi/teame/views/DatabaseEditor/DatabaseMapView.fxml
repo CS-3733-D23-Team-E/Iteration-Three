@@ -277,7 +277,7 @@
                                        <font>
                                           <Font name="Roboto" size="13.0" />
                                        </font></Text>
-                                    <SearchableComboBox fx:id="addEdgeField" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" HBox.hgrow="ALWAYS" />
+                                    <SearchableComboBox fx:id="addEdgeField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" HBox.hgrow="ALWAYS" />
                                     <MFXButton fx:id="addEdgeButton" prefWidth="80.0" styleClass="submitButton" stylesheets="@../../styles/eStyleSheet.css" text="Add" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Roboto" size="13.0" />
@@ -290,7 +290,7 @@
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building:" />
-                              <SearchableComboBox fx:id="buildingSelector" maxHeight="26.0" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                              <SearchableComboBox fx:id="buildingSelector" maxHeight="26.0" maxWidth="1.7976931348623157E308" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                         <Region VBox.vgrow="ALWAYS" />
