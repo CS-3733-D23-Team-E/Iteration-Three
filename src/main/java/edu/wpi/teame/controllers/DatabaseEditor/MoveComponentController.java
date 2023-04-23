@@ -29,7 +29,7 @@ public class MoveComponentController {
   @FXML Tab swapTab;
   @FXML MFXButton confirmButton;
   @FXML MFXButton resetButton;
-  @FXML Label todayIsLabel;
+
   @FXML MFXButton tableEditorSwapButton;
   @FXML Label moveCountText;
   @FXML ListView<String> currentMoveList;
@@ -49,7 +49,6 @@ public class MoveComponentController {
   public void initialize() {
     today = new Date(); // sets today var to be the current date
     formatter = new SimpleDateFormat("yyyy-MM-dd");
-    todayIsLabel.setText(todayIsLabel.getText() + formatter.format(today));
     refreshFields();
     initTableAndList();
     initButtons();

@@ -12,8 +12,8 @@ import java.time.format.DateTimeFormatter;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class HomePageController {
@@ -41,12 +41,6 @@ public class HomePageController {
   @FXML VBox logoutBox;
   @FXML MFXButton logoutButton;
   @FXML MFXButton userButton;
-  @FXML ImageView homeI;
-  @FXML ImageView servicesI;
-  @FXML ImageView signageI;
-  @FXML ImageView pathfindingI;
-  @FXML ImageView databaseI;
-  @FXML ImageView exitI;
 
   Boolean loggedIn;
 
@@ -125,45 +119,19 @@ public class HomePageController {
     menuBarExit.setOnMouseClicked((event -> Platform.exit()));
 
     // makes the menu bar buttons get highlighted when the mouse hovers over them
-    ButtonUtilities.mouseSetupMenuBar(
-        menuBarHome,
-        "baseline-left",
-        homeI,
-        "images/house-blank.png",
-        "images/house-blank-blue.png");
-    ButtonUtilities.mouseSetupMenuBar(
-        menuBarServices,
-        "baseline-left",
-        servicesI,
-        "images/hand-holding-medical.png",
-        "images/hand-holding-medical-blue.png");
-    ButtonUtilities.mouseSetupMenuBar(
-        menuBarSignage,
-        "baseline-left",
-        signageI,
-        "images/diamond-turn-right.png",
-        "images/diamond-turn-right-blue.png");
-    ButtonUtilities.mouseSetupMenuBar(
-        menuBarMaps, "baseline-left", pathfindingI, "images/marker.png", "images/marker-blue.png");
-    ButtonUtilities.mouseSetupMenuBar(
-        menuBarDatabase,
-        "baseline-left",
-        databaseI,
-        "images/folder-tree.png",
-        "images/folder-tree-blue.png");
-    ButtonUtilities.mouseSetupMenuBar(
-        menuBarExit,
-        "baseline-center",
-        exitI,
-        "images/sign-out-alt.png",
-        "images/sign-out-alt-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(menuBarHome, "baseline-left");
+    ButtonUtilities.mouseSetupMenuBar(menuBarServices, "baseline-left");
+    ButtonUtilities.mouseSetupMenuBar(menuBarSignage, "baseline-left");
+    ButtonUtilities.mouseSetupMenuBar(menuBarMaps, "baseline-left");
+    ButtonUtilities.mouseSetupMenuBar(menuBarDatabase, "baseline-left");
+    ButtonUtilities.mouseSetupMenuBar(menuBarExit, "baseline-center");
 
     // makes the buttons highlight when they are hovered over
-    ButtonUtilities.mouseSetup(serviceRequestButton);
-    ButtonUtilities.mouseSetup(editSignageButton);
-    ButtonUtilities.mouseSetup(pathfindingButton);
-    ButtonUtilities.mouseSetup(databaseButton);
-    ButtonUtilities.mouseSetup(logoutButton);
+    mouseSetup(serviceRequestButton);
+    mouseSetup(editSignageButton);
+    mouseSetup(pathfindingButton);
+    mouseSetup(databaseButton);
+    mouseSetup(logoutButton);
   }
 
   public void attemptLogin() {
@@ -184,6 +152,20 @@ public class HomePageController {
       password.clear();
       username.clear();
     }
+  }
+
+  private void mouseSetup(MFXButton btn) {
+    btn.setOnMouseEntered(
+        event -> {
+          btn.setStyle(
+              "-fx-background-color: #f1f1f1; -fx-alignment: top-left; -fx-border-color:  #001A3C; -fx-border-width: 3;");
+          btn.setTextFill(Color.web("#192d5aff", 1.0));
+        });
+    btn.setOnMouseExited(
+        event -> {
+          btn.setStyle("-fx-background-color:#001A3C; -fx-alignment: top-left;");
+          btn.setTextFill(Color.web("#f1f1f1", 1.0));
+        });
   }
 
   public void logoutPopup(boolean bool) {
