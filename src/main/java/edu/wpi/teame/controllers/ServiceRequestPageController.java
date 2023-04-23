@@ -1,5 +1,6 @@
 package edu.wpi.teame.controllers;
 
+import static edu.wpi.teame.entities.ServiceRequestData.Status.DONE;
 import static edu.wpi.teame.entities.ServiceRequestData.Status.PENDING;
 import static javafx.scene.paint.Color.WHITE;
 
@@ -11,8 +12,10 @@ import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.List;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -39,6 +42,8 @@ public class ServiceRequestPageController {
   @FXML Label pendingRequestText;
 
   @FXML Label totalRequestText;
+
+  @FXML ListView<String> outgoingRequestsList;
 
   @FXML VBox logoutBox;
   @FXML MFXButton logoutButton;
@@ -176,7 +181,22 @@ public class ServiceRequestPageController {
     List<ServiceRequestData> pendingRequests =
         requests.stream().filter(request -> request.getRequestStatus().equals(PENDING)).toList();
 
+    List<ServiceRequestData> nonCompleteRequests =
+        requests.stream().filter(request -> !request.getRequestStatus().equals(DONE)).toList();
+
     totalRequestText.setText(requests.size() + "");
     pendingRequestText.setText(pendingRequests.size() + "");
+
+    List<String> requestTexts =
+        nonCompleteRequests.stream()
+            .map(
+                request ->
+                    (request.getRequestType()
+                        + " request, ID "
+                        + request.getRequestID()
+                        + ": "
+                        + request.getRequestStatus()))
+            .toList();
+    outgoingRequestsList.setItems(FXCollections.observableList(requestTexts));
   }
 }
