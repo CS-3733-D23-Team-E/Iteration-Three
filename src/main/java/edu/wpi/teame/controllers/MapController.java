@@ -1,39 +1,29 @@
 package edu.wpi.teame.controllers;
 
-import static javafx.scene.paint.Color.WHITE;
-
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.Main;
+import edu.wpi.teame.map.Directions;
 import edu.wpi.teame.map.Floor;
 import edu.wpi.teame.map.HospitalNode;
 import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.map.pathfinding.AbstractPathfinder;
 import edu.wpi.teame.utilities.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.Label;
-import javafx.scene.effect.BlurType;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.SearchableComboBox;
@@ -237,7 +227,7 @@ public class MapController {
       pathNames.add(SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(node.getNodeID())));
     }
     // Create the labels
-    createPathLabels(pathBox, path);
+    createDirections(pathBox, path);
     drawPath(path);
     isPathDisplayed = true;
   }
@@ -381,35 +371,17 @@ public class MapController {
     return floorOneTab;
   }
 
-  private void mouseSetup(MFXButton btn) {
-    btn.setOnMouseEntered(
-        event -> {
-          btn.setStyle(
-              "-fx-background-color: #f1f1f1; -fx-alignment: center; -fx-border-color: #192d5a; -fx-border-width: 2;");
-          btn.setTextFill(Color.web("#192d5aff", 1.0));
-        });
-    btn.setOnMouseExited(
-        event -> {
-          btn.setStyle("-fx-background-color: #192d5aff; -fx-alignment: center;");
-          btn.setTextFill(WHITE);
-        });
-  }
-
   public void adjustGesture(GesturePane oldGesture, GesturePane newGesture) {
     newGesture.centreOn(oldGesture.targetPointAtViewportCentre());
     newGesture.zoomTo(oldGesture.getCurrentScale(), newGesture.targetPointAtViewportCentre());
   }
 
-  public void createPathLabels(VBox vbox, List<HospitalNode> path) {
+  public void createDirections(VBox vbox, List<HospitalNode> path) {
     for (int i = 0; i < path.size(); i++) {
-
       HospitalNode currentNode = path.get(i);
-      String destination =
-          SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(currentNode.getNodeID()));
 
-      // Image
+      // Get the image for the label
       Image icon;
-      ImageView pathIcon = new ImageView();
       if (i == 0) {
         icon = new Image(String.valueOf(Main.class.getResource("images/start.png")));
       } else if (i == path.size() - 1) {
@@ -417,128 +389,76 @@ public class MapController {
       } else {
         icon = new Image(String.valueOf(Main.class.getResource("images/right-arrow.png")));
       }
-      pathIcon.setImage(icon);
-      pathIcon.setPreserveRatio(true);
-      pathIcon.setFitWidth(30);
 
-      // Line
-      Line line = new Line();
-      line.setStartX(0);
-      line.setStartY(0);
-      line.setEndX(0);
-      line.setEndY(50);
-      line.setOpacity(0.25);
-
-      // Destination Label
-      Label destinationLabel = new Label(destination);
-      destinationLabel.setFont(Font.font("Roboto", 16));
-      destinationLabel.setTextAlignment(TextAlignment.CENTER);
-      destinationLabel.setWrapText(true);
-
-      // Drop Shadow
-      DropShadow dropShadow = new DropShadow();
-      dropShadow.setBlurType(BlurType.THREE_PASS_BOX);
-      dropShadow.setWidth(21);
-      dropShadow.setHeight(21);
-      dropShadow.setRadius(4);
-      dropShadow.setOffsetX(-4);
-      dropShadow.setOffsetY(4);
-      dropShadow.setSpread(0);
-      dropShadow.setColor(new Color(0, 0, 0, 0.25));
-
-      // HBox
-      HBox hBox = new HBox();
-      hBox.setBackground(
-          new Background(
-              new BackgroundFill(Color.web("#D9DAD7"), CornerRadii.EMPTY, Insets.EMPTY)));
-      hBox.setPrefHeight(65);
-      hBox.setEffect(dropShadow);
-      hBox.setAlignment(Pos.CENTER_LEFT);
-      hBox.setSpacing(10);
-      hBox.setPadding(new Insets(0, 10, 0, 10));
-      hBox.getChildren().addAll(pathIcon, line, destinationLabel);
+      // Create a direction
+      Directions direction = new Directions(vbox, path, currentNode, icon);
 
       // Add the event listener
-      hBox.setOnMouseClicked(
-          event -> {
-            Floor nodeFloor = currentNode.getFloor();
+      direction
+          .getHbox()
+          .setOnMouseClicked(
+              event -> {
+                // reset highlighted node
+                currentCircle.setRadius(4);
+                currentCircle.setViewOrder(-1);
+                System.out.println("oldcircle: " + currentCircle.getId());
 
-            // reset highlighted node
-            currentCircle.setRadius(4);
-            currentCircle.setViewOrder(-1);
-            System.out.println("oldcircle: " + currentCircle.getId());
+                // Set the selected tab to the floor of the node
+                Floor nodeFloor = currentNode.getFloor();
+                tabPane.getSelectionModel().select(floorToTab(nodeFloor));
+                MapUtilities currentMapUtility = whichMapUtility(nodeFloor);
+                GesturePane startingPane = ((GesturePane) currentMapUtility.getPane().getParent());
 
-            tabPane.getSelectionModel().select(floorToTab(nodeFloor));
-            MapUtilities currentMapUtility = whichMapUtility(nodeFloor);
-            GesturePane startingPane = ((GesturePane) currentMapUtility.getPane().getParent());
+                // Outline the hbox
+                direction
+                    .getHbox()
+                    .setBorder(
+                        new Border(
+                            new BorderStroke(
+                                Color.web(ColorPalette.LIGHT_BLUE.getHexCode()),
+                                BorderStrokeStyle.SOLID,
+                                CornerRadii.EMPTY,
+                                new BorderWidths(2))));
 
-            // Outline the hbox
-            hBox.setBorder(
-                new Border(
-                    new BorderStroke(
-                        Color.web(ColorPalette.LIGHT_BLUE.getHexCode()),
-                        BorderStrokeStyle.SOLID,
-                        CornerRadii.EMPTY,
-                        new BorderWidths(2))));
+                // Remove the previous outline unless previous is null or the same box is clicked
+                // again
+                if (previousLabel != null && previousLabel != direction.getHbox()) {
+                  previousLabel.setBorder(Border.EMPTY);
+                }
 
-            // Remove the previous outline unless previous is null or the same box is clicked again
-            if (previousLabel != null && previousLabel != hBox) {
-              previousLabel.setBorder(Border.EMPTY);
-            }
+                // Zoom in on the starting node
+                startingPane.zoomTo(2, startingPane.targetPointAtViewportCentre());
 
-            // Zoom in on the starting node
-            startingPane.zoomTo(2, startingPane.targetPointAtViewportCentre());
+                // Pan so starting node is centered
+                startingPane
+                    .animate(Duration.millis(200))
+                    .centreOn(
+                        new Point2D(
+                            currentMapUtility.convertX(currentNode.getXCoord()),
+                            currentMapUtility.convertY(currentNode.getYCoord())));
 
-            // Pan so starting node is centered
-            startingPane.centreOn(
-                new Point2D(
-                    currentMapUtility.convertX(currentNode.getXCoord()),
-                    currentMapUtility.convertY(currentNode.getYCoord())));
+                // get Circle that was selected from label
+                List<Node> nodeList =
+                    currentMapUtility.getCurrentNodes().stream()
+                        .filter(
+                            node -> {
+                              try {
+                                return node.getId().equals(currentNode.getNodeID());
+                              } catch (NullPointerException n) {
+                                return false;
+                              }
+                            })
+                        .toList();
+                currentCircle = (Circle) nodeList.get(0);
+                System.out.println("Newcircle: " + currentCircle.getId());
+                currentCircle.setRadius(9);
+                currentCircle.setViewOrder(-5);
+                System.out.println("currentCircle: " + currentCircle);
+                System.out.println("Node List: " + nodeList);
 
-            // get Circle that was selected from label
-            List<Node> nodeList =
-                currentMapUtility.getCurrentNodes().stream()
-                    .filter(
-                        node -> {
-                          try {
-                            return node.getId().equals(currentNode.getNodeID());
-                          } catch (NullPointerException n) {
-                            return false;
-                          }
-                        })
-                    .toList();
-            currentCircle = (Circle) nodeList.get(0);
-            System.out.println("Newcircle: " + currentCircle.getId());
-            currentCircle.setRadius(9);
-            currentCircle.setViewOrder(-5);
-            System.out.println("currentCircle: " + currentCircle);
-            System.out.println("Node List: " + nodeList);
-
-            // Set the current label as the previous
-            previousLabel = hBox;
-          });
-
-      // Make the box bigger when hovering
-      hBox.setOnMouseEntered(
-          event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200));
-            scaleTransition.setNode(hBox);
-            scaleTransition.setToX(1.02);
-            scaleTransition.setToY(1.02);
-            scaleTransition.play();
-          });
-      // Smaller on exit
-      hBox.setOnMouseExited(
-          event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200));
-            scaleTransition.setNode(hBox);
-            scaleTransition.setToX(1);
-            scaleTransition.setToY(1);
-            scaleTransition.play();
-          });
-
-      // Add path label to VBox
-      vbox.getChildren().add(hBox);
+                // Set the current label as the previous
+                previousLabel = direction.getHbox();
+              });
     }
   }
 }
