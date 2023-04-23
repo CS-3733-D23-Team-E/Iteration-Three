@@ -53,8 +53,8 @@ public class DatabaseMapViewController {
 
   @FXML MFXButton addEdgeButton;
   @FXML MFXButton removeEdgeButton;
-  @FXML TableView<HospitalEdge> edgeView;
-  @FXML TableColumn<HospitalEdge, String> edgeColumn;
+  @FXML TableView<HospitalNode> edgeView;
+  @FXML TableColumn<HospitalNode, String> edgeColumn;
   @FXML SearchableComboBox<String> addEdgeField;
 
   @FXML TextField newLongNameField;
@@ -83,11 +83,11 @@ public class DatabaseMapViewController {
   private Circle currentCircle;
   private Label currentLabel;
 
-  List<HospitalEdge> edges = new LinkedList<>();
-  List<HospitalEdge> addList = new LinkedList<>();
-  List<HospitalEdge> deleteList = new LinkedList<>();
+  List<HospitalNode> edges = new LinkedList<>();
+  List<HospitalNode> addList = new LinkedList<>();
+  List<HospitalNode> deleteList = new LinkedList<>();
 
-  List<HospitalEdge> workingList = new LinkedList<>();
+  List<HospitalNode> workingList = new LinkedList<>();
 
   HospitalNode curNode;
 
@@ -146,7 +146,7 @@ public class DatabaseMapViewController {
           Navigation.navigate(Screen.DATABASE_TABLEVIEW);
         });
 
-    edgeColumn.setCellValueFactory(new PropertyValueFactory<HospitalEdge, String>("nodeTwoID"));
+    edgeColumn.setCellValueFactory(new PropertyValueFactory<HospitalNode, String>("nodeID"));
 
     displayAddMenu();
     initializeButtons();
@@ -240,17 +240,18 @@ public class DatabaseMapViewController {
     editPageText.setText("Edit Node: ID = " + nodeID);
 
     curNode = allNodes.get(nodeID);
-    edges =
-        SQLRepo.INSTANCE.getEdgeList().stream()
-            .filter((edge) -> (edge.getNodeOneID().equals(nodeID)))
-            .toList();
+    System.out.println(curNode);
+    //    edges =
+    //        SQLRepo.INSTANCE.getEdgeList().stream()
+    //            .filter((edge) -> (edge.getNodeOneID().equals(nodeID)))
+    //            .toList();
+    edges = curNode.getNeighbors();
+    System.out.println(curNode.getNeighbors());
 
     workingList = new LinkedList<>();
 
-    for (HospitalEdge edge : edges) {
-      workingList.add(edge);
-      // System.out.println("item added to working list!");
-    }
+    // System.out.println("item added to working list!");
+    workingList.addAll(edges);
     //    workingList = FXCollections.observableList(edges);
 
     addList = new LinkedList<>();
@@ -271,6 +272,7 @@ public class DatabaseMapViewController {
         });
 
     edgeView.setItems(FXCollections.observableList(workingList));
+    System.out.println(workingList);
 
     deleteNodeButton.setVisible(true);
   }
@@ -513,9 +515,9 @@ public class DatabaseMapViewController {
           if (edges.contains(addEdgeField.getValue())) {
             deleteList.remove(addEdgeField.getValue());
           } else { // if item is not in edge list, add to add list
-            addList.add(new HospitalEdge(currentCircle.getId(), addEdgeField.getValue()));
+            addList.add(allNodes.get(addEdgeField.getValue()));
           }
-          workingList.add(new HospitalEdge(currentCircle.getId(), addEdgeField.getValue()));
+          workingList.add(allNodes.get(addEdgeField.getValue()));
           // System.out.println("item added to working list!");
           // refresh the table
           refreshEdgeTable();
@@ -545,11 +547,16 @@ public class DatabaseMapViewController {
   }
 
   private void edgeUpdateDatabase() {
-    for (HospitalEdge edgeAddition : addList) {
-      SQLRepo.INSTANCE.addEdge(edgeAddition);
+    for (HospitalNode edgeAddition : addList) {
+      HospitalEdge addEdge = new HospitalEdge(curNode.getNodeID(), edgeAddition.getNodeID());
+      SQLRepo.INSTANCE.addEdge(addEdge);
     }
-    for (HospitalEdge edgeDeletion : deleteList) {
-      SQLRepo.INSTANCE.deleteEdge(edgeDeletion);
+    for (HospitalNode edgeDeletion : deleteList) {
+      HospitalEdge delEdge1 = new HospitalEdge(curNode.getNodeID(), edgeDeletion.getNodeID());
+      HospitalEdge delEdge2 = new HospitalEdge(edgeDeletion.getNodeID(), curNode.getNodeID());
+      // whichever gets deleted, gets deleted
+      SQLRepo.INSTANCE.deleteEdge(delEdge1);
+      SQLRepo.INSTANCE.deleteEdge(delEdge2);
     }
   }
 
