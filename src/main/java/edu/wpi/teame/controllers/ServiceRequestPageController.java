@@ -5,6 +5,7 @@ import static edu.wpi.teame.entities.ServiceRequestData.Status.PENDING;
 import static javafx.scene.paint.Color.WHITE;
 
 import edu.wpi.teame.Database.SQLRepo;
+import edu.wpi.teame.entities.Employee;
 import edu.wpi.teame.entities.ServiceRequestData;
 import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
@@ -177,6 +178,18 @@ public class ServiceRequestPageController {
         SQLRepo.INSTANCE.getConfList().stream()
             .map(request -> (ServiceRequestData) request)
             .toList());
+
+    if (Employee.activeEmployee.getPermission().equals("STAFF")) {
+      // filter by employee
+      requests =
+          requests.stream()
+              .filter(
+                  request ->
+                      request
+                          .getAssignedStaff()
+                          .equalsIgnoreCase(Employee.activeEmployee.getUsername()))
+              .toList();
+    }
 
     List<ServiceRequestData> pendingRequests =
         requests.stream().filter(request -> request.getRequestStatus().equals(PENDING)).toList();
