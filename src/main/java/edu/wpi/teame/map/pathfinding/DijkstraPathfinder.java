@@ -39,7 +39,7 @@ class DijkstraPathfinder extends AbstractPathfinder {
       for (HospitalNode neighbor : current.getNeighbors()) {
         int newCost = neighbor.getEdgeCosts().get(current) + costMap.get(current);
         // If we've already explored the children of this node, don't add it to the queue
-        if (costMap.get(neighbor) > newCost) {
+        if (!parentMap.containsKey(neighbor) || costMap.get(neighbor) > newCost) {
           // If there's a cheaper path to this node, update the cost and parent
           costMap.put(neighbor, newCost);
           queue.remove(neighbor); // Remove and add to re-sort the priority queue
