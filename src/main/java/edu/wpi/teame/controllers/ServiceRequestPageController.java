@@ -44,6 +44,8 @@ public class ServiceRequestPageController {
 
   @FXML Label totalRequestText;
 
+  @FXML Label nonCompletedText;
+
   @FXML ListView<String> outgoingRequestsList;
 
   @FXML VBox logoutBox;
@@ -179,6 +181,12 @@ public class ServiceRequestPageController {
             .map(request -> (ServiceRequestData) request)
             .toList());
 
+    List<ServiceRequestData> pendingRequests =
+        requests.stream().filter(request -> request.getRequestStatus().equals(PENDING)).toList();
+
+    totalRequestText.setText(requests.size() + "");
+    pendingRequestText.setText(pendingRequests.size() + "");
+
     if (Employee.activeEmployee.getPermission().equals("STAFF")) {
       // filter by employee
       requests =
@@ -189,16 +197,12 @@ public class ServiceRequestPageController {
                           .getAssignedStaff()
                           .equalsIgnoreCase(Employee.activeEmployee.getUsername()))
               .toList();
+      nonCompletedText.setText("Your Non-completed requests:");
+    } else {
+      nonCompletedText.setText("All Non-completed requests:");
     }
-
-    List<ServiceRequestData> pendingRequests =
-        requests.stream().filter(request -> request.getRequestStatus().equals(PENDING)).toList();
-
     List<ServiceRequestData> nonCompleteRequests =
         requests.stream().filter(request -> !request.getRequestStatus().equals(DONE)).toList();
-
-    totalRequestText.setText(requests.size() + "");
-    pendingRequestText.setText(pendingRequests.size() + "");
 
     List<String> requestTexts =
         nonCompleteRequests.stream()
