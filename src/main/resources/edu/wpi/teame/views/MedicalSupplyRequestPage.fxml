@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.SearchableComboBox?>
+
+
+<AnchorPane maxHeight="750.0" prefHeight="750.0" prefWidth="900.0" style="-fx-background-color: #f1f1f1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.MedicalSupplyRequestController">
+   <children>
+      <VBox prefHeight="749.0" prefWidth="900.0" spacing="75.0" AnchorPane.topAnchor="50.0">
+         <children>
+            <HBox prefHeight="500.0" prefWidth="730.0">
+               <children>
+                  <VBox maxHeight="600.0" prefHeight="500.0" prefWidth="301.0" spacing="50.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <children>
+                        <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
+                           <children>
+                              <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recipient Name">
+                                       <font>
+                                          <Font name="Roboto" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/medical-star.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <TextField fx:id="recipientName" maxHeight="70.0" prefHeight="70.0" styleClass="MFXTextField" stylesheets="@../styles/eStyleSheet.css" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
+                           <children>
+                              <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
+                                       <font>
+                                          <Font name="Roboto" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/medical-star.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <SearchableComboBox fx:id="roomName" maxHeight="70.0" maxWidth="300.0" prefHeight="52.0" prefWidth="267.0" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
+                           </children>
+                        </VBox>
+                        <VBox maxWidth="300.0" prefHeight="72.0" prefWidth="267.0">
+                           <children>
+                              <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery Date">
+                                       <font>
+                                          <Font name="Roboto" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/medical-star.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <DatePicker fx:id="deliveryDate" maxHeight="40.0" maxWidth="300.0" styleClass="MFXTextField" stylesheets="@../styles/eStyleSheet.css" />
+                           </children>
+                        </VBox>
+                        <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
+                           <children>
+                              <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery Time">
+                                       <font>
+                                          <Font name="Roboto" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/medical-star.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <SearchableComboBox fx:id="deliveryTime" maxHeight="50.0" maxWidth="300.0" prefHeight="44.0" prefWidth="267.0" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
+                           </children>
+                        </VBox>
+                        <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff">
+                                 <font>
+                                    <Font name="Roboto" size="24.0" />
+                                 </font>
+                              </Text>
+                              <SearchableComboBox fx:id="assignedStaff" maxHeight="50.0" maxWidth="300.0" prefHeight="40.0" prefWidth="300.0" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <Line endX="100.0" rotate="90.0" scaleX="2.0" startX="-100.0">
+                     <HBox.margin>
+                        <Insets top="275.0" />
+                     </HBox.margin>
+                  </Line>
+                  <VBox maxHeight="600.0" prefHeight="460.0" prefWidth="298.0" spacing="50.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <children>
+                        <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
+                           <children>
+                              <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Medical Supply Item">
+                                       <font>
+                                          <Font name="Roboto" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/medical-star.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <SearchableComboBox fx:id="supplyType" maxHeight="30.0" maxWidth="300.0" prefHeight="40.0" prefWidth="300.0" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
+                           </children>
+                        </VBox>
+                        <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Supplies">
+                                 <font>
+                                    <Font name="Roboto" size="24.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="numberOfSupplies" maxHeight="30.0" prefHeight="70.0" styleClass="MFXTextField" stylesheets="@../styles/eStyleSheet.css" />
+                           </children>
+                        </VBox>
+                        <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Notes">
+                                 <font>
+                                    <Font name="Roboto" size="24.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="notes" maxHeight="30.0" prefHeight="70.0" styleClass="MFXTextField" stylesheets="@../styles/eStyleSheet.css" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets top="90.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
+            </HBox>
+            <HBox maxWidth="640.0" prefHeight="50.0" prefWidth="640.0" spacing="100.0">
+               <VBox.margin>
+                  <Insets left="125.0" />
+               </VBox.margin>
+               <children>
+                  <MFXButton fx:id="cancelButton" maxHeight="50.0" maxWidth="150.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #e1e1e1; -fx-text-fill: #1f1f1f; -fx-border-color: #1f1f1f; -fx-border-width: 2; -fx-border-radius: 10;" text="Cancel">
+                     <font>
+                        <Font name="Roboto Bold" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="resetButton" maxHeight="50.0" maxWidth="150.0" prefHeight="50.0" prefWidth="150.0" style="-fx-text-fill: #FB0000; -fx-background-color: #e1e1e1; -fx-border-color: #FB0000; -fx-border-width: 2; -fx-border-radius: 10;" text="Reset">
+                     <font>
+                        <Font name="Roboto Bold" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="submitButton" maxHeight="50.0" maxWidth="150.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #3B63A5; -fx-text-fill: #f1f1f1; -fx-background-radius: 10;" text="Submit">
+                     <font>
+                        <Font name="Roboto Bold" size="18.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

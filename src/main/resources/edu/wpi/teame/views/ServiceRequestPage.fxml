@@ -162,6 +162,11 @@
                         <fx:include source="FurnitureRequest.fxml" />
                      </content>
                   </Tab>
+                  <Tab text="Medical Supply">
+                     <content>
+                        <fx:include source="MedicalSupplyRequestPage.fxml" />
+                     </content>
+                  </Tab>
               </tabs>
             </TabPane>
          </children>
