@@ -125,5 +125,9 @@ public class MoveUtilities {
         .toList();
   }
 
+  public String formatToday() {
+    return formatter.format(today);
+  }
+
   ////////////////// Setters (sending new move data to database) ///////////////////////
 }
