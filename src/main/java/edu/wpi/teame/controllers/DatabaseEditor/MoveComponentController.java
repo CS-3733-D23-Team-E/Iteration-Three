@@ -24,7 +24,7 @@ public class MoveComponentController {
   @FXML Tab swapTab;
   @FXML MFXButton confirmButton;
   @FXML MFXButton resetButton;
-
+  @FXML Label todayIsLabel;
   @FXML MFXButton tableEditorSwapButton;
   @FXML Label moveCountText;
   @FXML ListView<String> currentMoveList;
@@ -32,12 +32,13 @@ public class MoveComponentController {
   @FXML TableColumn<MoveAttribute, String> nodeIDCol;
   @FXML TableColumn<MoveAttribute, String> nameCol;
   @FXML TableColumn<MoveAttribute, String> dateCol;
-  
+
   MoveUtilities movUtil;
 
   @FXML
   public void initialize() {
     movUtil = new MoveUtilities();
+    todayIsLabel.setText(todayIsLabel.getText() + movUtil.formatToday());
     refreshFields();
     initTableAndList();
     initButtons();
@@ -145,9 +146,7 @@ public class MoveComponentController {
     nameCol.setCellValueFactory(new PropertyValueFactory<MoveAttribute, String>("longName"));
     dateCol.setCellValueFactory(new PropertyValueFactory<MoveAttribute, String>("date"));
 
-
     futureMoveTable.setItems(FXCollections.observableList(movUtil.getFutureMoves()));
-
 
     currentMoveList.setItems(FXCollections.observableList(movUtil.getCurrentMoveMessages()));
 
