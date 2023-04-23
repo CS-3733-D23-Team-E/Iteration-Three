@@ -12,13 +12,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import lombok.Getter;
 
 public class MealDAO<E> extends ServiceDAO<MealRequestData> {
   public MealDAO(Connection c) {
     super(c, "\"MealService\"");
   }
+
+  @Getter
+  final List<String> columnNames =
+      Arrays.asList(
+          "requestID",
+          "name",
+          "room",
+          "deliveryDate",
+          "deliveryTime",
+          "assignedStaff",
+          "mainCourse",
+          "sideCourse",
+          "drink",
+          "allergies",
+          "notes",
+          "status");
 
   @Override
   List<MealRequestData> get() {

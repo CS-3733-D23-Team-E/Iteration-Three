@@ -1,7 +1,7 @@
 package edu.wpi.teame.Database;
 
-import edu.wpi.teame.entities.Diff;
 import edu.wpi.teame.entities.Floor;
+import edu.wpi.teame.entities.diffs.Diff;
 import edu.wpi.teame.entities.orm.HospitalNode;
 import edu.wpi.teame.entities.orm.LocationName;
 import edu.wpi.teame.entities.orm.MoveAttribute;
@@ -12,7 +12,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class DatabaseUtility {
 
@@ -192,26 +191,7 @@ public class DatabaseUtility {
   public void handleDiffs(List<Diff<?>> diffs) {
     StringBuilder query = new StringBuilder();
     for (Diff<?> diff : diffs) {
-      for (Map.Entry<String, String> changes : diff.getChanges().entrySet()) {
-        query.append(
-            "UPDATE \""
-                + diff.getOld().getTable()
-                + "\" "
-                + "SET \""
-                + changes.getKey()
-                + "\" = ");
-        try{
-            Integer.parseInt(changes.getValue());
-            query.append(changes.getValue());
-            } catch (NumberFormatException e){
-            query.append("'");
-            query.append(changes.getValue());
-            query.append("'");
-        }
-        query.append(" WHERE "
-                + diff.getOld().getPrimaryKey()
-                + ";");
-      }
+      query.append(diff.getQuery());
     }
     try {
       Statement stmt = activeConnection.createStatement();

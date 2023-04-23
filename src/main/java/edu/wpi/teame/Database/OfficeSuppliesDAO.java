@@ -12,10 +12,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import lombok.Getter;
 
 public class OfficeSuppliesDAO<E> extends ServiceDAO<OfficeSuppliesData> {
+
+  @Getter
+  final List<String> columnNames =
+      Arrays.asList(
+          "requestID",
+          "name",
+          "room",
+          "deliveryDate",
+          "deliverytime",
+          "assignedStaff",
+          "officesupply",
+          "quantity",
+          "notes",
+          "status");
 
   public OfficeSuppliesDAO(Connection c) {
     super(c, "\"OfficeSupplies\"");

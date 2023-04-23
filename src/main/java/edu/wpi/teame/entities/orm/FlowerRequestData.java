@@ -1,6 +1,7 @@
 package edu.wpi.teame.entities.orm;
 
 import java.util.HashMap;
+import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -100,5 +101,20 @@ public class FlowerRequestData extends ServiceRequestData {
     if (changes.containsKey("notes")) {
       this.notes = changes.get("notes");
     }
+  }
+
+  @Override
+  public Map<String, String> getFields() {
+    Map<String, String> fields = super.getFields();
+    fields.put("name", this.name);
+    fields.put("room", this.room);
+    fields.put("deliveryDate", this.deliveryDate);
+    fields.put("deliveryTime", this.deliveryTime);
+    fields.put("flowerType", this.flowerType);
+    fields.put("quantity", this.quantity);
+    fields.put("card", this.card);
+    fields.put("cardMessage", this.cardMessage);
+    fields.put("notes", this.notes);
+    return fields;
   }
 }

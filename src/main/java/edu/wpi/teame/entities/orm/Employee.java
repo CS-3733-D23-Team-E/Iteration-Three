@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import lombok.Getter;
 import lombok.Setter;
@@ -103,5 +104,15 @@ public class Employee implements ORM {
 
   public String getPrimaryKey() {
     return "\"username\" = '" + username;
+  }
+
+  @Override
+  public Map<String, String> getFields() {
+    Map<String, String> values = new HashMap<>();
+    values.put("fullName", fullName);
+    values.put("username", username);
+    values.put("password", password);
+    values.put("permission", permission);
+    return values;
   }
 }

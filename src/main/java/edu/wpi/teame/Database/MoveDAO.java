@@ -9,10 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import lombok.Getter;
 
 public class MoveDAO<E> extends DAO<MoveAttribute> {
   List<MoveAttribute> moveAttributes;
+
+  @Getter final List<String> columnNames = Arrays.asList("nodeID", "longName", "date");
 
   public MoveDAO(Connection c) {
     activeConnection = c;

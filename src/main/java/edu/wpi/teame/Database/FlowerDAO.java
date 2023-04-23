@@ -11,13 +11,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import lombok.Getter;
 
 public class FlowerDAO<E> extends ServiceDAO<FlowerRequestData> {
   public FlowerDAO(Connection c) {
     super(c, "\"FlowerService\"");
   }
+
+  @Getter
+  final List<String> columnNames =
+      Arrays.asList(
+          "requestID",
+          "name",
+          "room",
+          "deliveryDate",
+          "deliveryTime",
+          "assignedStaff",
+          "flowerType",
+          "quantity",
+          "card",
+          "cardMessage",
+          "notes",
+          "status");
 
   @Override
   List<FlowerRequestData> get() {

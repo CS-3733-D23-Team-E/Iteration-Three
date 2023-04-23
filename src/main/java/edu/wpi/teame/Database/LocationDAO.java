@@ -11,11 +11,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import lombok.Getter;
 
 public class LocationDAO<E> extends DAO<LocationName> {
   List<LocationName> locationNames;
+
+  @Getter final List<String> columnNames = Arrays.asList("longName", "shortName", "nodeType");
 
   public LocationDAO(Connection c) {
     activeConnection = c;

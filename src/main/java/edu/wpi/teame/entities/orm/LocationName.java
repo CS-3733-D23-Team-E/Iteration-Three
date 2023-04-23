@@ -4,6 +4,7 @@ import static java.util.Objects.hash;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import lombok.Getter;
 
@@ -143,5 +144,14 @@ public class LocationName implements ORM {
 
   public String getPrimaryKey() {
     return "\"longName\" = " + longName;
+  }
+
+  @Override
+  public Map<String, String> getFields() {
+    Map<String, String> fields = new HashMap<>();
+    fields.put("longName", longName);
+    fields.put("shortName", shortName);
+    fields.put("nodeType", NodeType.nodeToString(nodeType));
+    return fields;
   }
 }

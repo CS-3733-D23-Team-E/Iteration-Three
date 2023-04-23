@@ -11,11 +11,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import lombok.Getter;
 
 public class NodeDAO<E> extends DAO<HospitalNode> {
   List<HospitalNode> nodeList;
+
+  @Getter
+  final List<String> columnNames = Arrays.asList("nodeID", "xcoord", "ycoord", "floor", "building");
 
   public NodeDAO(Connection c) {
     this.activeConnection = c;

@@ -2,6 +2,7 @@ package edu.wpi.teame.Database;
 
 import edu.wpi.teame.Main;
 import edu.wpi.teame.entities.*;
+import edu.wpi.teame.entities.diffs.Diff;
 import edu.wpi.teame.entities.orm.*;
 import java.sql.*;
 import java.util.List;
@@ -129,6 +130,33 @@ public enum SQLRepo {
   // ALL DATABASE UTILITY
   public void handleDiffs(List<Diff<?>> changes) {
     this.dbUtility.handleDiffs(changes);
+  }
+
+  public List<String> getColumnNames(ORM entity) {
+    switch (entity.getTable()) {
+      case "Node":
+        return nodeDAO.getColumnNames();
+      case "Edge":
+        return edgeDAO.getColumnNames();
+      case "Move":
+        return moveDAO.getColumnNames();
+      case "LocationName":
+        return locationDAO.getColumnNames();
+      case "Employee":
+        return employeeDAO.getColumnNames();
+      case "OfficeSupplies":
+        return officesupplyDAO.getColumnNames();
+      case "MealService":
+        return mealDAO.getColumnNames();
+      case "FlowerService":
+        return flowerDAO.getColumnNames();
+      case "ConfRoomService":
+        return conferenceDAO.getColumnNames();
+      case "FurnitureService":
+        return furnitureDAO.getColumnNames();
+      default:
+        throw new NoSuchElementException("No such Table found");
+    }
   }
 
   public int getNodeIDFromName(String longName) {

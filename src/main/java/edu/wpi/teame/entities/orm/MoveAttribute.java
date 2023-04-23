@@ -1,6 +1,7 @@
 package edu.wpi.teame.entities.orm;
 
 import java.util.HashMap;
+import java.util.Map;
 import lombok.Getter;
 
 public class MoveAttribute implements ORM {
@@ -37,5 +38,14 @@ public class MoveAttribute implements ORM {
         + longName
         + " AND \"date\" = '"
         + date;
+  }
+
+  @Override
+  public Map<String, String> getFields() {
+    Map<String, String> fields = new HashMap<>();
+    fields.put("nodeID", Integer.toString(nodeID));
+    fields.put("longName", longName);
+    fields.put("date", date);
+    return fields;
   }
 }

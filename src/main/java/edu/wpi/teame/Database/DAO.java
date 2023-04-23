@@ -13,6 +13,8 @@ public abstract class DAO<E> {
   Connection activeConnection;
   String table;
 
+  abstract List<String> getColumnNames();
+
   abstract List<E> get();
 
   abstract void update(E obj, String attribute, String value);

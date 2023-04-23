@@ -1,6 +1,7 @@
 package edu.wpi.teame.entities.orm;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class HospitalEdge implements ORM {
   String nodeOneID;
@@ -48,5 +49,14 @@ public class HospitalEdge implements ORM {
 
   public String getPrimaryKey() {
     return "\"endNode\" = " + nodeOneID + " AND \"startNode\" = " + nodeTwoID;
+  }
+
+  @Override
+  public Map<String, String> getFields() {
+    HashMap<String, String> fields = new HashMap<>();
+    fields.put("startNode", nodeOneID);
+    fields.put("endNode", nodeTwoID);
+    fields.put("weight", Integer.toString(edgeWeight));
+    return fields;
   }
 }

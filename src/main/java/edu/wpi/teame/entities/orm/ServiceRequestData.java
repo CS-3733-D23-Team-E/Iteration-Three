@@ -3,6 +3,7 @@ package edu.wpi.teame.entities.orm;
 import static javax.swing.UIManager.getString;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import lombok.Getter;
 import lombok.Setter;
@@ -99,5 +100,15 @@ public abstract class ServiceRequestData implements ORM {
 
   public String getPrimaryKey() {
     return "\"requestID\" = " + requestID;
+  }
+
+  @Override
+  public Map<String, String> getFields() {
+    Map<String, String> fields = new HashMap<>();
+    fields.put("requestID", Integer.toString(requestID));
+    fields.put("requestType", RequestType.requestTypeToString(requestType));
+    fields.put("requestStatus", Status.statusToString(requestStatus));
+    fields.put("assignedStaff", assignedStaff);
+    return fields;
   }
 }

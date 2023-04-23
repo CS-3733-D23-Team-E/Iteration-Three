@@ -145,4 +145,15 @@ public class HospitalNode implements ORM {
   public String getPrimaryKey() {
     return "\"nodeID\" = " + nodeID;
   }
+
+  @Override
+  public Map<String, String> getFields() {
+    Map<String, String> fields = new HashMap<>();
+    fields.put("nodeID", nodeID);
+    fields.put("xcoord", Integer.toString(xCoord));
+    fields.put("ycoord", Integer.toString(yCoord));
+    fields.put("floor", floor.toString());
+    fields.put("building", building);
+    return fields;
+  }
 }

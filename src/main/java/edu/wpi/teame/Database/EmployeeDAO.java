@@ -10,12 +10,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import lombok.Getter;
 
 public class EmployeeDAO extends DAO<Employee> {
 
   List<Employee> employeeList;
+
+  @Getter
+  final List<String> columnNames = Arrays.asList("fullName", "username", "password", "permission");
 
   public EmployeeDAO(Connection c) {
     activeConnection = c;

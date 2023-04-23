@@ -9,11 +9,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import lombok.Getter;
 
 public class EdgeDAO<E> extends DAO<HospitalEdge> {
   List<HospitalEdge> hospitalEdgeList;
+
+  @Getter final List<String> columnNames = Arrays.asList("startNode", "endNode");
 
   public EdgeDAO(Connection c) {
     activeConnection = c;
