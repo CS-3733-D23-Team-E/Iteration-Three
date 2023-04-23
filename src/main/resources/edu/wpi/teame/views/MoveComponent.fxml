@@ -58,7 +58,7 @@
                      <children>
                         <Label fx:id="moveCountText" prefHeight="83.0" prefWidth="153.0" text="Moves Today:" textAlignment="CENTER" wrapText="true">
                            <font>
-                              <Font size="32.0" />
+                              <Font name="Roboto" size="28.0" />
                            </font>
                         </Label>
                         <ListView fx:id="currentMoveList" prefHeight="200.0" prefWidth="200.0" />
@@ -71,9 +71,9 @@
                   </Text>
                   <TableView fx:id="futureMoveTable" prefHeight="500.0" prefWidth="850.0">
                      <columns>
-                        <TableColumn fx:id="nodeIDCol" minWidth="200.0" prefWidth="200.0" text="NodeID" />
-                        <TableColumn fx:id="nameCol" minWidth="300.0" prefWidth="300.0" text="Name" />
-                        <TableColumn fx:id="dateCol" minWidth="200.0" prefWidth="200.0" text="Date" />
+                        <TableColumn fx:id="nodeIDCol" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="NodeID" />
+                        <TableColumn fx:id="nameCol" maxWidth="200.0" minWidth="200.0" prefWidth="300.0" text="Name" />
+                        <TableColumn fx:id="dateCol" maxWidth="150.0" minWidth="150.0" prefWidth="-1.0" text="Date" />
                      </columns>
                   </TableView>
                </children>
@@ -145,7 +145,7 @@
                                                 <Font name="Roboto" size="32.0" />
                                              </font>
                                           </Label>
-                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="60.0" VBox.vgrow="ALWAYS">
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" VBox.vgrow="ALWAYS">
                                              <children>
                                                 <VBox alignment="CENTER">
                                                    <children>
@@ -154,7 +154,7 @@
                                                             <Font name="Roboto" size="32.0" />
                                                          </font>
                                                       </Label>
-                                                      <SearchableComboBox fx:id="departmentOneSelector" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="300.0" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
+                                                      <SearchableComboBox fx:id="departmentOneSelector" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="300.0" promptText="Department 1" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
                                                    </children>
                                                 </VBox>
                                                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
@@ -169,10 +169,13 @@
                                                             <Font name="Roboto" size="32.0" />
                                                          </font>
                                                       </Label>
-                                                      <SearchableComboBox fx:id="departmentTwoSelector" minHeight="30.0" minWidth="300.0" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
+                                                      <SearchableComboBox fx:id="departmentTwoSelector" minHeight="30.0" minWidth="300.0" promptText="Department 2" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
                                                    </children>
                                                 </VBox>
                                              </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
                                           </HBox>
                                        </children>
                                     </VBox>
@@ -193,7 +196,7 @@
                                           <Font size="24.0" />
                                        </font>
                                     </Text>
-                                    <DatePicker fx:id="moveDateSelector" minWidth="300.0" promptText="new Date" styleClass="MFXTextField" stylesheets="@../styles/eStyleSheet.css" />
+                                    <DatePicker fx:id="moveDateSelector" minWidth="300.0" promptText="New Date" styleClass="MFXTextField" stylesheets="@../styles/eStyleSheet.css" />
                                  </children>
                               </VBox>
                               <HBox alignment="CENTER">
