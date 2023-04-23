@@ -71,11 +71,11 @@ public class SignageController {
         event -> {
           btn.setStyle(
               "-fx-background-color: #ffffff; -fx-alignment: center; -fx-border-color: #192d5a; -fx-border-width: 2;");
-          btn.setTextFill(Color.web("#192d5aff", 1.0));
+          btn.setTextFill(Color.web(" #012d5a", 1.0));
         });
     btn.setOnMouseExited(
         event -> {
-          btn.setStyle("-fx-background-color: #192d5aff; -fx-alignment: center;");
+          btn.setStyle("-fx-background-color:  #012d5a; -fx-alignment: center;");
           btn.setTextFill(WHITE);
         });
   }
