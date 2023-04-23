@@ -117,9 +117,8 @@ public class MoveUtilities {
         .filter(
             (move) -> // Filter out hallways and long names with no corresponding
                 // LocationName
-                LocationName.allLocations.get(move.getLongName()) == null
-                    ? false
-                    : LocationName.allLocations.get(move.getLongName()).getNodeType()
+                LocationName.allLocations.get(move.getLongName()) != null
+                    && LocationName.allLocations.get(move.getLongName()).getNodeType()
                         == LocationName.NodeType
                             .DEPT) // NOTE: Before this statement was just filtering out Hall,
         // Stair, Elevator, and Restrooms
