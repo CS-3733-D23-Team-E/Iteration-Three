@@ -9,10 +9,8 @@ import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -74,6 +72,7 @@ public class DatabaseMapViewController {
   @FXML MFXButton tableEditorSwapButton;
 
   Floor currentFloor;
+  boolean isLabelDisplayOn;
   MapUtilities mapUtilityLowerTwo = new MapUtilities(mapPaneLowerTwo);
   MapUtilities mapUtilityLowerOne = new MapUtilities(mapPaneLowerOne);
   MapUtilities mapUtilityOne = new MapUtilities(mapPaneOne);
@@ -152,6 +151,7 @@ public class DatabaseMapViewController {
     initializeButtons();
   }
 
+
   private void cancel() {
     if (currentCircle != null) {
       currentCircle.setRadius(5);
@@ -179,13 +179,12 @@ public class DatabaseMapViewController {
                 edge -> HospitalNode.allNodes.get(edge.getNodeOneID()).getFloor() == currentFloor)
             .toList();
 
-    for (HospitalEdge edge : floorEdges) {
-      whichMapUtility(currentFloor)
-          .drawEdge(
-              HospitalNode.allNodes.get(edge.getNodeOneID()),
-              HospitalNode.allNodes.get(edge.getNodeTwoID()));
-    }
-
+      for (HospitalEdge edge : floorEdges) {
+        whichMapUtility(currentFloor)
+                .drawEdge(
+                        HospitalNode.allNodes.get(edge.getNodeOneID()),
+                        HospitalNode.allNodes.get(edge.getNodeTwoID()));
+      }
     for (HospitalNode node : floorNodes) {
       setupNode(node);
     }
