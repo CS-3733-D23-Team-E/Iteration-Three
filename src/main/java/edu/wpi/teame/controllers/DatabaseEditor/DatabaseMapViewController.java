@@ -11,6 +11,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.time.LocalDate;
 import java.util.*;
 
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -70,9 +71,10 @@ public class DatabaseMapViewController {
   @FXML ImageView mapImageTwo; // Floor 2
   @FXML ImageView mapImageThree; // Floor 3
   @FXML MFXButton tableEditorSwapButton;
+  @FXML MFXToggleButton locationNameToggle;
+  boolean isLocationNamesDisplayed;
 
   Floor currentFloor;
-  boolean isLabelDisplayOn;
   MapUtilities mapUtilityLowerTwo = new MapUtilities(mapPaneLowerTwo);
   MapUtilities mapUtilityLowerOne = new MapUtilities(mapPaneLowerOne);
   MapUtilities mapUtilityOne = new MapUtilities(mapPaneOne);
@@ -202,6 +204,7 @@ public class DatabaseMapViewController {
 
     Circle nodeCircle = currentMapUtility.drawHospitalNode(node);
     Label nodeLabel = currentMapUtility.drawHospitalNodeLabel(node);
+    if ()
     nodeLabel.setVisible(false);
 
     nodeCircle.setOnMouseClicked(
@@ -537,6 +540,7 @@ public class DatabaseMapViewController {
           removeLocation();
         });
     addLocationButton.setOnAction(event -> addLocationName());
+    locationNameToggle.setOnAction(event -> isLocationNamesDisplayed = locationNameToggle.isSelected());
   }
 
   private void refreshEdgeTable() {
