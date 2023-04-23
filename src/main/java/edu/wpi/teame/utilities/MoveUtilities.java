@@ -22,16 +22,12 @@ public class MoveUtilities {
 
   /////////////// Getters (from database) ////////////////
 
-  public MoveAttribute findMoveAttribute(String longName) {
-    List<MoveAttribute> listOfMoveAtt = SQLRepo.INSTANCE.getMoveList();
-    for (MoveAttribute movAt : listOfMoveAtt) {
-      if (longName.equals(movAt.getLongName())) {
-        return movAt;
-      }
-    }
-    return null;
-  }
-
+  /**
+   * find the most recent move attribute associated with the given longName on a given day
+   * @param longName
+   * @param date
+   * @return
+   */
   public MoveAttribute findMostRecentMoveByDate(String longName, Date date) {
     List<MoveAttribute> movesAtDate =
         SQLRepo.INSTANCE.getMoveList().stream()
@@ -59,10 +55,20 @@ public class MoveUtilities {
     }
   }
 
+  /**
+   * Finds the most recent move attribute associated with the given longName today
+   * @param longName
+   * @return
+   */
   public MoveAttribute findMostRecentMoveByDate(String longName) {
     return findMostRecentMoveByDate(longName, today);
   }
 
+  /**
+   * converts a LocalDate into a Date (for method purposes)
+   * @param localDate
+   * @return
+   */
   public Date toDateFromLocal(LocalDate localDate) {
     try {
       return formatter.parse(formatter.format(localDate));
@@ -72,15 +78,32 @@ public class MoveUtilities {
     }
   }
 
+  /**
+   * determines when a move is relative to a LocalDate
+   * @param move
+   * @param localDate
+   * @return 0 if the dates occur on the same day, -1 if the move is before, 1 is it is after
+   */
   public int afterDate(MoveAttribute move, LocalDate localDate) {
     // cast localDate to Date
     return afterDate(move, toDateFromLocal(localDate));
   }
 
+  /**
+   * determines when a move is relative to today
+   * @param move
+   * @return 0 if the dates occur on the same day, -1 if the move is before, 1 is it is after
+   */
   public int afterDate(MoveAttribute move) {
     return afterDate(move, today);
   }
 
+  /**
+   * determines when a move is relative to a Date
+   * @param move
+   * @param day
+   * @return 0 if the dates occur on the same day, -1 if the move is before, 1 is it is after
+   */
   public int afterDate(MoveAttribute move, Date day) {
     Date moveDate;
     try {
@@ -98,20 +121,36 @@ public class MoveUtilities {
         .compareTo(day.toInstant().truncatedTo(ChronoUnit.DAYS));
   }
 
+  /**
+   * gets all the moves that happen today
+   * @return
+   */
   public List<MoveAttribute> getCurrentMoves() {
     return SQLRepo.INSTANCE.getMoveList().stream().filter(move -> afterDate(move) == 0).toList();
   }
 
+  /**
+   * gets all the moves that are in the future
+   * @return
+   */
   public List<MoveAttribute> getFutureMoves() {
     return SQLRepo.INSTANCE.getMoveList().stream().filter(move -> afterDate(move) > 0).toList();
   }
 
+  /**
+   * gets the move message associated all the moves that happen today
+   * @return
+   */
   public List<String> getCurrentMoveMessages() {
     return getCurrentMoves().stream()
         .map(move -> move.getLongName() + " to Node " + move.getNodeID())
         .toList();
   }
 
+  /**
+   * gets a list of only the moves at happen for departments
+   * @return
+   */
   public List<MoveAttribute> getMovesForDepartments() {
     return SQLRepo.INSTANCE.getMoveList().stream()
         .filter(
@@ -125,6 +164,10 @@ public class MoveUtilities {
         .toList();
   }
 
+  /**
+   * formats today into the formatter's form
+   * @return
+   */
   public String formatToday() {
     return formatter.format(today);
   }
