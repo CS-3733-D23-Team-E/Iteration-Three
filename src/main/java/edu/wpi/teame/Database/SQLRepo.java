@@ -21,8 +21,9 @@ public enum SQLRepo {
     MEAL_REQUESTS,
     FLOWER_REQUESTS,
     FURNITURE_REQUESTS,
-    CONFERENCE_ROOM;
-    ;
+    CONFERENCE_ROOM,
+
+    ALERT;
 
     public static String tableToString(Table tb) {
       switch (tb) {
@@ -67,6 +68,8 @@ public enum SQLRepo {
   ServiceDAO<FlowerRequestData> flowerDAO;
   ServiceDAO<ConferenceRequestData> conferenceDAO;
 
+  AlertDAO<AlertData> alertDAO;
+
   public Employee connectToDatabase(String username, String password) {
     try {
       Class.forName("org.postgresql.Driver");
@@ -88,6 +91,7 @@ public enum SQLRepo {
         flowerDAO = new FlowerDAO(activeConnection);
         conferenceDAO = new ConferenceRoomDAO(activeConnection);
         furnitureDAO = new FurnitureDAO(activeConnection);
+        alertDAO = new AlertDAO(activeConnection);
 
         Employee.setActiveEmployee(loggedIn);
 
@@ -198,6 +202,9 @@ public enum SQLRepo {
         case FURNITURE_REQUESTS:
           this.furnitureDAO.importFromCSV(filepath, "FurnitureService");
           break;
+        case ALERT:
+          this.alertDAO.importFromCSV(filepath, "Alert");
+          break;
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());
@@ -238,6 +245,9 @@ public enum SQLRepo {
         case FURNITURE_REQUESTS:
           this.furnitureDAO.exportToCSV(filepath, tableName);
           break;
+        case ALERT:
+          this.alertDAO.exportToCSV(filepath, tableName);
+          break;
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());
@@ -245,6 +255,9 @@ public enum SQLRepo {
   }
 
   // ALL GETS FOR DAOS
+  public List<AlertData> getAlertList() {
+    return this.alertDAO.get();
+  }
 
   public List<HospitalNode> getNodeList() {
     return this.nodeDAO.get();
@@ -287,6 +300,9 @@ public enum SQLRepo {
   }
 
   // ALL UPDATES FOR DAOS
+  public void updateAlert(AlertData obj, String attribute, String value) {
+    this.alertDAO.update(obj, attribute, value);
+  }
 
   public void updateNode(HospitalNode obj, String attribute, String value) {
     this.nodeDAO.update(obj, attribute, value);
@@ -371,6 +387,10 @@ public enum SQLRepo {
     }
   }
 
+  public void deleteAlert(AlertData obj) {
+    this.alertDAO.delete(obj);
+  }
+
   public void deleteOfficeSupplyRequest(OfficeSuppliesData obj) {
     this.officesupplyDAO.delete(obj);
   }
@@ -431,6 +451,10 @@ public enum SQLRepo {
     } else {
       throw new NoSuchElementException("No Service Request of this type");
     }
+  }
+
+  public void addAlert(AlertData obj) {
+    this.alertDAO.add(obj);
   }
 
   public void addOfficeSupplyRequest(OfficeSuppliesData obj) {
