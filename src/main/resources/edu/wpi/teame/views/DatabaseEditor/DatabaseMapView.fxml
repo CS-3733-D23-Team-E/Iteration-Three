@@ -251,13 +251,13 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0">
                            <children>
-                              <MFXButton fx:id="addLocationButton" prefWidth="125.0" stylesheets="@../../styles/eStyleSheet.css" text="Add Location">
+                              <MFXButton fx:id="addLocationButton" prefWidth="125.0" styleClass="submitButton" stylesheets="@../../styles/eStyleSheet.css" text="Add Location">
                                  <font>
                                     <Font name="Roboto" size="13.0" />
                                  </font>
                               </MFXButton>
                               <Region prefWidth="25.0" />
-                              <MFXButton fx:id="removeLocationButton" layoutX="10.0" layoutY="10.0" prefWidth="125.0" text="Remove Location">
+                              <MFXButton fx:id="removeLocationButton" layoutX="10.0" layoutY="10.0" prefHeight="31.0" prefWidth="130.0" styleClass="resetButton" stylesheets="@../../styles/eStyleSheet.css" text="Remove Location">
                                  <font>
                                     <Font name="Roboto" size="13.0" />
                                  </font>
@@ -278,11 +278,11 @@
                                           <Font name="Roboto" size="13.0" />
                                        </font></Text>
                                     <SearchableComboBox fx:id="addEdgeField" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" HBox.hgrow="ALWAYS" />
-                                    <MFXButton fx:id="addEdgeButton" text="Add" HBox.hgrow="ALWAYS">
+                                    <MFXButton fx:id="addEdgeButton" prefWidth="80.0" styleClass="submitButton" stylesheets="@../../styles/eStyleSheet.css" text="Add" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Roboto" size="13.0" />
                                        </font></MFXButton>
-                                    <MFXButton fx:id="removeEdgeButton" text="Remove" HBox.hgrow="ALWAYS" />
+                                    <MFXButton fx:id="removeEdgeButton" prefWidth="80.0" styleClass="resetButton" stylesheets="@../../styles/eStyleSheet.css" text="Remove" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
                            </children>
@@ -296,10 +296,9 @@
                         <Region VBox.vgrow="ALWAYS" />
                         <HBox alignment="TOP_CENTER" spacing="10.0">
                            <children>
-                              <MFXButton fx:id="cancelButton" prefWidth="67.0" style="-fx-background-color: transparent; -fx-border-color: #000000; -fx-border-radius: 10;" text="Cancel" />
-                              <Region HBox.hgrow="ALWAYS" />
-                              <MFXButton fx:id="deleteNodeButton" prefWidth="67.0" style="-fx-background-color: transparent; -fx-border-color: #FB0000; -fx-border-radius: 10;" text="Delete" textFill="#fb0000" HBox.hgrow="ALWAYS" />
-                              <MFXButton fx:id="confirmButton" prefWidth="67.0" style="-fx-background-color: #3B63A5; -fx-background-radius: 10;" text="Confirm" textFill="WHITE" HBox.hgrow="ALWAYS">
+                              <MFXButton fx:id="cancelButton" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #000000; -fx-border-radius: 10;" text="Cancel" />
+                              <MFXButton fx:id="deleteNodeButton" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #FB0000; -fx-border-radius: 10;" text="Delete" textFill="#fb0000" HBox.hgrow="ALWAYS" />
+                              <MFXButton fx:id="confirmButton" minHeight="30.0" prefWidth="100.0" style="-fx-background-color: #3B63A5; -fx-background-radius: 10;" text="Confirm" textFill="WHITE" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Roboto" size="13.0" />
                                  </font></MFXButton>
