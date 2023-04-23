@@ -151,6 +151,6 @@ public class MoveComponentController {
 
     currentMoveList.setItems(FXCollections.observableList(movUtil.getCurrentMoveMessages()));
 
-    moveCountText.setText(currentMoveList.getItems().size() + " Moves Today: ");
+    moveCountText.setText(currentMoveList.getItems().size() + " Move(s) Today: ");
   }
 }
