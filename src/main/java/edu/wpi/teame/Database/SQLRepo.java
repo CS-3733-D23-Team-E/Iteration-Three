@@ -21,8 +21,8 @@ public enum SQLRepo {
     MEAL_REQUESTS,
     FLOWER_REQUESTS,
     FURNITURE_REQUESTS,
-    CONFERENCE_ROOM;
-    ;
+    CONFERENCE_ROOM,
+    SIGNAGE_FORM;
 
     public static String tableToString(Table tb) {
       switch (tb) {
@@ -48,6 +48,8 @@ public enum SQLRepo {
           return "ConfRoomService";
         case FURNITURE_REQUESTS:
           return "FurnitureService";
+        case SIGNAGE_FORM:
+          return "SignageForm";
         default:
           throw new NoSuchElementException("No such Table found");
       }
@@ -66,6 +68,7 @@ public enum SQLRepo {
   ServiceDAO<MealRequestData> mealDAO;
   ServiceDAO<FlowerRequestData> flowerDAO;
   ServiceDAO<ConferenceRequestData> conferenceDAO;
+  SignageComponentDAO signageDAO;
 
   public Employee connectToDatabase(String username, String password) {
     try {
@@ -88,6 +91,7 @@ public enum SQLRepo {
         flowerDAO = new FlowerDAO(activeConnection);
         conferenceDAO = new ConferenceRoomDAO(activeConnection);
         furnitureDAO = new FurnitureDAO(activeConnection);
+        signageDAO = new SignageComponentDAO(activeConnection);
 
         Employee.setActiveEmployee(loggedIn);
 
@@ -198,6 +202,9 @@ public enum SQLRepo {
         case FURNITURE_REQUESTS:
           this.furnitureDAO.importFromCSV(filepath, "FurnitureService");
           break;
+        case SIGNAGE_FORM:
+          this.signageDAO.importFromCSV(filepath, "SignageForm");
+          break;
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());
@@ -238,6 +245,9 @@ public enum SQLRepo {
         case FURNITURE_REQUESTS:
           this.furnitureDAO.exportToCSV(filepath, tableName);
           break;
+        case SIGNAGE_FORM:
+          this.signageDAO.exportToCSV(filepath, "SignageForm");
+          break;
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());
@@ -260,6 +270,10 @@ public enum SQLRepo {
 
   public List<MoveAttribute> getMoveList() {
     return this.moveDAO.get();
+  }
+
+  public List<SignageComponentData> getSignageList() {
+    return this.signageDAO.get();
   }
 
   public List<Employee> getEmployeeList() {
@@ -325,6 +339,10 @@ public enum SQLRepo {
     }
   }
 
+  public void updateSignage(SignageComponentData obj, String attribute, String value) {
+    this.signageDAO.update(obj, attribute, value);
+  }
+
   public void updateOfficeSupply(OfficeSuppliesData obj, String attribute, String value) {
     this.officesupplyDAO.update(obj, attribute, value);
   }
@@ -371,24 +389,8 @@ public enum SQLRepo {
     }
   }
 
-  public void deleteOfficeSupplyRequest(OfficeSuppliesData obj) {
-    this.officesupplyDAO.delete(obj);
-  }
-
-  public void deleteMealRequest(MealRequestData obj) {
-    this.mealDAO.delete(obj);
-  }
-
-  public void deleteConfRoomRequest(ConferenceRequestData obj) {
-    this.conferenceDAO.delete(obj);
-  }
-
-  public void deleteFurnitureRequest(FurnitureRequestData obj) {
-    this.furnitureDAO.delete(obj);
-  }
-
-  public void deleteFlowerRequest(FlowerRequestData obj) {
-    this.flowerDAO.delete(obj);
+  public void deleteSignage(SignageComponentData obj) {
+    this.signageDAO.delete(obj);
   }
 
   public void deletenode(HospitalNode obj) {
@@ -433,24 +435,8 @@ public enum SQLRepo {
     }
   }
 
-  public void addOfficeSupplyRequest(OfficeSuppliesData obj) {
-    this.officesupplyDAO.add(obj);
-  }
-
-  public void addMealRequest(MealRequestData obj) {
-    this.mealDAO.add(obj);
-  }
-
-  public void addConfRoomRequest(ConferenceRequestData obj) {
-    this.conferenceDAO.add(obj);
-  }
-
-  public void addFurnitureRequest(FurnitureRequestData obj) {
-    this.furnitureDAO.add(obj);
-  }
-
-  public void addFlowerRequest(FlowerRequestData obj) {
-    this.flowerDAO.add(obj);
+  public void addSignage(SignageComponentData obj) {
+    this.signageDAO.add(obj);
   }
 
   public void addNode(HospitalNode obj) {
