@@ -71,9 +71,9 @@
                   </Text>
                   <TableView fx:id="futureMoveTable" prefHeight="500.0" prefWidth="850.0">
                      <columns>
-                        <TableColumn fx:id="nodeIDCol" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="NodeID" />
-                        <TableColumn fx:id="nameCol" maxWidth="200.0" minWidth="200.0" prefWidth="300.0" text="Name" />
-                        <TableColumn fx:id="dateCol" maxWidth="150.0" minWidth="150.0" prefWidth="-1.0" text="Date" />
+                        <TableColumn fx:id="nodeIDCol" maxWidth="120.0" minWidth="120.0" prefWidth="130.0" text="NodeID" />
+                        <TableColumn fx:id="nameCol" maxWidth="230.0" minWidth="230.0" prefWidth="300.0" text="Name" />
+                        <TableColumn fx:id="dateCol" maxWidth="120.0" minWidth="120.0" prefWidth="-1.0" text="Date" />
                      </columns>
                   </TableView>
                </children>
