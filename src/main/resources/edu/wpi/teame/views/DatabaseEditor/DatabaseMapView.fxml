@@ -3,7 +3,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -192,7 +191,7 @@
                                              <font>
                                                 <Font name="Roboto" size="13.0" />
                                              </font></Label>
-                                          <TextField promptText="X Coordinate:" fx:id="xField" />
+                                          <TextField promptText="X Coordinate:" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" fx:id="xField" />
                                        </children>
                                     </VBox>
                                     <Region HBox.hgrow="ALWAYS" />
@@ -202,7 +201,7 @@
                                              <font>
                                                 <Font name="Roboto" size="13.0" />
                                              </font></Label>
-                                          <TextField fx:id="yField" promptText="Y Coordinate:" />
+                                          <TextField fx:id="yField" promptText="Y Coordinate:" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -217,7 +216,7 @@
                                        <font>
                                           <Font name="Roboto" size="13.0" />
                                        </font></Label>
-                                    <SearchableComboBox fx:id="longNameSelector" maxWidth="1.7976931348623157E308" prefHeight="26.0" promptText="Location Name:" />
+                                    <SearchableComboBox fx:id="longNameSelector" maxWidth="1.7976931348623157E308" prefHeight="26.0" promptText="Location Name:" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" />
 
                                  </children>
                               </VBox>
@@ -228,21 +227,21 @@
                               <VBox>
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Long Name:" />
-                                    <TextField fx:id="newLongNameField" minWidth="100.0" prefWidth="100.0" promptText="Long Name" />
+                                    <TextField fx:id="newLongNameField" minWidth="100.0" prefWidth="100.0" promptText="Long Name" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" />
                                  </children>
                               </VBox>
                               <Region minWidth="10.0" HBox.hgrow="ALWAYS" />
                               <VBox>
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Long Name:" />
-                                    <TextField fx:id="newLongNameField1" minWidth="100.0" prefWidth="100.0" promptText="Long Name" />
+                                    <TextField fx:id="newLongNameField1" minWidth="100.0" prefWidth="100.0" promptText="Long Name" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" />
                                  </children>
                               </VBox>
                               <Region minWidth="10.0" HBox.hgrow="ALWAYS" />
                               <VBox>
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node Type:" />
-                                    <SearchableComboBox fx:id="nodeTypeChoice" minWidth="75.0" prefWidth="0.0" promptText="Type" />
+                                    <SearchableComboBox fx:id="nodeTypeChoice" minWidth="75.0" prefWidth="0.0" promptText="Type" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" />
                                  </children>
                               </VBox>
                            </children>
@@ -252,7 +251,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0">
                            <children>
-                              <MFXButton fx:id="addLocationButton" prefWidth="125.0" text="Add Location">
+                              <MFXButton fx:id="addLocationButton" prefWidth="125.0" stylesheets="@../../styles/eStyleSheet.css" text="Add Location">
                                  <font>
                                     <Font name="Roboto" size="13.0" />
                                  </font>
