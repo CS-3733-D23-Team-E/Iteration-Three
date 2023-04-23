@@ -59,6 +59,7 @@ public class MapController {
   @FXML MFXButton menuBarSignage;
   @FXML MFXButton menuBarMaps;
   @FXML MFXButton menuBarDatabase;
+  @FXML MFXButton menuBarAbout;
   @FXML MFXButton menuBarBlank;
   @FXML MFXButton menuBarExit;
   @FXML VBox menuBar;
@@ -81,6 +82,7 @@ public class MapController {
   @FXML ImageView signageI;
   @FXML ImageView pathfindingI;
   @FXML ImageView databaseI;
+  @FXML ImageView aboutI;
   @FXML ImageView exitI;
   boolean isPathDisplayed = false;
   Floor currentFloor = Floor.LOWER_TWO;
@@ -146,6 +148,7 @@ public class MapController {
     menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
     menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_EDITOR));
+    menuBarAbout.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT));
     menuBarExit.setOnMouseClicked((event -> Platform.exit()));
 
     // makes the menu bar buttons get highlighted when the mouse hovers over them
@@ -173,6 +176,12 @@ public class MapController {
         menuBarDatabase,
         "baseline-left",
         databaseI,
+        "images/folder-tree.png",
+        "images/folder-tree-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
+        menuBarAbout,
+        "baseline-left",
+        aboutI,
         "images/folder-tree.png",
         "images/folder-tree-blue.png");
     ButtonUtilities.mouseSetupMenuBar(

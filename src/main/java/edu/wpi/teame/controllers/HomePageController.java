@@ -29,6 +29,7 @@ public class HomePageController {
   @FXML MFXButton menuBarServices;
   @FXML MFXButton menuBarMaps;
   @FXML MFXButton menuBarDatabase;
+  @FXML MFXButton menuBarAbout;
   @FXML MFXButton menuBarSignage;
   @FXML MFXButton menuBarBlank;
   @FXML MFXButton menuBarExit;
@@ -46,6 +47,7 @@ public class HomePageController {
   @FXML ImageView signageI;
   @FXML ImageView pathfindingI;
   @FXML ImageView databaseI;
+  @FXML ImageView aboutI;
   @FXML ImageView exitI;
 
   Boolean loggedIn;
@@ -79,6 +81,7 @@ public class HomePageController {
     menuBarHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate((Screen.DATABASE_TABLEVIEW)));
+    menuBarAbout.setOnMouseClicked(event -> Navigation.navigate((Screen.ABOUT)));
     menuBarExit.setOnMouseClicked(event -> Platform.exit());
 
     loggedIn = false;
@@ -122,6 +125,7 @@ public class HomePageController {
     menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
     menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_TABLEVIEW));
+    menuBarAbout.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT));
     menuBarExit.setOnMouseClicked((event -> Platform.exit()));
 
     // makes the menu bar buttons get highlighted when the mouse hovers over them
@@ -149,6 +153,12 @@ public class HomePageController {
         menuBarDatabase,
         "baseline-left",
         databaseI,
+        "images/folder-tree.png",
+        "images/folder-tree-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
+        menuBarAbout,
+        "baseline-left",
+        aboutI,
         "images/folder-tree.png",
         "images/folder-tree-blue.png");
     ButtonUtilities.mouseSetupMenuBar(

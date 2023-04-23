@@ -15,7 +15,8 @@ public enum Screen {
   MOVE_COMPONENT("views/MoveComponent.fxml"),
   DATABASE_TABLEVIEW("views/DatabaseEditor/DatabaseTableView.fxml"),
   DATABASE_MAPVIEW("views/DatabaseEditor/DatabaseMapView.fxml"),
-  DATABASE_SERVICEVIEW("views/DatabaseEditor/DatabaseServiceRequestView.fxml");
+  DATABASE_SERVICEVIEW("views/DatabaseEditor/DatabaseServiceRequestView.fxml"),
+  ABOUT("views/AboutPage.fxml");
 
   private final String filename;
 
