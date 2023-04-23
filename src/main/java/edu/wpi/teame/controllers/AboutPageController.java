@@ -33,8 +33,8 @@ public class AboutPageController {
   @FXML ImageView aboutI;
   @FXML ImageView exitI;
 
-   @FXML VBox logoutBox;
-   @FXML MFXButton logoutButton;
+  @FXML VBox logoutBox;
+  @FXML MFXButton logoutButton;
 
   boolean menuVisibilty = false;
   boolean logoutVisible = false;
@@ -74,7 +74,7 @@ public class AboutPageController {
     menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_EDITOR));
     menuBarAbout.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT));
     menuBarExit.setOnMouseClicked((event -> Platform.exit()));
-     logoutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
+    logoutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
 
     // makes the menu bar buttons get highlighted when the mouse hovers over them
     ButtonUtilities.mouseSetupMenuBar(
@@ -116,11 +116,11 @@ public class AboutPageController {
         "images/sign-out-alt.png",
         "images/sign-out-alt-blue.png");
 
-     mouseSetup(logoutButton);
+    mouseSetup(logoutButton);
   }
 
   public void logoutPopup(boolean bool) {
-     logoutBox.setVisible(bool);
+    logoutBox.setVisible(bool);
   }
 
   public void menuBarVisible(boolean bool) {
