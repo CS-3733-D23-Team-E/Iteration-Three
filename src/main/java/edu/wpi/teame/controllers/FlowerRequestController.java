@@ -169,6 +169,7 @@ public class FlowerRequestController {
   }
 
   public void translateToSpanish() {
+    // Input Fields
     recipientNameText.setText("Nombre de Destinatario"); // Recipient Name
     flowerChoiceText.setText("Elecci" + aO + "n de Flores"); // Flower Choice
     roomText.setText("Cuarto"); // Room
@@ -179,10 +180,29 @@ public class FlowerRequestController {
     cardMessageText.setText("Mensaje de Tarjeta"); // Card Mesage
     staffText.setText("Empleado"); // Staff
     notesText.setText("Notas"); // Notes
+
+    // Buttons
+    cancelButton.setText("Cancelar"); // Cancel
+    resetButton.setText("Poner a Cero"); // Reset
+    submitButton.setText("Presentar"); // Submit
   }
 
   public void translateToEnglish() {
     recipientNameText.setText("Recipient Name"); // Keep in English
+    flowerChoiceText.setText("Flower Choice"); // Flower Choice
+    roomText.setText("Room"); // Room
+    numberOfFlowersText.setText("Number of Flowers"); // Number of Flowers
+    deliveryDateText.setText("Delivery Date"); // Delivery Date
+    includeACardText.setText("Include a Card?"); // Include a Card?
+    deliveryTimeText.setText("Delivery Time"); // Delivery Time
+    cardMessageText.setText("Card Message"); // Card Mesage
+    staffText.setText("Staff"); // Staff
+    notesText.setText("Notes"); // Notes
+
+    // Buttons
+    cancelButton.setText("Cancel"); // Cancel
+    resetButton.setText("Reset"); // Reset
+    submitButton.setText("Submit"); // Submit
   }
 
   // public List<Employee> getEmployeeList() {
