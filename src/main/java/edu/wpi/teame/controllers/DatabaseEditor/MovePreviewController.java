@@ -32,6 +32,8 @@ public class MovePreviewController {
 
   @FXML TabPane tabPane;
 
+  @FXML Label moveDescription;
+
   Floor currentFloor;
 
   MapUtilities mapUtilityLowerTwo = new MapUtilities(mapPaneLowerTwo);
@@ -45,10 +47,17 @@ public class MovePreviewController {
 
   HospitalNode node1;
   HospitalNode node2;
+  String name1;
+  String name2;
+  boolean bidirectional;
 
-  public MovePreviewController(HospitalNode node1, HospitalNode node2) {
+  public MovePreviewController(
+      HospitalNode node1, HospitalNode node2, String name1, String name2, boolean bidirectional) {
     this.node1 = node1;
     this.node2 = node2;
+    this.name1 = name1;
+    this.name2 = name2;
+    this.bidirectional = bidirectional;
   }
 
   @FXML
@@ -91,6 +100,14 @@ public class MovePreviewController {
                 loadFloorNodes();
               }
             });
+
+    // set the move description text
+    StringBuilder moveDescText = new StringBuilder();
+    moveDescText.append(name1).append(" to node ").append(node2.getNodeID()).append("\n");
+    if (bidirectional) {
+      moveDescText.append(name2).append(" to node ").append(node1.getNodeID()).append("\n");
+    }
+    moveDescription.setText(moveDescText.toString());
   }
 
   public Floor tabToFloor(Tab tab) {
@@ -154,29 +171,35 @@ public class MovePreviewController {
     if (node1.getFloor() == node2.getFloor() && node1.getFloor().equals(currentFloor)) {
       whichMapUtility(currentFloor).drawEdge(node1, node2);
     }
-    // TODO: draw label over node, if the node is not on the given floor, saying what floor it is on
-    // TODO: draw the line if EITHER of the current nodes are on the floor
+
+    // TODO: draw label on node dependent on the name parameter passed in, NOT te database
     if (node1.getFloor().equals(currentFloor) || node2.getFloor().equals(currentFloor)) {
       whichMapUtility(currentFloor).drawEdge(node1, node2);
       if (node1.getFloor().equals(currentFloor)) {
         // draw phantom label for node 2
-        setupNode(node1);
-        whichMapUtility(currentFloor).drawHospitalNodeLabel(node2, "Moved to floor: " + node2.getFloor());
+        setupNode(node1, name1);
+        if (node2.getFloor().equals(currentFloor)) {
+          setupNode(node2, name2);
+        } else {
+          whichMapUtility(currentFloor)
+              .drawHospitalNodeLabel(node2, "Moved to floor: " + node2.getFloor());
+        }
       } else {
         // draw phantom label for node 1
-        setupNode(node2);
-        whichMapUtility(currentFloor).drawHospitalNodeLabel(node1, "Moved to floor: " + node1.getFloor());
+        setupNode(node2, name2);
+        whichMapUtility(currentFloor)
+            .drawHospitalNodeLabel(node1, "Moved to floor: " + node1.getFloor());
       }
     }
   }
 
-  private void setupNode(HospitalNode node) {
+  private void setupNode(HospitalNode node, String name) {
 
     String nodeID = node.getNodeID();
     MapUtilities currentMapUtility = whichMapUtility(currentFloor);
 
     Circle nodeCircle = currentMapUtility.drawHospitalNode(node);
-    Label nodeLabel = currentMapUtility.drawHospitalNodeLabel(node);
+    Label nodeLabel = currentMapUtility.drawHospitalNodeLabel(node, name);
     nodeLabel.setVisible(true);
   }
 }

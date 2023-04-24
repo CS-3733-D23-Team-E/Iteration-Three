@@ -183,7 +183,21 @@ public class MoveComponentController {
 
   private void openStage(HospitalNode node1, HospitalNode node2) {
     var resource = App.class.getResource("views/DatabaseEditor/MovePreview.fxml");
-    MovePreviewController movePreviewController = new MovePreviewController(node1, node2);
+    MovePreviewController movePreviewController;
+    if (swapTab.isSelected()) {
+      movePreviewController =
+          new MovePreviewController(
+              node1,
+              node2,
+              departmentOneSelector.getValue(),
+              departmentTwoSelector.getValue(),
+              true);
+    } else {
+      movePreviewController =
+          new MovePreviewController(
+              node1, node2, departmentMoveSelector.getValue(), "New Location", false);
+    }
+
     FXMLLoader loader = new FXMLLoader(resource);
     loader.setController(movePreviewController); // NOTE: replaces this line in the FXML:
     // fx:controller="edu.wpi.teame.controllers.DatabaseEditor.MovePreviewController"
@@ -193,8 +207,6 @@ public class MoveComponentController {
     } catch (IOException e) {
       previewLayout = new AnchorPane();
     }
-
-    // previewLayout.getChildren().add(new Label("test!!!!!!"));
 
     Scene newScene = new Scene(previewLayout);
 
