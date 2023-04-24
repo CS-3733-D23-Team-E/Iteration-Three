@@ -181,6 +181,7 @@ public class DatabaseMapViewController {
   }
 
   public void loadFloorNodes() {
+    // create nodes
     List<HospitalNode> floorNodes = SQLRepo.INSTANCE.getNodesFromFloor(currentFloor);
     List<HospitalEdge> floorEdges =
         SQLRepo.INSTANCE.getEdgeList().stream()
@@ -188,11 +189,16 @@ public class DatabaseMapViewController {
                 edge -> HospitalNode.allNodes.get(edge.getNodeOneID()).getFloor() == currentFloor)
             .toList();
 
+    // create edges
     for (HospitalEdge edge : floorEdges) {
-      whichMapUtility(currentFloor)
-          .drawEdge(
-              HospitalNode.allNodes.get(edge.getNodeOneID()),
-              HospitalNode.allNodes.get(edge.getNodeTwoID()));
+
+      HospitalNode node1 = HospitalNode.allNodes.get(edge.getNodeOneID());
+      HospitalNode node2 = HospitalNode.allNodes.get(edge.getNodeTwoID());
+
+      // only draw edges on the same floor
+      if (node1.getFloor() == node2.getFloor()) {
+        whichMapUtility(currentFloor).drawEdge(node1, node2);
+      }
     }
 
     for (HospitalNode node : floorNodes) {

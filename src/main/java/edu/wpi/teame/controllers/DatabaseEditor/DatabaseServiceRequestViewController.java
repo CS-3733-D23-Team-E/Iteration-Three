@@ -133,7 +133,7 @@ public class DatabaseServiceRequestViewController {
         event -> Navigation.navigate(Screen.DATABASE_TABLEVIEW));
 
     // fill table for meal requests
-    mealRecipientNameCol.setCellValueFactory(
+    mealRequestIDCol.setCellValueFactory(
         new PropertyValueFactory<MealRequestData, String>("requestID"));
     mealRecipientNameCol.setCellValueFactory(
         new PropertyValueFactory<MealRequestData, String>("name"));
