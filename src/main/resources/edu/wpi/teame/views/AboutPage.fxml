@@ -21,6 +21,15 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#022e59a6" height="825.0" stroke="BLACK" strokeType="INSIDE" width="1400.0" />
          </children>
       </StackPane>
+      <StackPane alignment="TOP_CENTER" layoutX="1298.0" layoutY="96.0" prefHeight="144.0" prefWidth="186.0">
+         <children>
+            <MFXButton fx:id="creditsButton" prefHeight="65.0" prefWidth="155.0" rippleColor="WHITE" style="-fx-background-color: #001a3c;" text="Credits" textFill="WHITE">
+               <font>
+                  <Font name="Roboto" size="20.0" />
+               </font>
+            </MFXButton>
+         </children>
+      </StackPane>
       <StackPane layoutX="34.0" layoutY="300.0" prefHeight="574.0" prefWidth="554.0" AnchorPane.leftAnchor="120.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="574.0" smooth="false" stroke="BLACK" strokeMiterLimit="20.0" strokeType="INSIDE" strokeWidth="3.0" width="554.0" />
@@ -107,10 +116,24 @@
       <StackPane layoutX="614.0" layoutY="300.0" prefHeight="574.0" prefWidth="780.0" AnchorPane.rightAnchor="120.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="574.0" smooth="false" stroke="BLACK" strokeMiterLimit="20.0" strokeType="INSIDE" strokeWidth="3.0" width="780.0" />
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <ImageView fitHeight="432.0" fitWidth="777.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="414.0" fitWidth="744.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/TeamEPicture.png" />
+                     </image>
+                  </ImageView>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="169.694091796875" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="169.694091796875" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Special Thanks to Brigham And Women's Hospital &amp; their Representative Andrew Shinn for their Time &amp; Input" textAlignment="CENTER" wrappingWidth="502.5296630859375">
+                     <font>
+                        <Font name="Roboto" size="20.0" />
+                     </font>
+                  </Text>
                </children>
+               <StackPane.margin>
+                  <Insets left="20.0" right="20.0" top="20.0" />
+               </StackPane.margin>
             </VBox>
          </children>
       </StackPane>

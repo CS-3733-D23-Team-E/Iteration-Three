@@ -33,6 +33,8 @@ public class AboutPageController {
   @FXML ImageView aboutI;
   @FXML ImageView exitI;
 
+  @FXML MFXButton creditsButton;
+
   @FXML VBox logoutBox;
   @FXML MFXButton logoutButton;
 
@@ -41,6 +43,8 @@ public class AboutPageController {
 
   @FXML
   public void initialize() {
+
+    creditsButton.setOnMouseClicked(event -> Navigation.navigate((Screen.CREDITS)));
 
     // Initially set the menu bar to invisible
     menuBarVisible(false);
