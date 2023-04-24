@@ -196,7 +196,7 @@
                <children>
                   <MFXButton fx:id="menuBarHome" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text=" Home" textFill="#f1f1f1">
                      <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                        <ImageView fx:id="homeI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
                            <image>
                               <Image url="@../images/house-blank.png" />
                            </image>
@@ -213,7 +213,7 @@
                   </Line>
                   <MFXButton fx:id="menuBarServices" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="Services" textFill="#f1f1f1">
                      <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                        <ImageView fx:id="servicesI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
                            <image>
                               <Image url="@../images/hand-holding-medical.png" />
                            </image>
@@ -230,7 +230,7 @@
                   </Line>
                   <MFXButton fx:id="menuBarSignage" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="Signage" textFill="#f1f1f1">
                      <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                        <ImageView fx:id="singageI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
                            <image>
                               <Image url="@../images/diamond-turn-right.png" />
                            </image>
@@ -247,7 +247,7 @@
                   </Line>
                   <MFXButton fx:id="menuBarMaps" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="Pathfinding" textFill="#f1f1f1">
                      <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                        <ImageView fx:id="pathfindingI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
                            <image>
                               <Image url="@../images/marker.png" />
                            </image>
@@ -264,7 +264,7 @@
                   </Line>
                   <MFXButton fx:id="menuBarDatabase" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="Database" textFill="#f1f1f1">
                      <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                        <ImageView fx:id="databaseI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
                            <image>
                               <Image url="@../images/folder-tree.png" />
                            </image>
@@ -304,7 +304,7 @@
                   </Line>
                   <MFXButton fx:id="menuBarExit" alignment="BOTTOM_CENTER" graphicTextGap="10.0" prefHeight="70.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="Exit" textFill="#f1f1f1">
                      <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                        <ImageView fx:id="exitI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
                            <image>
                               <Image url="@../images/sign-out-alt.png" />
                            </image>
