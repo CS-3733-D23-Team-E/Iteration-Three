@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
 
 public class FurnitureController {
@@ -37,6 +38,23 @@ public class FurnitureController {
   @FXML SearchableComboBox<String> assignedStaff;
   @FXML MFXButton cancelButton;
   @FXML MFXButton resetButton;
+
+  @FXML Text recipientNameText;
+  @FXML Text roomText;
+  @FXML Text furnitureTypeText;
+  @FXML Text deliveryDateText;
+  @FXML Text notesText;
+  @FXML Text deliveryTimeText;
+  @FXML Text staffText;
+
+  String language = "spanish";
+  String nyay = "\u00F1"; // ñ
+  String aA = "\u0301"; // á
+  String aE = "\u00E9"; // é
+  String aI = "\u00ED"; // í
+  String aO = "\u00F3"; // ó
+  String aU = "\u00FA"; // ù
+  String aQuestion = "\u00BF"; // Upside down question mark
 
   public void initialize() {
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
@@ -78,6 +96,16 @@ public class FurnitureController {
     submitButton.setOnMouseClicked(event -> sendRequest());
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
+
+    // Page Language Translation Code
+    if (language.equals("english")) {
+      translateToEnglish();
+    } else if (language.equals("spanish")) {
+      translateToSpanish();
+    } else // throw error for language not being a valid language
+    {
+      // throw some sort of error here at some point
+    }
   }
 
   public FurnitureRequestData sendRequest() {
@@ -116,5 +144,36 @@ public class FurnitureController {
     recipientName.clear();
     notes.clear();
     assignedStaff.setValue(null);
+  }
+
+  public void translateToSpanish() {
+    // Input Fields
+    recipientNameText.setText("Nombre de Destinatario"); // Recipient Name
+    roomText.setText("Cuarto"); // Room
+    furnitureTypeText.setText("Tipo de Mueble"); // Furniture Type
+    deliveryDateText.setText("Fecha de Entrega"); // Delivery Date
+    deliveryTimeText.setText("Tiempo de Entrega"); // Delivery Time
+    notesText.setText("Notas"); // Notes
+    staffText.setText("Empleado"); // Staff
+
+    // Buttons
+    cancelButton.setText("Cancelar"); // Cancel
+    resetButton.setText("Poner a Cero"); // Reset
+    submitButton.setText("Presentar"); // Submit
+  }
+
+  public void translateToEnglish() {
+    recipientNameText.setText("Recipient Name"); // Keep in English
+    roomText.setText("Room"); // Keep in English
+    furnitureTypeText.setText("Furniture Type"); // Keep in English
+    deliveryDateText.setText("Delivery Date"); // Keep in English
+    deliveryTimeText.setText("Delivery Time"); // Keep in English
+    notesText.setText("Notes"); // Keep in English
+    staffText.setText("Staff"); // Keep in English
+
+    // Buttons
+    cancelButton.setText("Cancel"); // Keep in English
+    resetButton.setText("Reset"); // Keep in English
+    submitButton.setText("Submit"); // Keep in English
   }
 }
