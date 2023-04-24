@@ -1,5 +1,6 @@
 package edu.wpi.teame.controllers;
 
+import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.entities.LoginData;
 import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
@@ -82,7 +83,11 @@ public class HomePageController {
     menuBarExit.setOnMouseClicked(event -> Platform.exit());
 
     loggedIn = false;
-    logoutButton.setOnMouseClicked(event -> attemptLogin());
+    logoutButton.setOnMouseClicked(
+        event -> {
+          Navigation.navigate(Screen.SIGNAGE_TEXT);
+          SQLRepo.INSTANCE.exitDatabaseProgram();
+        });
 
     announcementButton.setOnMouseClicked(
         event -> {
