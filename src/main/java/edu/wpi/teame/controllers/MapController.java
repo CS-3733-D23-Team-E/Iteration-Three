@@ -1,9 +1,6 @@
 package edu.wpi.teame.controllers;
 
-import static java.lang.Math.PI;
-
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.Main;
 import edu.wpi.teame.map.Directions;
 import edu.wpi.teame.map.Floor;
 import edu.wpi.teame.map.HospitalNode;
@@ -20,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -76,8 +72,9 @@ public class MapController {
   @FXML ImageView exitI;
   boolean isPathDisplayed = false;
   Floor currentFloor = Floor.LOWER_TWO;
-
   Circle currentCircle = new Circle();
+  static int directionDistance = 0;
+  int currentLength = 0;
   HBox previousLabel;
   AbstractPathfinder pf = AbstractPathfinder.getInstance("A*");
   String curLocFromComboBox;
@@ -412,30 +409,12 @@ public class MapController {
   }
 
   public void createDirections(VBox vbox, List<HospitalNode> path) {
+
+    // For each node along the path
     for (int i = 0; i < path.size(); i++) {
+      // Get the current node
       HospitalNode currentNode = path.get(i);
-
-      // Get the image for the label
-      Image icon;
-      double rotation;
-      if (i == 0) {
-        icon = new Image(String.valueOf(Main.class.getResource("images/start.png")));
-        rotation = 0;
-      } else if (i == path.size() - 1) {
-        icon = new Image(String.valueOf(Main.class.getResource("images/destination.png")));
-        rotation = 0;
-      } else {
-        icon = new Image(String.valueOf(Main.class.getResource("images/right-arrow.png")));
-        rotation = getTurnAngle(path, i)-90;
-      }
-
-      // Get the message for the direction
-      // Turn _____ in __ feet
-      
-
-      // Create a direction
-      Directions direction = new Directions(vbox, path, currentNode, icon, rotation);
-
+      Directions direction = new Directions(vbox, path, i);
       // Add the event listener
       direction
           .getHbox()
@@ -445,7 +424,6 @@ public class MapController {
                 currentCircle.setRadius(4);
                 currentCircle.setViewOrder(-1);
                 currentCircle.setVisible(false);
-                System.out.println("oldcircle: " + currentCircle.getId());
 
                 // Set the selected tab to the floor of the node
                 Floor nodeFloor = currentNode.getFloor();
@@ -494,40 +472,13 @@ public class MapController {
                             })
                         .toList();
                 currentCircle = (Circle) nodeList.get(0);
-                System.out.println("Newcircle: " + currentCircle.getId());
                 currentCircle.setRadius(5);
                 currentCircle.setViewOrder(-5);
                 currentCircle.setVisible(true);
-                System.out.println("currentCircle: " + currentCircle);
-                System.out.println("Node List: " + nodeList);
 
                 // Set the current label as the previous
                 previousLabel = direction.getHbox();
               });
     }
-  }
-
-  /**
-   * returns the angle between two intersecting lines at a given position along a path
-   *
-   * @param path
-   * @param index
-   * @return
-   */
-  public double getTurnAngle(List<HospitalNode> path, int index) {
-    // Get the nodes
-    double startX = path.get(index - 1).getXCoord();
-    double startY = path.get(index - 1).getYCoord();
-    double endX = path.get(index + 1).getXCoord();
-    double endY = path.get(index + 1).getYCoord();
-    double fixedX = path.get(index).getXCoord();
-    double fixedY = path.get(index).getYCoord();
-
-    // Get the angles
-    double angle1 = Math.atan2(startY - fixedY, startX - fixedX);
-    double angle2 = Math.atan2(endY - fixedY, endX - fixedX);
-
-    double radian = angle1 - angle2;
-    return (radian * 180) / PI;
   }
 }
