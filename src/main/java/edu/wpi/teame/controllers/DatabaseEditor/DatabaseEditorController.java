@@ -34,11 +34,13 @@ public class DatabaseEditorController {
 
   @FXML
   public void initialize() {
-    tableView.setVisible(false);
+    tableView.setVisible(true);
     moveView.setVisible(false);
     serviceView.setVisible(false);
     mapView.setVisible(false);
-    importExportZone.setVisible(false);
+    importExportZone.setVisible(true);
+    onlyDisable(tableEditorSwapButton);
+    editorTitle.setText("Table editor");
 
     initButtons();
   }
