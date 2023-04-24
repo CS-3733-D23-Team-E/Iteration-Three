@@ -1,3 +1,4 @@
+
 package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Database.SQLRepo;
@@ -14,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class MealRequestController {
@@ -32,6 +34,8 @@ public class MealRequestController {
   @FXML TextField allergiesBox;
   @FXML SearchableComboBox<String> assignedStaff;
   @FXML MFXButton resetButton;
+  @FXML MFXButton closeButton;
+  @FXML VBox requestSubmittedBox;
 
   ObservableList<String> deliveryTimes =
       FXCollections.observableArrayList(
@@ -50,6 +54,8 @@ public class MealRequestController {
 
   @FXML
   public void initialize() {
+    requestSubmittedBox.setVisible(false);
+
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
     ObservableList<String> names =
         FXCollections.observableArrayList(
@@ -88,8 +94,15 @@ public class MealRequestController {
     drinkChoice.setItems(drinks);
     deliveryTime.setItems(deliveryTimes);
     cancelButton.setOnMouseClicked(event -> cancelRequest());
-    submitButton.setOnMouseClicked(event -> sendRequest());
+
     resetButton.setOnMouseClicked(event -> clearForm());
+    submitButton.setOnMouseClicked(
+        event -> {
+          sendRequest();
+          requestSubmittedBox.setVisible(true);
+          clearForm();
+        });
+    closeButton.setOnMouseClicked(event -> requestSubmittedBox.setVisible(false));
   }
 
   public MealRequestData sendRequest() {
@@ -114,7 +127,6 @@ public class MealRequestController {
     System.out.println("Meal Request Added");
 
     // Return to the home screen
-    Navigation.navigate(Screen.HOME);
 
     return requestData;
   }

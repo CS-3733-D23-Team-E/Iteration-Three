@@ -1,5 +1,6 @@
 package edu.wpi.teame.controllers;
 
+import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.entities.LoginData;
 import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
@@ -71,18 +72,22 @@ public class HomePageController {
     serviceRequestButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUESTS));
 
     editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
-    databaseButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_TABLEVIEW));
+    databaseButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_EDITOR));
     pathfindingButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
 
     menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
     menuBarServices.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUESTS));
     menuBarHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-    menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate((Screen.DATABASE_TABLEVIEW)));
+    menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate((Screen.DATABASE_EDITOR)));
     menuBarExit.setOnMouseClicked(event -> Platform.exit());
 
     loggedIn = false;
-    logoutButton.setOnMouseClicked(event -> attemptLogin());
+    logoutButton.setOnMouseClicked(
+        event -> {
+          Navigation.navigate(Screen.SIGNAGE_TEXT);
+          SQLRepo.INSTANCE.exitDatabaseProgram();
+        });
 
     announcementButton.setOnMouseClicked(
         event -> {
@@ -116,13 +121,6 @@ public class HomePageController {
           logoutVisible = !logoutVisible;
           logoutPopup(logoutVisible);
         });
-
-    logoutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
-    menuBarServices.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUESTS));
-    menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
-    menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-    menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_TABLEVIEW));
-    menuBarExit.setOnMouseClicked((event -> Platform.exit()));
 
     // makes the menu bar buttons get highlighted when the mouse hovers over them
     ButtonUtilities.mouseSetupMenuBar(
