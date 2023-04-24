@@ -9,6 +9,7 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.atomic.AtomicReference;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -49,7 +50,8 @@ public class HomePageController {
   @FXML ImageView exitI;
   @FXML MFXButton spanishButton;
   @FXML MFXButton englishButton;
-  @FXML Text todayIs;
+  @FXML Text todayIsText;
+  @FXML Text announcementsText;
 
   Boolean loggedIn;
   String language = "english";
@@ -93,11 +95,12 @@ public class HomePageController {
 
     loggedIn = false;
     logoutButton.setOnMouseClicked(event -> attemptLogin());
-
+    AtomicReference<String> announcementString = new AtomicReference<>("");
     announcementButton.setOnMouseClicked(
         event -> {
           String announcement = announcementTextBox.getText();
           announcementText.setText(announcement);
+          announcementString.set(announcement);
         });
 
     // Initially set the menu bar to invisible
@@ -177,17 +180,17 @@ public class HomePageController {
 
     englishButton.setOnMouseClicked(
         event -> {
-          translateToEnglish();
+          translateToEnglish(String.valueOf(announcementString));
         });
     spanishButton.setOnMouseClicked(
         event -> {
-          translateToSpanish();
+          translateToSpanish(String.valueOf(announcementString));
         });
 
     if (language.equals("english")) {
-      translateToEnglish();
+      translateToEnglish(String.valueOf(announcementString));
     } else if (language.equals("spanish")) {
-      translateToSpanish();
+      translateToSpanish(String.valueOf(announcementString));
     } else // throw error for language not being a valid language
     {
 
@@ -229,7 +232,10 @@ public class HomePageController {
     menuBar.setVisible(bool);
   }
 
-  public void translateToSpanish() {
+  public void translateToSpanish(String announcmentString) {
+    // Change language variable
+    language = "spanish";
+
     // Menu Bar
     menuBarHome.setText("Principal"); // Home
     menuBarServices.setText("Servicios"); // Services
@@ -245,10 +251,21 @@ public class HomePageController {
     databaseButton.setText("Base de Datos"); // Database
 
     // Date Bar
-    todayIs.setText("Hoy es..."); // Today is...
+    todayIsText.setText("Hoy es..."); // Today is...
+
+    // Announcements Bar
+    announcementsText.setText("Anuncios"); // Announcements
+    if (announcmentString.equals("")) { // Do this if there are currently no announcements
+      announcementText.setText("No hay nuevos anuncios."); // No new announcements.
+    }
+    announcementTextBox.setPromptText("Texto del Anuncio Aqu" + aI); // Announcement Text Here
+    announcementButton.setText("Presentar"); // Submit
   }
 
-  public void translateToEnglish() {
+  public void translateToEnglish(String announcmentString) {
+    // Change language variable
+    language = "english";
+
     // Menu Bar
     menuBarHome.setText("Home"); // Keep in English
     menuBarServices.setText("Services"); // Keep in English
@@ -264,6 +281,14 @@ public class HomePageController {
     databaseButton.setText("Database"); // Keep in English
 
     // Date Bar
-    todayIs.setText("Today is..."); // Keep in English
+    todayIsText.setText("Today is..."); // Keep in English
+
+    // Announcements Bar
+    announcementsText.setText("Announcements"); // Keep in English
+    if (announcmentString.equals("")) { // Do this if there are currently no announcements
+      announcementText.setText("No new announcements."); // Keep in English
+    }
+    announcementTextBox.setPromptText("Announcement Text Here"); // Keep in English
+    announcementButton.setText("Submit"); // Keep in English
   }
 }

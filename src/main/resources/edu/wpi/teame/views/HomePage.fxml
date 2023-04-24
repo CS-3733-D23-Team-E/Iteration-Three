@@ -171,7 +171,7 @@
                         <Insets />
                      </StackPane.margin>
                   </Rectangle>
-                  <Text fx:id="todayIs" strokeType="OUTSIDE" strokeWidth="0.0" text="Today is...." StackPane.alignment="TOP_LEFT">
+                  <Text fx:id="todayIsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Today is...." StackPane.alignment="TOP_LEFT">
                      <StackPane.margin>
                         <Insets left="10.0" top="10.0" />
                      </StackPane.margin>
@@ -262,7 +262,7 @@
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
                         <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#f1f1f1" height="550.0" stroke="#001a3c" strokeType="INSIDE" strokeWidth="5.0" width="500.0" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements" StackPane.alignment="TOP_LEFT">
+                        <Text fx:id="announcementsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements" StackPane.alignment="TOP_LEFT">
                            <StackPane.margin>
                               <Insets left="10.0" top="10.0" />
                            </StackPane.margin>
