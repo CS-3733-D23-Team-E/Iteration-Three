@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
 
 public class MoveComponentController {
@@ -31,6 +32,8 @@ public class MoveComponentController {
   @FXML TableColumn<MoveAttribute, String> dateCol;
 
   MoveUtilities movUtil;
+
+  @FXML MFXButton mapPreviewButton;
 
   @FXML
   public void initialize() {
@@ -56,6 +59,7 @@ public class MoveComponentController {
           }
         });
     resetButton.setOnAction(event -> resetFieldSelections());
+    mapPreviewButton.setOnAction(event -> openStage());
   }
 
   private void refreshFields() {
@@ -144,5 +148,10 @@ public class MoveComponentController {
     currentMoveList.setItems(FXCollections.observableList(movUtil.getCurrentMoveMessages()));
 
     moveCountText.setText(currentMoveList.getItems().size() + " Move(s) Today: ");
+  }
+
+  private void openStage() {
+    Stage newStage = new Stage();
+    newStage.show();
   }
 }
