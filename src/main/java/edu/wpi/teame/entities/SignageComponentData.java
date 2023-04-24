@@ -24,7 +24,7 @@ public class SignageComponentData {
           return UP;
         case "DOWN":
           return DOWN;
-        case "DONE":
+        case "LEFT":
           return LEFT;
         case "RIGHT":
           return RIGHT;
@@ -37,12 +37,15 @@ public class SignageComponentData {
   }
 
   @Getter @Setter private String locationNames;
-  @Getter @Setter private arrowDirections directions;
+  @Getter @Setter private String kiosk_location;
+  @Getter @Setter private arrowDirections arrowDirections;
   @Getter @Setter private String date;
 
-  public SignageComponentData(String date, String locationNames, arrowDirections directions) {
-    this.locationNames = locationNames;
-    this.directions = directions;
+  public SignageComponentData(
+      String date, String kiosk_location, String locationNames, arrowDirections arrowDirections) {
     this.date = date;
+    this.kiosk_location = kiosk_location;
+    this.locationNames = locationNames;
+    this.arrowDirections = arrowDirections;
   }
 }

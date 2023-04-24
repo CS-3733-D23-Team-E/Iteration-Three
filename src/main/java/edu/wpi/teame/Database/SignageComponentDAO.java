@@ -36,7 +36,9 @@ public class SignageComponentDAO<E> extends DAO<SignageComponentData> {
             new SignageComponentData(
                 rs.getString("date"),
                 rs.getString("kiosk_location"),
-                SignageComponentData.arrowDirections.stringToDirection(rs.getString("direction"))));
+                rs.getString("location"),
+                SignageComponentData.arrowDirections.stringToDirection(
+                    rs.getString("arrowDirection"))));
       }
     } catch (SQLException e) {
       System.out.println(e.getMessage());
@@ -48,7 +50,7 @@ public class SignageComponentDAO<E> extends DAO<SignageComponentData> {
   @Override
   void update(SignageComponentData obj, String attribute, String value) {
     String date = obj.getDate();
-    String loc = obj.getLocationNames();
+    String kloc = obj.getKiosk_location();
 
     String sqlUpdate =
         "UPDATE "
@@ -60,7 +62,7 @@ public class SignageComponentDAO<E> extends DAO<SignageComponentData> {
             + "' WHERE date = '"
             + date
             + "' AND kiosk_location = '"
-            + loc
+            + kloc
             + "';";
 
     try {
@@ -75,7 +77,7 @@ public class SignageComponentDAO<E> extends DAO<SignageComponentData> {
   @Override
   void delete(SignageComponentData obj) {
     String date = obj.getDate();
-    String loc = obj.getLocationNames();
+    String loc = obj.getKiosk_location();
     try {
       Statement stmt = activeConnection.createStatement();
 
@@ -100,7 +102,8 @@ public class SignageComponentDAO<E> extends DAO<SignageComponentData> {
   void add(SignageComponentData obj) {
     String locationNames = obj.getLocationNames();
     String date = obj.getDate();
-    SignageComponentData.arrowDirections directions = obj.getDirections();
+    String kioskLocation = obj.getKiosk_location();
+    SignageComponentData.arrowDirections arrowDirections = obj.getArrowDirections();
 
     String sqlAdd =
         "INSERT INTO "
@@ -108,9 +111,11 @@ public class SignageComponentDAO<E> extends DAO<SignageComponentData> {
             + " VALUES('"
             + date
             + "','"
+            + kioskLocation
+            + "','"
             + locationNames
             + "','"
-            + directions
+            + arrowDirections
             + "');";
 
     Statement stmt;
@@ -149,6 +154,8 @@ public class SignageComponentDAO<E> extends DAO<SignageComponentData> {
                 + splitL1[1]
                 + "','"
                 + splitL1[2]
+                + "','"
+                + splitL1[3]
                 + "'); ";
         stmt.execute(sql);
       }

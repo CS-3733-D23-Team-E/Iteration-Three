@@ -17,7 +17,11 @@ public class SignageComponentDAOTest {
     List<SignageComponentData> signage = SQLRepo.INSTANCE.getSignageList();
 
     SignageComponentData crd =
-        new SignageComponentData("2023-04-22", "joseph", SignageComponentData.arrowDirections.UP);
+        new SignageComponentData(
+            "2023-04-22",
+            "Screen 2, By the Q Elevator",
+            "Watkins Clinics A & B",
+            SignageComponentData.arrowDirections.UP);
 
     SQLRepo.INSTANCE.addSignage(crd);
     List<SignageComponentData> signageAdded = SQLRepo.INSTANCE.getSignageList();
@@ -37,10 +41,13 @@ public class SignageComponentDAOTest {
 
     SignageComponentData crd =
         new SignageComponentData(
-            "2023-04-22", "Gift Shop Tower Floor 2", SignageComponentData.arrowDirections.UP);
+            "2023-04-22",
+            "Screen 1, By the info desk",
+            "Shapiro Admitting",
+            SignageComponentData.arrowDirections.LEFT);
 
-    SQLRepo.INSTANCE.addSignage(crd);
-    SQLRepo.INSTANCE.updateSignage(crd, "direction", "RIGHT");
+    // SQLRepo.INSTANCE.addSignage(crd);
+    SQLRepo.INSTANCE.updateSignage(crd, "arrowDirection", "RIGHT");
   }
 
   @Test
