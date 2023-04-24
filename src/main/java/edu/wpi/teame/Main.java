@@ -12,6 +12,7 @@ public class Main {
     HospitalNode.processEdgeList(SQLRepo.INSTANCE.getEdgeList());
     LocationName.processLocationList(SQLRepo.INSTANCE.getLocationList());
     System.out.println(LocationName.allLocations.keySet());
+    SQLRepo.INSTANCE.exitDatabaseProgram();
     App.launch(App.class, args);
   }
   // shortcut: psvm

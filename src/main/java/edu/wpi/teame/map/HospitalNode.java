@@ -129,9 +129,9 @@ public class HospitalNode {
   }
 
   public static void removeNode(HospitalNode node) {
-      for (HospitalNode neighbor : node.neighbors) {
-        removeEdge(node, neighbor);
-      }
-      allNodes.remove(node.getNodeID());
+    for (HospitalNode neighbor : node.neighbors) {
+      removeEdge(node, neighbor);
+    }
+    allNodes.remove(node.getNodeID());
   }
 }
