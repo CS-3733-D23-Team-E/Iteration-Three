@@ -150,16 +150,18 @@ public class MovePreviewController {
 
   public void loadFloorNodes() {
     // create edges
-    // TODO: change so that edges are only drawn between the moves and not actually between the
     // edges
-
-    if (node1.getFloor() == node2.getFloor()) {
+    if (node1.getFloor() == node2.getFloor() && node1.getFloor().equals(currentFloor)) {
       whichMapUtility(currentFloor).drawEdge(node1, node2);
     }
 
     // TODO: change to only load the nodes for a given move if they are on the current floor
-    setupNode(node1);
-    setupNode(node2);
+    if (node1.getFloor().equals(currentFloor)) {
+      setupNode(node1);
+    }
+    if (node2.getFloor().equals(currentFloor)) {
+      setupNode(node2);
+    }
   }
 
   private void setupNode(HospitalNode node) {
