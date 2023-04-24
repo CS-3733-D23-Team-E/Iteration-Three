@@ -62,6 +62,17 @@ public class MedicalSupplyRequestController {
   ObservableList<String> minutesList = FXCollections.observableArrayList("00", "15", "30", "45");
   ObservableList<String> ampmList = FXCollections.observableArrayList("A.M.", "P.M.");
   int item1 = 0;
+  int item2 = 0;
+
+  int item3 = 0;
+
+  int item4 = 0;
+  int item5 = 0;
+
+  int item6 = 0;
+
+  public void initializeImages() {
+  }
 
   public void initialize() {
 
@@ -91,7 +102,7 @@ public class MedicalSupplyRequestController {
     locationName.setItems(names);
 
     cancel.setOnMouseClicked(event -> cancelRequest());
-    //        submit.setOnMouseClicked(event -> sendRequest());
+    submit.setOnMouseClicked(event -> sendRequest());
     clear.setOnMouseClicked(event -> clearForm());
 
     hours.setItems(hoursList);
@@ -102,7 +113,6 @@ public class MedicalSupplyRequestController {
     this.item1Minus.setOnAction(
         event -> {
           item1--;
-
           if (item1 < 0) {
             item1 = 0;
           }
@@ -114,6 +124,101 @@ public class MedicalSupplyRequestController {
           item1++;
           this.item1Quantity.setText(Integer.toString(item1));
         });
+
+    this.item2Quantity.setText(Integer.toString(item2));
+    this.item2Minus.setOnAction(
+        event -> {
+          item2--;
+          if (item2 < 0) {
+            item2 = 0;
+          }
+
+          this.item2Quantity.setText(Integer.toString(item2));
+        });
+    this.item2Plus.setOnAction(
+        event -> {
+          item2++;
+          this.item2Quantity.setText(Integer.toString(item2));
+        });
+
+    this.item3Quantity.setText(Integer.toString(item3));
+    this.item3Minus.setOnAction(
+        event -> {
+          item3--;
+          if (item3 < 0) {
+            item3 = 0;
+          }
+
+          this.item3Quantity.setText(Integer.toString(item3));
+        });
+    this.item3Plus.setOnAction(
+        event -> {
+          item3++;
+          this.item3Quantity.setText(Integer.toString(item3));
+        });
+
+    this.item4Quantity.setText(Integer.toString(item4));
+    this.item4Minus.setOnAction(
+        event -> {
+          item4--;
+          if (item4 < 0) {
+            item4 = 0;
+          }
+
+          this.item4Quantity.setText(Integer.toString(item4));
+        });
+    this.item4Plus.setOnAction(
+        event -> {
+          item4++;
+          this.item4Quantity.setText(Integer.toString(item4));
+        });
+
+    this.item5Quantity.setText(Integer.toString(item5));
+    this.item5Minus.setOnAction(
+        event -> {
+          item5--;
+          if (item5 < 0) {
+            item5 = 0;
+          }
+
+          this.item5Quantity.setText(Integer.toString(item5));
+        });
+    this.item5Plus.setOnAction(
+        event -> {
+          item5++;
+          this.item5Quantity.setText(Integer.toString(item5));
+        });
+
+    this.item6Quantity.setText(Integer.toString(item6));
+    this.item6Minus.setOnAction(
+        event -> {
+          item6--;
+          if (item6 < 0) {
+            item6 = 0;
+          }
+
+          this.item6Quantity.setText(Integer.toString(item6));
+        });
+    this.item6Plus.setOnAction(
+        event -> {
+          item6++;
+          this.item6Quantity.setText(Integer.toString(item6));
+        });
+  }
+
+  public void sendRequest() {
+    System.out.println(recipientsName.getText());
+    System.out.println(locationName.getText());
+    System.out.println(date.getUserData());
+    System.out.println(hours.getText() + ":" + minutes.getText() + " " + ampm.getText());
+    System.out.println(staffAssigned.getText());
+    System.out.println(notes.getText());
+    System.out.println("Item 1: " + item1Quantity.getText());
+    System.out.println("Item 2: " + item2Quantity.getText());
+    System.out.println("Item 3: " + item3Quantity.getText());
+    System.out.println("Item 4: " + item4Quantity.getText());
+    System.out.println("Item 5: " + item5Quantity.getText());
+    System.out.println("Item 6: " + item6Quantity.getText());
   }
 
   public void cancelRequest() {
