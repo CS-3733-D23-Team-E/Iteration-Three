@@ -175,23 +175,49 @@ public class HomePageController {
 
     spanishButton.setOnMouseClicked(
         event -> {
-          menuBarHome.setText("Principal");
-          menuBarServices.setText("Servicios");
-          menuBarSignage.setText("Se" + nyay + "alizaci" + aO + "n");
-          menuBarMaps.setText("Navegaci" + aO + "n");
-          menuBarDatabase.setText("Base de Datos");
-          menuBarExit.setText(("Salida"));
+          //Menu Bar
+          menuBarHome.setText("Principal"); //Home
+          menuBarServices.setText("Servicios"); //Services
+          menuBarSignage.setText("Se" + nyay + "alizaci" + aO + "n"); //Signage
+          menuBarMaps.setText("Navegaci" + aO + "n"); //Pathfinding
+          menuBarDatabase.setText("Base de Datos"); //Database
+          menuBarExit.setText(("Salida")); //Exit
+
+          //Home Page Buttons
+          editSignageButton.setText("Se" + nyay + "alizaci" + aO + "n"); //Signage
+          serviceRequestButton.setText("Servicios"); //Services
+          pathfindingButton.setText("Navegaci" + aO + "n"); //Pathfinding
+          databaseButton.setText("Base de Datos"); //Database
         });
 
     if (language.equals("english")) {
-      menuBarHome.setText("Home");
+      //Menu Bar
+      menuBarHome.setText("Home"); //Keep in English
+      menuBarServices.setText("Services"); //Keep in English
+      menuBarSignage.setText("Signage"); //Keep in English
+      menuBarMaps.setText("Pathfinding"); //Keep in English
+      menuBarDatabase.setText("Database"); //Keep in English
+      menuBarExit.setText(("Exit")); //Keep in English
+
+      //Home Page Buttons
+      editSignageButton.setText("Signage"); //Keep in English
+      serviceRequestButton.setText("Services"); //Keep in English
+      pathfindingButton.setText("Pathfinding"); //Keep in English
+      databaseButton.setText("Database"); //Keep in English
     } else if (language.equals("spanish")) {
-      menuBarHome.setText("Principal");
-      menuBarServices.setText("Servicios");
-      menuBarSignage.setText("Se" + nyay + "alizaci" + aO + "n");
-      menuBarMaps.setText("Navegaci" + aO + "n");
-      menuBarDatabase.setText("Base de Datos");
-      menuBarExit.setText(("Salida"));
+      //Menu Bar
+      menuBarHome.setText("Principal"); //Home
+      menuBarServices.setText("Servicios"); //Services
+      menuBarSignage.setText("Se" + nyay + "alizaci" + aO + "n"); //Signage
+      menuBarMaps.setText("Navegaci" + aO + "n"); //Pathfinding
+      menuBarDatabase.setText("Base de Datos"); //Database
+      menuBarExit.setText(("Salida")); //Exit
+
+      //Home Page Buttons
+      editSignageButton.setText("Se" + nyay + "alizaci" + aO + "n"); //Signage
+      serviceRequestButton.setText("Servicios"); //Services
+      pathfindingButton.setText("Navegaci" + aO + "n"); //Pathfinding
+      databaseButton.setText("Base de Datos"); //Database
     } else // throw error for language not being a valid language
     {
 
