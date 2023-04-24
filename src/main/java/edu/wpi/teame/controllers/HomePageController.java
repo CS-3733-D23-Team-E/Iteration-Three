@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class HomePageController {
@@ -260,6 +261,11 @@ public class HomePageController {
     }
     announcementTextBox.setPromptText("Texto del Anuncio Aqu" + aI); // Announcement Text Here
     announcementButton.setText("Presentar"); // Submit
+
+    // Logout Button
+    logoutButton.setText("Cerrar Sesi" + aO + "n"); // Logout
+    Font spanishLogout = new Font("Roboto", 13);
+    logoutButton.setFont(spanishLogout);
   }
 
   public void translateToEnglish(String announcmentString) {
@@ -290,5 +296,10 @@ public class HomePageController {
     }
     announcementTextBox.setPromptText("Announcement Text Here"); // Keep in English
     announcementButton.setText("Submit"); // Keep in English
+
+    // Logout Button
+    logoutButton.setText("Logout"); // Keep in English
+    Font englishLogout = new Font("Roboto", 18);
+    logoutButton.setFont(englishLogout);
   }
 }
