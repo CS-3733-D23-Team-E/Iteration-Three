@@ -156,7 +156,8 @@ public class MoveComponentController {
   }
 
   private void openStage() {
-    var resource = App.class.getResource("views/Map.fxml");
+    var resource = App.class.getResource("views/DatabaseEditor/MovePreview.fxml");
+    //    @FXML MovePreviewController movePreviewController = new MovePreviewController();
     FXMLLoader loader = new FXMLLoader(resource);
     AnchorPane previewLayout;
     try {
