@@ -1,10 +1,9 @@
 package edu.wpi.teame.controllers;
 
+import static java.lang.Math.PI;
+
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.map.Directions;
-import edu.wpi.teame.map.Floor;
-import edu.wpi.teame.map.HospitalNode;
-import edu.wpi.teame.map.LocationName;
+import edu.wpi.teame.map.*;
 import edu.wpi.teame.map.pathfinding.AbstractPathfinder;
 import edu.wpi.teame.utilities.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -411,74 +410,175 @@ public class MapController {
   public void createDirections(VBox vbox, List<HospitalNode> path) {
 
     // For each node along the path
+    int currentDistance = 0;
     for (int i = 0; i < path.size(); i++) {
       // Get the current node
       HospitalNode currentNode = path.get(i);
-      Directions direction = new Directions(vbox, path, i);
-      // Add the event listener
-      direction
-          .getHbox()
-          .setOnMouseClicked(
-              event -> {
-                // reset highlighted node
-                currentCircle.setRadius(4);
-                currentCircle.setViewOrder(-1);
-                currentCircle.setVisible(false);
 
-                // Set the selected tab to the floor of the node
-                Floor nodeFloor = currentNode.getFloor();
-                tabPane.getSelectionModel().select(floorToTab(nodeFloor));
-                MapUtilities currentMapUtility = whichMapUtility(nodeFloor);
-                GesturePane startingPane = ((GesturePane) currentMapUtility.getPane().getParent());
+      // Get the turn type
+      TurnType turnType = getTurn(path, i);
+      currentDistance += getDistance(path, i);
 
-                // Outline the hbox
-                direction
-                    .getHbox()
-                    .setBorder(
-                        new Border(
-                            new BorderStroke(
-                                Color.web(ColorPalette.LIGHT_BLUE.getHexCode()),
-                                BorderStrokeStyle.SOLID,
-                                CornerRadii.EMPTY,
-                                new BorderWidths(2))));
+      // If the turn type is not straight
+      if (turnType != TurnType.STRAIGHT) {
+        // Create a direction
+        Directions direction = new Directions(path, i, turnType, currentDistance);
+        currentDistance = 0;
+        // Add the event listener
+        direction
+            .getHbox()
+            .setOnMouseClicked(
+                event -> {
+                  // reset highlighted node
+                  currentCircle.setRadius(4);
+                  currentCircle.setViewOrder(-1);
+                  currentCircle.setVisible(false);
 
-                // Remove the previous outline unless previous is null or the same box is clicked
-                // again
-                if (previousLabel != null && previousLabel != direction.getHbox()) {
-                  previousLabel.setBorder(Border.EMPTY);
-                }
+                  // Set the selected tab to the floor of the node
+                  Floor nodeFloor = currentNode.getFloor();
+                  tabPane.getSelectionModel().select(floorToTab(nodeFloor));
+                  MapUtilities currentMapUtility = whichMapUtility(nodeFloor);
+                  GesturePane startingPane =
+                      ((GesturePane) currentMapUtility.getPane().getParent());
 
-                // Zoom in on the starting node
-                startingPane.zoomTo(2, startingPane.targetPointAtViewportCentre());
+                  // Outline the hbox
+                  direction
+                      .getHbox()
+                      .setBorder(
+                          new Border(
+                              new BorderStroke(
+                                  Color.web(ColorPalette.LIGHT_BLUE.getHexCode()),
+                                  BorderStrokeStyle.SOLID,
+                                  CornerRadii.EMPTY,
+                                  new BorderWidths(2))));
 
-                // Pan so starting node is centered
-                startingPane
-                    .animate(Duration.millis(200))
-                    .centreOn(
-                        new Point2D(
-                            currentMapUtility.convertX(currentNode.getXCoord()),
-                            currentMapUtility.convertY(currentNode.getYCoord())));
+                  // Remove the previous outline unless previous is null or the same box is clicked
+                  // again
+                  if (previousLabel != null && previousLabel != direction.getHbox()) {
+                    previousLabel.setBorder(Border.EMPTY);
+                  }
 
-                // get Circle that was selected from label
-                List<Node> nodeList =
-                    currentMapUtility.getCurrentNodes().stream()
-                        .filter(
-                            node -> {
-                              try {
-                                return node.getId().equals(currentNode.getNodeID());
-                              } catch (NullPointerException n) {
-                                return false;
-                              }
-                            })
-                        .toList();
-                currentCircle = (Circle) nodeList.get(0);
-                currentCircle.setRadius(5);
-                currentCircle.setViewOrder(-5);
-                currentCircle.setVisible(true);
+                  // Zoom in on the starting node
+                  startingPane.zoomTo(2, startingPane.targetPointAtViewportCentre());
 
-                // Set the current label as the previous
-                previousLabel = direction.getHbox();
-              });
+                  // Pan so starting node is centered
+                  startingPane
+                      .animate(Duration.millis(200))
+                      .centreOn(
+                          new Point2D(
+                              currentMapUtility.convertX(currentNode.getXCoord()),
+                              currentMapUtility.convertY(currentNode.getYCoord())));
+
+                  // get Circle that was selected from label
+                  List<Node> nodeList =
+                      currentMapUtility.getCurrentNodes().stream()
+                          .filter(
+                              node -> {
+                                try {
+                                  return node.getId().equals(currentNode.getNodeID());
+                                } catch (NullPointerException n) {
+                                  return false;
+                                }
+                              })
+                          .toList();
+                  currentCircle = (Circle) nodeList.get(0);
+                  currentCircle.setRadius(5);
+                  currentCircle.setViewOrder(-5);
+                  currentCircle.setVisible(true);
+
+                  // Set the current label as the previous
+                  previousLabel = direction.getHbox();
+                });
+        vbox.getChildren().add(direction.getHbox());
+      }
     }
+  }
+
+  public TurnType getTurn(List<HospitalNode> path, int index) {
+    // Check if the node is the start or the end
+    // Start
+    if (index == 0) {
+      return TurnType.START;
+    }
+    // End
+    if (index == path.size() - 1) {
+      return TurnType.END;
+    }
+    // Check if the node is an elevator or stairs
+    // Elevator
+    if ((LocationName.NodeType.stringToNodeType(
+                SQLRepo.INSTANCE.getNodeTypeFromNodeID(
+                    Integer.parseInt(path.get(index).getNodeID())))
+            == LocationName.NodeType.ELEV)
+        && (path.get(index).getFloor()) != path.get(index + 1).getFloor()) {
+      return TurnType.ELEVATOR;
+    }
+    // Stairs
+    if ((LocationName.NodeType.stringToNodeType(
+                SQLRepo.INSTANCE.getNodeTypeFromNodeID(
+                    Integer.parseInt(path.get(index).getNodeID())))
+            == LocationName.NodeType.STAI)
+        && (path.get(index).getFloor()) != path.get(index + 1).getFloor()) {
+      return TurnType.STAIRS;
+    }
+    // Straight
+    double angle = getTurnAngle(path, index);
+    if ((angle > 315 || angle < 45) || (angle < 225 && angle > 135)) {
+      return TurnType.STRAIGHT;
+    }
+    // Right
+    if (angle >= 45 && angle <= 135) {
+      return TurnType.RIGHT;
+    }
+    // Left
+    if (angle >= 225 && angle <= 315) {
+      return TurnType.LEFT;
+    } else {
+      return TurnType.ERROR;
+    }
+  }
+
+  /**
+   * returns the angle between two intersecting lines at a given position along a path
+   *
+   * @param path
+   * @param index
+   * @return
+   */
+  public double getTurnAngle(List<HospitalNode> path, int index) {
+    // Get the nodes
+    double startX = path.get(index - 1).getXCoord();
+    double startY = path.get(index - 1).getYCoord();
+    double endX = path.get(index + 1).getXCoord();
+    double endY = path.get(index + 1).getYCoord();
+    double fixedX = path.get(index).getXCoord();
+    double fixedY = path.get(index).getYCoord();
+
+    // Get the angles
+    double angle1 = Math.atan2(startY - fixedY, startX - fixedX);
+    double angle2 = Math.atan2(endY - fixedY, endX - fixedX);
+
+    double radian = angle1 - angle2;
+    double finalAngle = (radian * 180) / PI;
+    // Convert negatives to positives: -10 -> 350
+    if (finalAngle < 0) {
+      finalAngle += 360;
+    }
+    return finalAngle;
+  }
+
+  public int getDistance(List<HospitalNode> path, int index) {
+    // If the node is the starting or ending node, return 0
+    if (index == 0 || index == path.size() - 1) {
+      return 0;
+    }
+    // Get the points
+    double x1 = path.get(index - 1).getXCoord();
+    double y1 = path.get(index - 1).getYCoord();
+    double x2 = path.get(index).getXCoord();
+    double y2 = path.get(index).getYCoord();
+    // Calculate length
+    int length = (int) Math.sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
+    return length;
   }
 }
