@@ -1,15 +1,20 @@
 package edu.wpi.teame.controllers.DatabaseEditor;
 
+import edu.wpi.teame.App;
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.map.MoveAttribute;
 import edu.wpi.teame.utilities.MoveUtilities;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.IOException;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
 
@@ -151,7 +156,21 @@ public class MoveComponentController {
   }
 
   private void openStage() {
+    var resource = App.class.getResource("views/Map.fxml");
+    FXMLLoader loader = new FXMLLoader(resource);
+    AnchorPane previewLayout;
+    try {
+      previewLayout = loader.load();
+    } catch (IOException e) {
+      previewLayout = new AnchorPane();
+    }
+    // previewLayout.getChildren().add(new Label("test!!!!!!"));
+
+    Scene newScene = new Scene(previewLayout);
+
     Stage newStage = new Stage();
+    newStage.setTitle("Move Preview");
+    newStage.setScene(newScene);
     newStage.show();
   }
 }
