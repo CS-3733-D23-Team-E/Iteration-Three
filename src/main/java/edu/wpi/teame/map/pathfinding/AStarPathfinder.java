@@ -47,7 +47,10 @@ class AStarPathfinder extends AbstractPathfinder {
           // Parent map doubles as a visited set
           // If there's a cheaper path to this node, update the cost and parent
           costMap.put(neighbor, newCost);
+
           queue.remove(neighbor); // Remove and add to re-sort the priority queue
+
+
           queue.add(neighbor);
           parentMap.put(neighbor, current);
         }
