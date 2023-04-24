@@ -49,8 +49,24 @@ public class FlowerRequestController {
   @FXML MFXButton resetButton;
 
   @FXML Text recipientNameText;
+  @FXML Text flowerChoiceText;
+  @FXML Text roomText;
+  @FXML Text numberOfFlowersText;
+  @FXML Text deliveryDateText;
+  @FXML Text includeACardText;
+  @FXML Text deliveryTimeText;
+  @FXML Text cardMessageText;
+  @FXML Text staffText;
+  @FXML Text notesText;
 
   String language = "spanish";
+  String nyay = "\u00F1"; // �
+  String aA = "\u0301"; // �
+  String aE = "\u00E9"; // �
+  String aI = "\u00ED"; // �
+  String aO = "\u00F3"; // �
+  String aU = "\u00F9"; // �
+  String aQuestion = "\u00BF";
 
   @FXML
   public void initialize() {
@@ -154,6 +170,15 @@ public class FlowerRequestController {
 
   public void translateToSpanish() {
     recipientNameText.setText("Nombre de Destinatario"); // Recipient Name
+    flowerChoiceText.setText("Elecci" + aO + "n de Flores"); // Flower Choice
+    roomText.setText("Cuarto"); // Room
+    numberOfFlowersText.setText("N" + aU + "mero de Flores"); // Number of Flowers
+    deliveryDateText.setText("Fecha de Entrega"); // Delivery Date
+    includeACardText.setText(aQuestion + "Incluir una Tarjeta?"); // Include a Card?
+    deliveryTimeText.setText("Tiempo de Entrega"); // Delivery Time
+    cardMessageText.setText("Mensaje de Tarjeta"); // Card Mesage
+    staffText.setText("Empleado"); // Staff
+    notesText.setText("Notas"); // Notes
   }
 
   public void translateToEnglish() {
