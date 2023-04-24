@@ -1,3 +1,4 @@
+
 package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Database.SQLRepo;
@@ -14,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class FurnitureController {
@@ -37,8 +39,12 @@ public class FurnitureController {
   @FXML SearchableComboBox<String> assignedStaff;
   @FXML MFXButton cancelButton;
   @FXML MFXButton resetButton;
+  @FXML MFXButton closeButton;
+  @FXML VBox requestSubmittedBox;
 
   public void initialize() {
+    requestSubmittedBox.setVisible(false);
+
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
     ObservableList<String> names =
         FXCollections.observableArrayList(
@@ -75,9 +81,17 @@ public class FurnitureController {
     furnitureType.setItems(typeOfFurniture);
     deliveryTime.setItems(deliveryTimes);
     // Initialize the buttons
-    submitButton.setOnMouseClicked(event -> sendRequest());
+
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
+
+    submitButton.setOnMouseClicked(
+        event -> {
+          sendRequest();
+          requestSubmittedBox.setVisible(true);
+          clearForm();
+        });
+    closeButton.setOnMouseClicked(event -> requestSubmittedBox.setVisible(false));
   }
 
   public FurnitureRequestData sendRequest() {
@@ -98,7 +112,7 @@ public class FurnitureController {
     System.out.println("furniture request submitted");
 
     // Return to the home screen
-    Navigation.navigate(Screen.HOME);
+
     return requestData;
   }
 
