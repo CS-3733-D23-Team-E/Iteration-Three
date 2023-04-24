@@ -3,6 +3,7 @@ package edu.wpi.teame.controllers.DatabaseEditor;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.AnchorPane;
 
 public class DatabaseEditorController {
   @FXML TabPane tabPane;
@@ -13,7 +14,12 @@ public class DatabaseEditorController {
   @FXML DatabaseMapViewController mapViewController;
 
   @FXML
+  AnchorPane tableView;
+
+  @FXML
   public void initialize() {
+    tableView.setVisible(false);
+    tableView.setManaged(false);
 
     //    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     //    tabPane
@@ -25,5 +31,7 @@ public class DatabaseEditorController {
     //                mapViewController.initialLoadFloor(Floor.LOWER_TWO);
     //              }
     //            });
+
+
   }
 }

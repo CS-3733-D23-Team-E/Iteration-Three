@@ -79,8 +79,10 @@
             </VBox>
             <StackPane>
                <children>
+                  <fx:include source="MoveComponent.fxml" />
                   <fx:include fx:id="tableView" source="DatabaseTableView.fxml" />
                   <fx:include fx:id="mapView" source="DatabaseMapView.fxml" />
+                  <fx:include source="DatabaseServiceRequestView.fxml" />
                </children>
             </StackPane>
          </children>
