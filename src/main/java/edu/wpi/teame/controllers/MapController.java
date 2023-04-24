@@ -605,6 +605,13 @@ public class MapController {
 
     startButton.setText("Comenzar"); // Start
 
+    // Map Tabs
+    lowerLevelTwoTab.setText("Piso Baja 2"); // Lower Level 2
+    lowerLevelOneTab.setText("Piso Baja 1"); // Lower Level 1
+    floorOneTab.setText("Piso 1");
+    floorTwoTab.setText("Piso 2");
+    floorThreeTab.setText("Piso 3");
+
     /* Uncomment when logout button is fixed
     // Logout Button
     logoutButton.setText("Cerrar Sesi" + aO + "n"); // Logout
