@@ -2,6 +2,7 @@ package edu.wpi.teame.controllers.DatabaseEditor;
 
 import edu.wpi.teame.App;
 import edu.wpi.teame.Database.SQLRepo;
+import edu.wpi.teame.map.HospitalNode;
 import edu.wpi.teame.map.MoveAttribute;
 import edu.wpi.teame.utilities.MoveUtilities;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -47,7 +48,6 @@ public class MoveComponentController {
     refreshFields();
     initTableAndList();
     initButtons();
-    confirmButton.setOnAction(e -> moveToNewNode());
   }
 
   private void initButtons() {
@@ -64,7 +64,20 @@ public class MoveComponentController {
           }
         });
     resetButton.setOnAction(event -> resetFieldSelections());
-    mapPreviewButton.setOnAction(event -> openStage());
+    confirmButton.setOnAction(e -> moveToNewNode());
+    mapPreviewButton.setOnAction(
+        event -> {
+          if (moveTab.isSelected()) {
+            if (departmentMoveSelector.getValue() != null && newNodeSelector.getValue() != null) {
+              openStage(movUtil.getNodeFromMove(movUtil.findMostRecentMoveByDate(departmentMoveSelector.getValue()).getNodeID()), movUtil.getNodeFromMove(newNodeSelector.getValue()));
+            }
+          } else {
+            if (departmentOneSelector.getValue() != null
+                && departmentTwoSelector.getValue() != null) {
+              openStage(movUtil.getNodeFromMove(movUtil.findMostRecentMoveByDate(departmentOneSelector.getValue()).getNodeID()), movUtil.getNodeFromMove(movUtil.findMostRecentMoveByDate(departmentTwoSelector.getValue()).getNodeID()));
+            }
+          }
+        });
   }
 
   private void refreshFields() {
@@ -155,7 +168,7 @@ public class MoveComponentController {
     moveCountText.setText(currentMoveList.getItems().size() + " Move(s) Today: ");
   }
 
-  private void openStage() {
+  private void openStage(HospitalNode mov1, HospitalNode mov2) {
     var resource = App.class.getResource("views/DatabaseEditor/MovePreview.fxml");
     //    @FXML MovePreviewController movePreviewController = new MovePreviewController();
     FXMLLoader loader = new FXMLLoader(resource);
