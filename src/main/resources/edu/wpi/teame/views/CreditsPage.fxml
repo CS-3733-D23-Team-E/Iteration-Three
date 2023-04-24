@@ -33,14 +33,30 @@
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Line endX="100.0" startX="-271.22607421875" startY="0.6213539242744446" />
-                  <VBox prefHeight="449.0" prefWidth="601.0" spacing="10.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="449.0" prefWidth="601.0" spacing="10.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0">
                            <font>
                               <Font name="Roboto" size="20.0" />
                            </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="APIs">
+                           <font>
+                              <Font name="Roboto Bold" size="36.0" />
+                           </font>
+                        </Text>
+                        <Line endX="100.0" startX="-15.150588989257812" startY="4.655122756958008E-5" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="GestureFX">
+                           <font>
+                              <Font name="Roboto" size="20.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ControlsFX">
+                           <font>
+                              <Font name="Roboto" size="20.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MaterialFX" wrappingWidth="100.534912109375">
                            <font>
                               <Font name="Roboto" size="20.0" />
                            </font>
@@ -50,27 +66,13 @@
                               <Font name="Roboto" size="20.0" />
                            </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Icons">
                            <font>
-                              <Font name="Roboto" size="20.0" />
+                              <Font name="Roboto Bold" size="36.0" />
                            </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="516.1694946289062">
-                           <font>
-                              <Font name="Roboto" size="20.0" />
-                           </font>
-                        </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0">
-                           <font>
-                              <Font name="Roboto" size="20.0" />
-                           </font>
-                        </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0">
-                           <font>
-                              <Font name="Roboto" size="20.0" />
-                           </font>
-                        </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                        <Line endX="100.0" startX="-15.150588989257812" startY="4.655122756958008E-5" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="All icons can be found at flaticon.com ">
                            <font>
                               <Font name="Roboto" size="20.0" />
                            </font>
