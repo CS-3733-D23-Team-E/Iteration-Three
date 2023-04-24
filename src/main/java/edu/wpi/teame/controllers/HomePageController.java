@@ -120,14 +120,6 @@ public class HomePageController {
           logoutPopup(logoutVisible);
         });
 
-    logoutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
-    menuBarServices.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUESTS));
-    menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
-    menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-    menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_TABLEVIEW));
-    menuBarAbout.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT));
-    menuBarExit.setOnMouseClicked((event -> Platform.exit()));
-
     // makes the menu bar buttons get highlighted when the mouse hovers over them
     ButtonUtilities.mouseSetupMenuBar(
         menuBarHome,
@@ -165,11 +157,7 @@ public class HomePageController {
         "images/sign-out-alt-blue.png");
 
     // makes the buttons highlight when they are hovered over
-    ButtonUtilities.mouseSetup(serviceRequestButton);
-    ButtonUtilities.mouseSetup(editSignageButton);
-    ButtonUtilities.mouseSetup(pathfindingButton);
-    ButtonUtilities.mouseSetup(databaseButton);
-    ButtonUtilities.mouseSetup(logoutButton);
+
   }
 
   public void attemptLogin() {
@@ -202,6 +190,7 @@ public class HomePageController {
     menuBarSignage.setVisible(bool);
     menuBarMaps.setVisible(bool);
     menuBarDatabase.setVisible(bool);
+    menuBarAbout.setVisible(bool);
     menuBarExit.setVisible(bool);
     menuBarBlank.setVisible(bool);
     menuBar.setVisible(bool);
