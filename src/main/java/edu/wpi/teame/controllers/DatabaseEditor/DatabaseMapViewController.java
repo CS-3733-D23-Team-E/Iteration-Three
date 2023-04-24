@@ -88,6 +88,7 @@ public class DatabaseMapViewController {
   List<HospitalEdge> deleteList = new LinkedList<>();
 
   List<HospitalEdge> workingList = new LinkedList<>();
+  List<Label> allNodeLabels = new LinkedList<>();
 
   HospitalNode curNode;
 
@@ -165,6 +166,12 @@ public class DatabaseMapViewController {
 
   }
 
+  private void labelsVisibility(boolean visible) {
+    for (Label aLabel : allNodeLabels) {
+      aLabel.setVisible(visible);
+    }
+  }
+
   private void deleteNode() {
     SQLRepo.INSTANCE.deletenode(curNode);
     displayAddMenu();
@@ -190,11 +197,6 @@ public class DatabaseMapViewController {
     }
   }
 
-  public void initialLoadFloor(Floor floor) {
-    currentFloor = floor;
-    loadFloorNodes();
-  }
-
   private void setupNode(HospitalNode node) {
 
     String nodeID = node.getNodeID();
@@ -202,10 +204,7 @@ public class DatabaseMapViewController {
 
     Circle nodeCircle = currentMapUtility.drawHospitalNode(node);
     Label nodeLabel = currentMapUtility.drawHospitalNodeLabel(node);
-    if (isLocationNamesDisplayed) {
-      nodeLabel.setVisible(true);
-    } else nodeLabel.setVisible(false);
-
+    allNodeLabels.add(nodeLabel);
     nodeCircle.setOnMouseClicked(
         event -> {
           if (currentCircle != null && currentLabel != null) {
@@ -542,8 +541,7 @@ public class DatabaseMapViewController {
     locationNameToggle.setOnAction(
         event -> {
           isLocationNamesDisplayed = locationNameToggle.isSelected();
-          loadFloorNodes();
-          System.out.println(isLocationNamesDisplayed);
+          labelsVisibility(isLocationNamesDisplayed);
         });
   }
 
