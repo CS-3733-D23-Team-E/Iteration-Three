@@ -49,7 +49,7 @@
                      <children>
                         <MFXButton fx:id="menuBarHome" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #001A3C; -fx-font-size: 18; -fx-text-fill: ffffff; -fx-background-radius: 0;" text=" Home">
                            <graphic>
-                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
+                              <ImageView fx:id="homeI" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
                                  <image>
                                     <Image url="@../images/house-blank.png" />
                                  </image>
@@ -58,7 +58,7 @@
                         </MFXButton>
                         <MFXButton fx:id="menuBarServices" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #001A3C; -fx-font-size: 18; -fx-text-fill: ffffff; -fx-background-radius: 0;" text="Services">
                            <graphic>
-                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
+                              <ImageView fx:id="servicesI" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
                                  <image>
                                     <Image url="@../images/hand-holding-medical.png" />
                                  </image>
@@ -67,7 +67,7 @@
                         </MFXButton>
                         <MFXButton fx:id="menuBarSignage" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #001A3C; -fx-font-size: 18; -fx-text-fill: ffffff; -fx-background-radius: 0;" text="Signage">
                            <graphic>
-                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
+                              <ImageView fx:id="signageI" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
                                  <image>
                                     <Image url="@../images/diamond-turn-right.png" />
                                  </image>
@@ -76,7 +76,7 @@
                         </MFXButton>
                         <MFXButton fx:id="menuBarMaps" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #001A3C; -fx-font-size: 18; -fx-text-fill: ffffff; -fx-background-radius: 0;" text="Maps">
                            <graphic>
-                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
+                              <ImageView fx:id="pathfindingI" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
                                  <image>
                                     <Image url="@../images/marker.png" />
                                  </image>
@@ -85,7 +85,7 @@
                         </MFXButton>
                         <MFXButton fx:id="menuBarDatabase" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #001A3C; -fx-font-size: 16; -fx-text-fill: ffffff; -fx-background-radius: 0;" text="Database">
                            <graphic>
-                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
+                              <ImageView fx:id="databaseI" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
                                  <image>
                                     <Image url="@../images/folder-tree.png" />
                                  </image>
@@ -95,7 +95,7 @@
                         <MFXButton fx:id="menuBarBlank" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="289.0" prefWidth="150.0" style="-fx-background-color: #001A3C; -fx-font-size: 16; -fx-text-fill: ffffff; -fx-background-radius: 0;" text=" " />
                         <MFXButton fx:id="menuBarExit" alignment="BOTTOM_CENTER" graphicTextGap="10.0" prefHeight="70.0" prefWidth="150.0" style="-fx-background-color: #001A3C; -fx-font-size: 18; -fx-text-fill: ffffff; -fx-background-radius: 0;" text="Exit">
                            <graphic>
-                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
+                              <ImageView fx:id="exitI" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
                                  <image>
                                     <Image url="@../images/sign-out-alt.png" />
                                  </image>

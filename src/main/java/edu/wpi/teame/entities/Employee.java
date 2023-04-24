@@ -53,7 +53,7 @@ public class Employee {
   public Employee(String fullName, String username, String permission) {
     this.fullName = fullName;
     this.permission = permission;
-    this.username = null;
+    this.username = username;
     this.password = null;
   }
 
