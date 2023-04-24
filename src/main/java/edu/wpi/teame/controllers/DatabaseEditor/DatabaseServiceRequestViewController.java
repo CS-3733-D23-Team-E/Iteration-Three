@@ -3,8 +3,6 @@ package edu.wpi.teame.controllers.DatabaseEditor;
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.entities.*;
 import edu.wpi.teame.map.*;
-import edu.wpi.teame.utilities.Navigation;
-import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
@@ -14,9 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.SearchableComboBox;
 
 public class DatabaseServiceRequestViewController {
-
-  @FXML MFXButton addMealButton;
-
   // Tabs
   @FXML TabPane serviceTableTabs;
   @FXML Tab mealTab;
@@ -100,8 +95,6 @@ public class DatabaseServiceRequestViewController {
 
   //////////////////////////////////////////
 
-  @FXML MFXButton tableEditorSwapButton;
-
   MealRequestData currentMealRequest;
   FlowerRequestData currentFlowerRequest;
   FurnitureRequestData currentFurnitureRequest;
@@ -129,8 +122,6 @@ public class DatabaseServiceRequestViewController {
     statusComboBox.setItems(FXCollections.observableArrayList(statuses));
 
     confirmButton.setOnMouseClicked(event -> updateDatabaseStatus());
-    tableEditorSwapButton.setOnMouseClicked(
-        event -> Navigation.navigate(Screen.DATABASE_TABLEVIEW));
 
     // fill table for meal requests
     mealRequestIDCol.setCellValueFactory(
