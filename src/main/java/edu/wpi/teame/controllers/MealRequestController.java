@@ -1,19 +1,18 @@
 package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.entities.Employee;
 import edu.wpi.teame.entities.MealRequestData;
 import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.util.List;
 import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class MealRequestController {
@@ -32,6 +31,8 @@ public class MealRequestController {
   @FXML TextField allergiesBox;
   @FXML SearchableComboBox<String> assignedStaff;
   @FXML MFXButton resetButton;
+  @FXML MFXButton closeButton;
+  @FXML VBox requestSubmittedBox;
 
   ObservableList<String> deliveryTimes =
       FXCollections.observableArrayList(
@@ -50,6 +51,8 @@ public class MealRequestController {
 
   @FXML
   public void initialize() {
+    requestSubmittedBox.setVisible(false);
+
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
     ObservableList<String> names =
         FXCollections.observableArrayList(
@@ -68,19 +71,12 @@ public class MealRequestController {
                 .sorted()
                 .toList());
 
-    /*assignedStaff.setItems(
-    FXCollections.observableList(
-        SQLRepo.INSTANCE.getEmployeeList().stream()
-            .filter(employee -> employee.getPermission().equals("STAFF"))
-            .map(employee -> employee.getFullName())
-            .toList()));*/
-
-    List<Employee> employeeList = SQLRepo.INSTANCE.getEmployeeList();
-    for (Employee emp : employeeList) {
-      staffMembers.add(emp.getUsername());
-    }
-
-    assignedStaff.setItems(FXCollections.observableArrayList(staffMembers));
+    assignedStaff.setItems(
+        FXCollections.observableList(
+            SQLRepo.INSTANCE.getEmployeeList().stream()
+                .filter(employee -> employee.getPermission().equals("STAFF"))
+                .map(employee -> employee.getUsername())
+                .toList()));
 
     roomName.setItems(names);
     mainCourse.setItems(mainCourses);
@@ -88,8 +84,15 @@ public class MealRequestController {
     drinkChoice.setItems(drinks);
     deliveryTime.setItems(deliveryTimes);
     cancelButton.setOnMouseClicked(event -> cancelRequest());
-    submitButton.setOnMouseClicked(event -> sendRequest());
+
     resetButton.setOnMouseClicked(event -> clearForm());
+    submitButton.setOnMouseClicked(
+        event -> {
+          sendRequest();
+          requestSubmittedBox.setVisible(true);
+          clearForm();
+        });
+    closeButton.setOnMouseClicked(event -> requestSubmittedBox.setVisible(false));
   }
 
   public MealRequestData sendRequest() {
@@ -114,7 +117,6 @@ public class MealRequestController {
     System.out.println("Meal Request Added");
 
     // Return to the home screen
-    Navigation.navigate(Screen.HOME);
 
     return requestData;
   }
