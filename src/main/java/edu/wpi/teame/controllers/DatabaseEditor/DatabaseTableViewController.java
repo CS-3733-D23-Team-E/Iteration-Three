@@ -161,6 +161,7 @@ public class DatabaseTableViewController {
 
     saveChooser.setTitle("Select where to save your file");
     saveChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV File", ".csv"));
+    saveChooser.setInitialFileName("Node_Table");
     selectChooser.setTitle("Select file to import");
 
     SQLRepo dC = SQLRepo.INSTANCE;
@@ -563,6 +564,7 @@ public class DatabaseTableViewController {
           importButton.setDisable(false);
           exportButton.setDisable(false);
           deleteButton.setDisable(false);
+          saveChooser.setInitialFileName("Edge_Table");
           break;
         case MOVE:
           activeTable = moveTable;
@@ -570,6 +572,7 @@ public class DatabaseTableViewController {
           importButton.setDisable(false);
           exportButton.setDisable(false);
           deleteButton.setDisable(false);
+          saveChooser.setInitialFileName("Move_Table");
           break;
         case NODE:
           activeTable = nodeTable;
@@ -577,6 +580,7 @@ public class DatabaseTableViewController {
           importButton.setDisable(false);
           exportButton.setDisable(false);
           deleteButton.setDisable(false);
+          saveChooser.setInitialFileName("Node_Table");
           break;
         case LOCATION_NAME:
           activeTable = locationTable;
@@ -584,6 +588,7 @@ public class DatabaseTableViewController {
           importButton.setDisable(false);
           exportButton.setDisable(false);
           deleteButton.setDisable(false);
+          saveChooser.setInitialFileName("Name_Table");
           break;
           //        case SERVICE_REQUESTS:
           //          activeTable = requestTable;

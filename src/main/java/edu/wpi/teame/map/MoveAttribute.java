@@ -3,6 +3,7 @@ package edu.wpi.teame.map;
 import lombok.Getter;
 
 public class MoveAttribute {
+
   @Getter int nodeID;
   @Getter String longName;
   @Getter String date;
