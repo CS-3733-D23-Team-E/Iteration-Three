@@ -14,7 +14,7 @@
    <children>
       <HBox>
          <children>
-            <VBox alignment="TOP_CENTER" minWidth="-Infinity" prefWidth="225.0" spacing="20.0" style="-fx-background-color: #f1f1f1;">
+            <VBox fx:id="sidebar" alignment="TOP_CENTER" minWidth="-Infinity" prefWidth="225.0" spacing="20.0" style="-fx-background-color: #f1f1f1;">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data Table">
                      <font>
@@ -44,12 +44,12 @@
                         <Font name="Roboto" size="16.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton fx:id="requestsButton" layoutX="48.0" layoutY="106.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: #001A3C;" text="Requests Editor" textFill="WHITE">
+                  <MFXButton fx:id="requestsEditorSwapButton" layoutX="48.0" layoutY="106.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: #001A3C;" text="Requests Editor" textFill="WHITE">
                      <font>
                         <Font name="Roboto" size="16.0" />
                      </font>
                   </MFXButton>
-                  <VBox alignment="TOP_CENTER" spacing="20.0">
+                  <VBox fx:id="importExportZone" alignment="TOP_CENTER" spacing="20.0">
                      <children>
                         <Line endX="125.0" />
                         <MFXButton fx:id="importButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: #001A3C;" text="Import" textFill="WHITE">
@@ -79,10 +79,10 @@
             </VBox>
             <StackPane>
                <children>
-                  <fx:include source="MoveComponent.fxml" />
+                  <fx:include fx:id="moveView" source="MoveComponent.fxml" />
                   <fx:include fx:id="tableView" source="DatabaseTableView.fxml" />
                   <fx:include fx:id="mapView" source="DatabaseMapView.fxml" />
-                  <fx:include source="DatabaseServiceRequestView.fxml" />
+                  <fx:include fx:id="serviceView" source="DatabaseServiceRequestView.fxml" />
                </children>
             </StackPane>
          </children>

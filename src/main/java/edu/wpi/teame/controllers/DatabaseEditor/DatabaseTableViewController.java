@@ -356,85 +356,51 @@ public class DatabaseTableViewController {
 
     importButton.setOnMouseClicked(
         event -> {
-          File selectedFile = selectChooser.showOpenDialog(App.getPrimaryStage());
-          if (selectedFile == null) {
-            // cancel
-          } else {
-            // add the file
-
-            dC.importFromCSV(activeTableEnum, selectedFile.getAbsolutePath());
-            // refresh
-            switch (activeTableEnum) {
-              case MOVE:
-                activeTable.setItems(FXCollections.observableArrayList(dC.getMoveList()));
-                break;
-              case NODE:
-                activeTable.setItems(FXCollections.observableArrayList(dC.getNodeList()));
-                break;
-              case LOCATION_NAME:
-                activeTable.setItems(FXCollections.observableArrayList(dC.getLocationList()));
-                break;
-              case EDGE:
-                activeTable.setItems(FXCollections.observableArrayList(dC.getEdgeList()));
-                break;
-            }
-            activeTable.refresh();
-            /*
-            try {
-              dC.importFromCSV(
-                      activeTableEnum,
-                  selectedFile.getAbsolutePath());
-              // refresh
-              switch (activeTableEnum) {
-                case MOVE:
-                  activeTable.setItems(FXCollections.observableArrayList(dC.getMoveList()));
-                  break;
-                case NODE:
-                  activeTable.setItems(FXCollections.observableArrayList(dC.getNodeList()));
-                  break;
-                case LOCATION_NAME:
-                  activeTable.setItems(FXCollections.observableArrayList(dC.getLocationList()));
-                  break;
-                case EDGE:
-                  activeTable.setItems(FXCollections.observableArrayList(dC.getEdgeList()));
-                  break;
-              }
-
-            } catch (IOException e) {
-              System.out.println("You messed up big time!!!!!!");
-              System.out.println(e);
-            }
-
-             */
-          }
+          //          File selectedFile = selectChooser.showOpenDialog(App.getPrimaryStage());
+          //          if (selectedFile == null) {
+          //            // cancel
+          //          } else {
+          //            // add the file
+          //
+          //            dC.importFromCSV(activeTableEnum, selectedFile.getAbsolutePath());
+          //            // refresh
+          //            switch (activeTableEnum) {
+          //              case MOVE:
+          //
+          // activeTable.setItems(FXCollections.observableArrayList(dC.getMoveList()));
+          //                break;
+          //              case NODE:
+          //
+          // activeTable.setItems(FXCollections.observableArrayList(dC.getNodeList()));
+          //                break;
+          //              case LOCATION_NAME:
+          //
+          // activeTable.setItems(FXCollections.observableArrayList(dC.getLocationList()));
+          //                break;
+          //              case EDGE:
+          //
+          // activeTable.setItems(FXCollections.observableArrayList(dC.getEdgeList()));
+          //                break;
+          //            }
+          //            activeTable.refresh();
+          importTable();
         });
 
     exportButton.setOnMouseClicked(
         event -> {
-          // File selectedDirectory = directoryChooser.showDialog(App.getPrimaryStage());
-          File selectedFile = saveChooser.showSaveDialog(App.getPrimaryStage());
-          if (selectedFile == null) {
-            // cancel
-          } else {
-            // export to the given path
-
-            dC.exportToCSV(
-                activeTableEnum,
-                selectedFile.getParentFile().getAbsolutePath(),
-                selectedFile.getName());
-            /*
-            try {
-              dC.exportToCSV(
-                  activeTableEnum,
-                  selectedFile.getParentFile().getAbsolutePath(),
-                  selectedFile.getName());
-            } catch (SQLException | IOException e) {
-              System.out.println("You messed up big time!!!!!!");
-              System.out.println(e);
-            }
-
-             */
-          }
+          //          // File selectedDirectory =
+          // directoryChooser.showDialog(App.getPrimaryStage());
+          //          File selectedFile = saveChooser.showSaveDialog(App.getPrimaryStage());
+          //          if (selectedFile == null) {
+          //            // cancel
+          //          } else {
+          //            // export to the given path
+          //            dC.exportToCSV(
+          //                    activeTableEnum,
+          //                    selectedFile.getParentFile().getAbsolutePath(),
+          //                    selectedFile.getName());
+          //          }
+          exportTable();
         });
   }
 
@@ -693,5 +659,45 @@ public class DatabaseTableViewController {
               FXCollections.observableArrayList(SQLRepo.INSTANCE.getLocationList()));
           locationTable.refresh();
         });
+  }
+
+  public void importTable() {
+    File selectedFile = selectChooser.showOpenDialog(App.getPrimaryStage());
+    if (selectedFile == null) {
+      // cancel
+    } else {
+      // add the file
+
+      SQLRepo.INSTANCE.importFromCSV(activeTableEnum, selectedFile.getAbsolutePath());
+      // refresh
+      switch (activeTableEnum) {
+        case MOVE:
+          activeTable.setItems(FXCollections.observableArrayList(SQLRepo.INSTANCE.getMoveList()));
+          break;
+        case NODE:
+          activeTable.setItems(FXCollections.observableArrayList(SQLRepo.INSTANCE.getNodeList()));
+          break;
+        case LOCATION_NAME:
+          activeTable.setItems(
+              FXCollections.observableArrayList(SQLRepo.INSTANCE.getLocationList()));
+          break;
+        case EDGE:
+          activeTable.setItems(FXCollections.observableArrayList(SQLRepo.INSTANCE.getEdgeList()));
+          break;
+      }
+      activeTable.refresh();
+    }
+  }
+
+  public void exportTable() {
+    // File selectedDirectory = directoryChooser.showDialog(App.getPrimaryStage());
+    File selectedFile = saveChooser.showSaveDialog(App.getPrimaryStage());
+    if (selectedFile == null) {
+      // cancel
+    } else {
+      // export to the given path
+      SQLRepo.INSTANCE.exportToCSV(
+          activeTableEnum, selectedFile.getParentFile().getAbsolutePath(), selectedFile.getName());
+    }
   }
 }
