@@ -150,5 +150,4 @@ public class OfficeSuppliesDAO<E> extends ServiceDAO<OfficeSuppliesData> {
       e.printStackTrace();
     }
   }
-
 }

@@ -3,80 +3,84 @@ package edu.wpi.teame.Database;
 import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.teame.entities.MedicalSuppliesData;
-import edu.wpi.teame.entities.OfficeSuppliesData;
+import edu.wpi.teame.entities.ServiceRequestData;
 import java.io.File;
 import java.util.List;
 import javax.swing.filechooser.FileSystemView;
 import org.junit.jupiter.api.Test;
+
 public class MedicalSuppliesDAOTest {
 
-    @Test
-    public void testGetAddDelete() {
-        SQLRepo.INSTANCE.connectToDatabase("teame", "teame50");
+  @Test
+  public void testGetAddDelete() {
+    SQLRepo.INSTANCE.connectToDatabase("teame", "teame50");
 
-        List<MedicalSuppliesData> medicalSuppliesData = SQLRepo.INSTANCE.getM();
+    List<MedicalSuppliesData> medicalSuppliesData = SQLRepo.INSTANCE.getMedicalSuppliesList();
 
-        OfficeSuppliesData ofd =
-                new OfficeSuppliesData(
-                        1,
-                        "joseph",
-                        "Cafe",
-                        "2023-04-07",
-                        "3:12PM",
-                        "Joseph",
-                        "rulers",
-                        "2",
-                        "fast",
-                        OfficeSuppliesData.Status.PENDING);
-        SQLRepo.INSTANCE.addServiceRequest(ofd);
+    MedicalSuppliesData ofd =
+        new MedicalSuppliesData(
+            1,
+            "joseph",
+            "Cafe",
+            "2023-04-07",
+            "3:12PM",
+            "Joseph",
+            "Needle",
+            "2",
+            "fast",
+            ServiceRequestData.Status.PENDING);
+    SQLRepo.INSTANCE.addServiceRequest(ofd);
 
-        List<OfficeSuppliesData> officeSupplyRequestAdded = SQLRepo.INSTANCE.getOfficeSupplyList();
-        assertEquals(officeSupplyRequestAdded.size(), officeSupply.size() + 1);
+    List<MedicalSuppliesData> medicalSuppliesAdded = SQLRepo.INSTANCE.getMedicalSuppliesList();
+    assertEquals(medicalSuppliesData.size() + 1, medicalSuppliesAdded.size());
 
-        SQLRepo.INSTANCE.deleteServiceRequest(ofd);
-        List<OfficeSuppliesData> officeSupplyRequestDeleted = SQLRepo.INSTANCE.getOfficeSupplyList();
-        assertEquals(officeSupplyRequestDeleted.size(), officeSupply.size());
+    SQLRepo.INSTANCE.deleteServiceRequest(ofd);
+    List<MedicalSuppliesData> medicalSupplyRequestDeleted =
+        SQLRepo.INSTANCE.getMedicalSuppliesList();
+    assertEquals(medicalSupplyRequestDeleted.size(), medicalSuppliesData.size());
 
-        SQLRepo.INSTANCE.exitDatabaseProgram();
-    }
+    SQLRepo.INSTANCE.exitDatabaseProgram();
+  }
 
-    @Test
-    public void testUpdate() {
-        SQLRepo.INSTANCE.connectToDatabase("teame", "teame50");
+  @Test
+  public void testUpdate() {
+    SQLRepo.INSTANCE.connectToDatabase("teame", "teame50");
 
-        OfficeSuppliesData officeSupplyRequest =
-                new OfficeSuppliesData(
-                        0,
-                        "joseph",
-                        "Cafe",
-                        "2023-04-07",
-                        "3:12PM",
-                        "Joseph",
-                        "rulers",
-                        "2",
-                        "fast",
-                        OfficeSuppliesData.Status.PENDING);
+    List<MedicalSuppliesData> medicalSuppliesData = SQLRepo.INSTANCE.getMedicalSuppliesList();
 
-        SQLRepo.INSTANCE.addServiceRequest(officeSupplyRequest);
-        SQLRepo.INSTANCE.updateServiceRequest(officeSupplyRequest, "status", "DONE");
-        SQLRepo.INSTANCE.deleteServiceRequest(officeSupplyRequest);
+    MedicalSuppliesData ofd =
+        new MedicalSuppliesData(
+            1,
+            "joseph",
+            "Cafe",
+            "2023-04-07",
+            "3:12PM",
+            "Joseph",
+            "Needle",
+            "2",
+            "fast",
+            ServiceRequestData.Status.PENDING);
+    SQLRepo.INSTANCE.addServiceRequest(ofd);
 
-        SQLRepo.INSTANCE.exitDatabaseProgram();
-    }
+    SQLRepo.INSTANCE.updateServiceRequest(ofd, "status", "DONE");
+    // SQLRepo.INSTANCE.deleteServiceRequest(ofd);
 
-    @Test
-    public void testImportExport() {
-        SQLRepo.INSTANCE.connectToDatabase("teame", "teame50");
+    SQLRepo.INSTANCE.exitDatabaseProgram();
+  }
 
-        FileSystemView view = FileSystemView.getFileSystemView();
-        File file = view.getHomeDirectory();
-        String desktopPath = file.getPath();
+  @Test
+  public void testImportExport() {
+    SQLRepo.INSTANCE.connectToDatabase("teame", "teame50");
 
-        String tableName = "OfficeSupplies";
+    FileSystemView view = FileSystemView.getFileSystemView();
+    File file = view.getHomeDirectory();
+    String desktopPath = file.getPath();
 
-        SQLRepo.INSTANCE.exportToCSV(SQLRepo.Table.OFFICE_SUPPLY, desktopPath, tableName);
-        SQLRepo.INSTANCE.importFromCSV(SQLRepo.Table.OFFICE_SUPPLY, desktopPath + "\\" + tableName);
+    String tableName = "MedicalSupplies";
 
-        SQLRepo.INSTANCE.exitDatabaseProgram();
-    }
+    SQLRepo.INSTANCE.exportToCSV(SQLRepo.Table.MEDICAL_SUPPLIES, desktopPath, tableName);
+    SQLRepo.INSTANCE.importFromCSV(SQLRepo.Table.MEDICAL_SUPPLIES, desktopPath + "\\" + tableName);
+
+    SQLRepo.INSTANCE.exitDatabaseProgram();
+  }
 }
