@@ -83,6 +83,14 @@ public class MapController {
   @FXML ImageView databaseI;
   @FXML ImageView exitI;
   boolean isPathDisplayed = false;
+  String language = "spanish";
+  String nyay = "\u00F1"; // ñ
+  String aA = "\u0301"; // á
+  String aE = "\u00E9"; // é
+  String aI = "\u00ED"; // í
+  String aO = "\u00F3"; // ó
+  String aU = "\u00FA"; // ù
+  String aQuestion = "\u00BF"; // Upside down question mark
   Floor currentFloor = Floor.LOWER_TWO;
 
   Circle currentCircle = new Circle();
@@ -186,6 +194,15 @@ public class MapController {
     SQLRepo.INSTANCE.getLocationList();
 
     resetComboboxes();
+
+    if (language.equals("english")) {
+      translateToEnglish();
+    } else if (language.equals("spanish")) {
+      translateToSpanish();
+    } else // throw error for language not being a valid language
+    {
+      // throw some sort of error here at some point
+    }
   }
 
   private void initializeMapUtilities() {
@@ -572,5 +589,45 @@ public class MapController {
       // Add path label to VBox
       vbox.getChildren().add(hBox);
     }
+  }
+
+  public void translateToSpanish(String announcmentString) {
+    // Change language variable
+    language = "spanish";
+
+    // Menu Bar
+    menuBarHome.setText("Principal"); // Home
+    menuBarServices.setText("Servicios"); // Services
+    menuBarSignage.setText("Se" + nyay + "alizaci" + aO + "n"); // Signage
+    menuBarMaps.setText("Navegaci" + aO + "n"); // Pathfinding
+    menuBarDatabase.setText("Base de Datos"); // Database
+    menuBarExit.setText(("Salida")); // Exit
+
+    /* Uncomment when logout button is fixed
+    // Logout Button
+    logoutButton.setText("Cerrar Sesi" + aO + "n"); // Logout
+    Font spanishLogout = new Font("Roboto", 13);
+    logoutButton.setFont(spanishLogout);
+     */
+  }
+
+  public void translateToEnglish(String announcmentString) {
+    // Change language variable
+    language = "english";
+
+    // Menu Bar
+    menuBarHome.setText("Home"); // Keep in English
+    menuBarServices.setText("Services"); // Keep in English
+    menuBarSignage.setText("Signage"); // Keep in English
+    menuBarMaps.setText("Pathfinding"); // Keep in English
+    menuBarDatabase.setText("Database"); // Keep in English
+    menuBarExit.setText(("Exit")); // Keep in English
+
+    /* Uncomment when logout button is fixed
+    // Logout Button
+    logoutButton.setText("Logout"); // Keep in English
+    Font englishLogout = new Font("Roboto", 18);
+    logoutButton.setFont(englishLogout);
+     */
   }
 }
