@@ -71,7 +71,7 @@ public class DatabaseMapViewController {
   @FXML ImageView mapImageThree; // Floor 3
   @FXML MFXButton tableEditorSwapButton;
   @FXML MFXToggleButton locationNameToggle;
-  boolean isLocationNamesDisplayed;
+  boolean isLocationNamesDisplayed = false;
 
   Floor currentFloor;
   MapUtilities mapUtilityLowerTwo = new MapUtilities(mapPaneLowerTwo);
@@ -192,6 +192,7 @@ public class DatabaseMapViewController {
               HospitalNode.allNodes.get(edge.getNodeOneID()),
               HospitalNode.allNodes.get(edge.getNodeTwoID()));
     }
+    allNodeLabels.clear();
     for (HospitalNode node : floorNodes) {
       setupNode(node);
     }
