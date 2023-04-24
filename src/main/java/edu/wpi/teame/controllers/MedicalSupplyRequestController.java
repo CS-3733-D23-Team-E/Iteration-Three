@@ -74,13 +74,6 @@ public class MedicalSupplyRequestController {
                 .map(employee -> employee.getUsername())
                 .toList()));
 
-    //    List<Employee> employeeList = SQLRepo.INSTANCE.getEmployeeList();
-    //    for (Employee emp : employeeList) {
-    //      staffMembers.add(emp.getUsername());
-    //    }
-
-    // assignedStaff.setItems(FXCollections.observableArrayList(staffMembers));
-
     roomName.setItems(names);
     deliveryTime.setItems(deliveryTimes);
     supplyType.setItems(MedicalSupplies);
