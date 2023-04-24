@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class OfficeSuppliesController {
@@ -31,6 +32,8 @@ public class OfficeSuppliesController {
   @FXML SearchableComboBox<String> supplyType;
   @FXML TextField numberOfSupplies;
   @FXML SearchableComboBox<String> assignedStaff;
+  @FXML MFXButton closeButton;
+  @FXML VBox requestSubmittedBox;
 
   ObservableList<String> deliveryTimes =
       FXCollections.observableArrayList(
@@ -43,6 +46,8 @@ public class OfficeSuppliesController {
 
   @FXML
   public void initialize() {
+    requestSubmittedBox.setVisible(false);
+
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
     ObservableList<String> names =
         FXCollections.observableArrayList(
@@ -78,9 +83,16 @@ public class OfficeSuppliesController {
     roomName.setItems(names);
     deliveryTime.setItems(deliveryTimes);
     supplyType.setItems(officeSupplies);
-    submitButton.setOnMouseClicked(event -> sendRequest());
+
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
+    submitButton.setOnMouseClicked(
+        event -> {
+          sendRequest();
+          requestSubmittedBox.setVisible(true);
+          clearForm();
+        });
+    closeButton.setOnMouseClicked(event -> requestSubmittedBox.setVisible(false));
   }
 
   private void clearForm() {
@@ -106,7 +118,7 @@ public class OfficeSuppliesController {
             numberOfSupplies.getText(),
             notes.getText(),
             OfficeSuppliesData.Status.PENDING);
-    Navigation.navigate(Screen.HOME);
+
     SQLRepo.INSTANCE.addServiceRequest(requestData);
     return requestData;
   }

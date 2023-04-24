@@ -5,8 +5,6 @@ import static edu.wpi.teame.map.HospitalNode.allNodes;
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.map.*;
 import edu.wpi.teame.utilities.MapUtilities;
-import edu.wpi.teame.utilities.Navigation;
-import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.time.LocalDate;
 import java.util.*;
@@ -37,7 +35,6 @@ public class DatabaseMapViewController {
   @FXML GesturePane gesturePaneOne;
   @FXML GesturePane gesturePaneTwo;
   @FXML GesturePane gesturePaneThree;
-
   @FXML Tab floorOneTab;
   @FXML Tab floorTwoTab;
   @FXML Tab floorThreeTab;
@@ -78,7 +75,6 @@ public class DatabaseMapViewController {
   @FXML ImageView mapImageOne; // Floor 1
   @FXML ImageView mapImageTwo; // Floor 2
   @FXML ImageView mapImageThree; // Floor 3
-  @FXML MFXButton tableEditorSwapButton;
 
   Floor currentFloor;
   MapUtilities mapUtilityLowerTwo = new MapUtilities(mapPaneLowerTwo);
@@ -148,11 +144,6 @@ public class DatabaseMapViewController {
                 loadFloorNodes();
               }
             });
-
-    tableEditorSwapButton.setOnMouseClicked(
-        event -> {
-          Navigation.navigate(Screen.DATABASE_TABLEVIEW);
-        });
 
     edgeColumn.setCellValueFactory(new PropertyValueFactory<HospitalEdge, String>("nodeTwoID"));
 
