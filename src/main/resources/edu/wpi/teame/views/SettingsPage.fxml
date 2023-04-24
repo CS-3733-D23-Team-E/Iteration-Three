@@ -1,22 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXRadioButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.SettingsPageController">
    <center>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+      <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: e1e1e1;">
          <children>
+            <StackPane prefHeight="1005.0" prefWidth="1920.0" AnchorPane.topAnchor="75.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="1005.0" opacity="0.65" stroke="BLACK" strokeType="INSIDE" width="1720.0" />
+                  <TabPane maxWidth="1090.0" prefHeight="200.0" prefWidth="1090.0" style="-fx-background-color: #f1f1f1;" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="200.0">
+                    <tabs>
+                      <Tab text="Account">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <HBox prefHeight="970.0" prefWidth="1090.0" spacing="5.0">
+                                       <children>
+                                          <VBox alignment="TOP_RIGHT" prefHeight="970.0" prefWidth="540.0" />
+                                          <Line endX="100.0" rotate="90.0" scaleX="3.0" startX="-100.0" stroke="#012d5a" strokeWidth="5.0">
+                                             <HBox.margin>
+                                                <Insets top="500.0" />
+                                             </HBox.margin>
+                                          </Line>
+                                          <VBox maxHeight="970.0" maxWidth="1090.0" prefHeight="970.0" prefWidth="540.0">
+                                             <children>
+                                                <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Color Scheme Options">
+                                                         <font>
+                                                            <Font name="Roboto Black" size="36.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <MFXRadioButton text="Light Mode">
+                                                         <font>
+                                                            <Font name="Roboto" size="24.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </VBox.margin>
+                                                      </MFXRadioButton>
+                                                      <MFXRadioButton text="Dark Mode">
+                                                         <font>
+                                                            <Font name="Roboto" size="24.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </VBox.margin>
+                                                      </MFXRadioButton>
+                                                      <MFXRadioButton text="Color-Blind Mode">
+                                                         <font>
+                                                            <Font name="Roboto" size="24.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </VBox.margin>
+                                                      </MFXRadioButton>
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets top="50.0" />
+                                                   </VBox.margin>
+                                                </VBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab text="Languages ">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+               </children>
+            </StackPane>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="75.0" stroke="BLACK" strokeType="INSIDE" width="1920.0" />
             <HBox alignment="CENTER_LEFT" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="1900.0" spacing="1750.0">
                <children>
@@ -148,7 +224,7 @@
                      <graphic>
                         <ImageView fx:id="homeI11" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
                            <image>
-                              <Image url="@../images/house-blank.png" />
+                              <Image url="@../images/interrogation.png" />
                            </image>
                         </ImageView>
                      </graphic>
