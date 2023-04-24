@@ -28,4 +28,8 @@ public class HospitalEdge {
   public int getEdgeWeight() {
     return this.edgeWeight;
   }
+
+  public static void deleteEdge(HospitalEdge edge) {
+    HospitalNode.removeEdge(edge.getNodeOneID(), edge.getNodeTwoID());
+  }
 }

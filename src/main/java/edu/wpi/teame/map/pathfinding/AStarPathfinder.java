@@ -50,7 +50,6 @@ class AStarPathfinder extends AbstractPathfinder {
 
           queue.remove(neighbor); // Remove and add to re-sort the priority queue
 
-
           queue.add(neighbor);
           parentMap.put(neighbor, current);
         }
