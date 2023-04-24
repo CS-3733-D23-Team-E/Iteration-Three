@@ -4,6 +4,7 @@ import static java.util.Objects.hash;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.NoSuchElementException;
 import lombok.Getter;
 
@@ -123,5 +124,11 @@ public class LocationName {
   @Override
   public int hashCode() {
     return hash(longName);
+  }
+
+  public static void processLocationList(List<LocationName> locationList) {
+    for (LocationName location : locationList) {
+      allLocations.put(location.getLongName(), location);
+    }
   }
 }

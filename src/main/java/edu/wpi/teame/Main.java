@@ -10,7 +10,7 @@ public class Main {
     SQLRepo.INSTANCE.connectToDatabase("teame", "teame50");
     HospitalNode.processNodeList(SQLRepo.INSTANCE.getNodeList());
     HospitalNode.processEdgeList(SQLRepo.INSTANCE.getEdgeList());
-    SQLRepo.INSTANCE.getLocationList();
+    LocationName.processLocationList(SQLRepo.INSTANCE.getLocationList());
     System.out.println(LocationName.allLocations.keySet());
     App.launch(App.class, args);
   }
