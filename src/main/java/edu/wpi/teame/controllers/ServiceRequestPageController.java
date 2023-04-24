@@ -38,9 +38,10 @@ public class ServiceRequestPageController {
 
   @FXML MFXButton spanishButton;
   @FXML MFXButton englishButton;
+
   @FXML Text totalRequestsText;
-  @FXML Text requestStatusText;
-  @FXML Text pendingRequestsText;
+  @FXML Text requestStatusTitleText;
+  @FXML Text pendingRequestsTitleText;
 
   boolean menuVisibilty = false;
   boolean logoutVisible = false;
@@ -192,9 +193,9 @@ public class ServiceRequestPageController {
     logoutButton.setFont(spanishLogout);
 
     // Request Status Bar
-    totalRequestsText.setText("Total de Solicitudes"); // Total Requests
-    requestStatusText.setText("Estado de la Solicitud"); // Request Status
-    // pendingRequestsText.setText("Solicitudes Pendientes"); // Pending Requests
+    totalRequestsText.setText("Pendiente"); // Pending:
+    requestStatusTitleText.setText("En Curso"); // In Progress:
+    pendingRequestsTitleText.setText("Completo"); // Completed:
   }
 
   public void translateToEnglish() {
@@ -216,7 +217,7 @@ public class ServiceRequestPageController {
 
     // Request Status Bar
     totalRequestsText.setText("Total Requests"); // Keep in English
-    requestStatusText.setText("Request Status"); // Keep in English
-    // pendingRequestsText.setText("Pending Requests"); // Keep in English
+    requestStatusTitleText.setText("Request Status"); // Keep in English
+    pendingRequestsTitleText.setText("Pending Requests"); // Keep in English
   }
 }

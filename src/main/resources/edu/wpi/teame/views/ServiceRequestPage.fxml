@@ -73,7 +73,7 @@
                                     </VBox>
                                     <VBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="161.0">
                                        <children>
-                                          <Text fx:id="requestStatusText" strokeType="OUTSIDE" strokeWidth="0.0" text="Request Status">
+                                          <Text fx:id="requestStatusTitleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Request Status">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -92,7 +92,7 @@
                                     </VBox>
                                     <VBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="161.0">
                                        <children>
-                                          <Text fx:id="pendingRequestsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Pending Requests">
+                                          <Text fx:id="pendingRequestsTitleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Pending Requests">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
