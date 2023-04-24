@@ -230,7 +230,7 @@
                   </Line>
                   <MFXButton fx:id="menuBarSignage" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="Signage" textFill="#f1f1f1">
                      <graphic>
-                        <ImageView fx:id="singageI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                        <ImageView fx:id="signageI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
                            <image>
                               <Image url="@../images/diamond-turn-right.png" />
                            </image>
