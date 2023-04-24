@@ -8,6 +8,7 @@ import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -43,6 +44,11 @@ public class ServiceRequestPageController {
   @FXML Text requestStatusTitleText;
   @FXML Text pendingRequestsTitleText;
   @FXML Text nonCompletedRequestsText;
+  @FXML Tab flowerRequestTab;
+  @FXML Tab mealRequestTab;
+  @FXML Tab officeSuppliesTab;
+  @FXML Tab conferenceRoomTab;
+  @FXML Tab furnitureDeliveryTab;
 
   boolean menuVisibilty = false;
   boolean logoutVisible = false;
@@ -198,6 +204,13 @@ public class ServiceRequestPageController {
     requestStatusTitleText.setText("En Curso"); // In Progress:
     pendingRequestsTitleText.setText("Completo"); // Completed:
     nonCompletedRequestsText.setText("Solicitudes No Completadas"); // Non-Completed Requests
+
+    // Service Request Tabs
+    flowerRequestTab.setText("Solicitud de Flores"); // Flower Request
+    mealRequestTab.setText("Solicitud de Comida"); // Meal Request
+    officeSuppliesTab.setText("Suministros de Oficina"); // Office Supplies
+    conferenceRoomTab.setText("Sala de Conferencias"); // Conference Room
+    furnitureDeliveryTab.setText("Entrega de Muebles"); // Furniture Delivery
   }
 
   public void translateToEnglish() {
@@ -221,5 +234,12 @@ public class ServiceRequestPageController {
     totalRequestsText.setText("Total Requests"); // Keep in English
     requestStatusTitleText.setText("Request Status"); // Keep in English
     pendingRequestsTitleText.setText("Pending Requests"); // Keep in English
+
+    // Service Request Tabs
+    flowerRequestTab.setText("Flower Request"); // Flower Request
+    mealRequestTab.setText("Meal Request"); // Meal Request
+    officeSuppliesTab.setText("Office Supplies"); // Office Supplies
+    conferenceRoomTab.setText("Conference Room"); // Conference Room
+    furnitureDeliveryTab.setText("Furniture Delivery"); // Furniture Delivery
   }
 }

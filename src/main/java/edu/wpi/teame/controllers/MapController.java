@@ -84,12 +84,12 @@ public class MapController {
   @FXML ImageView exitI;
   boolean isPathDisplayed = false;
   String language = "spanish";
-  String nyay = "\u00F1"; // ñ
-  String aA = "\u0301"; // á
-  String aE = "\u00E9"; // é
-  String aI = "\u00ED"; // í
-  String aO = "\u00F3"; // ó
-  String aU = "\u00FA"; // ù
+  String nyay = "\u00F1"; // ï¿½
+  String aA = "\u0301"; // ï¿½
+  String aE = "\u00E9"; // ï¿½
+  String aI = "\u00ED"; // ï¿½
+  String aO = "\u00F3"; // ï¿½
+  String aU = "\u00FA"; // ï¿½
   String aQuestion = "\u00BF"; // Upside down question mark
   Floor currentFloor = Floor.LOWER_TWO;
 
@@ -591,7 +591,7 @@ public class MapController {
     }
   }
 
-  public void translateToSpanish(String announcmentString) {
+  public void translateToSpanish() {
     // Change language variable
     language = "spanish";
 
@@ -603,6 +603,8 @@ public class MapController {
     menuBarDatabase.setText("Base de Datos"); // Database
     menuBarExit.setText(("Salida")); // Exit
 
+    startButton.setText("Comenzar"); // Start
+
     /* Uncomment when logout button is fixed
     // Logout Button
     logoutButton.setText("Cerrar Sesi" + aO + "n"); // Logout
@@ -611,7 +613,7 @@ public class MapController {
      */
   }
 
-  public void translateToEnglish(String announcmentString) {
+  public void translateToEnglish() {
     // Change language variable
     language = "english";
 
@@ -622,6 +624,8 @@ public class MapController {
     menuBarMaps.setText("Pathfinding"); // Keep in English
     menuBarDatabase.setText("Database"); // Keep in English
     menuBarExit.setText(("Exit")); // Keep in English
+
+    startButton.setText("Start"); // Start
 
     /* Uncomment when logout button is fixed
     // Logout Button

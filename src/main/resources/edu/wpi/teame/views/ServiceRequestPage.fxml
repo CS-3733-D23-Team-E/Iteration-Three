@@ -137,27 +137,27 @@
             </ScrollPane>
             <TabPane prefHeight="200.0" prefWidth="900.0" style="-fx-border-color: #8e8e8e; -fx-border-radius: 10;" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="180.0" tabMinHeight="40.0" tabMinWidth="160.0">
               <tabs>
-                <Tab text="Flower Request">
+                <Tab fx:id="flowerRequestTab" text="Flower Request">
                      <content>
                         <fx:include source="FlowerRequest.fxml" />
                      </content>
                 </Tab>
-                <Tab text="Meal Request">
+                <Tab fx:id="mealRequestTab" text="Meal Request">
                      <content>
                         <fx:include source="MealRequest.fxml" />
                      </content>
                 </Tab>
-                  <Tab text="Office Supplies">
+                  <Tab fx:id="officeSuppliesTab" text="Office Supplies">
                      <content>
                         <fx:include source="OfficeSuppliesRequest.fxml" />
                      </content>
                   </Tab>
-                  <Tab text="Conference Room">
+                  <Tab fx:id="conferenceRoomTab" text="Conference Room">
                      <content>
                         <fx:include source="RoomRequestPage.fxml" />
                      </content>
                   </Tab>
-                  <Tab text="Furniture Delivery">
+                  <Tab fx:id="furnitureDeliveryTab" text="Furniture Delivery">
                      <content>
                         <fx:include source="FurnitureRequest.fxml" />
                      </content>
