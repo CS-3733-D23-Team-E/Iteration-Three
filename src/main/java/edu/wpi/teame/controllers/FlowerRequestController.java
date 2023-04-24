@@ -60,13 +60,13 @@ public class FlowerRequestController {
   @FXML Text notesText;
 
   String language = "spanish";
-  String nyay = "\u00F1"; // �
-  String aA = "\u0301"; // �
-  String aE = "\u00E9"; // �
-  String aI = "\u00ED"; // �
-  String aO = "\u00F3"; // �
-  String aU = "\u00F9"; // �
-  String aQuestion = "\u00BF";
+  String nyay = "\u00F1"; // spanish n
+  String aA = "\u0301"; // a with accent
+  String aE = "\u00E9"; // e with accent
+  String aI = "\u00ED"; // i with accent
+  String aO = "\u00F3"; // o with accent
+  String aU = "\u00F9"; // u with accent
+  String aQuestion = "\u00BF"; // upside down question mark
 
   @FXML
   public void initialize() {
@@ -189,20 +189,20 @@ public class FlowerRequestController {
 
   public void translateToEnglish() {
     recipientNameText.setText("Recipient Name"); // Keep in English
-    flowerChoiceText.setText("Flower Choice"); // Flower Choice
-    roomText.setText("Room"); // Room
-    numberOfFlowersText.setText("Number of Flowers"); // Number of Flowers
-    deliveryDateText.setText("Delivery Date"); // Delivery Date
-    includeACardText.setText("Include a Card?"); // Include a Card?
-    deliveryTimeText.setText("Delivery Time"); // Delivery Time
-    cardMessageText.setText("Card Message"); // Card Mesage
-    staffText.setText("Staff"); // Staff
-    notesText.setText("Notes"); // Notes
+    flowerChoiceText.setText("Flower Choice"); // Keep in English
+    roomText.setText("Room"); // Keep in English
+    numberOfFlowersText.setText("Number of Flowers"); // Keep in English
+    deliveryDateText.setText("Delivery Date"); // Keep in English
+    includeACardText.setText("Include a Card?"); // Keep in English
+    deliveryTimeText.setText("Delivery Time"); // Keep in English
+    cardMessageText.setText("Card Message"); // Keep in English
+    staffText.setText("Staff"); // Keep in English
+    notesText.setText("Notes"); // Keep in English
 
     // Buttons
-    cancelButton.setText("Cancel"); // Cancel
-    resetButton.setText("Reset"); // Reset
-    submitButton.setText("Submit"); // Submit
+    cancelButton.setText("Cancel"); // Keep in English
+    resetButton.setText("Reset"); // Keep in English
+    submitButton.setText("Submit"); // Keep in English
   }
 
   // public List<Employee> getEmployeeList() {

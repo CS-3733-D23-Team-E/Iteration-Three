@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
 
 public class MealRequestController {
@@ -32,6 +33,26 @@ public class MealRequestController {
   @FXML TextField allergiesBox;
   @FXML SearchableComboBox<String> assignedStaff;
   @FXML MFXButton resetButton;
+
+  @FXML Text recipientNameText;
+  @FXML Text mainCourseText;
+  @FXML Text roomText;
+  @FXML Text sideCourseText;
+  @FXML Text deliveryDateText;
+  @FXML Text drinkChoiceText;
+  @FXML Text deliveryTimeText;
+  @FXML Text allergiesText;
+  @FXML Text staffText;
+  @FXML Text notesText;
+
+  String language = "spanish";
+  String nyay = "\u00F1"; // ñ
+  String aA = "\u0301"; // á
+  String aE = "\u00E9"; // é
+  String aI = "\u00ED"; // í
+  String aO = "\u00F3"; // ó
+  String aU = "\u00F9"; // ù
+  String aQuestion = "\u00BF"; // Upside down question mark
 
   ObservableList<String> deliveryTimes =
       FXCollections.observableArrayList(
@@ -90,6 +111,16 @@ public class MealRequestController {
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     submitButton.setOnMouseClicked(event -> sendRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
+
+    // Page Language Translation Code
+    if (language.equals("english")) {
+      translateToEnglish();
+    } else if (language.equals("spanish")) {
+      translateToSpanish();
+    } else // throw error for language not being a valid language
+    {
+      // throw some sort of error here at some point
+    }
   }
 
   public MealRequestData sendRequest() {
@@ -134,5 +165,42 @@ public class MealRequestController {
     deliveryDate.setValue(null);
     notes.clear();
     assignedStaff.setValue(null);
+  }
+
+  public void translateToSpanish() {
+    // Input Fields
+    recipientNameText.setText("Nombre de Destinatario"); // Recipient Name
+    mainCourseText.setText("Plato Fuerte"); // Main Course
+    roomText.setText("Cuarto"); // Room
+    sideCourseText.setText("Plato Lateral"); // Side Course
+    deliveryDateText.setText("Fecha de Entrega"); // Delivery Date
+    drinkChoiceText.setText("Opci" + aO + "n de la Bebida"); // Drink Choice
+    deliveryTimeText.setText("Tiempo de Entrega"); // Delivery Time
+    allergiesText.setText("Alergias"); // Allergies
+    staffText.setText("Empleado"); // Staff
+    notesText.setText("Notas"); // Notes
+
+    // Buttons
+    cancelButton.setText("Cancelar"); // Cancel
+    resetButton.setText("Poner a Cero"); // Reset
+    submitButton.setText("Presentar"); // Submit
+  }
+
+  public void translateToEnglish() {
+    recipientNameText.setText("Recipient Name"); // Keep in English
+    mainCourseText.setText("Main Course"); // Keep in English
+    roomText.setText("Room"); // Keep in English
+    sideCourseText.setText("Side Course"); // Keep in English
+    deliveryDateText.setText("Delivery Date"); // Keep in English
+    drinkChoiceText.setText("Drink Choice"); // Keep in English
+    deliveryTimeText.setText("Delivery Time"); // Keep in English
+    allergiesText.setText("Allergies"); // Keep in English
+    staffText.setText("Staff"); // Keep in English
+    notesText.setText("Notes"); // Keep in English
+
+    // Buttons
+    cancelButton.setText("Cancel"); // Keep in English
+    resetButton.setText("Reset"); // Keep in English
+    submitButton.setText("Submit"); // Keep in English
   }
 }
