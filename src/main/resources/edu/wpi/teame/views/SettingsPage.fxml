@@ -159,7 +159,7 @@
                                                             <Font name="Roboto Black" size="36.0" />
                                                          </font>
                                                       </Text>
-                                                      <MFXRadioButton fx:id="lightModeButton" text="Light Mode">
+                                                      <MFXRadioButton fx:id="lightModeButton" selected="true" text="Light Mode">
                                                          <font>
                                                             <Font name="Roboto" size="24.0" />
                                                          </font>
@@ -200,7 +200,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <VBox prefHeight="970.0" prefWidth="1090.0">
+                                    <VBox prefHeight="970.0" prefWidth="1090.0" spacing="50.0" AnchorPane.topAnchor="40.0">
                                        <children>
                                           <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                              <children>
@@ -245,6 +245,30 @@
                                                 <Insets top="50.0" />
                                              </VBox.margin>
                                           </HBox>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The language that you have selected is:">
+                                             <font>
+                                                <Font name="Roboto Bold" size="48.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets left="80.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" text="English (U.S.)" underline="true">
+                                             <font>
+                                                <Font name="Roboto Light Italic" size="48.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets left="80.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="For another language, please select one of the options above">
+                                             <font>
+                                                <Font name="Roboto Light" size="36.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets left="80.0" />
+                                             </VBox.margin>
+                                          </Text>
                                        </children>
                                     </VBox>
                                  </children></AnchorPane>
