@@ -268,6 +268,16 @@ public class DatabaseMapViewController {
     editPageText.setText("Edit Node: ID = " + nodeID);
 
     currNode = allNodes.get(nodeID);
+
+    String x = Integer.toString(currNode.getXCoord());
+    String y = Integer.toString(currNode.getYCoord());
+    xField.setText(x);
+    yField.setText(y);
+
+    updateNodeEditMenuFields(nodeID);
+  }
+
+  private void updateNodeEditMenuFields(String nodeID) {
     edges =
         SQLRepo.INSTANCE.getEdgeList().stream()
             .filter((edge) -> (edge.getNodeOneID().equals(nodeID)))
@@ -280,15 +290,9 @@ public class DatabaseMapViewController {
     addList = new LinkedList<>();
     deleteList = new LinkedList<>();
 
-    String x = Integer.toString(currNode.getXCoord());
-    String y = Integer.toString(currNode.getYCoord());
     longNameSelector.setValue(SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(nodeID)));
 
     buildingSelector.setValue(currNode.getBuilding());
-
-    xField.setText(x);
-    yField.setText(y);
-
     confirmButton.setOnAction(
         (event) -> {
           uploadChangesToDatabase();
@@ -304,6 +308,8 @@ public class DatabaseMapViewController {
     String nodeID = currentCircle.getId();
     editPageText.setText("Edit Node: ID = " + nodeID);
     currNode = allNodes.get(nodeID);
+
+    updateNodeEditMenuFields(nodeID);
 
     // get x and y from drag and set new x and y for circle and label
     ((Circle) mouseEvent.getSource()).setCenterX(mouseEvent.getX());
