@@ -68,7 +68,7 @@ public class HomePageController {
     timeText.setText(currentTimeString);
     dateText.setText(currentDateString);
 
-    serviceRequestButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUESTS));
+    serviceRequestButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEDICAL_REQUEST));
 
     editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
     databaseButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_TABLEVIEW));
