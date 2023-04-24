@@ -54,6 +54,13 @@ public class HomePageController {
   boolean menuVisibilty = false;
   boolean logoutVisible = false;
 
+  String nyay = "\u00F1"; // ñ
+  String aA = "\u0301"; // á
+  String aE = "\u00E9"; // é
+  String aI = "\u00ED"; // í
+  String aO = "\u00F3"; // ó
+  String aU = "\u00F9"; // ù
+
   public void initialize() {
     LocalTime currentTime = LocalTime.now();
     LocalDate currentDate = LocalDate.now();
@@ -166,12 +173,25 @@ public class HomePageController {
     ButtonUtilities.mouseSetup(databaseButton);
     ButtonUtilities.mouseSetup(logoutButton);
 
-    spanishButton.setOnMouseClicked(event -> menuBarHome.setText(("Principal")));
+    spanishButton.setOnMouseClicked(
+        event -> {
+          menuBarHome.setText("Principal");
+          menuBarServices.setText("Servicios");
+          menuBarSignage.setText("Se" + nyay + "alizaci" + aO + "n");
+          menuBarMaps.setText("Navegaci" + aO + "n");
+          menuBarDatabase.setText("Base de Datos");
+          menuBarExit.setText(("Salida"));
+        });
 
     if (language.equals("english")) {
       menuBarHome.setText("Home");
     } else if (language.equals("spanish")) {
-      menuBarHome.setText(("Principal"));
+      menuBarHome.setText("Principal");
+      menuBarServices.setText("Servicios");
+      menuBarSignage.setText("Se" + nyay + "alizaci" + aO + "n");
+      menuBarMaps.setText("Navegaci" + aO + "n");
+      menuBarDatabase.setText("Base de Datos");
+      menuBarExit.setText(("Salida"));
     } else // throw error for language not being a valid language
     {
 
