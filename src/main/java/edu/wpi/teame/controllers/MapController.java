@@ -83,7 +83,7 @@ public class MapController {
   @FXML ImageView databaseI;
   @FXML ImageView exitI;
   boolean isPathDisplayed = false;
-  String language = "spanish";
+  String language = "english";
   String nyay = "\u00F1"; // �
   String aA = "\u0301"; // �
   String aE = "\u00E9"; // �

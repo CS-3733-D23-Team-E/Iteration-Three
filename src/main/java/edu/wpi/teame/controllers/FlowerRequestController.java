@@ -59,7 +59,7 @@ public class FlowerRequestController {
   @FXML Text staffText;
   @FXML Text notesText;
 
-  String language = "spanish";
+  String language = "english";
   String nyay = "\u00F1"; // ñ
   String aA = "\u0301"; // á
   String aE = "\u00E9"; // é

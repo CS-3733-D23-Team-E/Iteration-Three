@@ -55,7 +55,7 @@ public class RoomRequestController {
   @FXML Text notesText;
   @FXML Text staffText;
 
-  String language = "spanish";
+  String language = "english";
   String nyay = "\u00F1"; // �
   String aA = "\u0301"; // �
   String aE = "\u00E9"; // �

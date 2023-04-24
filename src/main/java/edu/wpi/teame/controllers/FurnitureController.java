@@ -47,7 +47,7 @@ public class FurnitureController {
   @FXML Text deliveryTimeText;
   @FXML Text staffText;
 
-  String language = "spanish";
+  String language = "english";
   String nyay = "\u00F1"; // ñ
   String aA = "\u0301"; // á
   String aE = "\u00E9"; // é
