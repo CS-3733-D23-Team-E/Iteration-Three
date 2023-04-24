@@ -19,11 +19,13 @@ public class DatabaseEditorController {
   @FXML AnchorPane moveView;
   @FXML AnchorPane serviceView;
   @FXML AnchorPane mapView;
+  @FXML AnchorPane employeeView;
 
   @FXML MFXButton tableEditorSwapButton;
   @FXML MFXButton mapEditorSwapButton;
   @FXML MFXButton moveEditorSwapButton;
   @FXML MFXButton requestsEditorSwapButton;
+  @FXML MFXButton employeeEditorSwapButton;
   @FXML VBox importExportZone;
 
   @FXML MFXButton importButton;
@@ -71,6 +73,13 @@ public class DatabaseEditorController {
           onlyDisable(requestsEditorSwapButton);
           editorTitle.setText("Request editor");
         });
+    employeeEditorSwapButton.setOnAction(
+          event -> {
+                onlyVisible(serviceView);
+                importExportZone.setVisible(false);
+                onlyDisable(requestsEditorSwapButton);
+                editorTitle.setText("Request editor");
+            });
 
     importButton.setOnAction(event -> tableViewController.importTable());
     exportButton.setOnAction(event -> tableViewController.exportTable());
