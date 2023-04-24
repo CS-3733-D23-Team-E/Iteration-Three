@@ -3,8 +3,6 @@ package edu.wpi.teame.controllers.DatabaseEditor;
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.map.MoveAttribute;
 import edu.wpi.teame.utilities.MoveUtilities;
-import edu.wpi.teame.utilities.Navigation;
-import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -25,7 +23,6 @@ public class MoveComponentController {
   @FXML MFXButton confirmButton;
   @FXML MFXButton resetButton;
   @FXML Label todayIsLabel;
-  @FXML MFXButton tableEditorSwapButton;
   @FXML Label moveCountText;
   @FXML ListView<String> currentMoveList;
   @FXML TableView<MoveAttribute> futureMoveTable;
@@ -43,10 +40,6 @@ public class MoveComponentController {
     initTableAndList();
     initButtons();
     confirmButton.setOnAction(e -> moveToNewNode());
-    tableEditorSwapButton.setOnMouseClicked(
-        event -> {
-          Navigation.navigate(Screen.DATABASE_TABLEVIEW);
-        });
   }
 
   private void initButtons() {

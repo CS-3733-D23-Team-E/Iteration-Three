@@ -1,9 +1,10 @@
 package edu.wpi.teame.controllers.DatabaseEditor;
 
+import edu.wpi.teame.utilities.Navigation;
+import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -28,6 +29,9 @@ public class DatabaseEditorController {
   @FXML MFXButton importButton;
   @FXML MFXButton exportButton;
 
+  @FXML MFXButton backButton;
+  @FXML Label editorTitle;
+
   @FXML
   public void initialize() {
     tableView.setVisible(false);
@@ -48,6 +52,7 @@ public class DatabaseEditorController {
           mapView.setVisible(false);
           importExportZone.setVisible(true);
           onlyDisable(tableEditorSwapButton);
+          editorTitle.setText("Table editor");
         });
     mapEditorSwapButton.setOnAction(
         event -> {
@@ -57,6 +62,7 @@ public class DatabaseEditorController {
           mapView.setVisible(true);
           importExportZone.setVisible(false);
           onlyDisable(mapEditorSwapButton);
+          editorTitle.setText("Map editor");
         });
     moveEditorSwapButton.setOnAction(
         event -> {
@@ -66,6 +72,7 @@ public class DatabaseEditorController {
           mapView.setVisible(false);
           importExportZone.setVisible(false);
           onlyDisable(moveEditorSwapButton);
+          editorTitle.setText("Move editor");
         });
     requestsEditorSwapButton.setOnAction(
         event -> {
@@ -75,10 +82,13 @@ public class DatabaseEditorController {
           mapView.setVisible(false);
           importExportZone.setVisible(false);
           onlyDisable(requestsEditorSwapButton);
+          editorTitle.setText("Request editor");
         });
 
     importButton.setOnAction(event -> tableViewController.importTable());
     exportButton.setOnAction(event -> tableViewController.exportTable());
+
+    backButton.setOnAction(event -> Navigation.navigate(Screen.HOME));
   }
 
   private void onlyDisable(MFXButton btn) {
