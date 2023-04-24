@@ -104,11 +104,7 @@ public class AboutPageController {
         "images/folder-tree.png",
         "images/folder-tree-blue.png");
     ButtonUtilities.mouseSetupMenuBar(
-        menuBarAbout,
-        "baseline-left",
-        aboutI,
-        "images/folder-tree.png",
-        "images/folder-tree-blue.png");
+        menuBarAbout, "baseline-left", aboutI, "images/abouticon.png", "images/abouticon-blue.png");
     ButtonUtilities.mouseSetupMenuBar(
         menuBarExit,
         "baseline-center",

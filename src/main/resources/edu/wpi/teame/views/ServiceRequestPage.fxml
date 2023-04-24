@@ -257,7 +257,7 @@
                <graphic>
                   <ImageView fx:id="aboutI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../../../../../../../../../../Downloads/abouticon.png" />
+                        <Image url="@../images/abouticon.png" />
                      </image>
                   </ImageView>
                </graphic>
