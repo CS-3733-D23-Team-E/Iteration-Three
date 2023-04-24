@@ -1,6 +1,7 @@
 package edu.wpi.teame.utilities;
 
 import edu.wpi.teame.Database.SQLRepo;
+import edu.wpi.teame.map.HospitalNode;
 import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.map.MoveAttribute;
 import java.text.ParseException;
@@ -177,6 +178,13 @@ public class MoveUtilities {
    */
   public String formatToday() {
     return formatter.format(today);
+  }
+
+  public HospitalNode getNodeFromMove(int id) {
+    return SQLRepo.INSTANCE.getNodeList().stream()
+        .filter(move -> Integer.parseInt(move.getNodeID()) == id)
+        .toList()
+        .get(0);
   }
 
   ////////////////// Setters (sending new move data to database) ///////////////////////

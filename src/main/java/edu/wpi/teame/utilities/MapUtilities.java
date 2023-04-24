@@ -114,6 +114,24 @@ public class MapUtilities {
   }
 
   /**
+   * OVERLOADED: draws a given message associated with a hospitalNode's location (ie "went to floor
+   * 4")
+   *
+   * @param hospitalNode
+   * @param message
+   * @return
+   */
+  public Label drawHospitalNodeLabel(HospitalNode hospitalNode, String message) {
+    int x = hospitalNode.getXCoord();
+    int y = hospitalNode.getYCoord();
+    String nodeID = hospitalNode.getNodeID();
+
+    Label label = createStyledLabel(x, y, 10, 10, message);
+    label.setId("label" + hospitalNode.getNodeID());
+    return label;
+  }
+
+  /**
    * Draws the edge between two given nodes
    *
    * @param node
