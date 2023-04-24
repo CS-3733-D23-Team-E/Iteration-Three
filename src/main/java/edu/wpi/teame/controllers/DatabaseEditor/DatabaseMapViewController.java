@@ -104,6 +104,7 @@ public class DatabaseMapViewController {
   @FXML
   public void initialize() {
     initializeMapUtilities();
+    initializeMapPanes();
     currentFloor = Floor.LOWER_TWO;
 
     sidebar.setVisible(true);
@@ -210,7 +211,6 @@ public class DatabaseMapViewController {
 
     nodeCircle.setOnMouseClicked(
         event -> {
-          refreshMap();
           GesturePane currentGesturePane = whichGesturePane(currentFloor);
           currentGesturePane.setGestureEnabled(true);
           if (currentCircle != null && currentLabel != null) {
@@ -568,6 +568,29 @@ public class DatabaseMapViewController {
     mapUtilityOne.setLabelStyle("-fx-font-size: 10pt");
     mapUtilityTwo.setLabelStyle("-fx-font-size: 10pt");
     mapUtilityThree.setLabelStyle("-fx-font-size: 10pt");
+  }
+
+  private void initializeMapPanes() {
+    mapPaneLowerTwo.setOnMouseClicked(
+        event -> {
+          gesturePaneLowerTwo.setGestureEnabled(true);
+        });
+    mapPaneLowerOne.setOnMouseClicked(
+        event -> {
+          gesturePaneLowerOne.setGestureEnabled(true);
+        });
+    mapPaneOne.setOnMouseClicked(
+        event -> {
+          gesturePaneOne.setGestureEnabled(true);
+        });
+    mapPaneTwo.setOnMouseClicked(
+        event -> {
+          gesturePaneTwo.setGestureEnabled(true);
+        });
+    mapPaneThree.setOnMouseClicked(
+        event -> {
+          gesturePaneThree.setGestureEnabled(true);
+        });
   }
 
   private void initializeButtons() {
