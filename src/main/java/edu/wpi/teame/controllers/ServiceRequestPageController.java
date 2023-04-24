@@ -42,6 +42,7 @@ public class ServiceRequestPageController {
   @FXML Text totalRequestsText;
   @FXML Text requestStatusTitleText;
   @FXML Text pendingRequestsTitleText;
+  @FXML Text nonCompletedRequestsText;
 
   boolean menuVisibilty = false;
   boolean logoutVisible = false;
@@ -196,6 +197,7 @@ public class ServiceRequestPageController {
     totalRequestsText.setText("Pendiente"); // Pending:
     requestStatusTitleText.setText("En Curso"); // In Progress:
     pendingRequestsTitleText.setText("Completo"); // Completed:
+    nonCompletedRequestsText.setText("Solicitudes No Completadas"); // Non-Completed Requests
   }
 
   public void translateToEnglish() {
