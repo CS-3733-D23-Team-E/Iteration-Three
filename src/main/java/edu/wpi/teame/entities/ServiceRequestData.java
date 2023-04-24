@@ -49,7 +49,7 @@ public abstract class ServiceRequestData {
         case "CONFERENCEROOM":
           return CONFERENCEROOM;
         case " MEDICALSUPPLIESDELIVERY":
-          return  MEDICALSUPPLIESDELIVERY;
+          return MEDICALSUPPLIESDELIVERY;
         default:
           throw new NoSuchElementException("No such service request found");
       }

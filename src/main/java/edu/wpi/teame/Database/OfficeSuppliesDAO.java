@@ -151,22 +151,4 @@ public class OfficeSuppliesDAO<E> extends ServiceDAO<OfficeSuppliesData> {
     }
   }
 
-  private int returnNewestRequestID() {
-    int currentID = -1;
-    try {
-      Statement stmt = activeConnection.createStatement();
-
-      String sql = "SELECT last_value AS val FROM serial;";
-      ResultSet rs = stmt.executeQuery(sql);
-
-      if (rs.next()) {
-        currentID = rs.getInt("val");
-      } else {
-        System.out.println("Something ain't workin right");
-      }
-      return currentID;
-    } catch (SQLException e) {
-      throw new RuntimeException(e.getMessage());
-    }
-  }
 }
