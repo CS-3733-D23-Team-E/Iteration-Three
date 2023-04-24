@@ -1,5 +1,7 @@
 package edu.wpi.teame.controllers;
 
+import static java.lang.Math.PI;
+
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.Main;
 import edu.wpi.teame.map.Directions;
@@ -213,8 +215,8 @@ public class MapController {
     String toNodeID = SQLRepo.INSTANCE.getNodeIDFromName(to) + "";
     String fromNodeID = SQLRepo.INSTANCE.getNodeIDFromName(from) + "";
 
-    System.out.println(HospitalNode.allNodes.get(fromNodeID));
-    System.out.println(HospitalNode.allNodes.get(toNodeID));
+    System.out.println("From: " + HospitalNode.allNodes.get(fromNodeID));
+    System.out.println("To: " + HospitalNode.allNodes.get(toNodeID));
 
     List<HospitalNode> path =
         pf.findPath(HospitalNode.allNodes.get(fromNodeID), HospitalNode.allNodes.get(toNodeID));
@@ -383,16 +385,24 @@ public class MapController {
 
       // Get the image for the label
       Image icon;
+      double rotation;
       if (i == 0) {
         icon = new Image(String.valueOf(Main.class.getResource("images/start.png")));
+        rotation = 0;
       } else if (i == path.size() - 1) {
         icon = new Image(String.valueOf(Main.class.getResource("images/destination.png")));
+        rotation = 0;
       } else {
         icon = new Image(String.valueOf(Main.class.getResource("images/right-arrow.png")));
+        rotation = getTurnAngle(path, i)-90;
       }
 
+      // Get the message for the direction
+      // Turn _____ in __ feet
+      
+
       // Create a direction
-      Directions direction = new Directions(vbox, path, currentNode, icon);
+      Directions direction = new Directions(vbox, path, currentNode, icon, rotation);
 
       // Add the event listener
       direction
@@ -453,7 +463,7 @@ public class MapController {
                         .toList();
                 currentCircle = (Circle) nodeList.get(0);
                 System.out.println("Newcircle: " + currentCircle.getId());
-                currentCircle.setRadius(9);
+                currentCircle.setRadius(5);
                 currentCircle.setViewOrder(-5);
                 currentCircle.setVisible(true);
                 System.out.println("currentCircle: " + currentCircle);
@@ -463,5 +473,29 @@ public class MapController {
                 previousLabel = direction.getHbox();
               });
     }
+  }
+
+  /**
+   * returns the angle between two intersecting lines at a given position along a path
+   *
+   * @param path
+   * @param index
+   * @return
+   */
+  public double getTurnAngle(List<HospitalNode> path, int index) {
+    // Get the nodes
+    double startX = path.get(index - 1).getXCoord();
+    double startY = path.get(index - 1).getYCoord();
+    double endX = path.get(index + 1).getXCoord();
+    double endY = path.get(index + 1).getYCoord();
+    double fixedX = path.get(index).getXCoord();
+    double fixedY = path.get(index).getYCoord();
+
+    // Get the angles
+    double angle1 = Math.atan2(startY - fixedY, startX - fixedX);
+    double angle2 = Math.atan2(endY - fixedY, endX - fixedX);
+
+    double radian = angle1 - angle2;
+    return (radian * 180) / PI;
   }
 }

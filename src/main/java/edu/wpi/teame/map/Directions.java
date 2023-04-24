@@ -22,18 +22,22 @@ public class Directions {
   @Getter VBox parent;
   @Getter HBox hbox;
   Image icon;
+  double rotation;
 
-  public Directions(VBox parent, List<HospitalNode> path, HospitalNode currentNode, Image icon) {
+  public Directions(
+      VBox parent, List<HospitalNode> path, HospitalNode currentNode, Image icon, double rotation) {
 
     // Set values
     this.parent = parent;
     this.icon = icon;
+    this.rotation = rotation;
 
     // Set the image
     ImageView pathIcon = new ImageView();
     pathIcon.setImage(icon);
     pathIcon.setPreserveRatio(true);
     pathIcon.setFitWidth(30);
+    pathIcon.setRotate(rotation);
 
     // Draw the dividing line
     Line line = new Line();
