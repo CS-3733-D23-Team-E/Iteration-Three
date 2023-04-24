@@ -46,8 +46,14 @@ public class MovePreviewController {
   HospitalNode node1;
   HospitalNode node2;
 
+  public MovePreviewController(HospitalNode node1, HospitalNode node2) {
+    this.node1 = node1;
+    this.node2 = node2;
+  }
+
   @FXML
   void initialize() {
+    System.out.println("Initializing move preview!!");
     initializeMapUtilities();
     currentFloor = Floor.LOWER_TWO;
 

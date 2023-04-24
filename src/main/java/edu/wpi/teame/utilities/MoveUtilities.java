@@ -180,10 +180,11 @@ public class MoveUtilities {
     return formatter.format(today);
   }
 
-
-
-  public HospitalNode getNodeFromMove(int id){
-    return SQLRepo.INSTANCE.getNodeList().stream().filter(move -> Integer.parseInt(move.getNodeID()) == id).toList().get(0);
+  public HospitalNode getNodeFromMove(int id) {
+    return SQLRepo.INSTANCE.getNodeList().stream()
+        .filter(move -> Integer.parseInt(move.getNodeID()) == id)
+        .toList()
+        .get(0);
   }
 
   ////////////////// Setters (sending new move data to database) ///////////////////////

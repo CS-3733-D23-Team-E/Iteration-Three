@@ -69,12 +69,25 @@ public class MoveComponentController {
         event -> {
           if (moveTab.isSelected()) {
             if (departmentMoveSelector.getValue() != null && newNodeSelector.getValue() != null) {
-              openStage(movUtil.getNodeFromMove(movUtil.findMostRecentMoveByDate(departmentMoveSelector.getValue()).getNodeID()), movUtil.getNodeFromMove(newNodeSelector.getValue()));
+              openStage(
+                  movUtil.getNodeFromMove(
+                      movUtil
+                          .findMostRecentMoveByDate(departmentMoveSelector.getValue())
+                          .getNodeID()),
+                  movUtil.getNodeFromMove(newNodeSelector.getValue()));
             }
           } else {
             if (departmentOneSelector.getValue() != null
                 && departmentTwoSelector.getValue() != null) {
-              openStage(movUtil.getNodeFromMove(movUtil.findMostRecentMoveByDate(departmentOneSelector.getValue()).getNodeID()), movUtil.getNodeFromMove(movUtil.findMostRecentMoveByDate(departmentTwoSelector.getValue()).getNodeID()));
+              openStage(
+                  movUtil.getNodeFromMove(
+                      movUtil
+                          .findMostRecentMoveByDate(departmentOneSelector.getValue())
+                          .getNodeID()),
+                  movUtil.getNodeFromMove(
+                      movUtil
+                          .findMostRecentMoveByDate(departmentTwoSelector.getValue())
+                          .getNodeID()));
             }
           }
         });
@@ -168,16 +181,19 @@ public class MoveComponentController {
     moveCountText.setText(currentMoveList.getItems().size() + " Move(s) Today: ");
   }
 
-  private void openStage(HospitalNode mov1, HospitalNode mov2) {
+  private void openStage(HospitalNode node1, HospitalNode node2) {
     var resource = App.class.getResource("views/DatabaseEditor/MovePreview.fxml");
-    //    @FXML MovePreviewController movePreviewController = new MovePreviewController();
+    MovePreviewController movePreviewController = new MovePreviewController(node1, node2);
     FXMLLoader loader = new FXMLLoader(resource);
+    loader.setController(movePreviewController); // NOTE: replaces this line in the FXML:
+    // fx:controller="edu.wpi.teame.controllers.DatabaseEditor.MovePreviewController"
     AnchorPane previewLayout;
     try {
       previewLayout = loader.load();
     } catch (IOException e) {
       previewLayout = new AnchorPane();
     }
+
     // previewLayout.getChildren().add(new Label("test!!!!!!"));
 
     Scene newScene = new Scene(previewLayout);
