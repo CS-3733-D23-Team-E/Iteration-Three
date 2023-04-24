@@ -201,6 +201,7 @@ public class MoveComponentController {
     FXMLLoader loader = new FXMLLoader(resource);
     loader.setController(movePreviewController); // NOTE: replaces this line in the FXML:
     // fx:controller="edu.wpi.teame.controllers.DatabaseEditor.MovePreviewController"
+
     AnchorPane previewLayout;
     try {
       previewLayout = loader.load();

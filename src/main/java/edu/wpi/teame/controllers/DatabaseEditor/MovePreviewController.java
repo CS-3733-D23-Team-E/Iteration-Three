@@ -61,7 +61,7 @@ public class MovePreviewController {
   }
 
   @FXML
-  void initialize() {
+  public void initialize() {
     System.out.println("Initializing move preview!!");
     initializeMapUtilities();
     currentFloor = Floor.LOWER_TWO;
@@ -167,12 +167,9 @@ public class MovePreviewController {
 
   public void loadFloorNodes() {
     // create edges
-    // edges
     if (node1.getFloor() == node2.getFloor() && node1.getFloor().equals(currentFloor)) {
       whichMapUtility(currentFloor).drawEdge(node1, node2);
     }
-
-    // TODO: draw label on node dependent on the name parameter passed in, NOT te database
     if (node1.getFloor().equals(currentFloor) || node2.getFloor().equals(currentFloor)) {
       whichMapUtility(currentFloor).drawEdge(node1, node2);
       if (node1.getFloor().equals(currentFloor)) {
