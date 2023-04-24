@@ -12,6 +12,7 @@ import edu.wpi.teame.utilities.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
@@ -53,6 +54,7 @@ public class MapController {
   @FXML Tab lowerLevelOneTab;
   @FXML SearchableComboBox<String> currentLocationList;
   @FXML SearchableComboBox<String> destinationList;
+  @FXML DatePicker pathfindingDate;
   @FXML MFXButton menuButton;
   @FXML MFXButton menuBarHome;
   @FXML MFXButton menuBarServices;
@@ -97,10 +99,15 @@ public class MapController {
   MapUtilities mapUtilityTwo = new MapUtilities(mapPaneTwo);
   MapUtilities mapUtilityThree = new MapUtilities(mapPaneThree);
 
+  MoveUtilities moveUtilities = new MoveUtilities();
+
   ObservableList<String> floorLocations =
       FXCollections.observableArrayList(
           SQLRepo.INSTANCE.getLongNamesFromMove(
               SQLRepo.INSTANCE.getMoveAttributeFromFloor(currentFloor)));
+
+  HashMap<String, String> nameToNodeID;
+  HashMap<String, String> nodeToLongName;
 
   @FXML
   public void initialize() {
@@ -184,7 +191,7 @@ public class MapController {
         "images/sign-out-alt-blue.png");
 
     // Make sure location list is initialized so that we can filter out the hallways
-    SQLRepo.INSTANCE.getLocationList();
+    LocationName.processLocationList(SQLRepo.INSTANCE.getLocationList());
 
     resetComboboxes();
   }
@@ -255,15 +262,15 @@ public class MapController {
     if (dijkstraButton.isSelected()) {
       pf = AbstractPathfinder.getInstance("Dijkstra");
     }
-
-    String toNodeID = SQLRepo.INSTANCE.getNodeIDFromName(to) + "";
-    String fromNodeID = SQLRepo.INSTANCE.getNodeIDFromName(from) + "";
+    nameToNodeID = moveUtilities.getMapForDate(pathfindingDate.getValue());
+    nodeToLongName = moveUtilities.invertHashMap(nameToNodeID);
+    String toNodeID = nameToNodeID.get(to);
+    String fromNodeID = nameToNodeID.get(from);
 
     System.out.println(HospitalNode.allNodes.get(fromNodeID));
     System.out.println(HospitalNode.allNodes.get(toNodeID));
 
-    List<HospitalNode> path =
-        pf.findPath(HospitalNode.allNodes.get(fromNodeID), HospitalNode.allNodes.get(toNodeID));
+    List<HospitalNode> path = pf.findPath(fromNodeID, toNodeID);
     if (path == null) {
       System.out.println("Path does not exist");
       return;
@@ -440,8 +447,7 @@ public class MapController {
     for (int i = 0; i < path.size(); i++) {
 
       HospitalNode currentNode = path.get(i);
-      String destination =
-          SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(currentNode.getNodeID()));
+      String destination = nodeToLongName.get(currentNode.getNodeID());
 
       // Image
       Image icon;

@@ -8,9 +8,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class MoveUtilities {
   Date today;
@@ -176,7 +174,40 @@ public class MoveUtilities {
    * @return
    */
   public String formatToday() {
-    return formatter.format(today);
+    return formatDate(today);
+  }
+
+  /**
+   * formats date into the formatter's form (YYYY-MM-DD)
+   *
+   * @return
+   */
+  public String formatDate(Date date) {
+    return formatter.format(date);
+  }
+
+  public HashMap<String, String> getMapForDate(LocalDate date) {
+    HashMap<String, String> map = new HashMap<>();
+    HashMap<String, LocalDate> dateHashMap = new HashMap<>();
+    for (MoveAttribute move : SQLRepo.INSTANCE.getMoveList()) {
+      if (dateHashMap.containsKey(move.getLongName())) {
+        if (dateHashMap.get(move.getLongName()).compareTo(LocalDate.parse(move.getDate())) < 0) {
+          // move hasn't happened yet
+          continue;
+        }
+      }
+      dateHashMap.put(move.getLongName(), LocalDate.parse(move.getDate()));
+      map.put(move.getLongName(), move.getNodeID() + "");
+    }
+    return map;
+  }
+
+  public HashMap<String, String> invertHashMap(HashMap<String, String> map) {
+    HashMap<String, String> invertedMap = new HashMap<>();
+    for (Map.Entry<String, String> entry : map.entrySet()) {
+      invertedMap.put(entry.getValue(), entry.getKey());
+    }
+    return invertedMap;
   }
 
   ////////////////// Setters (sending new move data to database) ///////////////////////
