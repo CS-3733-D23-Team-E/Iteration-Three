@@ -24,7 +24,7 @@
          <children>
             <StackPane prefHeight="1005.0" prefWidth="1920.0" AnchorPane.topAnchor="75.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="1005.0" opacity="0.65" stroke="BLACK" strokeType="INSIDE" width="1720.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="1007.0" opacity="0.65" stroke="BLACK" strokeType="INSIDE" width="1720.0" />
                   <TabPane maxWidth="1090.0" prefHeight="200.0" prefWidth="1090.0" style="-fx-background-color: #f1f1f1;" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="200.0">
                     <tabs>
                       <Tab text="Account">
@@ -35,7 +35,7 @@
                                        <children>
                                           <VBox alignment="TOP_RIGHT" prefHeight="970.0" prefWidth="540.0" spacing="100.0">
                                              <children>
-                                                <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                                                <VBox prefHeight="200.0" prefWidth="100.0" spacing="40.0">
                                                    <VBox.margin>
                                                       <Insets left="20.0" top="50.0" />
                                                    </VBox.margin>
@@ -122,15 +122,20 @@
                                                             </VBox>
                                                             <VBox prefHeight="189.0" prefWidth="244.0" spacing="20.0">
                                                                <children>
-                                                                  <MFXTextField prefHeight="50.0" prefWidth="200.0" />
-                                                                  <MFXTextField prefHeight="50.0" prefWidth="200.0" />
-                                                                  <MFXTextField prefHeight="50.0" prefWidth="200.0" />
+                                                                  <MFXTextField fx:id="currentPasswordField" prefHeight="50.0" prefWidth="200.0" />
+                                                                  <MFXTextField fx:id="newPasswordField" prefHeight="50.0" prefWidth="200.0" />
+                                                                  <MFXTextField fx:id="confirmPasswordField" prefHeight="50.0" prefWidth="200.0" />
                                                                </children>
                                                             </VBox>
                                                          </children>
                                                       </HBox>
                                                       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" />
                                                       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" />
+                                                      <MFXButton fx:id="submitPasswordButton" maxHeight="50.0" maxWidth="100.0" prefHeight="50.0" prefWidth="100.0" styleClass="submitButton" stylesheets="@../styles/eStyleSheet.css" text="Submit">
+                                                         <VBox.margin>
+                                                            <Insets left="350.0" top="-30.0" />
+                                                         </VBox.margin>
+                                                      </MFXButton>
                                                    </children>
                                                    <VBox.margin>
                                                       <Insets left="20.0" />
@@ -154,7 +159,7 @@
                                                             <Font name="Roboto Black" size="36.0" />
                                                          </font>
                                                       </Text>
-                                                      <MFXRadioButton text="Light Mode">
+                                                      <MFXRadioButton fx:id="lightModeButton" text="Light Mode">
                                                          <font>
                                                             <Font name="Roboto" size="24.0" />
                                                          </font>
@@ -162,7 +167,7 @@
                                                             <Insets left="20.0" />
                                                          </VBox.margin>
                                                       </MFXRadioButton>
-                                                      <MFXRadioButton text="Dark Mode">
+                                                      <MFXRadioButton fx:id="darkModeButton" text="Dark Mode">
                                                          <font>
                                                             <Font name="Roboto" size="24.0" />
                                                          </font>
@@ -170,7 +175,7 @@
                                                             <Insets left="20.0" />
                                                          </VBox.margin>
                                                       </MFXRadioButton>
-                                                      <MFXRadioButton text="Color-Blind Mode">
+                                                      <MFXRadioButton fx:id="colorBlindButton" text="Color-Blind Mode">
                                                          <font>
                                                             <Font name="Roboto" size="24.0" />
                                                          </font>
@@ -193,7 +198,56 @@
                       </Tab>
                       <Tab text="Languages ">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox prefHeight="970.0" prefWidth="1090.0">
+                                       <children>
+                                          <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                             <children>
+                                                <MFXButton fx:id="englishButton" contentDisplay="GRAPHIC_ONLY">
+                                                   <graphic>
+                                                      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/800px-Flag_of_the_United_States_(Pantone).svg.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </MFXButton>
+                                                <MFXButton fx:id="spanishButton" contentDisplay="GRAPHIC_ONLY">
+                                                   <graphic>
+                                                      <ImageView fitHeight="105.0" fitWidth="200.0" pickOnBounds="true">
+                                                         <image>
+                                                            <Image url="@../images/spainish.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </MFXButton>
+                                                <MFXButton fx:id="frenchButton" contentDisplay="GRAPHIC_ONLY">
+                                                   <graphic>
+                                                      <ImageView fitHeight="105.0" fitWidth="200.0" pickOnBounds="true">
+                                                         <image>
+                                                            <Image url="@../images/FrenchFlag.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </MFXButton>
+                                                <MFXButton fx:id="hawaiianButton" contentDisplay="GRAPHIC_ONLY">
+                                                   <graphic>
+                                                      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/Flag_of_Hawaii.svg.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </MFXButton>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets top="50.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children></AnchorPane>
                         </content>
                       </Tab>
                     </tabs>
