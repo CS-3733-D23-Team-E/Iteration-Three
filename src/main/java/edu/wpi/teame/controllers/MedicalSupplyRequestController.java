@@ -73,6 +73,26 @@ public class MedicalSupplyRequestController {
     File file1 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/bandaid.png");
     Image image1 = new Image(file1.toURI().toString());
     item1Img.setImage(image1);
+
+    File file2 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/covidTest.png");
+    Image image2 = new Image(file2.toURI().toString());
+    item2Img.setImage(image2);
+
+    File file3 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/epipen.png");
+    Image image3 = new Image(file3.toURI().toString());
+    item3Img.setImage(image3);
+
+    File file4 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/gloves.png");
+    Image image4 = new Image(file4.toURI().toString());
+    item4Img.setImage(image4);
+
+    File file5 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/sthetiscope.png");
+    Image image5 = new Image(file5.toURI().toString());
+    item5Img.setImage(image5);
+
+    File file6 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/syringe.png");
+    Image image6 = new Image(file6.toURI().toString());
+    item6Img.setImage(image6);
   }
 
   public void initialize() {
@@ -233,5 +253,14 @@ public class MedicalSupplyRequestController {
     date.setValue(null);
     notes.clear();
     staffAssigned.setValue(null);
+    hours.setValue(null);
+    minutes.setValue(null);
+    ampm.setValue(null);
+    item1Quantity.setText("0");
+    item2Quantity.setText("0");
+    item3Quantity.setText("0");
+    item4Quantity.setText("0");
+    item5Quantity.setText("0");
+    item6Quantity.setText("0");
   }
 }
