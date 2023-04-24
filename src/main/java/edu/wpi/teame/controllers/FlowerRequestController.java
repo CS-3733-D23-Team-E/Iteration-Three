@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class FlowerRequestController {
@@ -47,8 +48,14 @@ public class FlowerRequestController {
   @FXML MFXButton cancelButton;
   @FXML MFXButton resetButton;
 
+  @FXML MFXButton closeButton;
+  @FXML VBox requestSubmittedBox;
+
   @FXML
   public void initialize() {
+
+    requestSubmittedBox.setVisible(false);
+
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
     ObservableList<String> names =
         FXCollections.observableArrayList(
@@ -87,9 +94,16 @@ public class FlowerRequestController {
     deliveryTime.setItems(deliveryTimes);
     cardQuestion.setItems(yesNo);
     // Initialize the buttons
-    submitButton.setOnMouseClicked(event -> sendRequest());
+
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
+    submitButton.setOnMouseClicked(
+        event -> {
+          sendRequest();
+          requestSubmittedBox.setVisible(true);
+          clearForm();
+        });
+    closeButton.setOnMouseClicked(event -> requestSubmittedBox.setVisible(false));
   }
 
   public FlowerRequestData sendRequest() {
@@ -112,9 +126,6 @@ public class FlowerRequestController {
             FlowerRequestData.Status.PENDING);
 
     SQLRepo.INSTANCE.addServiceRequest(requestData);
-
-    // Return to the home screen
-    Navigation.navigate(Screen.HOME);
 
     return requestData;
   }
