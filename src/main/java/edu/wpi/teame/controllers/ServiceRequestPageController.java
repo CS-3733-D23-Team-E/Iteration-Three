@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class ServiceRequestPageController {
 
@@ -34,8 +36,22 @@ public class ServiceRequestPageController {
   @FXML VBox logoutBox;
   @FXML MFXButton logoutButton;
 
+  @FXML MFXButton spanishButton;
+  @FXML MFXButton englishButton;
+  @FXML Text totalRequestsText;
+  @FXML Text requestStatusText;
+  @FXML Text pendingRequestsText;
+
   boolean menuVisibilty = false;
   boolean logoutVisible = false;
+
+  String language = "english";
+  String nyay = "\u00F1"; // ñ
+  String aA = "\u0301"; // á
+  String aE = "\u00E9"; // é
+  String aI = "\u00ED"; // í
+  String aO = "\u00F3"; // ó
+  String aU = "\u00F9"; // ù
 
   @FXML
   public void initialize() {
@@ -108,6 +124,24 @@ public class ServiceRequestPageController {
         "images/sign-out-alt-blue.png");
 
     mouseSetup(logoutButton);
+
+    // Page Language Translation Code
+    englishButton.setOnMouseClicked(
+        event -> {
+          translateToEnglish();
+        });
+    spanishButton.setOnMouseClicked(
+        event -> {
+          translateToSpanish();
+        });
+    if (language.equals("english")) {
+      translateToEnglish();
+    } else if (language.equals("spanish")) {
+      translateToSpanish();
+    } else // throw error for language not being a valid language
+    {
+      // throw some sort of error here at some point
+    }
   }
 
   public void logoutPopup(boolean bool) {
@@ -137,5 +171,51 @@ public class ServiceRequestPageController {
           btn.setStyle("-fx-background-color: #192d5aff; -fx-alignment: center;");
           btn.setTextFill(WHITE);
         });
+  }
+
+  public void translateToSpanish() {
+    // Change language variable
+    language = "spanish";
+
+    // Menu Bar
+    menuBarHome.setText("Principal"); // Home
+    menuBarServices.setText("Servicios"); // Services
+    menuBarSignage.setText("Se" + nyay + "alizaci" + aO + "n"); // Signage
+    menuBarMaps.setText("Navegaci" + aO + "n"); // Pathfinding
+    menuBarDatabase.setText("Base de Datos"); // Database
+    menuBarExit.setText(("Salida")); // Exit
+
+    // Logout Button
+    logoutButton.setText("Cerrar Sesi" + aO + "n"); // Logout
+    Font spanishLogout = new Font("Roboto", 13);
+    logoutButton.setFont(spanishLogout);
+
+    // Request Status Bar
+    totalRequestsText.setText("Total de Solicitudes"); // Total Requests
+    requestStatusText.setText("Estado de la Solicitud"); // Request Status
+    // pendingRequestsText.setText("Solicitudes Pendientes"); // Pending Requests
+  }
+
+  public void translateToEnglish() {
+    // Change language variable
+    language = "english";
+
+    // Menu Bar
+    menuBarHome.setText("Home"); // Keep in English
+    menuBarServices.setText("Services"); // Keep in English
+    menuBarSignage.setText("Signage"); // Keep in English
+    menuBarMaps.setText("Pathfinding"); // Keep in English
+    menuBarDatabase.setText("Database"); // Keep in English
+    menuBarExit.setText(("Exit")); // Keep in English
+
+    // Logout Button
+    logoutButton.setText("Logout"); // Keep in English
+    Font englishLogout = new Font("Roboto", 18);
+    logoutButton.setFont(englishLogout);
+
+    // Request Status Bar
+    totalRequestsText.setText("Total Requests"); // Keep in English
+    requestStatusText.setText("Request Status"); // Keep in English
+    // pendingRequestsText.setText("Pending Requests"); // Keep in English
   }
 }

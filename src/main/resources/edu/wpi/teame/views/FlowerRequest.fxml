@@ -29,7 +29,7 @@
                            <children>
                               <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recipient Name">
+                                    <Text fx:id="recipientNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipient Name">
                                        <font>
                                           <Font name="Roboto" size="24.0" />
                                        </font>

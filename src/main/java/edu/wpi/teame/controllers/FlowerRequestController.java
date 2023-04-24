@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
 
 public class FlowerRequestController {
@@ -46,6 +47,10 @@ public class FlowerRequestController {
   @FXML SearchableComboBox<String> assignedStaff;
   @FXML MFXButton cancelButton;
   @FXML MFXButton resetButton;
+
+  @FXML Text recipientNameText;
+
+  String language = "spanish";
 
   @FXML
   public void initialize() {
@@ -90,6 +95,16 @@ public class FlowerRequestController {
     submitButton.setOnMouseClicked(event -> sendRequest());
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
+
+    // Page Language Translation Code
+    if (language.equals("english")) {
+      translateToEnglish();
+    } else if (language.equals("spanish")) {
+      translateToSpanish();
+    } else // throw error for language not being a valid language
+    {
+      // throw some sort of error here at some point
+    }
   }
 
   public FlowerRequestData sendRequest() {
@@ -135,6 +150,14 @@ public class FlowerRequestController {
     recipientName.clear();
     notes.clear();
     assignedStaff.setValue(null);
+  }
+
+  public void translateToSpanish() {
+    recipientNameText.setText("Nombre de Destinatario"); // Recipient Name
+  }
+
+  public void translateToEnglish() {
+    recipientNameText.setText("Recipient Name"); // Keep in English
   }
 
   // public List<Employee> getEmployeeList() {

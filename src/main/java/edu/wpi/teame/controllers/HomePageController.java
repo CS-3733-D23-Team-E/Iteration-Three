@@ -179,6 +179,7 @@ public class HomePageController {
     ButtonUtilities.mouseSetup(databaseButton);
     ButtonUtilities.mouseSetup(logoutButton);
 
+    // Page Language Translation Code
     englishButton.setOnMouseClicked(
         event -> {
           translateToEnglish(String.valueOf(announcementString));
@@ -187,14 +188,13 @@ public class HomePageController {
         event -> {
           translateToSpanish(String.valueOf(announcementString));
         });
-
     if (language.equals("english")) {
       translateToEnglish(String.valueOf(announcementString));
     } else if (language.equals("spanish")) {
       translateToSpanish(String.valueOf(announcementString));
     } else // throw error for language not being a valid language
     {
-
+      // throw some sort of error here at some point
     }
   }
 

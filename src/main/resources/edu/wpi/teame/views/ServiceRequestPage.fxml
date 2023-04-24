@@ -54,7 +54,7 @@
                                  <children>
                                     <VBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="161.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Requests">
+                                          <Text fx:id="totalRequestsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Requests">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -73,7 +73,7 @@
                                     </VBox>
                                     <VBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="161.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Request Status">
+                                          <Text fx:id="requestStatusText" strokeType="OUTSIDE" strokeWidth="0.0" text="Request Status">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -92,7 +92,7 @@
                                     </VBox>
                                     <VBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="161.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pending Requests">
+                                          <Text fx:id="pendingRequestsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Pending Requests">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -290,5 +290,15 @@
             </MFXButton>
          </children>
       </VBox>
+      <MFXButton fx:id="spanishButton" alignment="BOTTOM_CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="70.0" rippleColor="#d30909" text="SPANISH" underline="true" wrapText="true" AnchorPane.leftAnchor="500.0">
+         <graphic>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SPANISH" />
+         </graphic>
+      </MFXButton>
+      <MFXButton fx:id="englishButton" alignment="BOTTOM_CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="70.0" rippleColor="#d30909" text="ENGLISH" underline="true" wrapText="true" AnchorPane.leftAnchor="600.0">
+         <graphic>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ENGLISH" />
+         </graphic>
+      </MFXButton>
    </children>
 </AnchorPane>
