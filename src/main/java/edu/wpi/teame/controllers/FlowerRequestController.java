@@ -66,7 +66,7 @@ public class FlowerRequestController {
   String aI = "\u00ED"; // i with accent
   String aO = "\u00F3"; // o with accent
   String aU = "\u00F9"; // u with accent
-  String aQuestion = "\u00BF"; // upside down question mark
+  String aQuestion = "\u00FA"; // upside down question mark
 
   @FXML
   public void initialize() {

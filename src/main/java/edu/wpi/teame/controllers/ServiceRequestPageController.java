@@ -51,7 +51,7 @@ public class ServiceRequestPageController {
   String aE = "\u00E9"; // é
   String aI = "\u00ED"; // í
   String aO = "\u00F3"; // ó
-  String aU = "\u00F9"; // ù
+  String aU = "\u00FA"; // ù
   String aQuestion = "\u00BF"; // Upside down question mark
 
   @FXML
