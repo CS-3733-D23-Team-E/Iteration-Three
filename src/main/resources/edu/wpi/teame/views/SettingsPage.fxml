@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXRadioButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -32,7 +33,113 @@
                                  <children>
                                     <HBox prefHeight="970.0" prefWidth="1090.0" spacing="5.0">
                                        <children>
-                                          <VBox alignment="TOP_RIGHT" prefHeight="970.0" prefWidth="540.0" />
+                                          <VBox alignment="TOP_RIGHT" prefHeight="970.0" prefWidth="540.0" spacing="100.0">
+                                             <children>
+                                                <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                                                   <VBox.margin>
+                                                      <Insets left="20.0" top="50.0" />
+                                                   </VBox.margin>
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Account Information">
+                                                         <font>
+                                                            <Font name="Roboto Black" size="36.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name: ">
+                                                               <font>
+                                                                  <Font name="Roboto" size="24.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FirstName LastName">
+                                                               <font>
+                                                                  <Font name="Roboto" size="24.0" />
+                                                               </font>
+                                                            </Text>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username: ">
+                                                               <font>
+                                                                  <Font name="Roboto" size="24.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="username">
+                                                               <font>
+                                                                  <Font name="Roboto" size="24.0" />
+                                                               </font>
+                                                            </Text>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Access Level: ">
+                                                               <font>
+                                                                  <Font name="Roboto" size="24.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="staff">
+                                                               <font>
+                                                                  <Font name="Roboto" size="24.0" />
+                                                               </font>
+                                                            </Text>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                                <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password Reset">
+                                                         <font>
+                                                            <Font name="Roboto Black" size="36.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                                         <children>
+                                                            <VBox prefHeight="200.0" prefWidth="100.0" spacing="45.0">
+                                                               <children>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Current Password: ">
+                                                                     <font>
+                                                                        <Font name="Roboto" size="24.0" />
+                                                                     </font>
+                                                                     <VBox.margin>
+                                                                        <Insets top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New Password:">
+                                                                     <font>
+                                                                        <Font name="Roboto" size="24.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password: ">
+                                                                     <font>
+                                                                        <Font name="Roboto" size="24.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                               </children>
+                                                            </VBox>
+                                                            <VBox prefHeight="189.0" prefWidth="244.0" spacing="20.0">
+                                                               <children>
+                                                                  <MFXTextField prefHeight="50.0" prefWidth="200.0" />
+                                                                  <MFXTextField prefHeight="50.0" prefWidth="200.0" />
+                                                                  <MFXTextField prefHeight="50.0" prefWidth="200.0" />
+                                                               </children>
+                                                            </VBox>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" />
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" />
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </VBox.margin>
+                                                </VBox>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin></VBox>
                                           <Line endX="100.0" rotate="90.0" scaleX="3.0" startX="-100.0" stroke="#012d5a" strokeWidth="5.0">
                                              <HBox.margin>
                                                 <Insets top="500.0" />
