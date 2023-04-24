@@ -9,18 +9,19 @@ import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.SearchableComboBox;
 
 public class DatabaseMapViewController {
@@ -30,6 +31,12 @@ public class DatabaseMapViewController {
   @FXML AnchorPane mapPaneOne;
   @FXML AnchorPane mapPaneTwo;
   @FXML AnchorPane mapPaneThree;
+
+  @FXML GesturePane gesturePaneLowerTwo;
+  @FXML GesturePane gesturePaneLowerOne;
+  @FXML GesturePane gesturePaneOne;
+  @FXML GesturePane gesturePaneTwo;
+  @FXML GesturePane gesturePaneThree;
 
   @FXML Tab floorOneTab;
   @FXML Tab floorTwoTab;
@@ -89,7 +96,7 @@ public class DatabaseMapViewController {
 
   List<HospitalEdge> workingList = new LinkedList<>();
 
-  HospitalNode curNode;
+  HospitalNode currNode;
 
   boolean widthLoaded = false;
   boolean heightLoaded = false;
@@ -157,6 +164,7 @@ public class DatabaseMapViewController {
       currentCircle.setRadius(5);
       currentLabel.setVisible(false);
     }
+    refreshMap();
     currentCircle = null;
     currentLabel = null;
     displayAddMenu();
@@ -166,7 +174,7 @@ public class DatabaseMapViewController {
   }
 
   private void deleteNode() {
-    SQLRepo.INSTANCE.deletenode(curNode);
+    SQLRepo.INSTANCE.deletenode(currNode);
     displayAddMenu();
     refreshMap();
   }
@@ -191,11 +199,6 @@ public class DatabaseMapViewController {
     }
   }
 
-  public void initialLoadFloor(Floor floor) {
-    currentFloor = floor;
-    loadFloorNodes();
-  }
-
   private void setupNode(HospitalNode node) {
 
     String nodeID = node.getNodeID();
@@ -207,6 +210,9 @@ public class DatabaseMapViewController {
 
     nodeCircle.setOnMouseClicked(
         event -> {
+          refreshMap();
+          GesturePane currentGesturePane = whichGesturePane(currentFloor);
+          currentGesturePane.setGestureEnabled(true);
           if (currentCircle != null && currentLabel != null) {
             currentCircle.setRadius(5);
             currentLabel.setVisible(false);
@@ -217,6 +223,22 @@ public class DatabaseMapViewController {
           currentLabel.setVisible(true);
           setEditMenuVisible(true);
           updateEditMenu();
+        });
+    nodeCircle.setOnMouseDragged(
+        event -> {
+          if (currentCircle != null && currentLabel != null) {
+            currentCircle.setRadius(5);
+            currentLabel.setVisible(false);
+          }
+          currentCircle = nodeCircle;
+          currentCircle.setRadius(9);
+          currentLabel = nodeLabel;
+          currentLabel.setVisible(true);
+          setEditMenuVisible(true);
+
+          GesturePane currentGesturePane = whichGesturePane(currentFloor);
+          currentGesturePane.setGestureEnabled(false);
+          dragUpdate(event);
         });
   }
 
@@ -239,7 +261,7 @@ public class DatabaseMapViewController {
     String nodeID = currentCircle.getId();
     editPageText.setText("Edit Node: ID = " + nodeID);
 
-    curNode = allNodes.get(nodeID);
+    currNode = allNodes.get(nodeID);
     edges =
         SQLRepo.INSTANCE.getEdgeList().stream()
             .filter((edge) -> (edge.getNodeOneID().equals(nodeID)))
@@ -247,20 +269,16 @@ public class DatabaseMapViewController {
 
     workingList = new LinkedList<>();
 
-    for (HospitalEdge edge : edges) {
-      workingList.add(edge);
-      // System.out.println("item added to working list!");
-    }
-    //    workingList = FXCollections.observableList(edges);
+    workingList.addAll(edges);
 
     addList = new LinkedList<>();
     deleteList = new LinkedList<>();
 
-    String x = Integer.toString(curNode.getXCoord());
-    String y = Integer.toString(curNode.getYCoord());
+    String x = Integer.toString(currNode.getXCoord());
+    String y = Integer.toString(currNode.getYCoord());
     longNameSelector.setValue(SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(nodeID)));
 
-    buildingSelector.setValue(curNode.getBuilding());
+    buildingSelector.setValue(currNode.getBuilding());
 
     xField.setText(x);
     yField.setText(y);
@@ -273,6 +291,52 @@ public class DatabaseMapViewController {
     edgeView.setItems(FXCollections.observableList(workingList));
 
     deleteNodeButton.setVisible(true);
+  }
+
+  // called when node is dragged
+  private void dragUpdate(MouseEvent mouseEvent) {
+    String nodeID = currentCircle.getId();
+    editPageText.setText("Edit Node: ID = " + nodeID);
+    currNode = allNodes.get(nodeID);
+
+    // get x and y from drag and set new x and y for circle and label
+    ((Circle) mouseEvent.getSource()).setCenterX(mouseEvent.getX());
+    ((Circle) mouseEvent.getSource()).setCenterY(mouseEvent.getY());
+
+    double newX = currentCircle.getCenterX();
+    double newY = currentCircle.getCenterY();
+    currentLabel.setLayoutX(newX);
+    currentLabel.setLayoutY(newY);
+
+    // get image coordinates and update on edit menu
+    MapUtilities currentMapUtility = whichMapUtility(currentFloor);
+    int imageX = currentMapUtility.PaneXToImageX(currentCircle.getCenterX());
+    int imageY = currentMapUtility.PaneYToImageY(currentCircle.getCenterY());
+    xField.setText(Integer.toString(imageX));
+    yField.setText(Integer.toString(imageY));
+
+    // update edges based off drag
+    List<Node> startEdgesToUpdate =
+        currentMapUtility.getCurrentNodes().stream()
+            .filter(node -> node.getId().contains("startNode:" + currNode))
+            .toList();
+
+    List<Node> endEdgesToUpdate =
+        currentMapUtility.getCurrentNodes().stream()
+            .filter(node -> node.getId().contains("endNode:" + currNode))
+            .toList();
+
+    for (Node node : startEdgesToUpdate) {
+      Line line = (Line) node;
+      line.setStartX(newX);
+      line.setStartY(newY);
+    }
+
+    for (Node node : endEdgesToUpdate) {
+      Line line = (Line) node;
+      line.setEndX(newX);
+      line.setEndY(newY);
+    }
   }
 
   // APPEARS WHEN YOU CLICK OFF A NODE/CANCEL (DEFAULT)
@@ -441,20 +505,20 @@ public class DatabaseMapViewController {
     addEdgeField.setItems(FXCollections.observableList(allNodes.keySet().stream().toList()));
   }
 
-  public AnchorPane whichPane(Floor curFloor) {
+  public GesturePane whichGesturePane(Floor curFloor) {
     switch (curFloor) {
       case ONE:
-        return mapPaneOne;
+        return gesturePaneOne;
       case TWO:
-        return mapPaneTwo;
+        return gesturePaneTwo;
       case THREE:
-        return mapPaneThree;
+        return gesturePaneThree;
       case LOWER_ONE:
-        return mapPaneLowerOne;
+        return gesturePaneLowerOne;
       case LOWER_TWO:
-        return mapPaneLowerTwo;
+        return gesturePaneLowerTwo;
     }
-    return mapPaneOne;
+    return null;
   }
 
   public MapUtilities whichMapUtility(Floor currFloor) {

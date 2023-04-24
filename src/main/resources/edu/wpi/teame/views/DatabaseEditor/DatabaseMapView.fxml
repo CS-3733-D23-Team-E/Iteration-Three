@@ -60,7 +60,7 @@
                      <content>
                         <AnchorPane>
                            <children>
-                              <GesturePane maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <GesturePane fx:id="gesturePaneLowerTwo" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <content>
                                     <AnchorPane fx:id="mapPaneLowerTwo" minWidth="1500.0">
                                        <children>
@@ -84,7 +84,7 @@
                      <content>
                         <AnchorPane>
                            <children>
-                              <GesturePane maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <GesturePane fx:id="gesturePaneLowerOne" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <content>
                                     <AnchorPane fx:id="mapPaneLowerOne" minWidth="1500.0">
                                        <children>
@@ -108,7 +108,7 @@
                      <content>
                         <AnchorPane>
                            <children>
-                              <GesturePane maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <GesturePane fx:id="gesturePaneOne" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <content>
                                     <AnchorPane fx:id="mapPaneOne" minWidth="1500.0">
                                        <children>
@@ -132,7 +132,7 @@
                      <content>
                         <AnchorPane>
                            <children>
-                              <GesturePane maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <GesturePane fx:id="gesturePaneTwo" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <content>
                                     <AnchorPane fx:id="mapPaneTwo" minWidth="1500.0">
                                        <children>
@@ -153,7 +153,7 @@
                      <content>
                         <AnchorPane>
                            <children>
-                              <GesturePane maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <GesturePane fx:id="gesturePaneThree" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <content>
                                     <AnchorPane fx:id="mapPaneThree" minWidth="1500.0">
                                        <children>
