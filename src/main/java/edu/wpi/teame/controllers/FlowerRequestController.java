@@ -60,13 +60,13 @@ public class FlowerRequestController {
   @FXML Text notesText;
 
   String language = "spanish";
-  String nyay = "\u00F1"; // spanish n
-  String aA = "\u0301"; // a with accent
-  String aE = "\u00E9"; // e with accent
-  String aI = "\u00ED"; // i with accent
-  String aO = "\u00F3"; // o with accent
-  String aU = "\u00F9"; // u with accent
-  String aQuestion = "\u00FA"; // upside down question mark
+  String nyay = "\u00F1"; // ñ
+  String aA = "\u0301"; // á
+  String aE = "\u00E9"; // é
+  String aI = "\u00ED"; // í
+  String aO = "\u00F3"; // ó
+  String aU = "\u00FA"; // ù
+  String aQuestion = "\u00BF"; // Upside down question mark
 
   @FXML
   public void initialize() {
