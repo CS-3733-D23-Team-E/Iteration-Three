@@ -1,5 +1,6 @@
 package edu.wpi.teame.controllers;
 
+import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.entities.LoginData;
 import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
@@ -29,7 +30,9 @@ public class HomePageController {
   @FXML MFXButton menuBarServices;
   @FXML MFXButton menuBarMaps;
   @FXML MFXButton menuBarDatabase;
+
   @FXML MFXButton menuBarAbout;
+
   @FXML MFXButton menuBarSignage;
   @FXML MFXButton menuBarBlank;
   @FXML MFXButton menuBarExit;
@@ -47,7 +50,9 @@ public class HomePageController {
   @FXML ImageView signageI;
   @FXML ImageView pathfindingI;
   @FXML ImageView databaseI;
+
   @FXML ImageView aboutI;
+
   @FXML ImageView exitI;
 
   Boolean loggedIn;
@@ -85,7 +90,11 @@ public class HomePageController {
     menuBarExit.setOnMouseClicked(event -> Platform.exit());
 
     loggedIn = false;
-    logoutButton.setOnMouseClicked(event -> attemptLogin());
+    logoutButton.setOnMouseClicked(
+        event -> {
+          Navigation.navigate(Screen.SIGNAGE_TEXT);
+          SQLRepo.INSTANCE.exitDatabaseProgram();
+        });
 
     announcementButton.setOnMouseClicked(
         event -> {
@@ -158,6 +167,11 @@ public class HomePageController {
 
     // makes the buttons highlight when they are hovered over
 
+    ButtonUtilities.mouseSetup(serviceRequestButton);
+    ButtonUtilities.mouseSetup(editSignageButton);
+    ButtonUtilities.mouseSetup(pathfindingButton);
+    ButtonUtilities.mouseSetup(databaseButton);
+    ButtonUtilities.mouseSetup(logoutButton);
   }
 
   public void attemptLogin() {
