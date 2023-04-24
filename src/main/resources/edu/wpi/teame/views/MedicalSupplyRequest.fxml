@@ -41,7 +41,8 @@
                                  <children>
                                     <FlowPane alignment="CENTER" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
                                        <children>
-                                          <ImageView fx:id="item1Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fx:id="item1Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" >
+                                          </ImageView>
                                        </children>
                                     </FlowPane>
                                     <MFXButton fx:id="item1Minus" prefHeight="60.0" prefWidth="60.0" text="-">

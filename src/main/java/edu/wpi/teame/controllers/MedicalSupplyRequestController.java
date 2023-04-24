@@ -6,8 +6,8 @@ import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.*;
+import java.io.File;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -70,35 +70,13 @@ public class MedicalSupplyRequestController {
   int item6 = 0;
 
   public void initializeImages() {
-    item1Img.setImage(
-        new Image(
-            Objects.requireNonNull(getClass().getResource("images/medicalSupply/bandaid.png"))
-                .toString()));
-    item1Img.setVisible(true);
-    item1Img.toFront();
-    item2Img.setImage(
-        new Image(
-            Objects.requireNonNull(getClass().getResource("images/medicalSupply/covidTest.png"))
-                .toString()));
-    item3Img.setImage(
-        new Image(
-            Objects.requireNonNull(getClass().getResource("images/medicalSupply/epipen.png"))
-                .toString()));
-    item4Img.setImage(
-        new Image(
-            Objects.requireNonNull(getClass().getResource("images/medicalSupply/gloves.png"))
-                .toString()));
-    item5Img.setImage(
-        new Image(
-            Objects.requireNonNull(getClass().getResource("images/medicalSupply/sthetiscope.png"))
-                .toString()));
-    item6Img.setImage(
-        new Image(
-            Objects.requireNonNull(getClass().getResource("images/medicalSupply/syringe.png"))
-                .toString()));
+    File file1 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/bandaid.png");
+    Image image1 = new Image(file1.toURI().toString());
+    item1Img.setImage(image1);
   }
 
   public void initialize() {
+    initializeImages();
 
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
     ObservableList<String> names =
