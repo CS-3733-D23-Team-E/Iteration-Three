@@ -48,40 +48,28 @@ public class DatabaseEditorController {
   private void initButtons() {
     tableEditorSwapButton.setOnAction(
         event -> {
-          tableView.setVisible(true);
-          moveView.setVisible(false);
-          serviceView.setVisible(false);
-          mapView.setVisible(false);
+          onlyVisible(tableView);
           importExportZone.setVisible(true);
           onlyDisable(tableEditorSwapButton);
           editorTitle.setText("Table editor");
         });
     mapEditorSwapButton.setOnAction(
         event -> {
-          tableView.setVisible(false);
-          moveView.setVisible(false);
-          serviceView.setVisible(false);
-          mapView.setVisible(true);
+          onlyVisible(mapView);
           importExportZone.setVisible(false);
           onlyDisable(mapEditorSwapButton);
           editorTitle.setText("Map editor");
         });
     moveEditorSwapButton.setOnAction(
         event -> {
-          tableView.setVisible(false);
-          moveView.setVisible(true);
-          serviceView.setVisible(false);
-          mapView.setVisible(false);
+          onlyVisible(moveView);
           importExportZone.setVisible(false);
           onlyDisable(moveEditorSwapButton);
           editorTitle.setText("Move editor");
         });
     requestsEditorSwapButton.setOnAction(
         event -> {
-          tableView.setVisible(false);
-          moveView.setVisible(false);
-          serviceView.setVisible(true);
-          mapView.setVisible(false);
+          onlyVisible(serviceView);
           importExportZone.setVisible(false);
           onlyDisable(requestsEditorSwapButton);
           editorTitle.setText("Request editor");
@@ -99,5 +87,13 @@ public class DatabaseEditorController {
     moveEditorSwapButton.setDisable(false);
     requestsEditorSwapButton.setDisable(false);
     btn.setDisable(true);
+  }
+
+  private void onlyVisible(AnchorPane pane) {
+    tableView.setVisible(false);
+    moveView.setVisible(false);
+    serviceView.setVisible(false);
+    mapView.setVisible(false);
+    pane.setVisible(true);
   }
 }
