@@ -7,10 +7,13 @@ import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class MedicalSupplyRequestController {
   @FXML private MFXButton clear;
@@ -42,17 +45,12 @@ public class MedicalSupplyRequestController {
   @FXML private MFXButton item6Minus;
   @FXML private MFXButton item6Plus;
   @FXML private MFXTextField item6Quantity;
-
-  public void clearAll() {
-    recipientsName.clear();
-    locationName.clear();
-    date.clear();
-    hours.clear();
-    minutes.clear();
-    ampm.clear();
-    staffAssigned.clear();
-    notes.clear();
-  }
+  @FXML private ImageView item1Img;
+  @FXML private ImageView item2Img;
+  @FXML private ImageView item3Img;
+  @FXML private ImageView item4Img;
+  @FXML private ImageView item5Img;
+  @FXML private ImageView item6Img;
 
   ObservableList<String> staffMembers = FXCollections.observableArrayList();
 
@@ -72,6 +70,32 @@ public class MedicalSupplyRequestController {
   int item6 = 0;
 
   public void initializeImages() {
+    item1Img.setImage(
+        new Image(
+            Objects.requireNonNull(getClass().getResource("images/medicalSupply/bandaid.png"))
+                .toString()));
+    item1Img.setVisible(true);
+    item1Img.toFront();
+    item2Img.setImage(
+        new Image(
+            Objects.requireNonNull(getClass().getResource("images/medicalSupply/covidTest.png"))
+                .toString()));
+    item3Img.setImage(
+        new Image(
+            Objects.requireNonNull(getClass().getResource("images/medicalSupply/epipen.png"))
+                .toString()));
+    item4Img.setImage(
+        new Image(
+            Objects.requireNonNull(getClass().getResource("images/medicalSupply/gloves.png"))
+                .toString()));
+    item5Img.setImage(
+        new Image(
+            Objects.requireNonNull(getClass().getResource("images/medicalSupply/sthetiscope.png"))
+                .toString()));
+    item6Img.setImage(
+        new Image(
+            Objects.requireNonNull(getClass().getResource("images/medicalSupply/syringe.png"))
+                .toString()));
   }
 
   public void initialize() {

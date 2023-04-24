@@ -149,7 +149,9 @@
                                  <children>
                                     <FlowPane alignment="CENTER" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
                                        <children>
-                                          <ImageView fx:id="item5Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fx:id="item5Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" visible="true" preserveRatio="true">
+                                             <image></image>
+                                          </ImageView>
                                        </children>
                                     </FlowPane>
                                     <MFXButton fx:id="item5Minus" prefHeight="60.0" prefWidth="60.0" text="-">
@@ -176,7 +178,7 @@
                                  <children>
                                     <FlowPane alignment="CENTER" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
                                        <children>
-                                          <ImageView fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fx:id="item6Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </FlowPane>
                                     <MFXButton fx:id="item6Minus" prefHeight="60.0" prefWidth="60.0" text="-">
