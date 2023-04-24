@@ -48,6 +48,8 @@ public class HomePageController {
   @FXML ImageView databaseI;
   @FXML ImageView exitI;
   @FXML MFXButton spanishButton;
+  @FXML MFXButton englishButton;
+  @FXML Text todayIs;
 
   Boolean loggedIn;
   String language = "english";
@@ -173,6 +175,10 @@ public class HomePageController {
     ButtonUtilities.mouseSetup(databaseButton);
     ButtonUtilities.mouseSetup(logoutButton);
 
+    englishButton.setOnMouseClicked(
+        event -> {
+          translateToEnglish();
+        });
     spanishButton.setOnMouseClicked(
         event -> {
           translateToSpanish();
@@ -237,6 +243,9 @@ public class HomePageController {
     serviceRequestButton.setText("Servicios"); // Services
     pathfindingButton.setText("Navegaci" + aO + "n"); // Pathfinding
     databaseButton.setText("Base de Datos"); // Database
+
+    // Date Bar
+    todayIs.setText("Hoy es..."); // Today is...
   }
 
   public void translateToEnglish() {
@@ -253,5 +262,8 @@ public class HomePageController {
     serviceRequestButton.setText("Services"); // Keep in English
     pathfindingButton.setText("Pathfinding"); // Keep in English
     databaseButton.setText("Database"); // Keep in English
+
+    // Date Bar
+    todayIs.setText("Today is..."); // Keep in English
   }
 }

@@ -171,7 +171,7 @@
                         <Insets />
                      </StackPane.margin>
                   </Rectangle>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Today is...." StackPane.alignment="TOP_LEFT">
+                  <Text fx:id="todayIs" strokeType="OUTSIDE" strokeWidth="0.0" text="Today is...." StackPane.alignment="TOP_LEFT">
                      <StackPane.margin>
                         <Insets left="10.0" top="10.0" />
                      </StackPane.margin>
@@ -328,6 +328,14 @@
                <graphic>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SPANISH" />
                </graphic>
+            </MFXButton>
+            <MFXButton fx:id="englishButton" alignment="BOTTOM_CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="70.0" rippleColor="#d30909" text="ENGLISH" underline="true" wrapText="true">
+               <graphic>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ENGLISH" />
+               </graphic>
+               <StackPane.margin>
+                  <Insets left="600.0" />
+               </StackPane.margin>
             </MFXButton>
          </children>
       </StackPane>
