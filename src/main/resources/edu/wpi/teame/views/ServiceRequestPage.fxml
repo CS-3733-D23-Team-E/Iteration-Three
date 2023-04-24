@@ -19,10 +19,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.ServiceRequestPageController">
    <center>
-      <AnchorPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #e1e1e1;">
+      <AnchorPane maxHeight="900.0" maxWidth="1600.0" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #e1e1e1;">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#001a3c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="1600.0" />
             <HBox alignment="CENTER_LEFT" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="1580.0" spacing="1430.0" AnchorPane.leftAnchor="20.0">
@@ -271,7 +270,7 @@
                   </MFXButton>
                </children>
             </VBox>
-            <VBox fx:id="logoutBox" alignment="TOP_CENTER" layoutX="1450.0" layoutY="75.0" maxHeight="150.0" maxWidth="150.0" prefHeight="200.0" prefWidth="162.0" spacing="20.0" style="-fx-background-color: #f1f1f1; -fx-border-color: #001a3c; -fx-border-width: 3;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="75.0">
+            <VBox fx:id="logoutBox" alignment="TOP_CENTER" layoutX="1450.0" layoutY="75.0" maxHeight="150.0" maxWidth="150.0" prefHeight="200.0" prefWidth="162.0" spacing="20.0" style="-fx-background-color: #f1f1f1; -fx-border-color: #001a3c; -fx-border-width: 3;" AnchorPane.topAnchor="75.0">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>

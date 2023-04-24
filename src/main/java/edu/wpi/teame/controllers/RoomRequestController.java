@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class RoomRequestController {
@@ -44,9 +45,13 @@ public class RoomRequestController {
   @FXML MFXButton resetButton;
   @FXML SearchableComboBox<String> assignedStaff;
   @FXML MFXButton submitButton;
+  @FXML MFXButton closeButton;
+  @FXML VBox requestSubmittedBox;
 
   @FXML
   public void initialize() {
+    requestSubmittedBox.setVisible(false);
+
     // Add the items to the combo boxes
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
     ObservableList<String> names =
@@ -82,9 +87,15 @@ public class RoomRequestController {
     roomChanges.setItems(changes);
     // Initialize the buttons
 
-    submitButton.setOnMouseClicked(event -> sendRequest());
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
+    submitButton.setOnMouseClicked(
+        event -> {
+          sendRequest();
+          requestSubmittedBox.setVisible(true);
+          clearForm();
+        });
+    closeButton.setOnMouseClicked(event -> requestSubmittedBox.setVisible(false));
   }
 
   public ConferenceRequestData sendRequest() {
@@ -104,7 +115,6 @@ public class RoomRequestController {
     SQLRepo.INSTANCE.addServiceRequest(requestData);
 
     // Return to the home screen
-    Navigation.navigate(Screen.HOME);
 
     return requestData;
   }
