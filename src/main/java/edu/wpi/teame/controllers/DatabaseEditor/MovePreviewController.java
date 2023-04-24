@@ -154,13 +154,19 @@ public class MovePreviewController {
     if (node1.getFloor() == node2.getFloor() && node1.getFloor().equals(currentFloor)) {
       whichMapUtility(currentFloor).drawEdge(node1, node2);
     }
-
-    // TODO: change to only load the nodes for a given move if they are on the current floor
-    if (node1.getFloor().equals(currentFloor)) {
-      setupNode(node1);
-    }
-    if (node2.getFloor().equals(currentFloor)) {
-      setupNode(node2);
+    // TODO: draw label over node, if the node is not on the given floor, saying what floor it is on
+    // TODO: draw the line if EITHER of the current nodes are on the floor
+    if (node1.getFloor().equals(currentFloor) || node2.getFloor().equals(currentFloor)) {
+      whichMapUtility(currentFloor).drawEdge(node1, node2);
+      if (node1.getFloor().equals(currentFloor)) {
+        // draw phantom label for node 2
+        setupNode(node1);
+        whichMapUtility(currentFloor).drawHospitalNodeLabel(node2, "Moved to floor: " + node2.getFloor());
+      } else {
+        // draw phantom label for node 1
+        setupNode(node2);
+        whichMapUtility(currentFloor).drawHospitalNodeLabel(node1, "Moved to floor: " + node1.getFloor());
+      }
     }
   }
 
