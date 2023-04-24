@@ -202,7 +202,9 @@ public class DatabaseMapViewController {
 
     Circle nodeCircle = currentMapUtility.drawHospitalNode(node);
     Label nodeLabel = currentMapUtility.drawHospitalNodeLabel(node);
-    nodeLabel.setVisible(isLocationNamesDisplayed);
+    if (isLocationNamesDisplayed) {
+      nodeLabel.setVisible(true);
+    } else nodeLabel.setVisible(false);
 
     nodeCircle.setOnMouseClicked(
         event -> {
@@ -541,6 +543,7 @@ public class DatabaseMapViewController {
         event -> {
           isLocationNamesDisplayed = locationNameToggle.isSelected();
           loadFloorNodes();
+          System.out.println(isLocationNamesDisplayed);
         });
   }
 
