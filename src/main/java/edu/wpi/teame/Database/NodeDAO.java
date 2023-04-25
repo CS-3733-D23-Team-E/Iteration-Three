@@ -44,7 +44,7 @@ public class NodeDAO<E> extends DAO<HospitalNode> {
       }
       if (nodeList.isEmpty()) System.out.println("There was a problem returning the nodes");
     } catch (SQLException e) {
-      throw new RuntimeException("There was a problem retrieving the nodes");
+      System.out.println(e.getMessage());
     }
     return nodeList;
   }
