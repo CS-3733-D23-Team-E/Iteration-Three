@@ -68,12 +68,12 @@ public class FurnitureController {
     }
 
     assignedStaff.setItems(FXCollections.observableArrayList(staffMembers));
-    /*assignedStaff.setItems(
-    FXCollections.observableList(
-        SQLRepo.INSTANCE.getEmployeeList().stream()
-            .filter(employee -> employee.getPermission().equals("STAFF"))
-            .map(employee -> employee.getFullName())
-            .toList()));*/
+    assignedStaff.setItems(
+        FXCollections.observableList(
+            SQLRepo.INSTANCE.getEmployeeList().stream()
+                .filter(employee -> employee.getPermission().equals("STAFF"))
+                .map(employee -> employee.getUsername())
+                .toList()));
 
     roomName.setItems(names);
     // Add the items to the combo boxes
