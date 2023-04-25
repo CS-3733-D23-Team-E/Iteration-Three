@@ -113,11 +113,19 @@ public class EmployeeViewController {
 
   private void updateDatabaseStatus() {
     if (currentStatus.equals("EMPLOYEE")) {
-      SQLRepo.INSTANCE.updateEmployee(currentEmployee, "fullName", editFullNameField.getText());
-      SQLRepo.INSTANCE.updateEmployee(currentEmployee, "username", editUsernameField.getText());
-      SQLRepo.INSTANCE.updateEmployee(currentEmployee, "password", editPasswordField.getText());
-      SQLRepo.INSTANCE.updateEmployee(
-          currentEmployee, "permission", editPermissionChoice.getValue());
+      if (!editFullNameField.getText().isEmpty()) {
+        SQLRepo.INSTANCE.updateEmployee(currentEmployee, "fullName", editFullNameField.getText());
+      }
+      if (!editUsernameField.getText().isEmpty()) {
+        SQLRepo.INSTANCE.updateEmployee(currentEmployee, "username", editUsernameField.getText());
+      }
+      if (!editPasswordField.getText().isEmpty()) {
+        SQLRepo.INSTANCE.updateEmployee(currentEmployee, "password", editPasswordField.getText());
+      }
+      if (editPermissionChoice.getValue() != null) {
+        SQLRepo.INSTANCE.updateEmployee(
+            currentEmployee, "permission", editPermissionChoice.getValue());
+      }
       employeeTable.setItems(FXCollections.observableArrayList(SQLRepo.INSTANCE.getEmployeeList()));
       initialize();
     }
