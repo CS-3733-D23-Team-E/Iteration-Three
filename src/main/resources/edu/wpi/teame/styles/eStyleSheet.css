@@ -53,7 +53,7 @@
   }
 
  .radio-button:selected .radio .dot {
-     -fx-background-color: #3b63a5;
+     -fx-background-color: #3B63A5;
      -fx-background-insets: 0;
  }
 

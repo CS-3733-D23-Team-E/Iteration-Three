@@ -2,7 +2,6 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,16 +9,16 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.NewScreenTemplateController">
    <children>
+      <fx:include source="Map.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0" />
       <HBox alignment="CENTER_LEFT" fillHeight="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="1600.0" style="-fx-background-color: #001A3C;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <MFXButton fx:id="menuButton" alignment="BOTTOM_CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" rippleColor="WHITE" style="-fx-background-color: #001A3C;" text="Menu" HBox.hgrow="ALWAYS">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../images/menu-burger.png" />
+                        <Image url="@../../images/menu-burger.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -29,7 +28,7 @@
                <graphic>
                   <ImageView fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/circle-user.png" />
+                        <Image url="@../../images/circle-user.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -45,7 +44,7 @@
                <graphic>
                   <ImageView fx:id="homeI" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../images/house-blank.png" />
+                        <Image url="@../../images/house-blank.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -54,7 +53,7 @@
                <graphic>
                   <ImageView fx:id="servicesI" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../images/hand-holding-medical.png" />
+                        <Image url="@../../images/hand-holding-medical.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -63,7 +62,7 @@
                <graphic>
                   <ImageView fx:id="signageI" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../images/diamond-turn-right.png" />
+                        <Image url="@../../images/diamond-turn-right.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -72,7 +71,7 @@
                <graphic>
                   <ImageView fx:id="pathfindingI" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../images/marker.png" />
+                        <Image url="@../../images/marker.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -81,7 +80,7 @@
                <graphic>
                   <ImageView fx:id="databaseI" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../images/folder-tree.png" />
+                        <Image url="@../../images/folder-tree.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -91,17 +90,12 @@
                <graphic>
                   <ImageView fx:id="exitI" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../images/sign-out-alt.png" />
+                        <Image url="@../../images/sign-out-alt.png" />
                      </image>
                   </ImageView>
                </graphic>
             </MFXButton>
          </children>
       </VBox>
-      <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #001A3C; -fx-opacity: 0.50;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
-         <effect>
-            <BoxBlur height="0.0" width="0.0" />
-         </effect>
-      </Region>
    </children>
 </AnchorPane>
