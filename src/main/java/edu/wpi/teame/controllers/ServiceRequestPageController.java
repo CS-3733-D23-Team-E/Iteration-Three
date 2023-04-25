@@ -1,6 +1,9 @@
 package edu.wpi.teame.controllers;
 
+
 import static edu.wpi.teame.entities.ServiceRequestData.Status.*;
+import static edu.wpi.teame.entities.ServiceRequestData.Status.DONE;
+import static edu.wpi.teame.entities.ServiceRequestData.Status.IN_PROGRESS;
 import static javafx.scene.paint.Color.WHITE;
 
 import edu.wpi.teame.Database.SQLRepo;
@@ -38,7 +41,9 @@ public class ServiceRequestPageController {
   @FXML ImageView signageI;
   @FXML ImageView pathfindingI;
   @FXML ImageView databaseI;
+
   @FXML ImageView aboutI;
+
   @FXML ImageView exitI;
 
   @FXML Label pendingRequestText;
@@ -90,7 +95,9 @@ public class ServiceRequestPageController {
     menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
     menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_EDITOR));
+
     menuBarAbout.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT));
+
     menuBarExit.setOnMouseClicked((event -> Platform.exit()));
     logoutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
 
@@ -122,8 +129,10 @@ public class ServiceRequestPageController {
         "images/folder-tree.png",
         "images/folder-tree-blue.png");
     ButtonUtilities.mouseSetupMenuBar(
+
         menuBarAbout, "baseline-left", aboutI, "images/abouticon.png", "images/abouticon-blue.png");
     ButtonUtilities.mouseSetupMenuBar(
+
         menuBarExit,
         "baseline-center",
         exitI,
@@ -188,8 +197,16 @@ public class ServiceRequestPageController {
             .map(request -> (ServiceRequestData) request)
             .toList());
 
+    requests.addAll(
+        SQLRepo.INSTANCE.getMedicalSuppliesList().stream()
+            .map(request -> (ServiceRequestData) request)
+            .toList());
+
     List<ServiceRequestData> pendingRequests =
-        requests.stream().filter(request -> request.getRequestStatus().equals(PENDING)).toList();
+        requests.stream()
+            .filter(request -> request.getRequestStatus().equals(ServiceRequestData.Status.PENDING))
+            .toList();
+
     List<ServiceRequestData> inProgressRequests =
         requests.stream()
             .filter(request -> request.getRequestStatus().equals(IN_PROGRESS))

@@ -68,20 +68,16 @@ public class RoomRequestController {
                 .sorted()
                 .toList());
 
-    /*assignedStaff.setItems(
-            FXCollections.observableList(
-                SQLRepo.INSTANCE.getEmployeeList().stream()
-                    .filter(employee -> employee.getPermission().equals("STAFF"))
-                    .map(employee -> employee.getFullName())
-                    .toList()));
-    */
 
-    List<Employee> employeeList = SQLRepo.INSTANCE.getEmployeeList();
-    for (Employee emp : employeeList) {
-      staffMembers.add(emp.getUsername());
-    }
 
-    assignedStaff.setItems(FXCollections.observableArrayList(staffMembers));
+    assignedStaff.setItems(
+        FXCollections.observableList(
+            SQLRepo.INSTANCE.getEmployeeList().stream()
+                .filter(employee -> employee.getPermission().equals("STAFF"))
+                .map(employee -> employee.getUsername())
+                .toList()));
+
+
     roomName.setItems(names);
     bookingTime.setItems(times);
     roomChanges.setItems(changes);

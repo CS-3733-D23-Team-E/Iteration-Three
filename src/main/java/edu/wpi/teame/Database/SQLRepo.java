@@ -21,8 +21,8 @@ public enum SQLRepo {
     MEAL_REQUESTS,
     FLOWER_REQUESTS,
     FURNITURE_REQUESTS,
-    CONFERENCE_ROOM;
-    ;
+    CONFERENCE_ROOM,
+    MEDICAL_SUPPLIES;
 
     public static String tableToString(Table tb) {
       switch (tb) {
@@ -66,13 +66,14 @@ public enum SQLRepo {
   ServiceDAO<MealRequestData> mealDAO;
   ServiceDAO<FlowerRequestData> flowerDAO;
   ServiceDAO<ConferenceRequestData> conferenceDAO;
+  ServiceDAO<MedicalSuppliesData> medicalsuppliesDAO;
 
   public Employee connectToDatabase(String username, String password) {
     try {
       Class.forName("org.postgresql.Driver");
       activeConnection =
-          DriverManager.getConnection(
-              "jdbc:postgresql://database.cs.wpi.edu:5432/teamedb", "teame", "teame50");
+              DriverManager.getConnection(
+                      "jdbc:postgresql://database.cs.wpi.edu:5432/teamedb", "teame", "teame50");
       employeeDAO = new EmployeeDAO(activeConnection);
       Employee loggedIn = employeeDAO.verifyLogIn(username, password);
       if (loggedIn == null) {
@@ -88,6 +89,7 @@ public enum SQLRepo {
         flowerDAO = new FlowerDAO(activeConnection);
         conferenceDAO = new ConferenceRoomDAO(activeConnection);
         furnitureDAO = new FurnitureDAO(activeConnection);
+        medicalsuppliesDAO = new MedicalSuppliesDAO(activeConnection);
 
         Employee.setActiveEmployee(loggedIn);
 
@@ -119,7 +121,7 @@ public enum SQLRepo {
     String edge = Main.class.getResource("Data/NewData/Edge.csv").getFile().replaceAll("%20", " ");
     String move = Main.class.getResource("Data/NewData/Move.csv").getFile().replaceAll("%20", " ");
     String location =
-        Main.class.getResource("Data/NewData/LocationName.csv").getFile().replaceAll("%20", " ");
+            Main.class.getResource("Data/NewData/LocationName.csv").getFile().replaceAll("%20", " ");
     this.importFromCSV(Table.NODE, node);
     this.importFromCSV(Table.EDGE, edge);
     this.importFromCSV(Table.LOCATION_NAME, location);
@@ -136,7 +138,7 @@ public enum SQLRepo {
   }
 
   public void updateUsingNodeID(
-      String nodeID, String oldLongName, String columnName, String value) {
+          String nodeID, String oldLongName, String columnName, String value) {
     this.dbUtility.updateMoveWithoutObject(nodeID, oldLongName, columnName, value);
   }
 
@@ -198,6 +200,8 @@ public enum SQLRepo {
         case FURNITURE_REQUESTS:
           this.furnitureDAO.importFromCSV(filepath, "FurnitureService");
           break;
+        case MEDICAL_SUPPLIES:
+          this.medicalsuppliesDAO.importFromCSV(filepath, "MedicalSupplies");
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());
@@ -238,6 +242,8 @@ public enum SQLRepo {
         case FURNITURE_REQUESTS:
           this.furnitureDAO.exportToCSV(filepath, tableName);
           break;
+        case MEDICAL_SUPPLIES:
+          this.medicalsuppliesDAO.exportToCSV(filepath, tableName);
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());
@@ -286,6 +292,10 @@ public enum SQLRepo {
     return this.furnitureDAO.get();
   }
 
+  public List<MedicalSuppliesData> getMedicalSuppliesList() {
+    return this.medicalsuppliesDAO.get();
+  }
+
   // ALL UPDATES FOR DAOS
 
   public void updateNode(HospitalNode obj, String attribute, String value) {
@@ -320,6 +330,9 @@ public enum SQLRepo {
     } else if (obj instanceof ConferenceRequestData) {
       ConferenceRequestData updateConf = (ConferenceRequestData) obj;
       this.conferenceDAO.update(updateConf, attribute, value);
+    } else if (obj instanceof MedicalSuppliesData) {
+      MedicalSuppliesData updateMed = (MedicalSuppliesData) obj;
+      this.medicalsuppliesDAO.update(updateMed, attribute, value);
     } else {
       throw new NoSuchElementException("No Service Request of this type");
     }
@@ -366,6 +379,9 @@ public enum SQLRepo {
     } else if (obj instanceof ConferenceRequestData) {
       ConferenceRequestData deleteConf = (ConferenceRequestData) obj;
       this.conferenceDAO.delete(deleteConf);
+    } else if (obj instanceof MedicalSuppliesData) {
+      MedicalSuppliesData deleteMed = (MedicalSuppliesData) obj;
+      this.medicalsuppliesDAO.delete(deleteMed);
     } else {
       throw new NoSuchElementException("No Service Request of this type");
     }
@@ -428,6 +444,9 @@ public enum SQLRepo {
     } else if (obj instanceof ConferenceRequestData) {
       ConferenceRequestData addConf = (ConferenceRequestData) obj;
       this.conferenceDAO.add(addConf);
+    } else if (obj instanceof MedicalSuppliesData) {
+      MedicalSuppliesData addMed = (MedicalSuppliesData) obj;
+      this.medicalsuppliesDAO.add(addMed);
     } else {
       throw new NoSuchElementException("No Service Request of this type");
     }

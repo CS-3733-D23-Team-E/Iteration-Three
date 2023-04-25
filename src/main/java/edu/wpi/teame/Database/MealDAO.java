@@ -32,19 +32,19 @@ public class MealDAO<E> extends ServiceDAO<MealRequestData> {
       ResultSet rs = stmt.executeQuery(sql);
       while (rs.next()) {
         MealRequestData data =
-            new MealRequestData(
-                rs.getInt("requestID"),
-                rs.getString("name"),
-                rs.getString("room"),
-                rs.getString("deliveryDate"),
-                rs.getString("deliveryTime"),
-                rs.getString("assignedStaff"),
-                rs.getString("mainCourse"),
-                rs.getString("sideCourse"),
-                rs.getString("drink"),
-                rs.getString("allergies"),
-                rs.getString("notes"),
-                ServiceRequestData.Status.stringToStatus(rs.getString("status")));
+                new MealRequestData(
+                        rs.getInt("requestID"),
+                        rs.getString("name"),
+                        rs.getString("room"),
+                        rs.getString("deliveryDate"),
+                        rs.getString("deliveryTime"),
+                        rs.getString("assignedStaff"),
+                        rs.getString("mainCourse"),
+                        rs.getString("sideCourse"),
+                        rs.getString("drink"),
+                        rs.getString("allergies"),
+                        rs.getString("notes"),
+                        ServiceRequestData.Status.stringToStatus(rs.getString("status")));
         serviceRequestDataList.add(data);
       }
     } catch (SQLException e) {
@@ -70,29 +70,29 @@ public class MealDAO<E> extends ServiceDAO<MealRequestData> {
     String staff = obj.getAssignedStaff();
 
     String sqlAdd =
-        "INSERT INTO \"MealService\" VALUES(nextval('serial'), '"
-            + name
-            + "','"
-            + room
-            + "','"
-            + deliveryDate
-            + "','"
-            + deliveryTime
-            + "','"
-            + staff
-            + "','"
-            + mainCourse
-            + "','"
-            + sideCourse
-            + "','"
-            + drink
-            + "','"
-            + allergies
-            + "','"
-            + notes
-            + "','"
-            + requestStatus
-            + "');";
+            "INSERT INTO \"MealService\" VALUES(nextval('serial'), '"
+                    + name
+                    + "','"
+                    + room
+                    + "','"
+                    + deliveryDate
+                    + "','"
+                    + deliveryTime
+                    + "','"
+                    + staff
+                    + "','"
+                    + mainCourse
+                    + "','"
+                    + sideCourse
+                    + "','"
+                    + drink
+                    + "','"
+                    + allergies
+                    + "','"
+                    + notes
+                    + "','"
+                    + requestStatus
+                    + "');";
 
     Statement stmt;
     try {
@@ -123,63 +123,44 @@ public class MealDAO<E> extends ServiceDAO<MealRequestData> {
       for (String l1 : rows) {
         String[] splitL1 = l1.split(",");
         String sql =
-            "INSERT INTO "
-                + "\""
-                + tableName
-                + "\""
-                + " VALUES ("
-                + parseInt(splitL1[0])
-                + ",'"
-                + splitL1[1]
-                + "','"
-                + splitL1[2]
-                + "','"
-                + splitL1[3]
-                + "','"
-                + splitL1[4]
-                + "','"
-                + splitL1[5]
-                + "','"
-                + splitL1[6]
-                + "','"
-                + splitL1[7]
-                + "','"
-                + splitL1[8]
-                + "','"
-                + splitL1[9]
-                + "','"
-                + splitL1[10]
-                + "','"
-                + splitL1[11]
-                + "'); ";
+                "INSERT INTO "
+                        + "\""
+                        + tableName
+                        + "\""
+                        + " VALUES ("
+                        + parseInt(splitL1[0])
+                        + ",'"
+                        + splitL1[1]
+                        + "','"
+                        + splitL1[2]
+                        + "','"
+                        + splitL1[3]
+                        + "','"
+                        + splitL1[4]
+                        + "','"
+                        + splitL1[5]
+                        + "','"
+                        + splitL1[6]
+                        + "','"
+                        + splitL1[7]
+                        + "','"
+                        + splitL1[8]
+                        + "','"
+                        + splitL1[9]
+                        + "','"
+                        + splitL1[10]
+                        + "','"
+                        + splitL1[11]
+                        + "'); ";
         stmt.execute(sql);
       }
 
       System.out.println(
-          "Imported " + (rows.size()) + " rows from " + filePath + " to " + tableName);
+              "Imported " + (rows.size()) + " rows from " + filePath + " to " + tableName);
 
     } catch (IOException | SQLException e) {
       System.err.println("Error importing from " + filePath + " to " + tableName);
       e.printStackTrace();
-    }
-  }
-
-  private int returnNewestRequestID() {
-    int currentID = -1;
-    try {
-      Statement stmt = activeConnection.createStatement();
-
-      String sql = "SELECT last_value AS val FROM serial;";
-      ResultSet rs = stmt.executeQuery(sql);
-
-      if (rs.next()) {
-        currentID = rs.getInt("val");
-      } else {
-        System.out.println("Something ain't workin right");
-      }
-      return currentID;
-    } catch (SQLException e) {
-      throw new RuntimeException(e.getMessage());
     }
   }
 }

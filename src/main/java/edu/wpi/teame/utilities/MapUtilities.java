@@ -43,8 +43,8 @@ public class MapUtilities {
 
     //    System.out.println("nodetype: " + SQLRepo.INSTANCE.getNodeTypeFromNodeID(105));
     LocationName.NodeType nodeType =
-        LocationName.NodeType.stringToNodeType(
-            SQLRepo.INSTANCE.getNodeTypeFromNodeID(Integer.parseInt(nodeID)));
+            LocationName.NodeType.stringToNodeType(
+                    SQLRepo.INSTANCE.getNodeTypeFromNodeID(Integer.parseInt(nodeID)));
 
     Circle circle = drawCircle(x, y, 5);
     setHospitalNodeColor(circle, nodeType);
@@ -114,6 +114,24 @@ public class MapUtilities {
   }
 
   /**
+   * OVERLOADED: draws a given message associated with a hospitalNode's location (ie "went to floor
+   * 4")
+   *
+   * @param hospitalNode
+   * @param message
+   * @return
+   */
+  public Label drawHospitalNodeLabel(HospitalNode hospitalNode, String message) {
+    int x = hospitalNode.getXCoord();
+    int y = hospitalNode.getYCoord();
+    String nodeID = hospitalNode.getNodeID();
+
+    Label label = createStyledLabel(x, y, 10, 10, message);
+    label.setId("label" + hospitalNode.getNodeID());
+    return label;
+  }
+
+  /**
    * Draws the edge between two given nodes
    *
    * @param node
@@ -170,7 +188,7 @@ public class MapUtilities {
    * @return
    */
   public Circle drawRing(
-      int x, int y, int radius, int thickness, Color innerColor, Color outerColor) {
+          int x, int y, int radius, int thickness, Color innerColor, Color outerColor) {
     x = (int) convertX(x);
     y = (int) convertY(y);
 

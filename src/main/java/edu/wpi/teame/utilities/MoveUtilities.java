@@ -1,6 +1,7 @@
 package edu.wpi.teame.utilities;
 
 import edu.wpi.teame.Database.SQLRepo;
+import edu.wpi.teame.map.HospitalNode;
 import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.map.MoveAttribute;
 import java.text.ParseException;
@@ -32,22 +33,22 @@ public class MoveUtilities {
    */
   public MoveAttribute findMostRecentMoveByDate(String longName, Date date) {
     List<MoveAttribute> movesAtDate =
-        SQLRepo.INSTANCE.getMoveList().stream()
-            .filter(movAt -> (movAt.getLongName().equals(longName)))
-            .filter(movAt -> afterDate(movAt, date) <= 0) // before or on date
-            .sorted(
-                new Comparator<MoveAttribute>() {
-                  @Override
-                  public int compare(MoveAttribute o1, MoveAttribute o2) {
-                    try {
-                      return formatter.parse(o1.getDate()).compareTo(formatter.parse(o2.getDate()));
-                    } catch (ParseException e) {
-                      System.out.println(e);
-                      return 0;
-                    }
-                  }
-                })
-            .toList();
+            SQLRepo.INSTANCE.getMoveList().stream()
+                    .filter(movAt -> (movAt.getLongName().equals(longName)))
+                    .filter(movAt -> afterDate(movAt, date) <= 0) // before or on date
+                    .sorted(
+                            new Comparator<MoveAttribute>() {
+                              @Override
+                              public int compare(MoveAttribute o1, MoveAttribute o2) {
+                                try {
+                                  return formatter.parse(o1.getDate()).compareTo(formatter.parse(o2.getDate()));
+                                } catch (ParseException e) {
+                                  System.out.println(e);
+                                  return 0;
+                                }
+                              }
+                            })
+                    .toList();
 
     try {
       return movesAtDate.get(movesAtDate.size() - 1);
@@ -118,9 +119,9 @@ public class MoveUtilities {
     if (formatter.format(day).equals(formatter.format(moveDate))) return 0;
 
     return moveDate
-        .toInstant()
-        .truncatedTo(ChronoUnit.DAYS)
-        .compareTo(day.toInstant().truncatedTo(ChronoUnit.DAYS));
+            .toInstant()
+            .truncatedTo(ChronoUnit.DAYS)
+            .compareTo(day.toInstant().truncatedTo(ChronoUnit.DAYS));
   }
 
   /**
@@ -148,8 +149,8 @@ public class MoveUtilities {
    */
   public List<String> getCurrentMoveMessages() {
     return getCurrentMoves().stream()
-        .map(move -> move.getLongName() + " to Node " + move.getNodeID())
-        .toList();
+            .map(move -> move.getLongName() + " to Node " + move.getNodeID())
+            .toList();
   }
 
   /**
@@ -159,15 +160,15 @@ public class MoveUtilities {
    */
   public List<MoveAttribute> getMovesForDepartments() {
     return SQLRepo.INSTANCE.getMoveList().stream()
-        .filter(
-            (move) -> // Filter out hallways and long names with no corresponding
-                // LocationName
-                LocationName.allLocations.get(move.getLongName()) != null
-                    && LocationName.allLocations.get(move.getLongName()).getNodeType()
-                        == LocationName.NodeType
-                            .DEPT) // NOTE: Before this statement was just filtering out Hall,
-        // Stair, Elevator, and Restrooms
-        .toList();
+            .filter(
+                    (move) -> // Filter out hallways and long names with no corresponding
+                            // LocationName
+                            LocationName.allLocations.get(move.getLongName()) != null
+                                    && LocationName.allLocations.get(move.getLongName()).getNodeType()
+                                    == LocationName.NodeType
+                                    .DEPT) // NOTE: Before this statement was just filtering out Hall,
+            // Stair, Elevator, and Restrooms
+            .toList();
   }
 
   /**
@@ -177,6 +178,13 @@ public class MoveUtilities {
    */
   public String formatToday() {
     return formatter.format(today);
+  }
+
+  public HospitalNode getNodeFromMove(int id) {
+    return SQLRepo.INSTANCE.getNodeList().stream()
+            .filter(move -> Integer.parseInt(move.getNodeID()) == id)
+            .toList()
+            .get(0);
   }
 
   ////////////////// Setters (sending new move data to database) ///////////////////////
