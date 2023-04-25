@@ -28,7 +28,7 @@ public class OfficeSuppliesDAO<E> extends ServiceDAO<OfficeSuppliesData> {
     try {
       Statement stmt = activeConnection.createStatement();
 
-      String sql = "SELECT * FROM \"OfficeSupplies\";";
+      String sql = "SELECT * FROM teame.\"OfficeSupplies\";";
 
       ResultSet rs = stmt.executeQuery(sql);
       while (rs.next()) {
@@ -65,7 +65,7 @@ public class OfficeSuppliesDAO<E> extends ServiceDAO<OfficeSuppliesData> {
     String staff = obj.getAssignedStaff();
 
     String sqlAdd =
-        "INSERT INTO \"OfficeSupplies\" VALUES(nextval('serial'), '"
+        "INSERT INTO teame.\"OfficeSupplies\" VALUES(nextval('serial'), '"
             + name
             + "','"
             + room
@@ -108,14 +108,14 @@ public class OfficeSuppliesDAO<E> extends ServiceDAO<OfficeSuppliesData> {
       ireader.close();
       Statement stmt = activeConnection.createStatement();
 
-      String sqlDelete = "DELETE FROM \"" + tableName + "\";";
+      String sqlDelete = "DELETE FROM teame.\"" + tableName + "\";";
       stmt.execute(sqlDelete);
 
       for (String l1 : rows) {
         String[] splitL1 = l1.split(",");
         String sql =
             "INSERT INTO "
-                + "\""
+                + "teame.\""
                 + tableName
                 + "\""
                 + " VALUES ("

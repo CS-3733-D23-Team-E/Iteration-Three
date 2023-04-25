@@ -36,7 +36,7 @@ public class DatabaseUtility {
   }
 
   public String getShortNameFromNodeID(String nodeID) throws SQLException {
-    String sqlMove = "SELECT \"longName\" FROM \"Move\" WHERE \"nodeID\" = " + nodeID + ";";
+    String sqlMove = "SELECT \"longName\" FROM teame.\"Move\" WHERE \"nodeID\" = " + nodeID + ";";
     Statement stmt = activeConnection.createStatement();
     ResultSet rs = stmt.executeQuery(sqlMove);
     String longName;
@@ -47,7 +47,7 @@ public class DatabaseUtility {
     }
 
     String sqlLocationName =
-        "SELECT \"shortName\" FROM \"LocationName\" WHERE \"longName\" = '" + longName + "';";
+        "SELECT \"shortName\" FROM teame.\"LocationName\" WHERE \"longName\" = '" + longName + "';";
     rs = stmt.executeQuery(sqlLocationName);
     String shortName;
     if (rs.next()) {
@@ -146,7 +146,7 @@ public class DatabaseUtility {
       Statement stmt = activeConnection.createStatement();
 
       sql =
-          "SELECT L.\"nodeType\" FROM \"Node\" N, \"Move\" M, \"LocationName\" L "
+          "SELECT L.\"nodeType\" FROM teame.\"Node\" N, teame.\"Move\" M, teame.\"LocationName\" L "
               + "WHERE N.\"nodeID\" = M.\"nodeID\" AND M.\"longName\" = L.\"longName\""
               + "AND N.\"nodeID\" = "
               + nodeID
@@ -165,7 +165,8 @@ public class DatabaseUtility {
 
     try {
       Statement stmt = activeConnection.createStatement();
-      String sql = "SELECT * FROM \"Node\" WHERE \"floor\" = '" + Floor.floorToString(fl) + "';";
+      String sql =
+          "SELECT * FROM teame.\"Node\" WHERE \"floor\" = '" + Floor.floorToString(fl) + "';";
 
       ResultSet rs = stmt.executeQuery(sql);
       while (rs.next()) {

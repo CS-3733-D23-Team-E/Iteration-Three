@@ -28,7 +28,7 @@ public class EmployeeDAO extends DAO<Employee> {
 
     try {
       Statement stmt = activeConnection.createStatement();
-      String sql = "SELECT * FROM " + table + ";";
+      String sql = "SELECT * FROM teame." + table + ";";
 
       ResultSet rs = stmt.executeQuery(sql);
       while (rs.next()) {
@@ -57,7 +57,7 @@ public class EmployeeDAO extends DAO<Employee> {
       if (attribute.equals("password")) value = obj.hashPassword(value);
 
       sql =
-          "UPDATE "
+          "UPDATE teame."
               + table
               + " SET \""
               + attribute
@@ -86,7 +86,7 @@ public class EmployeeDAO extends DAO<Employee> {
       Statement stmt = activeConnection.createStatement();
       String deleteEmp = obj.getUsername();
 
-      String sql = "DELETE FROM " + table + " WHERE \"username\" = '" + deleteEmp + "';";
+      String sql = "DELETE FROM teame." + table + " WHERE \"username\" = '" + deleteEmp + "';";
 
       int result = stmt.executeUpdate(sql);
 
@@ -107,7 +107,7 @@ public class EmployeeDAO extends DAO<Employee> {
 
       Statement stmt = activeConnection.createStatement();
       String sql =
-          "INSERT INTO "
+          "INSERT INTO teame."
               + table
               + " VALUES('"
               + fullName
@@ -142,13 +142,13 @@ public class EmployeeDAO extends DAO<Employee> {
       reader.close();
       Statement stmt = activeConnection.createStatement();
 
-      String sqlDelete = "DELETE FROM \"" + tableName + "\";";
+      String sqlDelete = "DELETE FROM teame.\"" + tableName + "\";";
       stmt.execute(sqlDelete);
 
       for (String l1 : rows) {
         String[] splitL1 = l1.split(",");
         String sql =
-            "INSERT INTO \""
+            "INSERT INTO teame.\""
                 + tableName
                 + "\""
                 + " VALUES ('"
@@ -185,7 +185,7 @@ public class EmployeeDAO extends DAO<Employee> {
       Statement stmt = activeConnection.createStatement();
 
       sql =
-          "SELECT * FROM \"Employee\" WHERE \"username\" = '"
+          "SELECT * FROM teame.\"Employee\" WHERE \"username\" = '"
               + username
               + "' AND \"password\" = '"
               + hashedPassword

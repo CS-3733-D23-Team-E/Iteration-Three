@@ -50,7 +50,7 @@ public class LocationDAO<E> extends DAO<LocationName> {
   void update(LocationName locationName, String attribute, String value) {
     String longName = locationName.getLongName();
     String sqlUpdate =
-        "UPDATE \"LocationName\" "
+        "UPDATE teame.\"LocationName\" "
             + "SET \""
             + attribute
             + "\" = '"
@@ -73,7 +73,7 @@ public class LocationDAO<E> extends DAO<LocationName> {
   @Override
   void delete(LocationName locationName) {
     String lName = locationName.getLongName();
-    String sqlDelete = "DELETE FROM \"LocationName\" WHERE \"longName\" = '" + lName + "';";
+    String sqlDelete = "DELETE FROM teame.\"LocationName\" WHERE \"longName\" = '" + lName + "';";
 
     try {
       Statement stmt = activeConnection.createStatement();
@@ -91,7 +91,7 @@ public class LocationDAO<E> extends DAO<LocationName> {
     String shortName = locationName.getShortName();
     String nodeType = LocationName.NodeType.nodeToString(locationName.getNodeType());
     String sqlAdd =
-        "INSERT INTO \"LocationName\" VALUES('"
+        "INSERT INTO teame.\"LocationName\" VALUES('"
             + lName
             + "','"
             + shortName
@@ -122,13 +122,13 @@ public class LocationDAO<E> extends DAO<LocationName> {
       lreader.close();
       Statement stmt = activeConnection.createStatement();
 
-      String sqlDelete = "DELETE FROM \"" + tableName + "\";";
+      String sqlDelete = "DELETE FROM teame.\"" + tableName + "\";";
       stmt.execute(sqlDelete);
 
       for (String l1 : rows) {
         String[] splitL1 = l1.split(",");
         String sql =
-            "INSERT INTO \""
+            "INSERT INTO teame.\""
                 + tableName
                 + "\""
                 + " VALUES ('"

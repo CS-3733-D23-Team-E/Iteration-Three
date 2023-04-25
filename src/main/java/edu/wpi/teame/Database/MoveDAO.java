@@ -45,7 +45,7 @@ public class MoveDAO<E> extends DAO<MoveAttribute> {
     int nodeID = moveAttribute.getNodeID();
     String longName = moveAttribute.getLongName();
     String sqlUpdate =
-        "UPDATE \"Move\" "
+        "UPDATE teame.\"Move\" "
             + "SET \""
             + attribute
             + "\" = '"
@@ -70,7 +70,7 @@ public class MoveDAO<E> extends DAO<MoveAttribute> {
     int nodeId = moveAttribute.getNodeID();
     String longName = moveAttribute.getLongName();
     String sqlDelete =
-        "DELETE FROM \"Move\" WHERE \"nodeID\" = "
+        "DELETE FROM teame.\"Move\" WHERE \"nodeID\" = "
             + nodeId
             + " AND \"longName\" = '"
             + longName
@@ -91,7 +91,7 @@ public class MoveDAO<E> extends DAO<MoveAttribute> {
     String longName = moveAttribute.getLongName();
     String date = moveAttribute.getDate();
     String sqlAdd =
-        "INSERT INTO \"Move\" VALUES(" + nodeId + ",'" + longName + "','" + date + "');";
+        "INSERT INTO teame.\"Move\" VALUES(" + nodeId + ",'" + longName + "','" + date + "');";
 
     Statement stmt;
     try {
@@ -114,14 +114,14 @@ public class MoveDAO<E> extends DAO<MoveAttribute> {
       mreader.close();
       Statement stmt = activeConnection.createStatement();
 
-      String sqlDelete = "DELETE FROM \"" + tableName + "\";";
+      String sqlDelete = "DELETE FROM teame.\"" + tableName + "\";";
       stmt.execute(sqlDelete);
 
       for (String l1 : rows) {
         String[] splitL1 = l1.split(",");
         String sql =
             "INSERT INTO "
-                + "\""
+                + "teame.\""
                 + tableName
                 + "\""
                 + " VALUES ("

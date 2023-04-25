@@ -36,7 +36,7 @@ public abstract class DAO<E> {
     // Initialization
     Statement stmt = null;
     stmt = activeConnection.createStatement();
-    String sql = "SELECT * FROM " + table + ";";
+    String sql = "SELECT * FROM teame." + table + ";";
     ResultSet rs = stmt.executeQuery(sql);
 
     // Makes new file or finds existing one
@@ -85,7 +85,7 @@ public abstract class DAO<E> {
     try {
       Statement stmt = activeConnection.createStatement();
 
-      String sql = "SELECT last_value AS val FROM serial;";
+      String sql = "SELECT last_value AS val FROM teame.serial;";
       ResultSet rs = stmt.executeQuery(sql);
 
       if (rs.next()) {

@@ -31,14 +31,14 @@ public class MedicalSuppliesDAO<E> extends ServiceDAO<MedicalSuppliesData> {
       ireader.close();
       Statement stmt = activeConnection.createStatement();
 
-      String sqlDelete = "DELETE FROM \"" + tableName + "\";";
+      String sqlDelete = "DELETE FROM teame.\"" + tableName + "\";";
       stmt.execute(sqlDelete);
 
       for (String l1 : rows) {
         String[] splitL1 = l1.split(",");
         String sql =
             "INSERT INTO "
-                + "\""
+                + "teame.\""
                 + tableName
                 + "\""
                 + " VALUES ('"

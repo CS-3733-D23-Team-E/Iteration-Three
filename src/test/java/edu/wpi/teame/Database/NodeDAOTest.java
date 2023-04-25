@@ -14,7 +14,7 @@ public class NodeDAOTest {
   @Test
   public void testResetDatabase() {
     SQLRepo.INSTANCE.connectToDatabase("", "");
-    // SQLRepo.INSTANCE.resetDatabase();
+    SQLRepo.INSTANCE.resetDatabase();
     SQLRepo.INSTANCE.exitDatabaseProgram();
   }
 

@@ -44,7 +44,7 @@ public class EdgeDAO<E> extends DAO<HospitalEdge> {
     String startNode = obj.getNodeOneID();
     String endNode = obj.getNodeTwoID();
     String sqlUpdate =
-        "UPDATE \"Edge\" "
+        "UPDATE teame.\"Edge\" "
             + "SET \""
             + attribute
             + "\" = "
@@ -71,7 +71,7 @@ public class EdgeDAO<E> extends DAO<HospitalEdge> {
     String startNode = edge.getNodeOneID();
     String endNode = edge.getNodeTwoID();
     String sqlDelete =
-        "DELETE FROM \"Edge\" WHERE \"startNode\" = "
+        "DELETE FROM teame.\"Edge\" WHERE \"startNode\" = "
             + startNode
             + " AND \"endNode\" = '"
             + endNode
@@ -91,7 +91,7 @@ public class EdgeDAO<E> extends DAO<HospitalEdge> {
   void add(HospitalEdge edge) {
     String startNode = edge.getNodeOneID();
     String endNode = edge.getNodeTwoID();
-    String sqlAdd = "INSERT INTO \"Edge\" VALUES('" + startNode + "','" + endNode + "');";
+    String sqlAdd = "INSERT INTO teame.\"Edge\" VALUES('" + startNode + "','" + endNode + "');";
     try {
       Statement stmt = activeConnection.createStatement();
       stmt.executeUpdate(sqlAdd);
@@ -115,13 +115,13 @@ public class EdgeDAO<E> extends DAO<HospitalEdge> {
       reader.close();
       Statement stmt = activeConnection.createStatement();
 
-      String sqlDelete = "DELETE FROM \"" + tableName + "\";";
+      String sqlDelete = "DELETE FROM teame.\"" + tableName + "\";";
       stmt.execute(sqlDelete);
 
       for (String l1 : rows) {
         String[] splitL1 = l1.split(",");
         String sql =
-            "INSERT INTO \""
+            "INSERT INTO teame.\""
                 + tableName
                 + "\""
                 + "VALUES ("
