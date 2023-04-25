@@ -584,56 +584,46 @@ public class MapController {
     }
   }
 
-
   private void makeLocationNamesVisible(boolean isVisible) {
-    for (Label aLabel : allLocationNameBoxes) {
+    for (Label aLabel : allLocationNameLabels) {
       aLabel.setVisible(isVisible);
     }
   }
 
   private void createLabelsForToggleDisplay() {
-    MapUtilities floorOne = new MapUtilities(mapPaneOne);
-    MapUtilities floorTwo = new MapUtilities(mapPaneTwo);
-    MapUtilities floorThree = new MapUtilities(mapPaneThree);
-    MapUtilities lowerOne = new MapUtilities(mapPaneLowerOne);
-    MapUtilities lowerTwo = new MapUtilities(mapPaneLowerTwo);
     List<HospitalNode> allNodes = SQLRepo.INSTANCE.getNodeList();
+    mapUtilityOne.setLabelStyle("-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
+    mapUtilityTwo.setLabelStyle("-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
+    mapUtilityThree.setLabelStyle("-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
+    mapUtilityLowerOne.setLabelStyle("-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
+    mapUtilityLowerTwo.setLabelStyle("-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
+
     for (HospitalNode aNode : allNodes) {
       if (aNode.getFloor() == Floor.ONE) {
-        makeLabelForToggle(aNode, floorOne);
+        makeLabelForToggle(aNode, mapUtilityOne);
       }
       if (aNode.getFloor() == Floor.TWO) {
-        makeLabelForToggle(aNode, floorTwo);
+        makeLabelForToggle(aNode, mapUtilityTwo);
       }
       if (aNode.getFloor() == Floor.THREE) {
-        makeLabelForToggle(aNode, floorThree);
+        makeLabelForToggle(aNode, mapUtilityThree);
       }
       if (aNode.getFloor() == Floor.LOWER_ONE) {
-        makeLabelForToggle(aNode, lowerOne);
+        makeLabelForToggle(aNode, mapUtilityLowerOne);
       }
       if (aNode.getFloor() == Floor.LOWER_TWO) {
-        makeLabelForToggle(aNode, lowerTwo);
+        makeLabelForToggle(aNode, mapUtilityLowerTwo);
       }
     }
   }
 
   private void makeLabelForToggle(HospitalNode node, MapUtilities mapUtil) {
-    HBox hBox = new HBox();
-    hBox.setBackground(
-            new Background(new BackgroundFill(Color.web("#D9DAD7"), CornerRadii.EMPTY, Insets.EMPTY)));
-    hBox.setPrefHeight(20);
-    hBox.setAlignment(Pos.CENTER_LEFT);
-    hBox.setLayoutX(node.getXCoord());
-    hBox.setLayoutY(node.getYCoord());
     Label thisLabel =
             mapUtil.createLabel(
                     node.getXCoord(),
                     node.getYCoord(),
                     SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(node.getNodeID())));
-    thisLabel.setFont(Font.font("Roboto", 8));
-    thisLabel.setBackground(
-            new Background(new BackgroundFill(Color.web("#D9DAD7"), CornerRadii.EMPTY, Insets.EMPTY)));
-    hBox.getChildren().add(thisLabel);
-    allLocationNameBoxes.add(thisLabel);
+    thisLabel.setFont(Font.font("Roboto", 12));
+    allLocationNameLabels.add(thisLabel);
   }
 }
