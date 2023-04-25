@@ -44,10 +44,10 @@
                                     <Insets />
                                  </HBox.margin>
                               </ImageView>
-                              <VBox spacing="25.0" HBox.hgrow="ALWAYS">
+                              <VBox spacing="20.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <SearchableComboBox fx:id="currentLocationList" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="40.0" promptText="Start" style="-fx-border-color: #1e1e1e; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #D9DAD7;" />
-                                    <SearchableComboBox fx:id="destinationList" layoutX="10.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0" promptText="Destination" style="-fx-border-color: #1e1e1e; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #D9DAD7;" />
+                                    <SearchableComboBox fx:id="currentLocationList" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" promptText="Start" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
+                                    <SearchableComboBox fx:id="destinationList" layoutX="10.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="300.0" promptText="Destination" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
                                  </children>
                                  <HBox.margin>
                                     <Insets bottom="10.0" top="10.0" />
@@ -65,7 +65,7 @@
                            <children>
                               <RadioButton fx:id="aStarButton" selected="true" stylesheets="@../styles/eStyleSheet.css" text="A*">
                                  <font>
-                                    <Font name="SansSerif Regular" size="20.0" />
+                                    <Font name="Roboto" size="20.0" />
                                  </font>
                                  <toggleGroup>
                                     <ToggleGroup fx:id="pathGroup" />

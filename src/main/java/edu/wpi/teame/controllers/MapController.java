@@ -21,7 +21,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
@@ -313,7 +312,10 @@ public class MapController {
         currentMapUtility.createLabel(x2, y2, "Came from Floor: " + oldFloor.toString());
       }
 
-      Line pathLine = currentMapUtility.drawStyledLine(x1, y1, x2, y2);
+      // Only draw a line between nodes if the current floor is the same as the new floor
+      if (newFloor == currentFloor) {
+        currentMapUtility.drawStyledLine(x1, y1, x2, y2);
+      }
       Circle intermediateCircle = currentMapUtility.drawStyledCircle(x2, y2, 4);
       intermediateCircle.setViewOrder(-1);
       intermediateCircle.setId(node.getNodeID());
@@ -418,12 +420,19 @@ public class MapController {
 
     // For each node along the path
     int currentDistance = 0;
+    TurnType lastTurnType = TurnType.ERROR;
     for (int i = 0; i < path.size(); i++) {
-      // Get the current node
-      HospitalNode currentNode = path.get(i);
 
       // Get the turn type
       TurnType turnType = getTurn(path, i);
+
+      // If the last type was an elevator or stairs, just skip it
+      if (lastTurnType == TurnType.ELEVATOR || lastTurnType == TurnType.STAIRS) {
+        lastTurnType = turnType;
+        continue;
+      }
+      // Get the current node
+      HospitalNode currentNode = path.get(i);
       currentDistance += getDistance(path, i);
 
       // If the turn type is not straight
@@ -494,6 +503,7 @@ public class MapController {
                   previousLabel = direction.getHbox();
                 });
         vbox.getChildren().add(direction.getHbox());
+        lastTurnType = turnType;
       }
     }
   }
@@ -515,7 +525,7 @@ public class MapController {
                 SQLRepo.INSTANCE.getNodeTypeFromNodeID(
                     Integer.parseInt(path.get(index).getNodeID())))
             == LocationName.NodeType.ELEV)
-        && (path.get(index).getFloor()) != path.get(index - 1).getFloor()) {
+        && (path.get(index).getFloor()) != path.get(index + 1).getFloor()) {
       return TurnType.ELEVATOR;
     }
     // If the current node is stairs and the next node is on another floor, then set the turn type
@@ -524,7 +534,7 @@ public class MapController {
                 SQLRepo.INSTANCE.getNodeTypeFromNodeID(
                     Integer.parseInt(path.get(index).getNodeID())))
             == LocationName.NodeType.STAI)
-        && (path.get(index).getFloor()) != path.get(index - 1).getFloor()) {
+        && (path.get(index).getFloor()) != path.get(index + 1).getFloor()) {
       return TurnType.STAIRS;
     }
     // Straight
