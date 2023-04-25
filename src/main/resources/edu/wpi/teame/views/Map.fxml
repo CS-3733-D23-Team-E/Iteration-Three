@@ -4,10 +4,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -33,11 +33,11 @@
          <children>
             <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefWidth="500.0">
                <children>
-                  <VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" spacing="30.0" style="-fx-background-color: #f1f1f1;">
+                  <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" spacing="30.0" style="-fx-background-color: #f1f1f1;">
                      <children>
                         <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
-                              <ImageView fitHeight="110.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="100.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/pathfinding.png" />
                                  </image>
@@ -47,24 +47,21 @@
                               </ImageView>
                               <VBox spacing="20.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <SearchableComboBox fx:id="currentLocationList" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Start" style="-fx-border-color: #1e1e1e; -fx-border-width: 3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #D9DAD7;" />
-                                    <SearchableComboBox fx:id="destinationList" layoutX="10.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Destination" style="-fx-border-color: #1e1e1e; -fx-border-width: 3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #D9DAD7;" />
-                                    <DatePicker fx:id="pathfindingDate" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #D9DAD7; -fx-background-radius: 5; -fx-border-color: #1E1E1E; -fx-border-width: 3; -fx-border-radius: 5;" />
-                                    <SearchableComboBox fx:id="currentLocationList" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" promptText="Start" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
-                                    <SearchableComboBox fx:id="destinationList" layoutX="10.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="300.0" promptText="Destination" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
+                                    <SearchableComboBox fx:id="currentLocationList" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0" promptText="Start" style="-fx-border-color: #1e1e1e; -fx-border-width: 3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #D9DAD7;" />
+                                    <SearchableComboBox fx:id="destinationList" layoutX="10.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0" promptText="Destination" style="-fx-border-color: #1e1e1e; -fx-border-width: 3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #D9DAD7;" />
                                  </children>
                                  <HBox.margin>
-                                    <Insets bottom="10.0" top="10.0" />
+                                    <Insets />
                                  </HBox.margin>
-                                 <padding>
-                                    <Insets right="10.0" />
-                                 </padding>
                               </VBox>
+                              <ImageView fitHeight="100.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                 <image>
+                                    <Image url="@../images/pathfinding.png" />
+                                 </image>
+                              </ImageView>
                            </children>
-                           <VBox.margin>
-                              <Insets left="10.0" right="25.0" />
-                           </VBox.margin>
                         </HBox>
+                        <DatePicker fx:id="pathfindingDate" maxWidth="-Infinity" prefHeight="40.0" prefWidth="375.0" promptText="Date" style="-fx-background-color: #D9DAD7; -fx-background-radius: 5; -fx-border-color: #1E1E1E; -fx-border-width: 3; -fx-border-radius: 5;" />
                         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
                               <RadioButton fx:id="aStarButton" selected="true" stylesheets="@../styles/eStyleSheet.css" text="A*">
@@ -105,7 +102,7 @@
                         </MFXButton>
                      </children>
                      <padding>
-                        <Insets bottom="18.0" left="15.0" right="15.0" top="18.0" />
+                        <Insets bottom="30.0" left="15.0" right="15.0" top="30.0" />
                      </padding>
                   </VBox>
                   <ScrollPane hbarPolicy="NEVER" stylesheets="@../styles/eStyleSheet.css" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">

@@ -73,14 +73,6 @@ public class MapController {
   @FXML ToggleSwitch labelSwitch;
   @FXML Button zoomInButton;
   @FXML Button zoomOutButton;
-  @FXML MFXButton menuButton;
-  @FXML MFXButton menuBarHome;
-  @FXML MFXButton menuBarServices;
-  @FXML MFXButton menuBarMaps;
-  @FXML MFXButton menuBarDatabase;
-  @FXML MFXButton menuBarSignage;
-  @FXML MFXButton menuBarBlank;
-  @FXML MFXButton menuBarExit;
   @FXML ImageView homeI;
   @FXML ImageView servicesI;
   @FXML ImageView signageI;
@@ -275,7 +267,7 @@ public class MapController {
     for (HospitalNode node : path) {
       pathNames.add(SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(node.getNodeID())));
     }
-    // Create the labels
+    // Create the directions
     createDirections(pathBox, path);
     drawPath(path);
     isPathDisplayed = true;
