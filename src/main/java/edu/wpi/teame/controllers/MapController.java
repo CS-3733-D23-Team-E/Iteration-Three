@@ -307,8 +307,27 @@ public class MapController {
     startY = y1;
     Circle currentLocationCircle = currentMapUtility.drawStyledCircle(x1, y1, 4);
     currentLocationCircle.setId(path.get(0).getNodeID());
-    currentMapUtility.createLabel(x1, y1, 5, 5, "Current Location");
 
+    Label startLabel = currentMapUtility.createLabel(x1, y1, 5, 5, "Current Location");
+    int daysUntilMove =
+        moveUtilities.daysCompareMove(
+            nodeToLongName.get(path.get(0).getNodeID()), pathfindingDate.getValue());
+    startLabel.setTooltip(null);
+
+    if (daysUntilMove > 0 && daysUntilMove <= 7) {
+
+      startLabel.setTooltip(
+          new Tooltip("This location will be moved in " + daysUntilMove + " day(s)"));
+      startLabel.getTooltip().setFont(new Font("Roboto", 20));
+      startLabel.setText(startLabel.getText() + "*");
+
+    } else if (daysUntilMove <= 0 && daysUntilMove >= -7) {
+
+      startLabel.setTooltip(
+          new Tooltip("This location recently moved " + -daysUntilMove + " day(s) ago"));
+      startLabel.getTooltip().setFont(new Font("Roboto", 20));
+      startLabel.setText(startLabel.getText() + "*");
+    }
     // draw the lines between each node
     int x2, y2;
     for (int i = 1; i < path.size(); i++) {
@@ -337,7 +356,26 @@ public class MapController {
     Circle endingCircle = currentMapUtility.drawStyledCircle(x1, y1, 4);
     endingCircle.setId(path.get(path.size() - 1).getNodeID());
     endingCircle.toFront();
-    currentMapUtility.createLabel(x1, y1, 5, 5, "Destination");
+
+    Label endLabel = currentMapUtility.createLabel(x1, y1, 5, 5, "Destination");
+    daysUntilMove =
+        moveUtilities.daysCompareMove(
+            nodeToLongName.get(path.get(path.size() - 1).getNodeID()), pathfindingDate.getValue());
+    endLabel.setTooltip(null);
+
+    if (daysUntilMove > 0 && daysUntilMove <= 7) {
+
+      endLabel.setTooltip(new Tooltip("This location will be moved in " + daysUntilMove + " day(s)"));
+      endLabel.getTooltip().setFont(new Font("Roboto", 20));
+      endLabel.setText(endLabel.getText() + "*");
+
+    } else if (daysUntilMove < 0 && daysUntilMove >= -7) {
+
+      endLabel.setTooltip(
+          new Tooltip("This location recently moved " + -daysUntilMove + " day(s) ago"));
+      endLabel.getTooltip().setFont(new Font("Roboto", 20));
+      endLabel.setText(endLabel.getText() + "*");
+    }
 
     // Switch the current tab to the same floor as the starting point
     currentFloor = startingFloor;
