@@ -219,21 +219,17 @@ public class MapController {
   public void resetComboboxes() {
     floorLocations =
         FXCollections.observableArrayList(
-            SQLRepo.INSTANCE.getMoveList().stream()
+            LocationName.allLocations.values().stream()
                 .filter(
-                    (move) -> // Filter out hallways and long names with no corresponding
+                    (location) -> // Filter out hallways and long names with no corresponding
                         // LocationName
-                        LocationName.allLocations.get(move.getLongName()) == null
+                        location == null
                             ? false
-                            : LocationName.allLocations.get(move.getLongName()).getNodeType()
-                                    != LocationName.NodeType.HALL
-                                && LocationName.allLocations.get(move.getLongName()).getNodeType()
-                                    != LocationName.NodeType.STAI
-                                && LocationName.allLocations.get(move.getLongName()).getNodeType()
-                                    != LocationName.NodeType.ELEV
-                                && LocationName.allLocations.get(move.getLongName()).getNodeType()
-                                    != LocationName.NodeType.REST)
-                .map((move) -> move.getLongName())
+                            : location.getNodeType() != LocationName.NodeType.HALL
+                                && location.getNodeType() != LocationName.NodeType.STAI
+                                && location.getNodeType() != LocationName.NodeType.ELEV
+                                && location.getNodeType() != LocationName.NodeType.REST)
+                .map((location) -> location.getLongName())
                 .sorted() // Sort alphabetically
                 .toList());
     currentLocationList.setItems(floorLocations);

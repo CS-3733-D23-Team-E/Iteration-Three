@@ -14,6 +14,8 @@ public class MoveUtilities {
   Date today;
   SimpleDateFormat formatter;
 
+  HashMap<String, LocalDate> dateHashMap;
+
   public MoveUtilities() {
     today = new Date();
     formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -188,7 +190,7 @@ public class MoveUtilities {
 
   public HashMap<String, String> getMapForDate(LocalDate date) {
     HashMap<String, String> map = new HashMap<>();
-    HashMap<String, LocalDate> dateHashMap = new HashMap<>();
+    dateHashMap = new HashMap<>();
     for (MoveAttribute move : SQLRepo.INSTANCE.getMoveList()) {
       if (date.compareTo(LocalDate.parse(move.getDate())) < 0)
         // Move hasn't happened yet
@@ -209,6 +211,17 @@ public class MoveUtilities {
   public HashMap<String, String> invertHashMap(HashMap<String, String> map) {
     HashMap<String, String> invertedMap = new HashMap<>();
     for (Map.Entry<String, String> entry : map.entrySet()) {
+      if (invertedMap.containsKey(entry.getValue())) {
+        if (dateHashMap
+                .get(invertedMap.get(entry.getValue()))
+                .compareTo(dateHashMap.get(entry.getKey()))
+            < 0) {
+          // Move is more recent than one already in the map, remove the old one
+          dateHashMap.remove(entry.getValue());
+          invertedMap.remove(entry.getValue());
+        } else
+          continue; // Move is less recent than one already in the map, ignore it (don't add it)
+      }
       invertedMap.put(entry.getValue(), entry.getKey());
     }
     return invertedMap;
