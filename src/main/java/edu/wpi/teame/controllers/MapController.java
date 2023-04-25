@@ -12,7 +12,10 @@ import edu.wpi.teame.utilities.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -96,7 +99,6 @@ public class MapController {
   MapUtilities mapUtilityOne = new MapUtilities(mapPaneOne);
   MapUtilities mapUtilityTwo = new MapUtilities(mapPaneTwo);
   MapUtilities mapUtilityThree = new MapUtilities(mapPaneThree);
-
   ObservableList<String> floorLocations =
       FXCollections.observableArrayList(
           SQLRepo.INSTANCE.getLongNamesFromMove(
@@ -576,5 +578,45 @@ public class MapController {
       // Add path label to VBox
       vbox.getChildren().add(hBox);
     }
+  }
+  private void createLabelsForToggleDisplay(){
+    MapUtilities floorOne = new MapUtilities(mapPaneOne);
+    MapUtilities floorTwo = new MapUtilities(mapPaneTwo);
+    MapUtilities floorThree = new MapUtilities(mapPaneThree);
+    MapUtilities lowerOne = new MapUtilities(mapPaneLowerOne);
+    MapUtilities lowerTwo = new MapUtilities(mapPaneLowerTwo);
+    List<HospitalNode> allNodes = SQLRepo.INSTANCE.getNodeList();
+    for (HospitalNode aNode:allNodes){
+      if (aNode.getFloor()==Floor.ONE){
+        makeLabelForToggle(aNode,floorOne);
+      }
+      if (aNode.getFloor()==Floor.TWO){
+        makeLabelForToggle(aNode,floorTwo);
+      }
+      if (aNode.getFloor()==Floor.THREE){
+        makeLabelForToggle(aNode,floorThree);
+      }
+      if (aNode.getFloor()==Floor.LOWER_ONE){
+        makeLabelForToggle(aNode,lowerOne);
+      }
+      if (aNode.getFloor()==Floor.LOWER_TWO){
+        makeLabelForToggle(aNode,lowerTwo);
+      }
+    }
+  }
+
+  private void makeLabelForToggle(HospitalNode node, MapUtilities mapUtil){
+    HBox hBox = new HBox();
+    hBox.setBackground(
+            new Background(
+                    new BackgroundFill(Color.web("#D9DAD7"), CornerRadii.EMPTY, Insets.EMPTY)));
+    hBox.setPrefHeight(20);
+    hBox.setAlignment(Pos.CENTER_LEFT);
+    hBox.setLayoutX(node.getXCoord());
+    hBox.setLayoutY(node.getYCoord());
+    Label thisLabel = mapUtil.createLabel(node.getXCoord(),node.getYCoord(),SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(node.getNodeID())));
+    thisLabel.setFont(Font.font("Roboto", 8));
+    hBox.getChildren().add(thisLabel);
+
   }
 }
