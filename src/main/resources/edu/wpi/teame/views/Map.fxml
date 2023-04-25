@@ -116,7 +116,7 @@
                            <content>
                               <AnchorPane>
                                  <children>
-                                    <GesturePane fx:id="gesturePaneL2" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <GesturePane fx:id="gesturePaneL2" hbarPolicy="ALWAYS" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <content>
                                           <AnchorPane fx:id="mapPaneLowerTwo">
                                              <children>
@@ -248,7 +248,11 @@
                         </Tab>
                      </tabs>
                   </TabPane>
-                  <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <VBox AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="50.0">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+                     </children></VBox>
                </children>
             </AnchorPane>
          </children>
