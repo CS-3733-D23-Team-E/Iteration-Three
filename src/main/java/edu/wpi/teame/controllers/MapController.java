@@ -8,6 +8,7 @@ import edu.wpi.teame.map.pathfinding.AbstractPathfinder;
 import edu.wpi.teame.utilities.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javafx.animation.Interpolator;
 import javafx.application.Platform;
@@ -22,6 +23,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.SVGPath;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.SearchableComboBox;
@@ -90,6 +92,8 @@ public class MapController {
   MapUtilities mapUtilityOne = new MapUtilities(mapPaneOne);
   MapUtilities mapUtilityTwo = new MapUtilities(mapPaneTwo);
   MapUtilities mapUtilityThree = new MapUtilities(mapPaneThree);
+
+  List<Label> allLocationNameLabels = new LinkedList<>();
 
   ObservableList<String> floorLocations =
       FXCollections.observableArrayList(
@@ -180,6 +184,7 @@ public class MapController {
     SQLRepo.INSTANCE.getLocationList();
 
     resetComboboxes();
+    createLabelsForToggleDisplay();
   }
 
   private void initializeMapUtilities() {
@@ -614,6 +619,7 @@ public class MapController {
     labelSwitch.setOnMouseClicked(
         event -> {
           disableLabel = labelSwitch.isSelected();
+          makeLocationNamesVisible(disableLabel);
           System.out.println("Labels Disabled: " + disableLabel);
         });
     zoomInButton.setOnMouseClicked(
@@ -657,5 +663,53 @@ public class MapController {
     menuBarDatabase.setVisible(bool);
     menuBarExit.setVisible(bool);
     menuBarBlank.setVisible(bool);
+  }
+
+  private void makeLocationNamesVisible(boolean isVisible) {
+    for (Label aLabel : allLocationNameLabels) {
+      aLabel.setVisible(isVisible);
+    }
+  }
+
+  private void createLabelsForToggleDisplay() {
+    List<HospitalNode> allNodes = SQLRepo.INSTANCE.getNodeList();
+    mapUtilityOne.setLabelStyle(
+        "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
+    mapUtilityTwo.setLabelStyle(
+        "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
+    mapUtilityThree.setLabelStyle(
+        "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
+    mapUtilityLowerOne.setLabelStyle(
+        "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
+    mapUtilityLowerTwo.setLabelStyle(
+        "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
+
+    for (HospitalNode aNode : allNodes) {
+      if (aNode.getFloor() == Floor.ONE) {
+        makeLabelForToggle(aNode, mapUtilityOne);
+      }
+      if (aNode.getFloor() == Floor.TWO) {
+        makeLabelForToggle(aNode, mapUtilityTwo);
+      }
+      if (aNode.getFloor() == Floor.THREE) {
+        makeLabelForToggle(aNode, mapUtilityThree);
+      }
+      if (aNode.getFloor() == Floor.LOWER_ONE) {
+        makeLabelForToggle(aNode, mapUtilityLowerOne);
+      }
+      if (aNode.getFloor() == Floor.LOWER_TWO) {
+        makeLabelForToggle(aNode, mapUtilityLowerTwo);
+      }
+    }
+  }
+
+  private void makeLabelForToggle(HospitalNode node, MapUtilities mapUtil) {
+    Label thisLabel =
+        mapUtil.createLabel(
+            node.getXCoord(),
+            node.getYCoord(),
+            SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(node.getNodeID())));
+    thisLabel.setFont(Font.font("Roboto", 12));
+    allLocationNameLabels.add(thisLabel);
   }
 }
