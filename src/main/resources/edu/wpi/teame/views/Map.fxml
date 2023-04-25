@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.RadioButton?>
@@ -85,6 +86,7 @@
                               <Font name="SansSerif Regular" size="16.0" />
                            </font>
                         </MFXButton>
+                        <MFXToggleButton fx:id="locationNamesToggle" />
                      </children>
                      <padding>
                         <Insets bottom="18.0" left="15.0" right="15.0" top="18.0" />
