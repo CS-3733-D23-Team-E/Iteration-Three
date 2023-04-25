@@ -81,6 +81,7 @@ public class MapController {
   boolean menuVisibilty = false;
   boolean disableLabel = false;
   boolean isPathDisplayed = false;
+  boolean areLabelsCreated = false;
   Floor currentFloor = Floor.LOWER_TWO;
   Circle currentCircle = new Circle();
   HBox previousLabel;
@@ -182,9 +183,7 @@ public class MapController {
 
     // Make sure location list is initialized so that we can filter out the hallways
     SQLRepo.INSTANCE.getLocationList();
-
     resetComboboxes();
-    createLabelsForToggleDisplay();
   }
 
   private void initializeMapUtilities() {
@@ -619,6 +618,10 @@ public class MapController {
     labelSwitch.setOnMouseClicked(
         event -> {
           disableLabel = labelSwitch.isSelected();
+          if (areLabelsCreated == false) {
+            createLabelsForToggleDisplay();
+            areLabelsCreated = true;
+          }
           makeLocationNamesVisible(disableLabel);
           System.out.println("Labels Disabled: " + disableLabel);
         });
@@ -685,20 +688,22 @@ public class MapController {
         "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
 
     for (HospitalNode aNode : allNodes) {
-      if (aNode.getFloor() == Floor.ONE) {
-        makeLabelForToggle(aNode, mapUtilityOne);
-      }
-      if (aNode.getFloor() == Floor.TWO) {
-        makeLabelForToggle(aNode, mapUtilityTwo);
-      }
-      if (aNode.getFloor() == Floor.THREE) {
-        makeLabelForToggle(aNode, mapUtilityThree);
-      }
-      if (aNode.getFloor() == Floor.LOWER_ONE) {
-        makeLabelForToggle(aNode, mapUtilityLowerOne);
-      }
-      if (aNode.getFloor() == Floor.LOWER_TWO) {
-        makeLabelForToggle(aNode, mapUtilityLowerTwo);
+      if () {
+        if (aNode.getFloor() == Floor.ONE) {
+          makeLabelForToggle(aNode, mapUtilityOne);
+        }
+        if (aNode.getFloor() == Floor.TWO) {
+          makeLabelForToggle(aNode, mapUtilityTwo);
+        }
+        if (aNode.getFloor() == Floor.THREE) {
+          makeLabelForToggle(aNode, mapUtilityThree);
+        }
+        if (aNode.getFloor() == Floor.LOWER_ONE) {
+          makeLabelForToggle(aNode, mapUtilityLowerOne);
+        }
+        if (aNode.getFloor() == Floor.LOWER_TWO) {
+          makeLabelForToggle(aNode, mapUtilityLowerTwo);
+        }
       }
     }
   }
