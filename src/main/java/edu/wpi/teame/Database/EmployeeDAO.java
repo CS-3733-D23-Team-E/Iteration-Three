@@ -55,6 +55,7 @@ public class EmployeeDAO extends DAO<Employee> {
       Statement stmt = activeConnection.createStatement();
 
       if (attribute.equals("password")) value = obj.hashPassword(value);
+      if (attribute.equals("permission")) value = value.toUpperCase();
 
       sql =
           "UPDATE "
