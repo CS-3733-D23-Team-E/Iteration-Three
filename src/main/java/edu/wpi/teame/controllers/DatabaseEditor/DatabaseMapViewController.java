@@ -5,8 +5,6 @@ import static edu.wpi.teame.map.HospitalNode.allNodes;
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.map.*;
 import edu.wpi.teame.utilities.MapUtilities;
-import edu.wpi.teame.utilities.Navigation;
-import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import java.time.LocalDate;
@@ -69,7 +67,6 @@ public class DatabaseMapViewController {
   @FXML ImageView mapImageOne; // Floor 1
   @FXML ImageView mapImageTwo; // Floor 2
   @FXML ImageView mapImageThree; // Floor 3
-  @FXML MFXButton tableEditorSwapButton;
   @FXML MFXToggleButton locationNameToggle;
   boolean isLocationNamesDisplayed = false;
 
@@ -142,11 +139,6 @@ public class DatabaseMapViewController {
               }
             });
 
-    tableEditorSwapButton.setOnMouseClicked(
-        event -> {
-          Navigation.navigate(Screen.DATABASE_TABLEVIEW);
-        });
-
     edgeColumn.setCellValueFactory(new PropertyValueFactory<HospitalEdge, String>("nodeTwoID"));
 
     displayAddMenu();
@@ -179,6 +171,7 @@ public class DatabaseMapViewController {
   }
 
   public void loadFloorNodes() {
+    // create nodes
     List<HospitalNode> floorNodes = SQLRepo.INSTANCE.getNodesFromFloor(currentFloor);
     List<HospitalEdge> floorEdges =
         SQLRepo.INSTANCE.getEdgeList().stream()
@@ -186,11 +179,16 @@ public class DatabaseMapViewController {
                 edge -> HospitalNode.allNodes.get(edge.getNodeOneID()).getFloor() == currentFloor)
             .toList();
 
+    // create edges
     for (HospitalEdge edge : floorEdges) {
-      whichMapUtility(currentFloor)
-          .drawEdge(
-              HospitalNode.allNodes.get(edge.getNodeOneID()),
-              HospitalNode.allNodes.get(edge.getNodeTwoID()));
+
+      HospitalNode node1 = HospitalNode.allNodes.get(edge.getNodeOneID());
+      HospitalNode node2 = HospitalNode.allNodes.get(edge.getNodeTwoID());
+
+      // only draw edges on the same floor
+      if (node1.getFloor() == node2.getFloor()) {
+        whichMapUtility(currentFloor).drawEdge(node1, node2);
+      }
     }
     allNodeLabels.clear();
     for (HospitalNode node : floorNodes) {
