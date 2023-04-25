@@ -59,7 +59,7 @@ public class MapController {
   @FXML GesturePane gesturePane2;
   @FXML GesturePane gesturePane3;
   @FXML MFXToggleButton locationNamesToggle;
-  List<HBox> allLocationNameBoxes = new LinkedList<>();
+  List<Label> allLocationNameBoxes = new LinkedList<>();
   boolean isPathDisplayed = false;
   Floor currentFloor = Floor.LOWER_TWO;
   Circle currentCircle = new Circle();
@@ -521,8 +521,8 @@ public class MapController {
   }
 
   private void makeLocationNamesVisible(boolean isVisible) {
-    for (HBox hBox : allLocationNameBoxes) {
-      hBox.setVisible(isVisible);
+    for (Label aLabel : allLocationNameBoxes) {
+      aLabel.setVisible(isVisible);
     }
   }
 
@@ -566,7 +566,9 @@ public class MapController {
             node.getYCoord(),
             SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(node.getNodeID())));
     thisLabel.setFont(Font.font("Roboto", 8));
+    thisLabel.setBackground(
+        new Background(new BackgroundFill(Color.web("#D9DAD7"), CornerRadii.EMPTY, Insets.EMPTY)));
     hBox.getChildren().add(thisLabel);
-    allLocationNameBoxes.add(hBox);
+    allLocationNameBoxes.add(thisLabel);
   }
 }
