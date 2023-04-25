@@ -146,6 +146,17 @@ public class MapUtilities {
     return drawLine(x1, y1, x2, y2);
   }
 
+  public Line drawMove(HospitalNode from, HospitalNode to) {
+    int x1 = from.getXCoord();
+    int y1 = from.getYCoord();
+    int x2 = to.getXCoord();
+    int y2 = to.getYCoord();
+
+    String message = from.getNodeID() + " to " + to.getNodeID();
+
+    return drawLineWithLabel(x1, y1, x2, y2, message);
+  }
+
   /**
    * draws a stylized version of the line determined by the lineStyle attribute
    *
@@ -174,6 +185,23 @@ public class MapUtilities {
     Line line = new Line(x1, y1, x2, y2);
     addShape(line);
     return line;
+  }
+
+  /**
+   * draws a line with a given label over it
+   *
+   * @param x1
+   * @param y1
+   * @param x2
+   * @param y2
+   * @param message
+   * @return
+   */
+  public Line drawLineWithLabel(int x1, int y1, int x2, int y2, String message) {
+    int ax = (x1 + x2) / 2;
+    int ay = (y1 + y2) / 2;
+    Label lineMessage = this.createLabel(ax, ay, message);
+    return drawLine(x1, y1, x2, y2);
   }
 
   /**

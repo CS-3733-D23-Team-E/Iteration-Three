@@ -167,11 +167,8 @@ public class MovePreviewController {
 
   public void loadFloorNodes() {
     // create edges
-    if (node1.getFloor() == node2.getFloor() && node1.getFloor().equals(currentFloor)) {
-      whichMapUtility(currentFloor).drawEdge(node1, node2);
-    }
     if (node1.getFloor().equals(currentFloor) || node2.getFloor().equals(currentFloor)) {
-      whichMapUtility(currentFloor).drawEdge(node1, node2);
+      whichMapUtility(currentFloor).drawMove(node1, node2);
       if (node1.getFloor().equals(currentFloor)) {
         // draw phantom label for node 2
         setupNode(node1, name1);
