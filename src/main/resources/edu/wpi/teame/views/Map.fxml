@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -46,6 +47,9 @@
                               </ImageView>
                               <VBox spacing="20.0" HBox.hgrow="ALWAYS">
                                  <children>
+                                    <SearchableComboBox fx:id="currentLocationList" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Start" style="-fx-border-color: #1e1e1e; -fx-border-width: 3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #D9DAD7;" />
+                                    <SearchableComboBox fx:id="destinationList" layoutX="10.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Destination" style="-fx-border-color: #1e1e1e; -fx-border-width: 3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #D9DAD7;" />
+                                    <DatePicker fx:id="pathfindingDate" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #D9DAD7; -fx-background-radius: 5; -fx-border-color: #1E1E1E; -fx-border-width: 3; -fx-border-radius: 5;" />
                                     <SearchableComboBox fx:id="currentLocationList" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" promptText="Start" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
                                     <SearchableComboBox fx:id="destinationList" layoutX="10.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="300.0" promptText="Destination" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
                                  </children>
@@ -399,6 +403,23 @@
                   <ImageView fx:id="databaseI" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
                      <image>
                         <Image url="@../images/folder-tree.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Roboto" size="18.0" />
+               </font>
+            </MFXButton>
+            <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+               <VBox.margin>
+                  <Insets left="25.0" />
+               </VBox.margin>
+            </Line>
+            <MFXButton fx:id="menuBarAbout" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="About" textFill="#f1f1f1">
+               <graphic>
+                  <ImageView fx:id="aboutI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../images/abouticon.png" />
                      </image>
                   </ImageView>
                </graphic>
