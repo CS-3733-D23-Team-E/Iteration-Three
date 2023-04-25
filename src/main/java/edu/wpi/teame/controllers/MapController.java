@@ -8,7 +8,10 @@ import edu.wpi.teame.map.pathfinding.AbstractPathfinder;
 import edu.wpi.teame.utilities.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -72,6 +75,8 @@ public class MapController {
   @FXML ImageView pathfindingI;
   @FXML ImageView databaseI;
   @FXML ImageView exitI;
+  @FXML MFXToggleButton locationNamesToggle;
+  List<HBox> allLocationNameBoxes = new LinkedList<>();
   boolean isPathDisplayed = false;
   Floor currentFloor = Floor.LOWER_TWO;
   Circle currentCircle = new Circle();
@@ -114,6 +119,10 @@ public class MapController {
           destFromComboBox = destinationList.getValue();
           displayPath(curLocFromComboBox, destFromComboBox);
         });
+    createLabelsForToggleDisplay();
+    locationNamesToggle.setOnAction(event -> {
+      makeLocationNamesVisible(locationNamesToggle.isSelected());
+    });
 
     // Initially set the menu bar to invisible
     menuBar.setVisible(false);
@@ -585,6 +594,12 @@ public class MapController {
     return length;
   }
 
+  private void makeLocationNamesVisible (boolean isVisible){
+    for (HBox hBox: allLocationNameBoxes){
+      hBox.setVisible(isVisible);
+    }
+  }
+
   private void createLabelsForToggleDisplay(){
     MapUtilities floorOne = new MapUtilities(mapPaneOne);
     MapUtilities floorTwo = new MapUtilities(mapPaneTwo);
@@ -623,6 +638,6 @@ public class MapController {
     Label thisLabel = mapUtil.createLabel(node.getXCoord(),node.getYCoord(),SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(node.getNodeID())));
     thisLabel.setFont(Font.font("Roboto", 8));
     hBox.getChildren().add(thisLabel);
-
+    allLocationNameBoxes.add(hBox);
   }
 }
