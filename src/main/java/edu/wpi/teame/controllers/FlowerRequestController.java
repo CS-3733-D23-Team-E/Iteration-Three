@@ -1,19 +1,18 @@
 package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.entities.Employee;
 import edu.wpi.teame.entities.FlowerRequestData;
 import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.util.List;
 import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class FlowerRequestController {
@@ -47,8 +46,14 @@ public class FlowerRequestController {
   @FXML MFXButton cancelButton;
   @FXML MFXButton resetButton;
 
+  @FXML MFXButton closeButton;
+  @FXML VBox requestSubmittedBox;
+
   @FXML
   public void initialize() {
+
+    requestSubmittedBox.setVisible(false);
+
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
     ObservableList<String> names =
         FXCollections.observableArrayList(
@@ -67,18 +72,12 @@ public class FlowerRequestController {
                 .sorted()
                 .toList());
 
-    /*assignedStaff.setItems(
-    FXCollections.observableList(
-        SQLRepo.INSTANCE.getEmployeeList().stream()
-            .filter(employee -> employee.getPermission().equals("STAFF"))
-            .map(employee -> employee.getFullName())
-            .toList()));*/
-    List<Employee> employeeList = SQLRepo.INSTANCE.getEmployeeList();
-    for (Employee emp : employeeList) {
-      staffMembers.add(emp.getUsername());
-    }
-
-    assignedStaff.setItems(FXCollections.observableArrayList(staffMembers));
+    assignedStaff.setItems(
+        FXCollections.observableList(
+            SQLRepo.INSTANCE.getEmployeeList().stream()
+                .filter(employee -> employee.getPermission().equals("STAFF"))
+                .map(employee -> employee.getUsername())
+                .toList()));
 
     roomName.setItems(names);
     // Add the items to the combo boxes
@@ -87,9 +86,16 @@ public class FlowerRequestController {
     deliveryTime.setItems(deliveryTimes);
     cardQuestion.setItems(yesNo);
     // Initialize the buttons
-    submitButton.setOnMouseClicked(event -> sendRequest());
+
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
+    submitButton.setOnMouseClicked(
+        event -> {
+          sendRequest();
+          requestSubmittedBox.setVisible(true);
+          clearForm();
+        });
+    closeButton.setOnMouseClicked(event -> requestSubmittedBox.setVisible(false));
   }
 
   public FlowerRequestData sendRequest() {
@@ -112,9 +118,6 @@ public class FlowerRequestController {
             FlowerRequestData.Status.PENDING);
 
     SQLRepo.INSTANCE.addServiceRequest(requestData);
-
-    // Return to the home screen
-    Navigation.navigate(Screen.HOME);
 
     return requestData;
   }

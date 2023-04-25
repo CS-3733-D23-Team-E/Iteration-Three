@@ -12,7 +12,7 @@ public enum Screen {
   OFFICE_SUPPLIES_REQUEST("views/OfficeSuppliesRequest.fxml"),
   MAP("views/Map.fxml"),
   DATABASE_EDITOR("views/DatabaseEditor/DatabaseEditor.fxml"),
-  MOVE_COMPONENT("views/MoveComponent.fxml"),
+  MOVE_COMPONENT("views/DatabaseEditor/MoveComponent.fxml"),
   DATABASE_TABLEVIEW("views/DatabaseEditor/DatabaseTableView.fxml"),
   DATABASE_MAPVIEW("views/DatabaseEditor/DatabaseMapView.fxml"),
   DATABASE_SERVICEVIEW("views/DatabaseEditor/DatabaseServiceRequestView.fxml");
