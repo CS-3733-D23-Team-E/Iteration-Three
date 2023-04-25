@@ -1,4 +1,3 @@
-
 package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Database.SQLRepo;
@@ -56,7 +55,7 @@ public class HomePageController {
   @FXML MFXButton spanishButton;
   @FXML MFXButton englishButton;
   @FXML Text todayIsText;
-  @FXML Text announcementsText;
+  @FXML Text alertText;
 
   Boolean loggedIn;
   String language = "english";
@@ -137,10 +136,10 @@ public class HomePageController {
         });
 
     logoutButton.setOnMouseClicked(
-            event -> {
-              Navigation.navigate(Screen.SIGNAGE_TEXT);
-              SQLRepo.INSTANCE.exitDatabaseProgram();
-            });
+        event -> {
+          Navigation.navigate(Screen.SIGNAGE_TEXT);
+          SQLRepo.INSTANCE.exitDatabaseProgram();
+        });
 
     menuBarServices.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUESTS));
     menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
@@ -176,7 +175,7 @@ public class HomePageController {
         "images/folder-tree.png",
         "images/folder-tree-blue.png");
     ButtonUtilities.mouseSetupMenuBar(
-            menuBarAbout, "baseline-left", aboutI, "images/abouticon.png", "images/abouticon-blue.png");
+        menuBarAbout, "baseline-left", aboutI, "images/abouticon.png", "images/abouticon-blue.png");
     ButtonUtilities.mouseSetupMenuBar(
         menuBarExit,
         "baseline-center",
@@ -191,15 +190,15 @@ public class HomePageController {
     ButtonUtilities.mouseSetup(databaseButton);
     ButtonUtilities.mouseSetup(logoutButton);
 
-    // Page Language Translation Code
-    englishButton.setOnMouseClicked(
+    // Page Language Translation Code (commented out until connected to the instance)
+    /*englishButton.setOnMouseClicked(
         event -> {
           translateToEnglish(String.valueOf(announcementString));
         });
     spanishButton.setOnMouseClicked(
         event -> {
           translateToSpanish(String.valueOf(announcementString));
-        });
+        });*/
     if (language.equals("english")) {
       translateToEnglish(String.valueOf(announcementString));
     } else if (language.equals("spanish")) {
@@ -267,7 +266,7 @@ public class HomePageController {
     todayIsText.setText("Hoy es..."); // Today is...
 
     // Announcements Bar
-    announcementsText.setText("Anuncios"); // Announcements
+    alertText.setText("Anuncios"); // Announcements
     if (announcmentString.equals("")) { // Do this if there are currently no announcements
       announcementText.setText("No hay nuevos anuncios."); // No new announcements.
     }
@@ -302,9 +301,9 @@ public class HomePageController {
     todayIsText.setText("Today is..."); // Keep in English
 
     // Announcements Bar
-    announcementsText.setText("Announcements"); // Keep in English
+    alertText.setText("Announcements"); // Keep in English
     if (announcmentString.equals("")) { // Do this if there are currently no announcements
-      announcementText.setText("No new announcements."); // Keep in English
+      alertText.setText("No new announcements."); // Keep in English
     }
     announcementTextBox.setPromptText("Announcement Text Here"); // Keep in English
     announcementButton.setText("Submit"); // Keep in English

@@ -22,7 +22,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -62,14 +61,13 @@ public class ServiceRequestPageController {
   @FXML MFXButton spanishButton;
   @FXML MFXButton englishButton;
 
-  @FXML Text totalRequestsText;
-  @FXML Text requestStatusTitleText;
+  @FXML Text inProgressRequestTitleText;
   @FXML Text pendingRequestsTitleText;
-  @FXML Text nonCompletedRequestsText;
+  @FXML Text completedRequestTitleText;
+  @FXML Label nonCompletedTitleText;
   @FXML Tab flowerRequestTab;
   @FXML Tab mealRequestTab;
-  @FXML
-  Tab officeSuppliesTab;
+  @FXML Tab officeSuppliesTab;
   @FXML Tab conferenceRoomTab;
   @FXML Tab furnitureDeliveryTab;
 
@@ -265,9 +263,9 @@ public class ServiceRequestPageController {
                           .getAssignedStaff()
                           .equalsIgnoreCase(Employee.activeEmployee.getUsername()))
               .toList();
-      nonCompletedText.setText("Your Non-completed requests:");
+      nonCompletedTitleText.setText("Your Non-completed requests:");
     } else {
-      nonCompletedText.setText("All Non-completed requests:");
+      nonCompletedTitleText.setText("All Non-completed requests:");
     }
     List<ServiceRequestData> nonCompleteRequests =
         requests.stream().filter(request -> !request.getRequestStatus().equals(DONE)).toList();
@@ -303,10 +301,10 @@ public class ServiceRequestPageController {
     logoutButton.setFont(spanishLogout);
 
     // Request Status Bar
-    totalRequestsText.setText("Pendiente"); // Pending:
-    requestStatusTitleText.setText("En Curso"); // In Progress:
-    pendingRequestsTitleText.setText("Completo"); // Completed:
-    nonCompletedRequestsText.setText("Solicitudes No Completadas"); // Non-Completed Requests
+    pendingRequestsTitleText.setText("Pendiente"); // Pending:
+    inProgressRequestTitleText.setText("En Curso"); // In Progress:
+    completedRequestTitleText.setText("Completo"); // Completed:
+    nonCompletedTitleText.setText("Solicitudes No Completadas"); // Non-Completed Requests
 
     // Service Request Tabs
     flowerRequestTab.setText("Solicitud de Flores"); // Flower Request
@@ -334,9 +332,10 @@ public class ServiceRequestPageController {
     logoutButton.setFont(englishLogout);
 
     // Request Status Bar
-    totalRequestsText.setText("Total Requests"); // Keep in English
-    requestStatusTitleText.setText("Request Status"); // Keep in English
-    pendingRequestsTitleText.setText("Pending Requests"); // Keep in English
+    inProgressRequestTitleText.setText("In Progress"); // Keep in English
+    pendingRequestsTitleText.setText("Pending:"); // Keep in English
+    completedRequestTitleText.setText("Completed:"); // Keep in English
+    nonCompletedTitleText.setText("Non-completed Requests"); // Keep in English
 
     // Service Request Tabs
     flowerRequestTab.setText("Flower Request"); // Flower Request
@@ -346,4 +345,3 @@ public class ServiceRequestPageController {
     furnitureDeliveryTab.setText("Furniture Delivery"); // Furniture Delivery
   }
 }
-

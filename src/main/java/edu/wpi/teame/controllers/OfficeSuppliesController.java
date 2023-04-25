@@ -12,8 +12,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
 
 public class OfficeSuppliesController {
@@ -97,7 +97,6 @@ public class OfficeSuppliesController {
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
 
-
     // Page Language Translation Code
     if (language.equals("english")) {
       translateToEnglish();
@@ -115,7 +114,6 @@ public class OfficeSuppliesController {
           clearForm();
         });
     closeButton.setOnMouseClicked(event -> requestSubmittedBox.setVisible(false));
-
   }
 
   private void clearForm() {
