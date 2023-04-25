@@ -52,6 +52,7 @@ public class MedicalSupplyRequestController {
 
   @FXML
   public void initialize() {
+    requestSubmittedBox.setVisible(false);
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
     ObservableList<String> names =
         FXCollections.observableArrayList(

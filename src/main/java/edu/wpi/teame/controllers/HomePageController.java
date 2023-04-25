@@ -1,7 +1,7 @@
-
 package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Database.SQLRepo;
+import edu.wpi.teame.entities.AlertData;
 import edu.wpi.teame.entities.LoginData;
 import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
@@ -12,7 +12,10 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
+import java.util.List;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -40,9 +43,9 @@ public class HomePageController {
   @FXML Text dateText;
   @FXML Text timeText;
   @FXML VBox menuBar;
-  @FXML MFXButton announcementButton;
+  @FXML MFXButton alertSubmitButton;
   @FXML Text announcementText;
-  @FXML MFXTextField announcementTextBox;
+  @FXML MFXTextField alertTextBox;
   @FXML VBox logoutBox;
   @FXML MFXButton logoutButton;
   @FXML MFXButton userButton;
@@ -56,10 +59,11 @@ public class HomePageController {
 
   @FXML ImageView exitI;
 
-  @FXML
-  MFXListView<String> alertList;
+  @FXML MFXListView<String> alertList;
 
-  Boolean loggedIn;
+  List<AlertData> alerts;
+
+  boolean loggedIn;
 
   boolean menuVisibilty = false;
   boolean logoutVisible = false;
@@ -103,11 +107,7 @@ public class HomePageController {
           SQLRepo.INSTANCE.exitDatabaseProgram();
         });
 
-    announcementButton.setOnMouseClicked(
-        event -> {
-          String announcement = announcementTextBox.getText();
-          announcementText.setText(announcement);
-        });
+    alertSubmitButton.setOnMouseClicked(event -> setAlert());
 
     // Initially set the menu bar to invisible
     menuBarVisible(false);
@@ -178,6 +178,8 @@ public class HomePageController {
     ButtonUtilities.mouseSetup(pathfindingButton);
     ButtonUtilities.mouseSetup(databaseButton);
     ButtonUtilities.mouseSetup(logoutButton);
+
+    fillAlertList();
   }
 
   public void attemptLogin() {
@@ -215,5 +217,34 @@ public class HomePageController {
     menuBarBlank.setVisible(bool);
     menuBar.setVisible(bool);
   }
-}
 
+  public AlertData setAlert() {
+    System.out.println("alert sent");
+
+    AlertData alertData = new AlertData(alerts.get(0).getAlertID() + 1, alertTextBox.getText());
+
+    SQLRepo.INSTANCE.addAlert(alertData);
+
+    return alertData;
+  }
+
+  private void fillAlertList() {
+    alerts =
+        new java.util.ArrayList<>(
+            SQLRepo.INSTANCE.getAlertList().stream()
+                .sorted(
+                    new Comparator<AlertData>() {
+                      @Override
+                      public int compare(AlertData o1, AlertData o2) {
+                        return o2.getTime().compareTo(o1.getTime());
+                      }
+                    })
+                .toList());
+
+    List<String> alertTexts =
+        alerts.stream()
+            .map(alert -> ("\tDate: " + alert.getTimestamp() + "\t\t\t" + alert.getMessage()))
+            .toList();
+    alertList.setItems(FXCollections.observableList(alertTexts));
+  }
+}
