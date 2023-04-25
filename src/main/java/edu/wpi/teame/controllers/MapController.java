@@ -676,19 +676,10 @@ public class MapController {
 
   private void createLabelsForToggleDisplay() {
     List<HospitalNode> allNodes = SQLRepo.INSTANCE.getNodeList();
-    mapUtilityOne.setLabelStyle(
-        "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
-    mapUtilityTwo.setLabelStyle(
-        "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
-    mapUtilityThree.setLabelStyle(
-        "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
-    mapUtilityLowerOne.setLabelStyle(
-        "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
-    mapUtilityLowerTwo.setLabelStyle(
-        "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
-
     for (HospitalNode aNode : allNodes) {
-      if () {
+      if (LocationName.NodeType.HALL
+          != LocationName.NodeType.stringToNodeType(
+              SQLRepo.INSTANCE.getNodeTypeFromNodeID(Integer.parseInt(aNode.getNodeID())))) {
         if (aNode.getFloor() == Floor.ONE) {
           makeLabelForToggle(aNode, mapUtilityOne);
         }
@@ -715,6 +706,8 @@ public class MapController {
             node.getYCoord(),
             SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(node.getNodeID())));
     thisLabel.setFont(Font.font("Roboto", 12));
+    thisLabel.setStyle(
+        "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
     allLocationNameLabels.add(thisLabel);
   }
 }
