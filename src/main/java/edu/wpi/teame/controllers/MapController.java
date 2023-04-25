@@ -188,6 +188,7 @@ public class MapController {
 
     // Make sure location list is initialized so that we can filter out the hallways
     SQLRepo.INSTANCE.getLocationList();
+    createLabelsForToggleDisplay();
     resetComboboxes();
   }
 
@@ -623,10 +624,6 @@ public class MapController {
     labelSwitch.setOnMouseClicked(
         event -> {
           disableLabel = labelSwitch.isSelected();
-          if (areLabelsCreated == false) {
-            createLabelsForToggleDisplay();
-            areLabelsCreated = true;
-          }
           makeLocationNamesVisible(disableLabel);
           System.out.println("Labels Disabled: " + disableLabel);
         });
