@@ -74,12 +74,12 @@ public class DatabaseEditorController {
           editorTitle.setText("Request editor");
         });
     employeeEditorSwapButton.setOnAction(
-          event -> {
-                onlyVisible(serviceView);
-                importExportZone.setVisible(false);
-                onlyDisable(requestsEditorSwapButton);
-                editorTitle.setText("Request editor");
-            });
+        event -> {
+          onlyVisible(employeeView);
+          importExportZone.setVisible(false);
+          onlyDisable(employeeEditorSwapButton);
+          editorTitle.setText("Employee editor");
+        });
 
     importButton.setOnAction(event -> tableViewController.importTable());
     exportButton.setOnAction(event -> tableViewController.exportTable());
@@ -92,6 +92,7 @@ public class DatabaseEditorController {
     mapEditorSwapButton.setDisable(false);
     moveEditorSwapButton.setDisable(false);
     requestsEditorSwapButton.setDisable(false);
+    employeeEditorSwapButton.setDisable(false);
     btn.setDisable(true);
   }
 
@@ -100,6 +101,7 @@ public class DatabaseEditorController {
     moveView.setVisible(false);
     serviceView.setVisible(false);
     mapView.setVisible(false);
+    employeeView.setVisible(false);
     pane.setVisible(true);
   }
 }

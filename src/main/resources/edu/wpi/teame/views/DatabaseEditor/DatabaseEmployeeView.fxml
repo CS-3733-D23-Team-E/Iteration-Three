@@ -25,7 +25,7 @@
                                     <children>
                                         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
-                                                <TableView fx:id="nodeTable" prefHeight="712.0" prefWidth="850.0">
+                                                <TableView fx:id="employeeTable" prefHeight="712.0" prefWidth="850.0">
                                                     <columns>
                                                         <TableColumn fx:id="employeeFullNameCol" minWidth="150.0" prefWidth="150.0" text="Full Name" />
                                                         <TableColumn fx:id="employeeUsernameCol" minWidth="150.0" prefWidth="150.0" text="Username" />
@@ -33,13 +33,13 @@
                                                         <TableColumn fx:id="employeePermissionCol" minWidth="200.0" prefWidth="200.0" text="Permission" />
                                                     </columns>
                                                 </TableView>
-                                                <HBox fx:id="nodeAddZone" alignment="CENTER_LEFT">
+                                                <HBox fx:id="employeeAddZone" alignment="CENTER_LEFT">
                                                     <children>
                                                         <MFXTextField fx:id="newFullNameField" maxWidth="1.7976931348623157E308" prefHeight="30.0" promptText="Full Name" HBox.hgrow="ALWAYS" />
                                                         <MFXTextField fx:id="newUsernameField" maxWidth="1.7976931348623157E308" prefHeight="30.0" promptText="Username" HBox.hgrow="ALWAYS" />
                                                         <MFXTextField fx:id="newPasswordField" maxWidth="1.7976931348623157E308" prefHeight="30.0" promptText="Password" HBox.hgrow="ALWAYS" />
                                                         <MFXTextField fx:id="newPermissionField" maxWidth="1.7976931348623157E308" prefHeight="30.0" promptText="Permission" HBox.hgrow="ALWAYS" />
-                                                        <MFXButton fx:id="addNodeButton" maxWidth="1.7976931348623157E308" prefHeight="30.0" text="Add Employee" HBox.hgrow="ALWAYS" />
+                                                        <MFXButton fx:id="addEmployeeButton" maxWidth="1.7976931348623157E308" prefHeight="30.0" text="Add Employee" HBox.hgrow="ALWAYS" />
                                                     </children>
                                                 </HBox>
                                             </children>
@@ -64,7 +64,7 @@
                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
                                         <MFXTextField fx:id="editPasswordField" minHeight="25.0" prefHeight="25.0" />
                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Permission:" />
-                                        <SearchableComboBox fx:id="editPermissionField" maxWidth="150.0" />
+                                        <SearchableComboBox fx:id="editPermissionChoice" maxWidth="150.0" />
                                     </children>
                                 </VBox>
                             </children>
