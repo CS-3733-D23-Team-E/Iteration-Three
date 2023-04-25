@@ -35,6 +35,7 @@ public class MapController {
   @FXML AnchorPane mapPaneThree;
   @FXML AnchorPane mapPaneLowerOne;
   @FXML AnchorPane mapPaneLowerTwo;
+  @FXML AnchorPane labelPane;
   @FXML VBox pathBox;
   @FXML TabPane tabPane;
   @FXML Tab floorOneTab;
@@ -676,6 +677,9 @@ public class MapController {
 
   private void createLabelsForToggleDisplay() {
     List<HospitalNode> allNodes = SQLRepo.INSTANCE.getNodeList();
+    labelPane.setMinWidth(5000);
+    labelPane.setMinHeight(3400);
+    MapUtilities lowerTwo = new MapUtilities(labelPane);
     for (HospitalNode aNode : allNodes) {
       if (LocationName.NodeType.HALL
           != LocationName.NodeType.stringToNodeType(
@@ -693,7 +697,7 @@ public class MapController {
           makeLabelForToggle(aNode, mapUtilityLowerOne);
         }
         if (aNode.getFloor() == Floor.LOWER_TWO) {
-          makeLabelForToggle(aNode, mapUtilityLowerTwo);
+          makeLabelForToggle(aNode, lowerTwo);
         }
       }
     }

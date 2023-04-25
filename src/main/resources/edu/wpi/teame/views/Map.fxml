@@ -132,20 +132,24 @@
                                  <children>
                                     <GesturePane fx:id="gesturePaneL2" hbarPolicy="NEVER" maxScale="6.0" minScale="1.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <content>
-                                          <AnchorPane fx:id="mapPaneLowerTwo">
+                                          <AnchorPane fx:id="labelPane">
                                              <children>
-                                                <StackPane fx:id="imagePane1111">
+                                                <AnchorPane fx:id="mapPaneLowerTwo">
                                                    <children>
-                                                      <ImageView fx:id="mapImageLowerTwo" fitWidth="2000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
-                                                         <image>
-                                                            <Image url="@../maps/00_thelowerlevel2.png" />
-                                                         </image>
-                                                         <viewport>
-                                                            <Rectangle2D />
-                                                         </viewport>
-                                                      </ImageView>
+                                                      <StackPane fx:id="imagePane1111">
+                                                         <children>
+                                                            <ImageView fx:id="mapImageLowerTwo" fitWidth="5000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                               <image>
+                                                                  <Image url="@../maps/00_thelowerlevel2.png" />
+                                                               </image>
+                                                               <viewport>
+                                                                  <Rectangle2D />
+                                                               </viewport>
+                                                            </ImageView>
+                                                         </children>
+                                                      </StackPane>
                                                    </children>
-                                                </StackPane>
+                                                </AnchorPane>
                                              </children>
                                           </AnchorPane>
                                        </content>
