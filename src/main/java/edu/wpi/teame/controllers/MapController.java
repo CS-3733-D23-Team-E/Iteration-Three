@@ -12,7 +12,10 @@ import edu.wpi.teame.utilities.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -83,6 +86,9 @@ public class MapController {
   @FXML ImageView pathfindingI;
   @FXML ImageView databaseI;
   @FXML ImageView exitI;
+  @FXML
+  MFXToggleButton locationNamesToggle;
+  List<Label> allLocationNameBoxes = new LinkedList<>();
   boolean isPathDisplayed = false;
   Floor currentFloor = Floor.LOWER_TWO;
 
