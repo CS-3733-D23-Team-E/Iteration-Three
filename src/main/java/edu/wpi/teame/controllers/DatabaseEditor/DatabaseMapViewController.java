@@ -174,11 +174,7 @@ public class DatabaseMapViewController {
 
   private void handleAlignNodes(Circle circle) {
     setViewOnlyVisible(alignNodesView);
-    alignConfirmButton.setOnMouseClicked(
-        event -> {
-          confirmAlign();
-          System.out.println("send confirm align");
-        });
+
     selectedCircles.add(circle);
     highlightCircle(circle, true);
     System.out.println(selectedCircles);
@@ -220,14 +216,59 @@ public class DatabaseMapViewController {
 
       currCircle.setCenterX(currentMapUtility.convertX(xPrime));
       currCircle.setCenterY(currentMapUtility.convertY(yPrime));
-      System.out.println(currentMapUtility.convertX(xPrime));
-      System.out.println(currentMapUtility.convertY(yPrime));
+
+      updatedCircles.add(currCircle);
     }
 
-    // send to database?
+    //    //    // update allnodes
+    //    //    // update database
+    updateNodes();
 
+    // refreshes the map
     unhighlightSelectedCircles();
     selectedCircles.clear();
+    refreshMap();
+  }
+
+  private void updateNodes() {
+    updateAllNodes();
+    updateNodeDatabaseXY();
+    updatedCircles.clear();
+  }
+
+  private void updateAllNodes() {
+    for (Circle circle : updatedCircles) {
+
+      MapUtilities currentMapUtility = whichMapUtility(currentFloor);
+
+      HospitalNode node = circleToHospitalNodeMap.get(circle);
+
+      int newX = currentMapUtility.PaneXToImageX(circle.getCenterX());
+      int newY = currentMapUtility.PaneYToImageY(circle.getCenterY());
+
+      node.setXCoord(newX);
+      node.setYCoord(newY);
+    }
+  }
+
+  private final HashMap<Line, HospitalEdge> lineToEdgeMap = new HashMap<>();
+
+  private void updateNodeDatabaseXY() {
+
+    // update XYs
+    for (Circle circle : updatedCircles) {
+      System.out.println("updating database circle");
+
+      MapUtilities currentMapUtility = whichMapUtility(currentFloor);
+
+      HospitalNode node = circleToHospitalNodeMap.get(circle);
+
+      int newX = currentMapUtility.PaneXToImageX(circle.getCenterX());
+      int newY = currentMapUtility.PaneYToImageY(circle.getCenterY());
+
+      SQLRepo.INSTANCE.updateNode(node, "xcoord", Integer.toString(newX));
+      SQLRepo.INSTANCE.updateNode(node, "ycoord", Integer.toString(newY));
+    }
   }
 
   private void updateOnClick(Circle circle) {
@@ -395,7 +436,10 @@ public class DatabaseMapViewController {
     editNodeView.setVisible(false);
   }
 
-  private HashMap<Circle, HospitalNode> circleToHospitalNodeMap = new HashMap<>();
+  private final HashMap<Circle, HospitalNode> circleToHospitalNodeMap = new HashMap<>();
+
+  ArrayList<Circle> updatedCircles = new ArrayList<>();
+
   ArrayList<Circle> selectedCircles = new ArrayList<>();
 
   @FXML
@@ -404,6 +448,7 @@ public class DatabaseMapViewController {
     initializeToggleGroup();
     initializeMapUtilities();
     initializeMapGesturePanes();
+    initializeButtons();
     currentFloor = Floor.LOWER_TWO;
 
     // Sidebar functions
@@ -449,8 +494,7 @@ public class DatabaseMapViewController {
 
     edgeColumn.setCellValueFactory(new PropertyValueFactory<HospitalEdge, String>("nodeTwoID"));
 
-    displayAddMenu();
-    initializeButtons();
+    //    displayAddMenu();
   }
 
   private void cancel() {
@@ -487,7 +531,8 @@ public class DatabaseMapViewController {
 
       // only draw edges on the same floor
       if (node1.getFloor() == node2.getFloor()) {
-        whichMapUtility(currentFloor).drawEdge(node1, node2);
+        Line edgeLine = whichMapUtility(currentFloor).drawEdge(node1, node2);
+        lineToEdgeMap.put(edgeLine, edge);
       }
     }
 
@@ -526,94 +571,94 @@ public class DatabaseMapViewController {
     }
   }
 
-  // APPEARS WHEN YOU CLICK ON A NODE
-  private void updateEditMenu() {
-    String nodeID = currentCircle.getId();
-    editPageText.setText("Edit Node: ID = " + nodeID);
+  //  // APPEARS WHEN YOU CLICK ON A NODE
+  //  private void updateEditMenu() {
+  //    String nodeID = currentCircle.getId();
+  //    editPageText.setText("Edit Node: ID = " + nodeID);
+  //
+  //    currNode = allNodes.get(nodeID);
+  //
+  //    String x = Integer.toString(currNode.getXCoord());
+  //    String y = Integer.toString(currNode.getYCoord());
+  //    xField.setText(x);
+  //    yField.setText(y);
+  //
+  //    updateNodeEditMenuFields(nodeID);
+  //  }
 
-    currNode = allNodes.get(nodeID);
+  //  private void updateNodeEditMenuFields(String nodeID) {
+  //    edges =
+  //        SQLRepo.INSTANCE.getEdgeList().stream()
+  //            .filter((edge) -> (edge.getNodeOneID().equals(nodeID)))
+  //            .toList();
+  //
+  //    workingList = new LinkedList<>();
+  //
+  //    workingList.addAll(edges);
+  //
+  //    addList = new LinkedList<>();
+  //    deleteList = new LinkedList<>();
+  //
+  //    longNameSelector.setValue(SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(nodeID)));
+  //
+  //    buildingSelector.setValue(currNode.getBuilding());
+  //    confirmButton.setOnAction(
+  //        (event) -> {
+  //          uploadChangesToDatabase();
+  //        });
+  //
+  //    edgeView.setItems(FXCollections.observableList(workingList));
+  //
+  //    deleteNodeButton.setVisible(true);
+  //  }
 
-    String x = Integer.toString(currNode.getXCoord());
-    String y = Integer.toString(currNode.getYCoord());
-    xField.setText(x);
-    yField.setText(y);
-
-    updateNodeEditMenuFields(nodeID);
-  }
-
-  private void updateNodeEditMenuFields(String nodeID) {
-    edges =
-        SQLRepo.INSTANCE.getEdgeList().stream()
-            .filter((edge) -> (edge.getNodeOneID().equals(nodeID)))
-            .toList();
-
-    workingList = new LinkedList<>();
-
-    workingList.addAll(edges);
-
-    addList = new LinkedList<>();
-    deleteList = new LinkedList<>();
-
-    longNameSelector.setValue(SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(nodeID)));
-
-    buildingSelector.setValue(currNode.getBuilding());
-    confirmButton.setOnAction(
-        (event) -> {
-          uploadChangesToDatabase();
-        });
-
-    edgeView.setItems(FXCollections.observableList(workingList));
-
-    deleteNodeButton.setVisible(true);
-  }
-
-  // called when node is dragged
-  private void dragUpdate(MouseEvent mouseEvent) {
-    String nodeID = currentCircle.getId();
-    editPageText.setText("Edit Node: ID = " + nodeID);
-    currNode = allNodes.get(nodeID);
-
-    updateNodeEditMenuFields(nodeID);
-
-    // get x and y from drag and set new x and y for circle and label
-    ((Circle) mouseEvent.getSource()).setCenterX(mouseEvent.getX());
-    ((Circle) mouseEvent.getSource()).setCenterY(mouseEvent.getY());
-
-    double newX = currentCircle.getCenterX();
-    double newY = currentCircle.getCenterY();
-    currentLabel.setLayoutX(newX);
-    currentLabel.setLayoutY(newY);
-
-    // get image coordinates and update on edit menu
-    MapUtilities currentMapUtility = whichMapUtility(currentFloor);
-    int imageX = currentMapUtility.PaneXToImageX(currentCircle.getCenterX());
-    int imageY = currentMapUtility.PaneYToImageY(currentCircle.getCenterY());
-    xField.setText(Integer.toString(imageX));
-    yField.setText(Integer.toString(imageY));
-
-    // update edges based off drag
-    List<Node> startEdgesToUpdate =
-        currentMapUtility.getCurrentNodes().stream()
-            .filter(node -> node.getId().contains("startNode:" + currNode))
-            .toList();
-
-    List<Node> endEdgesToUpdate =
-        currentMapUtility.getCurrentNodes().stream()
-            .filter(node -> node.getId().contains("endNode:" + currNode))
-            .toList();
-
-    for (Node node : startEdgesToUpdate) {
-      Line line = (Line) node;
-      line.setStartX(newX);
-      line.setStartY(newY);
-    }
-
-    for (Node node : endEdgesToUpdate) {
-      Line line = (Line) node;
-      line.setEndX(newX);
-      line.setEndY(newY);
-    }
-  }
+  //  // called when node is dragged
+  //  private void dragUpdate(MouseEvent mouseEvent) {
+  //    String nodeID = currentCircle.getId();
+  //    editPageText.setText("Edit Node: ID = " + nodeID);
+  //    currNode = allNodes.get(nodeID);
+  //
+  //    updateNodeEditMenuFields(nodeID);
+  //
+  //    // get x and y from drag and set new x and y for circle and label
+  //    ((Circle) mouseEvent.getSource()).setCenterX(mouseEvent.getX());
+  //    ((Circle) mouseEvent.getSource()).setCenterY(mouseEvent.getY());
+  //
+  //    double newX = currentCircle.getCenterX();
+  //    double newY = currentCircle.getCenterY();
+  //    currentLabel.setLayoutX(newX);
+  //    currentLabel.setLayoutY(newY);
+  //
+  //    // get image coordinates and update on edit menu
+  //    MapUtilities currentMapUtility = whichMapUtility(currentFloor);
+  //    int imageX = currentMapUtility.PaneXToImageX(currentCircle.getCenterX());
+  //    int imageY = currentMapUtility.PaneYToImageY(currentCircle.getCenterY());
+  //    xField.setText(Integer.toString(imageX));
+  //    yField.setText(Integer.toString(imageY));
+  //
+  //    // update edges based off drag
+  //    List<Node> startEdgesToUpdate =
+  //        currentMapUtility.getCurrentNodes().stream()
+  //            .filter(node -> node.getId().contains("startNode:" + currNode))
+  //            .toList();
+  //
+  //    List<Node> endEdgesToUpdate =
+  //        currentMapUtility.getCurrentNodes().stream()
+  //            .filter(node -> node.getId().contains("endNode:" + currNode))
+  //            .toList();
+  //
+  //    for (Node node : startEdgesToUpdate) {
+  //      Line line = (Line) node;
+  //      line.setStartX(newX);
+  //      line.setStartY(newY);
+  //    }
+  //
+  //    for (Node node : endEdgesToUpdate) {
+  //      Line line = (Line) node;
+  //      line.setEndX(newX);
+  //      line.setEndY(newY);
+  //    }
+  //  }
 
   // APPEARS WHEN YOU CLICK OFF A NODE/CANCEL (DEFAULT)
   private void displayAddMenu() {
@@ -875,6 +920,13 @@ public class DatabaseMapViewController {
   }
 
   private void initializeButtons() {
+
+    alignConfirmButton.setOnMouseClicked(
+        event -> {
+          confirmAlign();
+          System.out.println("send confirm align");
+        });
+
     addEdgeButton.setOnAction(
         (event -> {
           // if item is in edge list, remove from delete list
