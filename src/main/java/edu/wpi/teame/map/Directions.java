@@ -133,7 +133,9 @@ public class Directions {
       case ELEVATOR:
         icon = new Image(String.valueOf(Main.class.getResource("images/elevator.png")));
         directionsText +=
-            "take the elevator to floor " + Floor.floorToString(path.get(index + 1).getFloor()) + ".";
+            "take the elevator to floor "
+                + Floor.floorToString(path.get(index + 1).getFloor())
+                + ".";
         break;
       case STAIRS:
         icon = new Image(String.valueOf(Main.class.getResource("images/stairs.png")));

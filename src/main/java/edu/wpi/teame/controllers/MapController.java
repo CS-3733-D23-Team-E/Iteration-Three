@@ -26,6 +26,7 @@ import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.SearchableComboBox;
+import org.controlsfx.control.ToggleSwitch;
 
 public class MapController {
   @FXML AnchorPane mapPaneOne;
@@ -53,16 +54,15 @@ public class MapController {
   @FXML RadioButton bfsButton;
   @FXML Region zoomInRegion;
   @FXML Region zoomOutRegion;
-  @FXML Region labelRegion;
   @FXML RadioButton dijkstraButton;
   @FXML GesturePane gesturePaneL2;
   @FXML GesturePane gesturePaneL1;
   @FXML GesturePane gesturePane1;
   @FXML GesturePane gesturePane2;
   @FXML GesturePane gesturePane3;
-  @FXML StackPane labelButton;
-  @FXML StackPane zoomInButton;
-  @FXML StackPane zoomOutButton;
+  @FXML ToggleSwitch labelSwitch;
+  @FXML Button zoomInButton;
+  @FXML Button zoomOutButton;
   @FXML MFXButton menuButton;
   @FXML MFXButton menuBarHome;
   @FXML MFXButton menuBarServices;
@@ -78,7 +78,7 @@ public class MapController {
   @FXML ImageView databaseI;
   @FXML ImageView exitI;
   boolean menuVisibilty = false;
-  boolean labelFaded = false;
+  boolean disableLabel = false;
   boolean isPathDisplayed = false;
   Floor currentFloor = Floor.LOWER_TWO;
   Circle currentCircle = new Circle();
@@ -252,9 +252,6 @@ public class MapController {
 
     String toNodeID = SQLRepo.INSTANCE.getNodeIDFromName(to) + "";
     String fromNodeID = SQLRepo.INSTANCE.getNodeIDFromName(from) + "";
-
-    System.out.println("From: " + HospitalNode.allNodes.get(fromNodeID));
-    System.out.println("To: " + HospitalNode.allNodes.get(toNodeID));
 
     List<HospitalNode> path =
         pf.findPath(HospitalNode.allNodes.get(fromNodeID), HospitalNode.allNodes.get(toNodeID));
@@ -518,7 +515,7 @@ public class MapController {
                 SQLRepo.INSTANCE.getNodeTypeFromNodeID(
                     Integer.parseInt(path.get(index).getNodeID())))
             == LocationName.NodeType.ELEV)
-        && (path.get(index).getFloor()) != path.get(index + 1).getFloor()) {
+        && (path.get(index).getFloor()) != path.get(index - 1).getFloor()) {
       return TurnType.ELEVATOR;
     }
     // If the current node is stairs and the next node is on another floor, then set the turn type
@@ -527,7 +524,7 @@ public class MapController {
                 SQLRepo.INSTANCE.getNodeTypeFromNodeID(
                     Integer.parseInt(path.get(index).getNodeID())))
             == LocationName.NodeType.STAI)
-        && (path.get(index).getFloor()) != path.get(index + 1).getFloor()) {
+        && (path.get(index).getFloor()) != path.get(index - 1).getFloor()) {
       return TurnType.STAIRS;
     }
     // Straight
@@ -603,16 +600,11 @@ public class MapController {
         "M5 10C5 7.23858 7.23858 5 10 5C12.7614 5 15 7.23858 15 10C15 11.381 14.4415 12.6296 13.5355 13.5355C12.6296 14.4415 11.381 15 10 15C7.23858 15 5 12.7614 5 10ZM10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17C11.5719 17 13.0239 16.481 14.1921 15.6063L19.2929 20.7071C19.6834 21.0976 20.3166 21.0976 20.7071 20.7071C21.0976 20.3166 21.0976 19.6834 20.7071 19.2929L15.6063 14.1921C16.481 13.0239 17 11.5719 17 10C17 6.13401 13.866 3 10 3ZM11 8C11 7.44772 10.5523 7 10 7C9.44772 7 9 7.44772 9 8V9H8C7.44772 9 7 9.44772 7 10C7 10.5523 7.44772 11 8 11H9V12C9 12.5523 9.44772 13 10 13C10.5523 13 11 12.5523 11 12V11H12C12.5523 11 13 10.5523 13 10C13 9.44772 12.5523 9 12 9H11V8Z");
     zoomInRegion.setShape(inSVG);
     zoomInRegion.setStyle("-fx-background-color: 'f1f1f1'");
-    SVGPath labelSVG = new SVGPath();
-    labelSVG.setContent(
-        "M19.2933 9.95137L16.96 7.15137C16.6073 6.72814 16.43 6.51639 16.2139 6.36426C16.0223 6.22946 15.8084 6.12953 15.5822 6.06868C15.327 6 15.0523 6 14.5014 6H7.2002C6.08009 6 5.51962 6 5.0918 6.21799C4.71547 6.40973 4.40973 6.71547 4.21799 7.0918C4 7.51962 4 8.08009 4 9.2002V14.8002C4 15.9203 4 16.4801 4.21799 16.9079C4.40973 17.2842 4.71547 17.5905 5.0918 17.7822C5.5192 18 6.07899 18 7.19691 18H14.5014C15.0523 18 15.327 17.9998 15.5822 17.9312C15.8084 17.8703 16.0223 17.7702 16.2139 17.6354C16.43 17.4833 16.6073 17.2721 16.96 16.8488L19.2933 14.0488C19.9006 13.32 20.2036 12.9556 20.3197 12.5488C20.422 12.1902 20.422 11.8095 20.3197 11.4509C20.2036 11.0441 19.9006 10.6801 19.2933 9.95137Z");
-    labelRegion.setShape(labelSVG);
-    labelRegion.setStyle("-fx-background-color: 'f1f1f1'");
 
-    labelButton.setOnMouseClicked(
+    labelSwitch.setOnMouseClicked(
         event -> {
-          labelFaded = !labelFaded;
-          setFaded(labelFaded, labelButton);
+          disableLabel = labelSwitch.isSelected();
+          System.out.println("Labels Disabled: " + disableLabel);
         });
     zoomInButton.setOnMouseClicked(
         event -> {
@@ -622,14 +614,6 @@ public class MapController {
         event -> {
           zoomOut();
         });
-  }
-
-  public void setFaded(boolean isFaded, Node node) {
-    if (isFaded) {
-      node.setOpacity(0.75);
-    } else {
-      node.setOpacity(1);
-    }
   }
 
   public void zoomIn() {

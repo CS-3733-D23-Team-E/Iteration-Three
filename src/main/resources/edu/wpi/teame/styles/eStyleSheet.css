@@ -70,7 +70,7 @@
      -fx-background-color: white;
      -fx-border-color: #1f1f1f;
      -fx-border-radius: 10px 10px 0px 0px;
-     -fx-border-style: solid inside;
+     -fx-border-style: solid solid none solid inside;
      -fx-background-radius: 10px 10px 0px 0px;
      -fx-background-insets: 0;
      -fx-focus-color: transparent;
@@ -89,7 +89,7 @@
      -fx-alignment: CENTER;
      -fx-text-fill: black;
      -fx-font-size: 24px;
-     -fx-font-family: 'roboto';
+     -fx-font-family: ROBOTO;
      -fx-focus-color: transparent;
  }
 
@@ -97,6 +97,51 @@
      -fx-alignment: CENTER;
      -fx-text-fill: white;
      -fx-font-size: 24px;
-     -fx-font-family: 'roboto';
+     -fx-font-family: ROBOTO;
      -fx-focus-color: transparent;
+ }
+
+ .scroll-pane {
+     -fx-background-color: transparent;
+
+ }
+
+ .scroll-pane > .corner {
+     -fx-background-color: transparent;
+ }
+
+ .scroll-bar:vertical{
+     -fx-background-color:transparent;
+     -fx-padding :0.0 0.2em;
+ }
+
+ .scroll-bar:vertical .increment-arrow,
+ .scroll-bar:vertical .decrement-arrow{
+     -fx-shape : " ";
+ }
+
+ .scroll-bar:horizontal .increment-arrow,
+ .scroll-bar:horizontal .decrement-arrow{
+     -fx-shape : " ";
+ }
+
+ .scroll-bar:horizontal .track,
+ .scroll-bar:vertical .track{
+     -fx-background-color: #B1B1B1;
+     -fx-background-radius: 5em;
+ }
+
+ .scroll-bar:horizontal .thumb,
+ .scroll-bar:vertical .thumb {
+     -fx-background-color: #001A3C;
+     -fx-background-radius: 5em;
+ }
+
+ .toggle-switch {
+     -thumb-move-animation-time: 100;
+     -toggle-display: thumb-only;
+ }
+
+ .toggle-switch:selected .thumb-area{
+     -fx-background-color: #001A3C;
  }
