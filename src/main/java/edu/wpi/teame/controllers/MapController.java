@@ -87,6 +87,8 @@ public class MapController {
   boolean disableLabel = false;
   boolean isPathDisplayed = false;
   boolean areLabelsCreated = false;
+  boolean widthLoaded = false;
+  boolean heightLoaded = false;
   Floor currentFloor = Floor.LOWER_TWO;
   Circle currentCircle = new Circle();
   HBox previousLabel;
@@ -273,6 +275,8 @@ public class MapController {
     }
     // Create the labels
     createDirections(pathBox, path);
+    createLabelsForToggleDisplay(path);
+    makeLocationNamesVisible(disableLabel);
     drawPath(path);
     isPathDisplayed = true;
   }
@@ -623,10 +627,6 @@ public class MapController {
     labelSwitch.setOnMouseClicked(
         event -> {
           disableLabel = labelSwitch.isSelected();
-          if (areLabelsCreated == false) {
-            createLabelsForToggleDisplay();
-            areLabelsCreated = true;
-          }
           makeLocationNamesVisible(disableLabel);
           System.out.println("Labels Disabled: " + disableLabel);
         });
@@ -674,13 +674,15 @@ public class MapController {
   }
 
   private void makeLocationNamesVisible(boolean isVisible) {
-    for (Label aLabel : allLocationNameLabels) {
-      aLabel.setVisible(isVisible);
+    if (allLocationNameLabels.size() != 0) {
+      for (Label aLabel : allLocationNameLabels) {
+        aLabel.setVisible(isVisible);
+      }
     }
   }
 
-  private void createLabelsForToggleDisplay() {
-    List<HospitalNode> allNodes = SQLRepo.INSTANCE.getNodeList();
+  private void createLabelsForToggleDisplay(List<HospitalNode> nodes) {
+    //    List<HospitalNode> allNodes = SQLRepo.INSTANCE.getNodeList();
     lowerTwoLabelPane.setMinWidth(5000);
     lowerTwoLabelPane.setMinHeight(3400);
 
@@ -702,24 +704,24 @@ public class MapController {
     MapUtilities floorTwoUtil = new MapUtilities(floorTwoLabelPane);
     MapUtilities floorThreeUtil = new MapUtilities(floorThreeLabelPane);
 
-    for (HospitalNode aNode : allNodes) {
+    for (HospitalNode aNode : nodes) {
       if (LocationName.NodeType.HALL
           != LocationName.NodeType.stringToNodeType(
               SQLRepo.INSTANCE.getNodeTypeFromNodeID(Integer.parseInt(aNode.getNodeID())))) {
         if (aNode.getFloor() == Floor.ONE) {
-          makeLabelForToggle(aNode, floorOneUtil);
+          makeLabelForToggle(aNode, mapUtilityOne);
         }
         if (aNode.getFloor() == Floor.TWO) {
-          makeLabelForToggle(aNode, floorTwoUtil);
+          makeLabelForToggle(aNode, mapUtilityTwo);
         }
         if (aNode.getFloor() == Floor.THREE) {
-          makeLabelForToggle(aNode, floorThreeUtil);
+          makeLabelForToggle(aNode, mapUtilityThree);
         }
         if (aNode.getFloor() == Floor.LOWER_ONE) {
-          makeLabelForToggle(aNode, lowerOneUtil);
+          makeLabelForToggle(aNode, mapUtilityLowerOne);
         }
         if (aNode.getFloor() == Floor.LOWER_TWO) {
-          makeLabelForToggle(aNode, lowerTwoUtil);
+          makeLabelForToggle(aNode, mapUtilityLowerTwo);
         }
       }
     }
