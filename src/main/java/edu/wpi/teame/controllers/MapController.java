@@ -35,7 +35,11 @@ public class MapController {
   @FXML AnchorPane mapPaneThree;
   @FXML AnchorPane mapPaneLowerOne;
   @FXML AnchorPane mapPaneLowerTwo;
-  @FXML AnchorPane labelPane;
+  @FXML AnchorPane lowerTwoLabelPane;
+  @FXML AnchorPane lowerOneLabelPane;
+  @FXML AnchorPane floorOneLabelPane;
+  @FXML AnchorPane floorTwoLabelPane;
+  @FXML AnchorPane floorThreeLabelPane;
   @FXML VBox pathBox;
   @FXML TabPane tabPane;
   @FXML Tab floorOneTab;
@@ -677,27 +681,45 @@ public class MapController {
 
   private void createLabelsForToggleDisplay() {
     List<HospitalNode> allNodes = SQLRepo.INSTANCE.getNodeList();
-    labelPane.setMinWidth(5000);
-    labelPane.setMinHeight(3400);
-    MapUtilities lowerTwo = new MapUtilities(labelPane);
+    lowerTwoLabelPane.setMinWidth(5000);
+    lowerTwoLabelPane.setMinHeight(3400);
+
+    lowerOneLabelPane.setMinWidth(5000);
+    lowerOneLabelPane.setMinHeight(3400);
+
+    floorOneLabelPane.setMinWidth(5000);
+    floorOneLabelPane.setMinHeight(3400);
+
+    floorTwoLabelPane.setMinWidth(5000);
+    floorTwoLabelPane.setMinHeight(3400);
+
+    floorThreeLabelPane.setMinWidth(5000);
+    floorThreeLabelPane.setMinHeight(3400);
+
+    MapUtilities lowerTwoUtil = new MapUtilities(lowerTwoLabelPane);
+    MapUtilities lowerOneUtil = new MapUtilities(lowerOneLabelPane);
+    MapUtilities floorOneUtil = new MapUtilities(floorOneLabelPane);
+    MapUtilities floorTwoUtil = new MapUtilities(floorTwoLabelPane);
+    MapUtilities floorThreeUtil = new MapUtilities(floorThreeLabelPane);
+
     for (HospitalNode aNode : allNodes) {
       if (LocationName.NodeType.HALL
           != LocationName.NodeType.stringToNodeType(
               SQLRepo.INSTANCE.getNodeTypeFromNodeID(Integer.parseInt(aNode.getNodeID())))) {
         if (aNode.getFloor() == Floor.ONE) {
-          makeLabelForToggle(aNode, mapUtilityOne);
+          makeLabelForToggle(aNode, floorOneUtil);
         }
         if (aNode.getFloor() == Floor.TWO) {
-          makeLabelForToggle(aNode, mapUtilityTwo);
+          makeLabelForToggle(aNode, floorTwoUtil);
         }
         if (aNode.getFloor() == Floor.THREE) {
-          makeLabelForToggle(aNode, mapUtilityThree);
+          makeLabelForToggle(aNode, floorThreeUtil);
         }
         if (aNode.getFloor() == Floor.LOWER_ONE) {
-          makeLabelForToggle(aNode, mapUtilityLowerOne);
+          makeLabelForToggle(aNode, lowerOneUtil);
         }
         if (aNode.getFloor() == Floor.LOWER_TWO) {
-          makeLabelForToggle(aNode, lowerTwo);
+          makeLabelForToggle(aNode, lowerTwoUtil);
         }
       }
     }
