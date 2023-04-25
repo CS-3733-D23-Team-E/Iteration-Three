@@ -1,22 +1,37 @@
 package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Database.SQLRepo;
+
+import edu.wpi.teame.entities.AlertData;
+
 import edu.wpi.teame.entities.LoginData;
 import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+
+import io.github.palexdev.materialfx.controls.MFXListView;
+
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+
 import java.util.concurrent.atomic.AtomicReference;
 import javafx.application.Platform;
+
+import java.util.Comparator;
+import java.util.List;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+
 import javafx.scene.text.Font;
+
 import javafx.scene.text.Text;
 
 public class HomePageController {
@@ -31,26 +46,40 @@ public class HomePageController {
   @FXML MFXButton menuBarHome;
   @FXML MFXButton menuBarServices;
   @FXML MFXButton menuBarMaps;
+
   @FXML MFXButton menuBarAbout;
   @FXML MFXButton menuBarDatabase;
+
+
+
+
   @FXML MFXButton menuBarSignage;
   @FXML MFXButton menuBarBlank;
   @FXML MFXButton menuBarExit;
   @FXML Text dateText;
   @FXML Text timeText;
   @FXML VBox menuBar;
+
   @FXML MFXButton announcementButton;
   @FXML Text announcementText;
   @FXML MFXTextField announcementTextBox;
+
+  @FXML MFXButton alertSubmitButton;
+
+  @FXML MFXTextField alertTextBox;
+
   @FXML VBox logoutBox;
   @FXML MFXButton logoutButton;
   @FXML MFXButton userButton;
   @FXML ImageView homeI;
+
   @FXML ImageView aboutI;
+
   @FXML ImageView servicesI;
   @FXML ImageView signageI;
   @FXML ImageView pathfindingI;
   @FXML ImageView databaseI;
+
   @FXML ImageView exitI;
   @FXML MFXButton spanishButton;
   @FXML MFXButton englishButton;
@@ -70,6 +99,19 @@ public class HomePageController {
   String aU = "\u00FA"; // ù
   String aQuestion = "\u00BF"; // Upside down question mark
 
+
+
+
+
+
+
+  @FXML MFXListView<String> alertList;
+
+  List<AlertData> alerts;
+
+
+
+
   public void initialize() {
     LocalTime currentTime = LocalTime.now();
     LocalDate currentDate = LocalDate.now();
@@ -88,13 +130,16 @@ public class HomePageController {
     serviceRequestButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUESTS));
 
     editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
-    databaseButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_TABLEVIEW));
+
+    databaseButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_EDITOR));
+
     pathfindingButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
 
     menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
     menuBarServices.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUESTS));
     menuBarHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+
     menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate((Screen.DATABASE_TABLEVIEW)));
     menuBarExit.setOnMouseClicked(event -> Platform.exit());
 
@@ -107,6 +152,24 @@ public class HomePageController {
           announcementText.setText(announcement);
           announcementString.set(announcement);
         });
+
+
+
+    menuBarAbout.setOnMouseClicked(event -> Navigation.navigate((Screen.ABOUT)));
+
+    menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate((Screen.DATABASE_EDITOR)));
+
+    menuBarExit.setOnMouseClicked(event -> Platform.exit());
+
+    loggedIn = false;
+    logoutButton.setOnMouseClicked(
+        event -> {
+          Navigation.navigate(Screen.SIGNAGE_TEXT);
+          SQLRepo.INSTANCE.exitDatabaseProgram();
+        });
+
+    alertSubmitButton.setOnMouseClicked(event -> setAlert());
+
 
     // Initially set the menu bar to invisible
     menuBarVisible(false);
@@ -135,17 +198,13 @@ public class HomePageController {
           logoutPopup(logoutVisible);
         });
 
+
     logoutButton.setOnMouseClicked(
         event -> {
           Navigation.navigate(Screen.SIGNAGE_TEXT);
           SQLRepo.INSTANCE.exitDatabaseProgram();
         });
 
-    menuBarServices.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUESTS));
-    menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
-    menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-    menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_TABLEVIEW));
-    menuBarExit.setOnMouseClicked((event -> Platform.exit()));
 
     // makes the menu bar buttons get highlighted when the mouse hovers over them
     ButtonUtilities.mouseSetupMenuBar(
@@ -190,6 +249,7 @@ public class HomePageController {
     ButtonUtilities.mouseSetup(databaseButton);
     ButtonUtilities.mouseSetup(logoutButton);
 
+
     // Page Language Translation Code (commented out until connected to the instance)
     /*englishButton.setOnMouseClicked(
         event -> {
@@ -207,6 +267,9 @@ public class HomePageController {
     {
       // throw some sort of error here at some point
     }
+
+    fillAlertList();
+
   }
 
   public void attemptLogin() {
@@ -239,10 +302,14 @@ public class HomePageController {
     menuBarSignage.setVisible(bool);
     menuBarMaps.setVisible(bool);
     menuBarDatabase.setVisible(bool);
+
+    menuBarAbout.setVisible(bool);
+
     menuBarExit.setVisible(bool);
     menuBarBlank.setVisible(bool);
     menuBar.setVisible(bool);
   }
+
 
   public void translateToSpanish(String announcmentString) {
     // Change language variable
@@ -280,37 +347,67 @@ public class HomePageController {
   }
 
   public void translateToEnglish(String announcmentString) {
-    // Change language variable
-    language = "english";
+      // Change language variable
+      language = "english";
 
-    // Menu Bar
-    menuBarHome.setText("Home"); // Keep in English
-    menuBarServices.setText("Services"); // Keep in English
-    menuBarSignage.setText("Signage"); // Keep in English
-    menuBarMaps.setText("Pathfinding"); // Keep in English
-    menuBarDatabase.setText("Database"); // Keep in English
-    menuBarExit.setText(("Exit")); // Keep in English
+      // Menu Bar
+      menuBarHome.setText("Home"); // Keep in English
+      menuBarServices.setText("Services"); // Keep in English
+      menuBarSignage.setText("Signage"); // Keep in English
+      menuBarMaps.setText("Pathfinding"); // Keep in English
+      menuBarDatabase.setText("Database"); // Keep in English
+      menuBarExit.setText(("Exit")); // Keep in English
 
-    // Home Page Buttons
-    editSignageButton.setText("Signage"); // Keep in English
-    serviceRequestButton.setText("Services"); // Keep in English
-    pathfindingButton.setText("Pathfinding"); // Keep in English
-    databaseButton.setText("Database"); // Keep in English
+      // Home Page Buttons
+      editSignageButton.setText("Signage"); // Keep in English
+      serviceRequestButton.setText("Services"); // Keep in English
+      pathfindingButton.setText("Pathfinding"); // Keep in English
+      databaseButton.setText("Database"); // Keep in English
 
-    // Date Bar
-    todayIsText.setText("Today is..."); // Keep in English
+      // Date Bar
+      todayIsText.setText("Today is..."); // Keep in English
 
-    // Announcements Bar
-    alertText.setText("Announcements"); // Keep in English
-    if (announcmentString.equals("")) { // Do this if there are currently no announcements
-      alertText.setText("No new announcements."); // Keep in English
-    }
-    announcementTextBox.setPromptText("Announcement Text Here"); // Keep in English
-    announcementButton.setText("Submit"); // Keep in English
+      // Announcements Bar
+      alertText.setText("Announcements"); // Keep in English
+      if (announcmentString.equals("")) { // Do this if there are currently no announcements
+          alertText.setText("No new announcements."); // Keep in English
+      }
+      announcementTextBox.setPromptText("Announcement Text Here"); // Keep in English
+      announcementButton.setText("Submit"); // Keep in English
 
-    // Logout Button
-    logoutButton.setText("Logout"); // Keep in English
-    Font englishLogout = new Font("Roboto", 18);
-    logoutButton.setFont(englishLogout);
+      // Logout Button
+      logoutButton.setText("Logout"); // Keep in English
+      Font englishLogout = new Font("Roboto", 18);
+      logoutButton.setFont(englishLogout);
+  }
+  public AlertData setAlert() {
+    System.out.println("alert sent");
+
+    AlertData alertData = new AlertData(alerts.get(0).getAlertID() + 1, alertTextBox.getText());
+
+    SQLRepo.INSTANCE.addAlert(alertData);
+
+    return alertData;
+  }
+
+  private void fillAlertList() {
+    alerts =
+        new java.util.ArrayList<>(
+            SQLRepo.INSTANCE.getAlertList().stream()
+                .sorted(
+                    new Comparator<AlertData>() {
+                      @Override
+                      public int compare(AlertData o1, AlertData o2) {
+                        return o2.getTime().compareTo(o1.getTime());
+                      }
+                    })
+                .toList());
+
+    List<String> alertTexts =
+        alerts.stream()
+            .map(alert -> ("\tDate: " + alert.getTimestamp() + "\t\t\t" + alert.getMessage()))
+            .toList();
+    alertList.setItems(FXCollections.observableList(alertTexts));
+
   }
 }
