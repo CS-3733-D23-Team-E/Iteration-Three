@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXListView?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.Image?>
@@ -324,13 +325,9 @@
                                     <Font name="Roboto Bold Italic" size="36.0" />
                                  </font>
                               </Text>
-                              <VBox maxHeight="400.0" maxWidth="400.0" prefHeight="200.0" prefWidth="100.0" spacing="350.0" StackPane.alignment="TOP_CENTER">
+                              <VBox maxHeight="400.0" maxWidth="400.0" prefHeight="200.0" prefWidth="100.0" StackPane.alignment="TOP_CENTER">
                                  <children>
-                                    <Text fx:id="announcementText" strokeType="OUTSIDE" strokeWidth="0.0" text="No new announcements.">
-                                       <font>
-                                          <Font name="Roboto" size="20.0" />
-                                       </font>
-                                    </Text>
+                                    <MFXListView fx:id="alertList" maxHeight="500.0" maxWidth="500.0" minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #f1f1f1;" />
                                     <HBox maxHeight="30.0" maxWidth="450.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                                        <children>
                                           <MFXTextField fx:id="announcementTextBox" maxHeight="30.0" maxWidth="300.0" prefColumnCount="0" prefHeight="30.0" prefWidth="300.0" promptText="Announcement Text Here" styleClass="MFXTextField" stylesheets="@../styles/eStyleSheet.css">
