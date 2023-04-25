@@ -109,6 +109,8 @@ public class DatabaseMapViewController {
   @FXML VBox editNodeView;
   @FXML VBox addNodeView;
 
+  @FXML VBox alignNodesView;
+
   enum Mode {
     PAN("PAN"),
     DRAG("DRAG"),
@@ -168,55 +170,103 @@ public class DatabaseMapViewController {
             });
   }
 
+  @FXML MFXButton alignConfirmButton;
+
+  private void handleAlignNodes(Circle circle) {
+    setViewOnlyVisible(alignNodesView);
+    alignConfirmButton.setOnMouseClicked(
+        event -> {
+          confirmAlign();
+          System.out.println("send confirm align");
+        });
+    selectedCircles.add(circle);
+    highlightCircle(circle, true);
+    System.out.println(selectedCircles);
+  }
+
+  private void confirmAlign() {
+
+    if (selectedCircles.size() < 2) {
+      System.out.println(
+          "You need at least two circles selected to align!! TODO replace with popup or error message");
+      return;
+    }
+
+    //    align nodes
+
+    Circle firstCircle = selectedCircles.get(0);
+    Circle lastCircle = selectedCircles.get(selectedCircles.size() - 1);
+
+    HospitalNode firstNode = circleToHospitalNodeMap.get(firstCircle);
+    HospitalNode lastNode = circleToHospitalNodeMap.get(lastCircle);
+
+    //    math for aligning nodes
+    int x1 = firstNode.getXCoord();
+    int y1 = firstNode.getYCoord();
+    int x2 = lastNode.getXCoord();
+    int y2 = lastNode.getYCoord();
+    double slope = (double) (y2 - y1) / (x2 - x1);
+
+    MapUtilities currentMapUtility = whichMapUtility(currentFloor);
+    for (Circle currCircle : selectedCircles) {
+      HospitalNode currNode = circleToHospitalNodeMap.get(currCircle);
+      int currX = currNode.getXCoord();
+      int currY = currNode.getYCoord();
+
+      // derived equations
+      int xPrime =
+          (int) ((slope / (slope * slope + 1)) * (slope * x1 + (currX / slope) + currY - y1));
+      int yPrime = (int) (slope * (xPrime - x1) + y1);
+
+      currCircle.setCenterX(currentMapUtility.convertX(xPrime));
+      currCircle.setCenterY(currentMapUtility.convertY(yPrime));
+      System.out.println(currentMapUtility.convertX(xPrime));
+      System.out.println(currentMapUtility.convertY(yPrime));
+    }
+
+    // send to database?
+
+    unhighlightSelectedCircles();
+    selectedCircles.clear();
+  }
+
   private void updateOnClick(Circle circle) {
     System.out.println("updateOnClick");
     switch (currentMode) {
       case PAN:
-        System.out.println("PAN");
         break;
       case EDIT:
-        System.out.println("EDIT");
         handleEditNode(circle);
         break;
       case ADD_EDGE:
-        System.out.println("ADD_EDGE");
         handleAddEdge(circle);
         break;
-        //      case ADD_NODE:
-        //        System.out.println("ADD_NODE");
-        //        handleAddNode();
-        //        break;
+      case ADD_NODE:
+        break;
       case DRAG:
-        System.out.println("DRAG");
         break;
       case ALIGN:
-        System.out.println("ALIGN");
+        handleAlignNodes(circle);
         break;
     }
   }
 
   private void updateOnDrag(Circle circle, MouseEvent mouseEvent) {
-    System.out.println("updateOnClick");
+    System.out.println("updateOnDrag");
     switch (currentMode) {
-        //      case PAN:
-        //        System.out.println("PAN");
-        //        break;
-        //      case EDIT:
-        //        System.out.println("EDIT");
-        //        break;
-        //      case ADD_EDGE:
-        //        System.out.println("ADD_EDGE");
-        //        break;
-        //      case ADD_NODE:
-        //        System.out.println("ADD_NODE");
-        //        handleAddNode();
-        //        break;
+      case PAN:
+        break;
+      case EDIT:
+        break;
+      case ADD_EDGE:
+        break;
+      case ADD_NODE:
+        break;
       case DRAG:
         handleDrag(circle, mouseEvent);
         break;
-        //      case ALIGN:
-        //        System.out.println("ALIGN");
-        //        break;
+      case ALIGN:
+        break;
     }
   }
 
@@ -340,6 +390,7 @@ public class DatabaseMapViewController {
   }
 
   private void turnOffAllViews() {
+    alignNodesView.setVisible(false);
     addNodeView.setVisible(false);
     editNodeView.setVisible(false);
   }
