@@ -6,6 +6,7 @@ import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXListView;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -48,6 +49,7 @@ public class HomePageController {
   @FXML ImageView pathfindingI;
   @FXML ImageView databaseI;
   @FXML ImageView exitI;
+  @FXML MFXListView<String> alertList;
 
   Boolean loggedIn;
 
