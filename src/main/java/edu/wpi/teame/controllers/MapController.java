@@ -7,10 +7,12 @@ import edu.wpi.teame.map.*;
 import edu.wpi.teame.map.pathfinding.AbstractPathfinder;
 import edu.wpi.teame.utilities.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -44,6 +46,15 @@ public class MapController {
   @FXML Tab lowerLevelOneTab;
   @FXML SearchableComboBox<String> currentLocationList;
   @FXML SearchableComboBox<String> destinationList;
+  @FXML MFXButton menuButton;
+  @FXML MFXButton menuBarHome;
+  @FXML MFXButton menuBarServices;
+  @FXML MFXButton menuBarSignage;
+  @FXML MFXButton menuBarMaps;
+  @FXML MFXButton menuBarDatabase;
+  @FXML MFXButton menuBarBlank;
+  @FXML MFXButton menuBarExit;
+  @FXML VBox menuBar;
   @FXML MFXButton startButton;
   @FXML ImageView mapImageLowerTwo; // Floor L2
   @FXML ImageView mapImageLowerOne; // Floor L1
@@ -58,6 +69,12 @@ public class MapController {
   @FXML GesturePane gesturePane1;
   @FXML GesturePane gesturePane2;
   @FXML GesturePane gesturePane3;
+  @FXML ImageView homeI;
+  @FXML ImageView servicesI;
+  @FXML ImageView signageI;
+  @FXML ImageView pathfindingI;
+  @FXML ImageView databaseI;
+  @FXML ImageView exitI;
   @FXML MFXToggleButton locationNamesToggle;
   List<HBox> allLocationNameBoxes = new LinkedList<>();
   boolean isPathDisplayed = false;
@@ -103,10 +120,67 @@ public class MapController {
           displayPath(curLocFromComboBox, destFromComboBox);
         });
     createLabelsForToggleDisplay();
-    locationNamesToggle.setOnAction(
+    locationNamesToggle.setOnAction(event -> {
+      makeLocationNamesVisible(locationNamesToggle.isSelected());
+    });
+
+    // Initially set the menu bar to invisible
+    menuBar.setVisible(false);
+
+    // When the menu button is clicked, invert the value of menuVisibility and set the menu bar to
+    // that value
+    // (so each time the menu button is clicked it changes the visibility of menu bar back and
+    // forth)
+    menuButton.setOnMouseClicked(
         event -> {
-          makeLocationNamesVisible(locationNamesToggle.isSelected());
+          menuBar.setVisible(!menuBar.isVisible());
         });
+
+    // Navigation controls for the button in the menu bar
+    menuBarHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    menuBarServices.setOnMouseClicked(
+        event -> {
+          Navigation.navigate(Screen.SERVICE_REQUESTS);
+          menuBar.setVisible(!menuBar.isVisible());
+        });
+    menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
+    menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_EDITOR));
+    menuBarExit.setOnMouseClicked((event -> Platform.exit()));
+
+    // makes the menu bar buttons get highlighted when the mouse hovers over them
+    ButtonUtilities.mouseSetupMenuBar(
+        menuBarHome,
+        "baseline-left",
+        homeI,
+        "images/house-blank.png",
+        "images/house-blank-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
+        menuBarServices,
+        "baseline-left",
+        servicesI,
+        "images/hand-holding-medical.png",
+        "images/hand-holding-medical-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
+        menuBarSignage,
+        "baseline-left",
+        signageI,
+        "images/diamond-turn-right.png",
+        "images/diamond-turn-right-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
+        menuBarMaps, "baseline-left", pathfindingI, "images/marker.png", "images/marker-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
+        menuBarDatabase,
+        "baseline-left",
+        databaseI,
+        "images/folder-tree.png",
+        "images/folder-tree-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
+        menuBarExit,
+        "baseline-center",
+        exitI,
+        "images/sign-out-alt.png",
+        "images/sign-out-alt-blue.png");
 
     // Make sure location list is initialized so that we can filter out the hallways
     SQLRepo.INSTANCE.getLocationList();
@@ -520,51 +594,48 @@ public class MapController {
     return length;
   }
 
-  private void makeLocationNamesVisible(boolean isVisible) {
-    for (HBox hBox : allLocationNameBoxes) {
+  private void makeLocationNamesVisible (boolean isVisible){
+    for (HBox hBox: allLocationNameBoxes){
       hBox.setVisible(isVisible);
     }
   }
 
-  private void createLabelsForToggleDisplay() {
+  private void createLabelsForToggleDisplay(){
     MapUtilities floorOne = new MapUtilities(mapPaneOne);
     MapUtilities floorTwo = new MapUtilities(mapPaneTwo);
     MapUtilities floorThree = new MapUtilities(mapPaneThree);
     MapUtilities lowerOne = new MapUtilities(mapPaneLowerOne);
     MapUtilities lowerTwo = new MapUtilities(mapPaneLowerTwo);
     List<HospitalNode> allNodes = SQLRepo.INSTANCE.getNodeList();
-    for (HospitalNode aNode : allNodes) {
-      if (aNode.getFloor() == Floor.ONE) {
-        makeLabelForToggle(aNode, floorOne);
+    for (HospitalNode aNode:allNodes){
+      if (aNode.getFloor()==Floor.ONE){
+        makeLabelForToggle(aNode,floorOne);
       }
-      if (aNode.getFloor() == Floor.TWO) {
-        makeLabelForToggle(aNode, floorTwo);
+      if (aNode.getFloor()==Floor.TWO){
+        makeLabelForToggle(aNode,floorTwo);
       }
-      if (aNode.getFloor() == Floor.THREE) {
-        makeLabelForToggle(aNode, floorThree);
+      if (aNode.getFloor()==Floor.THREE){
+        makeLabelForToggle(aNode,floorThree);
       }
-      if (aNode.getFloor() == Floor.LOWER_ONE) {
-        makeLabelForToggle(aNode, lowerOne);
+      if (aNode.getFloor()==Floor.LOWER_ONE){
+        makeLabelForToggle(aNode,lowerOne);
       }
-      if (aNode.getFloor() == Floor.LOWER_TWO) {
-        makeLabelForToggle(aNode, lowerTwo);
+      if (aNode.getFloor()==Floor.LOWER_TWO){
+        makeLabelForToggle(aNode,lowerTwo);
       }
     }
   }
 
-  private void makeLabelForToggle(HospitalNode node, MapUtilities mapUtil) {
+  private void makeLabelForToggle(HospitalNode node, MapUtilities mapUtil){
     HBox hBox = new HBox();
     hBox.setBackground(
-        new Background(new BackgroundFill(Color.web("#D9DAD7"), CornerRadii.EMPTY, Insets.EMPTY)));
+            new Background(
+                    new BackgroundFill(Color.web("#D9DAD7"), CornerRadii.EMPTY, Insets.EMPTY)));
     hBox.setPrefHeight(20);
     hBox.setAlignment(Pos.CENTER_LEFT);
     hBox.setLayoutX(node.getXCoord());
     hBox.setLayoutY(node.getYCoord());
-    Label thisLabel =
-        mapUtil.createLabel(
-            node.getXCoord(),
-            node.getYCoord(),
-            SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(node.getNodeID())));
+    Label thisLabel = mapUtil.createLabel(node.getXCoord(),node.getYCoord(),SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(node.getNodeID())));
     thisLabel.setFont(Font.font("Roboto", 8));
     hBox.getChildren().add(thisLabel);
     allLocationNameBoxes.add(hBox);
