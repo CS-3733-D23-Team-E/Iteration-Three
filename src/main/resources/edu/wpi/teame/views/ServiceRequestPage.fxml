@@ -35,7 +35,7 @@
                                        <children>
                                           <VBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="161.0">
                                              <children>
-                                                <Text fx:id="pendingRequestsTitleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Pending:">
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pending:">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
@@ -54,7 +54,7 @@
                                           </VBox>
                                           <VBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="161.0">
                                              <children>
-                                                <Text fx:id="inProgressRequestTitleText" strokeType="OUTSIDE" strokeWidth="0.0" text="In Progress:">
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="In Progress:">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
@@ -73,7 +73,7 @@
                                           </VBox>
                                           <VBox alignment="TOP_CENTER" prefHeight="160.0" prefWidth="161.0">
                                              <children>
-                                                <Text fx:id="completedRequestTitleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Completed:">
+                                                <Text fx:id="completedRequestsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Completed:">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
@@ -97,7 +97,7 @@
                                           <Insets left="200.0" top="20.0" />
                                        </VBox.margin>
                                     </Line>
-                                    <Label fx:id="nonCompletedTitleText" text="Non-completed requests:">
+                                    <Label fx:id="nonCompletedText" text="Non-completed requests:">
                                        <font>
                                           <Font name="Roboto" size="24.0" />
                                        </font>
@@ -111,27 +111,27 @@
                   </ScrollPane>
                   <TabPane prefHeight="850.0" prefWidth="900.0" style="-fx-border-color: #8e8e8e; -fx-border-radius: 10;" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="180.0" tabMinHeight="40.0" tabMinWidth="160.0">
                      <tabs>
-                        <Tab fx:id="flowerRequestTab" text="Flower Request">
+                        <Tab text="Flower Request">
                            <content>
                               <fx:include source="FlowerRequest.fxml" />
                            </content>
                         </Tab>
-                        <Tab fx:id="mealRequestTab" text="Meal Request">
+                        <Tab text="Meal Request">
                            <content>
                               <fx:include source="MealRequest.fxml" />
                            </content>
                         </Tab>
-                        <Tab fx:id="officeSuppliesTab" text="Office Supplies">
+                        <Tab text="Office Supplies">
                            <content>
                               <fx:include source="OfficeSuppliesRequest.fxml" />
                            </content>
                         </Tab>
-                        <Tab fx:id="conferenceRoomTab" text="Conference Room">
+                        <Tab text="Conference Room">
                            <content>
                               <fx:include source="RoomRequestPage.fxml" />
                            </content>
                         </Tab>
-                        <Tab fx:id="furnitureDeliveryTab" text="Furniture Delivery">
+                        <Tab text="Furniture Delivery">
                            <content>
                               <fx:include source="FurnitureRequest.fxml" />
                            </content>
@@ -292,7 +292,7 @@
                   </MFXButton>
                </children>
             </HBox>
-            <VBox fx:id="menuBar" maxHeight="1007.0" maxWidth="-Infinity" prefHeight="1007.0" prefWidth="250.0" style="-fx-background-color: #012d5a;" visible="false" AnchorPane.topAnchor="75.0">
+            <VBox fx:id="menuBar" maxHeight="1007.0" maxWidth="-Infinity" prefHeight="1007.0" prefWidth="250.0" style="-fx-background-color: #012d5a;" AnchorPane.topAnchor="75.0">
                <children>
                   <MFXButton fx:id="menuBarHome" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text=" Home" textFill="#f1f1f1">
                      <graphic>
