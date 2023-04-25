@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
@@ -105,6 +106,9 @@ public class DatabaseMapViewController {
   @FXML ToggleButton alignToggleButton;
   @FXML ToggleButton addEdgeToggleButton;
 
+  @FXML VBox editNodeView;
+  @FXML VBox addNodeView;
+
   enum Mode {
     PAN("PAN"),
     DRAG("DRAG"),
@@ -130,6 +134,14 @@ public class DatabaseMapViewController {
         .selectedToggleProperty()
         .addListener(
             (obs, oldToggle, newToggle) -> {
+              turnOffAllViews();
+
+              // if the button is pressed again keep it selected
+              if (newToggle == null) {
+                oldToggle.setSelected(true);
+                return;
+              }
+
               if ((newToggle).equals(dragToggleButton)) {
                 currentMode = Mode.DRAG;
               }
@@ -149,6 +161,9 @@ public class DatabaseMapViewController {
               if ((newToggle).equals(addEdgeToggleButton)) {
                 currentMode = Mode.ADD_EDGE;
               }
+              refreshMap();
+              unhighlightSelectedCircles();
+              selectedCircles.clear();
               System.out.println("currentMode: " + currentMode);
             });
   }
@@ -161,15 +176,16 @@ public class DatabaseMapViewController {
         break;
       case EDIT:
         System.out.println("EDIT");
+        handleEditNode(circle);
         break;
       case ADD_EDGE:
         System.out.println("ADD_EDGE");
         handleAddEdge(circle);
         break;
-      case ADD_NODE:
-        System.out.println("ADD_NODE");
-        handleAddNode();
-        break;
+        //      case ADD_NODE:
+        //        System.out.println("ADD_NODE");
+        //        handleAddNode();
+        //        break;
       case DRAG:
         System.out.println("DRAG");
         break;
@@ -179,17 +195,111 @@ public class DatabaseMapViewController {
     }
   }
 
-  private void handleAddNode() {}
+  private void updateOnDrag(Circle circle, MouseEvent mouseEvent) {
+    System.out.println("updateOnClick");
+    switch (currentMode) {
+        //      case PAN:
+        //        System.out.println("PAN");
+        //        break;
+        //      case EDIT:
+        //        System.out.println("EDIT");
+        //        break;
+        //      case ADD_EDGE:
+        //        System.out.println("ADD_EDGE");
+        //        break;
+        //      case ADD_NODE:
+        //        System.out.println("ADD_NODE");
+        //        handleAddNode();
+        //        break;
+      case DRAG:
+        handleDrag(circle, mouseEvent);
+        break;
+        //      case ALIGN:
+        //        System.out.println("ALIGN");
+        //        break;
+    }
+  }
 
-  private HashMap<Circle, HospitalNode> circleToHospitalNodeMap = new HashMap<>();
-  ArrayList<Circle> selectedCircles = new ArrayList<>();
+  private HashMap<Circle, Label> circleToLabelMap = new HashMap<>();
+
+  private void handleDrag(Circle circle, MouseEvent mouseEvent) {
+    whichGesturePane(currentFloor).setGestureEnabled(false);
+    unhighlightSelectedCircles();
+    selectedCircles.clear();
+
+    selectedCircles.add(circle);
+    highlightCircle(circle, true);
+
+    String nodeID = circle.getId();
+    editPageText.setText("Edit Node: ID = " + nodeID);
+    currNode = allNodes.get(nodeID);
+
+    //    updateNodeEditMenuFields(nodeID);
+
+    // get x and y from drag and set new x and y for circle and label
+    ((Circle) mouseEvent.getSource()).setCenterX(mouseEvent.getX());
+    ((Circle) mouseEvent.getSource()).setCenterY(mouseEvent.getY());
+
+    double newX = circle.getCenterX();
+    double newY = circle.getCenterY();
+    //    currentLabel.setLayoutX(newX);
+    //    currentLabel.setLayoutY(newY);
+
+    // get image coordinates and update on edit menu
+    MapUtilities currentMapUtility = whichMapUtility(currentFloor);
+    //    int imageX = currentMapUtility.PaneXToImageX(currentCircle.getCenterX());
+    //    int imageY = currentMapUtility.PaneYToImageY(currentCircle.getCenterY());
+    //    xField.setText(Integer.toString(imageX));
+    //    yField.setText(Integer.toString(imageY));
+
+    // update edges based off drag
+    List<Node> startEdgesToUpdate =
+        currentMapUtility.getCurrentNodes().stream()
+            .filter(node -> node.getId().contains("startNode:" + currNode))
+            .toList();
+
+    List<Node> endEdgesToUpdate =
+        currentMapUtility.getCurrentNodes().stream()
+            .filter(node -> node.getId().contains("endNode:" + currNode))
+            .toList();
+
+    for (Node node : startEdgesToUpdate) {
+      Line line = (Line) node;
+      line.setStartX(newX);
+      line.setStartY(newY);
+    }
+
+    for (Node node : endEdgesToUpdate) {
+      Line line = (Line) node;
+      line.setEndX(newX);
+      line.setEndY(newY);
+    }
+  }
+
+  private void unhighlightSelectedCircles() {
+    for (Circle circle : selectedCircles) {
+      highlightCircle(circle, false);
+    }
+  }
+
+  private void highlightCircle(Circle circle, boolean highlight) {
+    if (highlight) {
+      circle.setRadius(9);
+    } else {
+      circle.setRadius(5);
+    }
+  }
+
+  private void handleAddNode() {
+    setViewOnlyVisible(addNodeView);
+  }
 
   private void handleAddEdge(Circle circle) {
     System.out.println("handleAddEdge");
     // check if there is a circle already selected, if not add this circle to the list
     if (selectedCircles.isEmpty()) {
       selectedCircles.add(circle);
-      circle.setRadius(9);
+      highlightCircle(circle, true);
       System.out.println("is empty and added");
       return;
     }
@@ -197,7 +307,7 @@ public class DatabaseMapViewController {
     // if a new second node is selected
     if (!selectedCircles.get(0).equals(circle)) {
       selectedCircles.add(circle);
-      circle.setRadius(9);
+      highlightCircle(circle, true);
       MapUtilities currentMapUtility = whichMapUtility(currentFloor);
       HospitalNode node1 = circleToHospitalNodeMap.get(selectedCircles.get(0));
       HospitalNode node2 = circleToHospitalNodeMap.get(circle);
@@ -207,7 +317,7 @@ public class DatabaseMapViewController {
       //      refreshMap();
 
       for (Circle c : selectedCircles) {
-        c.setRadius(5);
+        highlightCircle(c, false);
       }
 
       selectedCircles.clear();
@@ -215,14 +325,36 @@ public class DatabaseMapViewController {
     }
   }
 
+  private void handleEditNode(Circle circle) {
+    unhighlightSelectedCircles();
+    selectedCircles.clear();
+
+    selectedCircles.add(circle);
+    highlightCircle(circle, true);
+    setViewOnlyVisible(editNodeView);
+  }
+
+  private void setViewOnlyVisible(VBox view) {
+    turnOffAllViews();
+    view.setVisible(true);
+  }
+
+  private void turnOffAllViews() {
+    addNodeView.setVisible(false);
+    editNodeView.setVisible(false);
+  }
+
+  private HashMap<Circle, HospitalNode> circleToHospitalNodeMap = new HashMap<>();
+  ArrayList<Circle> selectedCircles = new ArrayList<>();
+
   @FXML
   public void initialize() {
+    turnOffAllViews();
     initializeToggleGroup();
     initializeMapUtilities();
-    initializeMapPanes();
+    initializeMapGesturePanes();
     currentFloor = Floor.LOWER_TWO;
 
-    sidebar.setVisible(true);
     // Sidebar functions
     cancelButton.setOnAction(event -> cancel());
     confirmButton.setOnAction(event -> uploadChangesToDatabase());
@@ -323,43 +455,10 @@ public class DatabaseMapViewController {
 
     Label nodeLabel = currentMapUtility.drawHospitalNodeLabel(node);
     nodeLabel.setVisible(false);
+    circleToLabelMap.put(nodeCircle, nodeLabel);
 
-    nodeCircle.setOnMouseClicked(
-        event -> {
-          updateOnClick(nodeCircle);
-        });
-
-    //    nodeCircle.setOnMouseClicked(
-    //        event -> {
-    //          GesturePane currentGesturePane = whichGesturePane(currentFloor);
-    //          currentGesturePane.setGestureEnabled(true);
-    //          if (currentCircle != null && currentLabel != null) {
-    //            currentCircle.setRadius(5);
-    //            currentLabel.setVisible(false);
-    //          }
-    //          currentCircle = nodeCircle;
-    //          currentCircle.setRadius(9);
-    //          currentLabel = nodeLabel;
-    //          currentLabel.setVisible(true);
-    //          setEditMenuVisible(true);
-    //          updateEditMenu();
-    //        });
-    nodeCircle.setOnMouseDragged(
-        event -> {
-          if (currentCircle != null && currentLabel != null) {
-            currentCircle.setRadius(5);
-            currentLabel.setVisible(false);
-          }
-          currentCircle = nodeCircle;
-          currentCircle.setRadius(9);
-          currentLabel = nodeLabel;
-          currentLabel.setVisible(true);
-          setEditMenuVisible(true);
-
-          GesturePane currentGesturePane = whichGesturePane(currentFloor);
-          currentGesturePane.setGestureEnabled(false);
-          dragUpdate(event);
-        });
+    nodeCircle.setOnMouseClicked(event -> updateOnClick(nodeCircle));
+    nodeCircle.setOnMouseDragged(event -> updateOnDrag(nodeCircle, event));
   }
 
   public void refreshMap() {
@@ -696,26 +795,31 @@ public class DatabaseMapViewController {
     mapUtilityThree.setLabelStyle("-fx-font-size: 10pt");
   }
 
-  private void initializeMapPanes() {
+  private void initializeMapGesturePanes() {
     mapPaneLowerTwo.setOnMouseClicked(
         event -> {
           gesturePaneLowerTwo.setGestureEnabled(true);
+          gesturePaneLowerTwo.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
         });
     mapPaneLowerOne.setOnMouseClicked(
         event -> {
           gesturePaneLowerOne.setGestureEnabled(true);
+          gesturePaneLowerOne.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
         });
     mapPaneOne.setOnMouseClicked(
         event -> {
           gesturePaneOne.setGestureEnabled(true);
+          gesturePaneOne.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
         });
     mapPaneTwo.setOnMouseClicked(
         event -> {
           gesturePaneTwo.setGestureEnabled(true);
+          gesturePaneTwo.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
         });
     mapPaneThree.setOnMouseClicked(
         event -> {
           gesturePaneThree.setGestureEnabled(true);
+          gesturePaneThree.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
         });
   }
 
