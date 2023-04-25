@@ -194,6 +194,7 @@ public class DatabaseMapViewController {
     for (HospitalNode node : floorNodes) {
       setupNode(node);
     }
+    labelsVisibility(isLocationNamesDisplayed);
   }
 
   private void setupNode(HospitalNode node) {
@@ -203,7 +204,12 @@ public class DatabaseMapViewController {
 
     Circle nodeCircle = currentMapUtility.drawHospitalNode(node);
     Label nodeLabel = currentMapUtility.drawHospitalNodeLabel(node);
-    allNodeLabels.add(nodeLabel);
+    nodeLabel.setVisible(false);
+    if (LocationName.NodeType.HALL
+        != LocationName.NodeType.stringToNodeType(
+            SQLRepo.INSTANCE.getNodeTypeFromNodeID(Integer.parseInt(node.getNodeID())))) {
+      allNodeLabels.add(nodeLabel);
+    }
     nodeCircle.setOnMouseClicked(
         event -> {
           if (currentCircle != null && currentLabel != null) {
