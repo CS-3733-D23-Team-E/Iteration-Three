@@ -547,11 +547,13 @@ public class DatabaseMapViewController {
   private void edgeUpdateDatabase() {
     for (HospitalNode edgeAddition : addList) {
       HospitalEdge addEdge = new HospitalEdge(curNode.getNodeID(), edgeAddition.getNodeID());
+      curNode.getNeighbors().add(edgeAddition);
       SQLRepo.INSTANCE.addEdge(addEdge);
     }
     for (HospitalNode edgeDeletion : deleteList) {
       HospitalEdge delEdge1 = new HospitalEdge(curNode.getNodeID(), edgeDeletion.getNodeID());
       HospitalEdge delEdge2 = new HospitalEdge(edgeDeletion.getNodeID(), curNode.getNodeID());
+      curNode.getNeighbors().remove(edgeDeletion);
       // whichever gets deleted, gets deleted
       SQLRepo.INSTANCE.deleteEdge(delEdge1);
       SQLRepo.INSTANCE.deleteEdge(delEdge2);
