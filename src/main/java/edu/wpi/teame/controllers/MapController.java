@@ -577,4 +577,57 @@ public class MapController {
       vbox.getChildren().add(hBox);
     }
   }
+
+
+  private void makeLocationNamesVisible(boolean isVisible) {
+    for (Label aLabel : allLocationNameBoxes) {
+      aLabel.setVisible(isVisible);
+    }
+  }
+
+  private void createLabelsForToggleDisplay() {
+    MapUtilities floorOne = new MapUtilities(mapPaneOne);
+    MapUtilities floorTwo = new MapUtilities(mapPaneTwo);
+    MapUtilities floorThree = new MapUtilities(mapPaneThree);
+    MapUtilities lowerOne = new MapUtilities(mapPaneLowerOne);
+    MapUtilities lowerTwo = new MapUtilities(mapPaneLowerTwo);
+    List<HospitalNode> allNodes = SQLRepo.INSTANCE.getNodeList();
+    for (HospitalNode aNode : allNodes) {
+      if (aNode.getFloor() == Floor.ONE) {
+        makeLabelForToggle(aNode, floorOne);
+      }
+      if (aNode.getFloor() == Floor.TWO) {
+        makeLabelForToggle(aNode, floorTwo);
+      }
+      if (aNode.getFloor() == Floor.THREE) {
+        makeLabelForToggle(aNode, floorThree);
+      }
+      if (aNode.getFloor() == Floor.LOWER_ONE) {
+        makeLabelForToggle(aNode, lowerOne);
+      }
+      if (aNode.getFloor() == Floor.LOWER_TWO) {
+        makeLabelForToggle(aNode, lowerTwo);
+      }
+    }
+  }
+
+  private void makeLabelForToggle(HospitalNode node, MapUtilities mapUtil) {
+    HBox hBox = new HBox();
+    hBox.setBackground(
+            new Background(new BackgroundFill(Color.web("#D9DAD7"), CornerRadii.EMPTY, Insets.EMPTY)));
+    hBox.setPrefHeight(20);
+    hBox.setAlignment(Pos.CENTER_LEFT);
+    hBox.setLayoutX(node.getXCoord());
+    hBox.setLayoutY(node.getYCoord());
+    Label thisLabel =
+            mapUtil.createLabel(
+                    node.getXCoord(),
+                    node.getYCoord(),
+                    SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(node.getNodeID())));
+    thisLabel.setFont(Font.font("Roboto", 8));
+    thisLabel.setBackground(
+            new Background(new BackgroundFill(Color.web("#D9DAD7"), CornerRadii.EMPTY, Insets.EMPTY)));
+    hBox.getChildren().add(thisLabel);
+    allLocationNameBoxes.add(thisLabel);
+  }
 }
