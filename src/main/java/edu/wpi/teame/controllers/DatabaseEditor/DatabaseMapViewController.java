@@ -97,8 +97,127 @@ public class DatabaseMapViewController {
   boolean widthLoaded = false;
   boolean heightLoaded = false;
 
+  @FXML ToggleGroup buttonGroup;
+  @FXML ToggleButton dragToggleButton;
+  @FXML ToggleButton addNodeToggleButton;
+  @FXML ToggleButton panToggleButton;
+  @FXML ToggleButton editToggleButton;
+  @FXML ToggleButton alignToggleButton;
+  @FXML ToggleButton addEdgeToggleButton;
+
+  enum Mode {
+    PAN("PAN"),
+    DRAG("DRAG"),
+    ADD_NODE("ADD_NODE"),
+    ADD_EDGE("ADD_EDGE"),
+    EDIT("EDIT"),
+    ALIGN("ALIGN");
+    private final String buttonName;
+
+    Mode(String buttonName) {
+      this.buttonName = buttonName;
+    }
+
+    public String getButtonName() {
+      return this.buttonName;
+    }
+  }
+
+  private Mode currentMode = Mode.PAN;
+
+  private void initializeToggleGroup() {
+    buttonGroup
+        .selectedToggleProperty()
+        .addListener(
+            (obs, oldToggle, newToggle) -> {
+              if ((newToggle).equals(dragToggleButton)) {
+                currentMode = Mode.DRAG;
+              }
+              if ((newToggle).equals(panToggleButton)) {
+                currentMode = Mode.PAN;
+              }
+              if ((newToggle).equals(editToggleButton)) {
+                currentMode = Mode.EDIT;
+              }
+              if ((newToggle).equals(alignToggleButton)) {
+                currentMode = Mode.ALIGN;
+              }
+              if ((newToggle).equals(addNodeToggleButton)) {
+                currentMode = Mode.ADD_NODE;
+                handleAddNode();
+              }
+              if ((newToggle).equals(addEdgeToggleButton)) {
+                currentMode = Mode.ADD_EDGE;
+              }
+              System.out.println("currentMode: " + currentMode);
+            });
+  }
+
+  private void updateOnClick(Circle circle) {
+    System.out.println("updateOnClick");
+    switch (currentMode) {
+      case PAN:
+        System.out.println("PAN");
+        break;
+      case EDIT:
+        System.out.println("EDIT");
+        break;
+      case ADD_EDGE:
+        System.out.println("ADD_EDGE");
+        handleAddEdge(circle);
+        break;
+      case ADD_NODE:
+        System.out.println("ADD_NODE");
+        handleAddNode();
+        break;
+      case DRAG:
+        System.out.println("DRAG");
+        break;
+      case ALIGN:
+        System.out.println("ALIGN");
+        break;
+    }
+  }
+
+  private void handleAddNode() {}
+
+  private HashMap<Circle, HospitalNode> circleToHospitalNodeMap = new HashMap<>();
+  ArrayList<Circle> selectedCircles = new ArrayList<>();
+
+  private void handleAddEdge(Circle circle) {
+    System.out.println("handleAddEdge");
+    // check if there is a circle already selected, if not add this circle to the list
+    if (selectedCircles.isEmpty()) {
+      selectedCircles.add(circle);
+      circle.setRadius(9);
+      System.out.println("is empty and added");
+      return;
+    }
+
+    // if a new second node is selected
+    if (!selectedCircles.get(0).equals(circle)) {
+      selectedCircles.add(circle);
+      circle.setRadius(9);
+      MapUtilities currentMapUtility = whichMapUtility(currentFloor);
+      HospitalNode node1 = circleToHospitalNodeMap.get(selectedCircles.get(0));
+      HospitalNode node2 = circleToHospitalNodeMap.get(circle);
+      //      SQLRepo.INSTANCE.addEdge(new HospitalEdge(node1.getNodeID(), node2.getNodeID()));
+      HospitalNode.addEdge(node1, node2);
+      currentMapUtility.drawEdge(node1, node2);
+      //      refreshMap();
+
+      for (Circle c : selectedCircles) {
+        c.setRadius(5);
+      }
+
+      selectedCircles.clear();
+      System.out.println("cleared and what not");
+    }
+  }
+
   @FXML
   public void initialize() {
+    initializeToggleGroup();
     initializeMapUtilities();
     initializeMapPanes();
     currentFloor = Floor.LOWER_TWO;
@@ -160,9 +279,6 @@ public class DatabaseMapViewController {
     currentCircle = null;
     currentLabel = null;
     displayAddMenu();
-    // workingList.clear();
-    // turn circle back to normal
-
   }
 
   private void deleteNode() {
@@ -203,24 +319,31 @@ public class DatabaseMapViewController {
     MapUtilities currentMapUtility = whichMapUtility(currentFloor);
 
     Circle nodeCircle = currentMapUtility.drawHospitalNode(node);
+    circleToHospitalNodeMap.put(nodeCircle, node);
+
     Label nodeLabel = currentMapUtility.drawHospitalNodeLabel(node);
     nodeLabel.setVisible(false);
 
     nodeCircle.setOnMouseClicked(
         event -> {
-          GesturePane currentGesturePane = whichGesturePane(currentFloor);
-          currentGesturePane.setGestureEnabled(true);
-          if (currentCircle != null && currentLabel != null) {
-            currentCircle.setRadius(5);
-            currentLabel.setVisible(false);
-          }
-          currentCircle = nodeCircle;
-          currentCircle.setRadius(9);
-          currentLabel = nodeLabel;
-          currentLabel.setVisible(true);
-          setEditMenuVisible(true);
-          updateEditMenu();
+          updateOnClick(nodeCircle);
         });
+
+    //    nodeCircle.setOnMouseClicked(
+    //        event -> {
+    //          GesturePane currentGesturePane = whichGesturePane(currentFloor);
+    //          currentGesturePane.setGestureEnabled(true);
+    //          if (currentCircle != null && currentLabel != null) {
+    //            currentCircle.setRadius(5);
+    //            currentLabel.setVisible(false);
+    //          }
+    //          currentCircle = nodeCircle;
+    //          currentCircle.setRadius(9);
+    //          currentLabel = nodeLabel;
+    //          currentLabel.setVisible(true);
+    //          setEditMenuVisible(true);
+    //          updateEditMenu();
+    //        });
     nodeCircle.setOnMouseDragged(
         event -> {
           if (currentCircle != null && currentLabel != null) {
