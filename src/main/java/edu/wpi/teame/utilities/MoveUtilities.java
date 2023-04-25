@@ -190,10 +190,14 @@ public class MoveUtilities {
     HashMap<String, String> map = new HashMap<>();
     HashMap<String, LocalDate> dateHashMap = new HashMap<>();
     for (MoveAttribute move : SQLRepo.INSTANCE.getMoveList()) {
+      if (date.compareTo(LocalDate.parse(move.getDate())) < 0)
+        // Move hasn't happened yet
+        continue;
       if (dateHashMap.containsKey(move.getLongName())) {
         if (dateHashMap.get(move.getLongName()).compareTo(LocalDate.parse(move.getDate())) < 0) {
-          // move hasn't happened yet
-          continue;
+          // Move is more recent than one already in the map, remove the old one
+          dateHashMap.remove(move.getLongName());
+          map.remove(move.getLongName());
         }
       }
       dateHashMap.put(move.getLongName(), LocalDate.parse(move.getDate()));
