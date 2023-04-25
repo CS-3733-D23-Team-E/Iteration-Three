@@ -2,14 +2,30 @@ package edu.wpi.teame.controllers.DatabaseEditor;
 
 import edu.wpi.teame.map.Floor;
 import edu.wpi.teame.map.HospitalNode;
+import edu.wpi.teame.utilities.ColorPalette;
 import edu.wpi.teame.utilities.MapUtilities;
+import java.util.LinkedList;
+import java.util.List;
+import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
+import javafx.util.Duration;
+import net.kurobako.gesturefx.GesturePane;
 
 public class MovePreviewController {
   @FXML AnchorPane mapPaneLowerTwo;
@@ -33,6 +49,7 @@ public class MovePreviewController {
   @FXML TabPane tabPane;
 
   @FXML Label moveDescription;
+  @FXML VBox viewMoveBox;
 
   Floor currentFloor;
 
@@ -51,6 +68,11 @@ public class MovePreviewController {
   String name2;
   boolean bidirectional;
 
+  Circle circle1;
+  Circle circle2;
+  Circle currentCircle;
+  HBox previousLabel;
+
   public MovePreviewController(
       HospitalNode node1, HospitalNode node2, String name1, String name2, boolean bidirectional) {
     this.node1 = node1;
@@ -63,6 +85,18 @@ public class MovePreviewController {
   @FXML
   public void initialize() {
     System.out.println("Initializing move preview!!");
+    tabPane
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (observable, oldTab, newTab) -> {
+              // Set the zoom and position of the new pane to the old one
+              AnchorPane oldPane = (AnchorPane) oldTab.getContent();
+              GesturePane oldGesture = (GesturePane) oldPane.getChildren().get(0);
+              AnchorPane newPane = (AnchorPane) newTab.getContent();
+              GesturePane newGesture = (GesturePane) newPane.getChildren().get(0);
+              adjustGesture(oldGesture, newGesture);
+            });
     initializeMapUtilities();
     currentFloor = Floor.LOWER_TWO;
 
@@ -86,6 +120,7 @@ public class MovePreviewController {
               if (widthLoaded && heightLoaded) {
                 currentFloor = Floor.LOWER_TWO;
                 loadFloorNodes();
+                tabPane.getSelectionModel().select(floorToTab(node1.getFloor()));
               }
             });
     mapPaneLowerTwo
@@ -98,16 +133,24 @@ public class MovePreviewController {
               if (widthLoaded && heightLoaded) {
                 currentFloor = Floor.LOWER_TWO;
                 loadFloorNodes();
+                tabPane.getSelectionModel().select(floorToTab(node1.getFloor()));
               }
             });
 
     // set the move description text
+
     StringBuilder moveDescText = new StringBuilder();
     moveDescText.append(name1).append(" to node ").append(node2.getNodeID()).append("\n");
     if (bidirectional) {
       moveDescText.append(name2).append(" to node ").append(node1.getNodeID()).append("\n");
     }
     moveDescription.setText(moveDescText.toString());
+
+
+//    List<HospitalNode> nodes = new LinkedList<>();
+//    nodes.add(node1);
+//    nodes.add(node2);
+//    createMoveLabels(viewMoveBox, nodes);
   }
 
   public Floor tabToFloor(Tab tab) {
@@ -136,11 +179,11 @@ public class MovePreviewController {
     mapUtilityTwo = new MapUtilities(mapPaneTwo);
     mapUtilityThree = new MapUtilities(mapPaneThree);
 
-    mapUtilityLowerTwo.setLabelStyle("-fx-font-size: 10pt");
-    mapUtilityLowerOne.setLabelStyle("-fx-font-size: 10pt");
-    mapUtilityOne.setLabelStyle("-fx-font-size: 10pt");
-    mapUtilityTwo.setLabelStyle("-fx-font-size: 10pt");
-    mapUtilityThree.setLabelStyle("-fx-font-size: 10pt");
+    mapUtilityLowerTwo.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F1;");
+    mapUtilityLowerOne.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F1;");
+    mapUtilityOne.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F1;");
+    mapUtilityTwo.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F1;");
+    mapUtilityThree.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F1;");
   }
 
   public void refreshMap() {
@@ -195,5 +238,156 @@ public class MovePreviewController {
     Circle nodeCircle = currentMapUtility.drawHospitalNode(node);
     Label nodeLabel = currentMapUtility.drawHospitalNodeLabel(node, name);
     nodeLabel.setVisible(true);
+  }
+
+  public void createMoveLabels(VBox vbox, List<HospitalNode> path) {
+    for (int i = 0; i < path.size(); i++) {
+
+      HospitalNode currentNode = path.get(i);
+      String destination = i == 0 ? name1 : name2;
+      System.out.println(destination);
+
+      // Line
+      Line line = new Line();
+      line.setStartX(0);
+      line.setStartY(0);
+      line.setEndX(0);
+      line.setEndY(50);
+      line.setOpacity(0.25);
+
+      // Destination Label
+      Label destinationLabel = new Label(destination);
+      destinationLabel.setFont(Font.font("Roboto", 16));
+      destinationLabel.setTextAlignment(TextAlignment.CENTER);
+      destinationLabel.setWrapText(true);
+
+      // Drop Shadow
+      DropShadow dropShadow = new DropShadow();
+      dropShadow.setBlurType(BlurType.THREE_PASS_BOX);
+      dropShadow.setWidth(21);
+      dropShadow.setHeight(21);
+      dropShadow.setRadius(4);
+      dropShadow.setOffsetX(-4);
+      dropShadow.setOffsetY(4);
+      dropShadow.setSpread(0);
+      dropShadow.setColor(new Color(0, 0, 0, 0.25));
+
+      // HBox
+      HBox hBox = new HBox();
+      hBox.setBackground(
+          new Background(
+              new BackgroundFill(Color.web("#D9DAD7"), CornerRadii.EMPTY, Insets.EMPTY)));
+      hBox.setPrefHeight(65);
+      hBox.setEffect(dropShadow);
+      hBox.setAlignment(Pos.CENTER_LEFT);
+      hBox.setSpacing(10);
+      hBox.setPadding(new Insets(0, 10, 0, 10));
+
+      // Add the event listener
+      hBox.setOnMouseClicked(
+          event -> {
+            Floor nodeFloor = currentNode.getFloor();
+
+            // reset highlighted node
+            currentCircle.setRadius(4);
+            currentCircle.setViewOrder(-1);
+            System.out.println("oldcircle: " + currentCircle.getId());
+
+            tabPane.getSelectionModel().select(floorToTab(nodeFloor));
+            MapUtilities currentMapUtility = whichMapUtility(nodeFloor);
+            GesturePane startingPane = ((GesturePane) currentMapUtility.getPane().getParent());
+
+            // Outline the hbox
+            hBox.setBorder(
+                new Border(
+                    new BorderStroke(
+                        Color.web(ColorPalette.LIGHT_BLUE.getHexCode()),
+                        BorderStrokeStyle.SOLID,
+                        CornerRadii.EMPTY,
+                        new BorderWidths(2))));
+
+            // Remove the previous outline unless previous is null or the same box is clicked again
+            if (previousLabel != null && previousLabel != hBox) {
+              previousLabel.setBorder(Border.EMPTY);
+            }
+
+            // Zoom in on the starting node
+            startingPane.zoomTo(2, startingPane.targetPointAtViewportCentre());
+
+            // Pan so starting node is centered
+            startingPane.centreOn(
+                new Point2D(
+                    currentMapUtility.convertX(currentNode.getXCoord()),
+                    currentMapUtility.convertY(currentNode.getYCoord())));
+
+            // get Circle that was selected from label
+            List<Node> nodeList =
+                currentMapUtility.getCurrentNodes().stream()
+                    .filter(
+                        node -> {
+                          try {
+                            return node.getId().equals(currentNode.getNodeID());
+                          } catch (NullPointerException n) {
+                            return false;
+                          }
+                        })
+                    .toList();
+            currentCircle = (Circle) nodeList.get(0);
+            System.out.println("Newcircle: " + currentCircle.getId());
+            currentCircle.setRadius(9);
+            currentCircle.setViewOrder(-5);
+            System.out.println("currentCircle: " + currentCircle);
+            System.out.println("Node List: " + nodeList);
+
+            // Set the current label as the previous
+            previousLabel = hBox;
+          });
+
+      // Make the box bigger when hovering
+      hBox.setOnMouseEntered(
+          event -> {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200));
+            scaleTransition.setNode(hBox);
+            scaleTransition.setToX(1.02);
+            scaleTransition.setToY(1.02);
+            scaleTransition.play();
+          });
+      // Smaller on exit
+      hBox.setOnMouseExited(
+          event -> {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200));
+            scaleTransition.setNode(hBox);
+            scaleTransition.setToX(1);
+            scaleTransition.setToY(1);
+            scaleTransition.play();
+          });
+
+      // Add path label to VBox
+      vbox.getChildren().add(hBox);
+    }
+  }
+
+  public Tab floorToTab(Floor floor) {
+    if (floor == Floor.LOWER_TWO) {
+      return lowerLevelTwoTab;
+    }
+    if (floor == Floor.LOWER_ONE) {
+      return lowerLevelOneTab;
+    }
+    if (floor == Floor.ONE) {
+      return floorOneTab;
+    }
+    if (floor == Floor.TWO) {
+      return floorTwoTab;
+    }
+    if (floor == Floor.THREE) {
+      return floorThreeTab;
+    }
+    return floorOneTab;
+  }
+
+  public void adjustGesture(GesturePane oldGesture, GesturePane newGesture) {
+    newGesture.centreOn(oldGesture.targetPointAtViewportCentre());
+    newGesture.zoomTo(oldGesture.getCurrentScale(), newGesture.targetPointAtViewportCentre());
   }
 }

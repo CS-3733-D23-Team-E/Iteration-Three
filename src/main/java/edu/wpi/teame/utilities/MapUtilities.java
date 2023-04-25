@@ -200,7 +200,7 @@ public class MapUtilities {
   public Line drawLineWithLabel(int x1, int y1, int x2, int y2, String message) {
     int ax = (x1 + x2) / 2;
     int ay = (y1 + y2) / 2;
-    Label lineMessage = this.createLabel(ax, ay, message);
+    Label lineMessage = this.createStyledLabel(ax, ay, message);
     return drawLine(x1, y1, x2, y2);
   }
 
