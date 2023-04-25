@@ -132,7 +132,7 @@
                                  <children>
                                     <GesturePane fx:id="gesturePaneL2" hbarPolicy="NEVER" maxScale="6.0" minScale="1.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <content>
-                                          <AnchorPane fx:id="labelPane">
+                                          <AnchorPane fx:id="LowerTwoLabelPane">
                                              <children>
                                                 <AnchorPane fx:id="mapPaneLowerTwo">
                                                    <children>
@@ -164,20 +164,24 @@
                                  <children>
                                     <GesturePane fx:id="gesturePaneL1" hbarPolicy="NEVER" maxScale="6.0" minScale="1.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <content>
-                                          <AnchorPane fx:id="mapPaneLowerOne">
+                                          <AnchorPane fx:id="LowerOneLabelPane">
                                              <children>
-                                                <StackPane fx:id="imagePane111" minHeight="0.0" minWidth="0.0">
+                                                <AnchorPane fx:id="mapPaneLowerOne">
                                                    <children>
-                                                      <ImageView fx:id="mapImageLowerOne" fitWidth="2000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
-                                                         <image>
-                                                            <Image url="@../maps/00_thelowerlevel1.png" />
-                                                         </image>
-                                                         <viewport>
-                                                            <Rectangle2D />
-                                                         </viewport>
-                                                      </ImageView>
+                                                      <StackPane fx:id="imagePane111" minHeight="0.0" minWidth="0.0">
+                                                         <children>
+                                                            <ImageView fx:id="mapImageLowerOne" fitWidth="5000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                               <image>
+                                                                  <Image url="@../maps/00_thelowerlevel1.png" />
+                                                               </image>
+                                                               <viewport>
+                                                                  <Rectangle2D />
+                                                               </viewport>
+                                                            </ImageView>
+                                                         </children>
+                                                      </StackPane>
                                                    </children>
-                                                </StackPane>
+                                                </AnchorPane>
                                              </children>
                                           </AnchorPane>
                                        </content>
@@ -192,20 +196,24 @@
                                  <children>
                                     <GesturePane fx:id="gesturePane1" hbarPolicy="NEVER" maxScale="6.0" minScale="1.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <content>
-                                          <AnchorPane fx:id="mapPaneOne" minWidth="-Infinity">
+                                          <AnchorPane fx:id="floorOneLabelPane">
                                              <children>
-                                                <StackPane fx:id="imagePane" minHeight="-Infinity" minWidth="-Infinity">
+                                                <AnchorPane fx:id="mapPaneOne" minWidth="-Infinity">
                                                    <children>
-                                                      <ImageView fx:id="mapImageOne" fitWidth="2000.0" pickOnBounds="true" preserveRatio="true">
-                                                         <image>
-                                                            <Image url="@../maps/01_thefirstfloor.png" />
-                                                         </image>
-                                                         <viewport>
-                                                            <Rectangle2D />
-                                                         </viewport>
-                                                      </ImageView>
+                                                      <StackPane fx:id="imagePane" minHeight="-Infinity" minWidth="-Infinity">
+                                                         <children>
+                                                            <ImageView fx:id="mapImageOne" fitWidth="5000.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../maps/01_thefirstfloor.png" />
+                                                               </image>
+                                                               <viewport>
+                                                                  <Rectangle2D />
+                                                               </viewport>
+                                                            </ImageView>
+                                                         </children>
+                                                      </StackPane>
                                                    </children>
-                                                </StackPane>
+                                                </AnchorPane>
                                              </children>
                                           </AnchorPane>
                                        </content>
@@ -220,17 +228,21 @@
                                  <children>
                                     <GesturePane fx:id="gesturePane2" hbarPolicy="NEVER" maxScale="6.0" minScale="1.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <content>
-                                          <AnchorPane fx:id="mapPaneTwo">
+                                          <AnchorPane fx:id="floorTwoLabelPane">
                                              <children>
-                                                <StackPane fx:id="imagePane1" minHeight="0.0" minWidth="0.0">
+                                                <AnchorPane fx:id="mapPaneTwo">
                                                    <children>
-                                                      <ImageView fx:id="mapImageTwo" fitWidth="2000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
-                                                         <image>
-                                                            <Image url="@../maps/02_thesecondfloor.png" />
-                                                         </image>
-                                                      </ImageView>
+                                                      <StackPane fx:id="imagePane1" minHeight="0.0" minWidth="0.0">
+                                                         <children>
+                                                            <ImageView fx:id="mapImageTwo" fitWidth="5000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                               <image>
+                                                                  <Image url="@../maps/02_thesecondfloor.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </children>
+                                                      </StackPane>
                                                    </children>
-                                                </StackPane>
+                                                </AnchorPane>
                                              </children>
                                           </AnchorPane>
                                        </content>
@@ -245,17 +257,21 @@
                                  <children>
                                     <GesturePane fx:id="gesturePane3" hbarPolicy="NEVER" maxScale="6.0" minScale="1.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <content>
-                                          <AnchorPane fx:id="mapPaneThree">
+                                          <AnchorPane fx:id="floorThreeLabelPane">
                                              <children>
-                                                <StackPane fx:id="imagePane11" minHeight="0.0" minWidth="0.0">
+                                                <AnchorPane fx:id="mapPaneThree">
                                                    <children>
-                                                      <ImageView fx:id="mapImageThree" fitWidth="2000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
-                                                         <image>
-                                                            <Image url="@../maps/03_thethirdfloor.png" />
-                                                         </image>
-                                                      </ImageView>
+                                                      <StackPane fx:id="imagePane11" minHeight="0.0" minWidth="0.0">
+                                                         <children>
+                                                            <ImageView fx:id="mapImageThree" fitWidth="5000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                               <image>
+                                                                  <Image url="@../maps/03_thethirdfloor.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </children>
+                                                      </StackPane>
                                                    </children>
-                                                </StackPane>
+                                                </AnchorPane>
                                              </children>
                                           </AnchorPane>
                                        </content>
