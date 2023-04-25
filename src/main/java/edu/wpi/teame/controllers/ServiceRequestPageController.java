@@ -1,6 +1,5 @@
 package edu.wpi.teame.controllers;
 
-
 import static edu.wpi.teame.entities.ServiceRequestData.Status.*;
 import static edu.wpi.teame.entities.ServiceRequestData.Status.DONE;
 import static edu.wpi.teame.entities.ServiceRequestData.Status.IN_PROGRESS;
@@ -34,6 +33,9 @@ public class ServiceRequestPageController {
   @FXML MFXButton menuBarAbout;
   @FXML MFXButton menuBarBlank;
   @FXML MFXButton menuBarExit;
+
+  @FXML MFXButton menuBarHelp;
+  @FXML MFXButton menuBarSettings;
   @FXML MFXButton userButton;
   @FXML VBox menuBar;
   @FXML ImageView homeI;
@@ -129,10 +131,8 @@ public class ServiceRequestPageController {
         "images/folder-tree.png",
         "images/folder-tree-blue.png");
     ButtonUtilities.mouseSetupMenuBar(
-
         menuBarAbout, "baseline-left", aboutI, "images/abouticon.png", "images/abouticon-blue.png");
     ButtonUtilities.mouseSetupMenuBar(
-
         menuBarExit,
         "baseline-center",
         exitI,
@@ -158,6 +158,8 @@ public class ServiceRequestPageController {
     menuBarBlank.setVisible(bool);
     menuBarExit.setVisible(bool);
     menuBar.setVisible(bool);
+    menuBarSettings.setVisible(bool);
+    menuBarHelp.setVisible(bool);
   }
 
   private void mouseSetup(MFXButton btn) {

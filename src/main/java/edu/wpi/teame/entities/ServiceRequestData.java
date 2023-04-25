@@ -38,7 +38,6 @@ public abstract class ServiceRequestData {
     CONFERENCEROOM,
     MEDICALSUPPLIESDELIVERY;
 
-
     public static RequestType stringToRequestType(String rt) {
       switch (rt) {
         case "MEALDELIVERY":

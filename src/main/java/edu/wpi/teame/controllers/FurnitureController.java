@@ -1,17 +1,13 @@
 package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Database.SQLRepo;
-
 import edu.wpi.teame.entities.Employee;
-
 import edu.wpi.teame.entities.FurnitureRequestData;
 import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-
 import java.util.List;
-
 import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -66,7 +62,6 @@ public class FurnitureController {
                 .sorted()
                 .toList());
 
-
     List<Employee> employeeList = SQLRepo.INSTANCE.getEmployeeList();
     for (Employee emp : employeeList) {
       staffMembers.add(emp.getUsername());
@@ -79,7 +74,6 @@ public class FurnitureController {
                 .filter(employee -> employee.getPermission().equals("STAFF"))
                 .map(employee -> employee.getUsername())
                 .toList()));
-
 
     roomName.setItems(names);
     // Add the items to the combo boxes

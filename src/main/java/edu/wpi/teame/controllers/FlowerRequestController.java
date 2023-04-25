@@ -1,16 +1,11 @@
 package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Database.SQLRepo;
-
-import edu.wpi.teame.entities.Employee;
-
 import edu.wpi.teame.entities.FlowerRequestData;
 import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.util.List;
-
 import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -77,14 +72,12 @@ public class FlowerRequestController {
                 .sorted()
                 .toList());
 
-
     assignedStaff.setItems(
         FXCollections.observableList(
             SQLRepo.INSTANCE.getEmployeeList().stream()
                 .filter(employee -> employee.getPermission().equals("STAFF"))
                 .map(employee -> employee.getUsername())
                 .toList()));
-
 
     roomName.setItems(names);
     // Add the items to the combo boxes

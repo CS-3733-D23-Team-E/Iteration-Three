@@ -72,8 +72,8 @@ public enum SQLRepo {
     try {
       Class.forName("org.postgresql.Driver");
       activeConnection =
-              DriverManager.getConnection(
-                      "jdbc:postgresql://database.cs.wpi.edu:5432/teamedb", "teame", "teame50");
+          DriverManager.getConnection(
+              "jdbc:postgresql://database.cs.wpi.edu:5432/teamedb", "teame", "teame50");
       employeeDAO = new EmployeeDAO(activeConnection);
       Employee loggedIn = employeeDAO.verifyLogIn(username, password);
       if (loggedIn == null) {
@@ -121,7 +121,7 @@ public enum SQLRepo {
     String edge = Main.class.getResource("Data/NewData/Edge.csv").getFile().replaceAll("%20", " ");
     String move = Main.class.getResource("Data/NewData/Move.csv").getFile().replaceAll("%20", " ");
     String location =
-            Main.class.getResource("Data/NewData/LocationName.csv").getFile().replaceAll("%20", " ");
+        Main.class.getResource("Data/NewData/LocationName.csv").getFile().replaceAll("%20", " ");
     this.importFromCSV(Table.NODE, node);
     this.importFromCSV(Table.EDGE, edge);
     this.importFromCSV(Table.LOCATION_NAME, location);
@@ -138,7 +138,7 @@ public enum SQLRepo {
   }
 
   public void updateUsingNodeID(
-          String nodeID, String oldLongName, String columnName, String value) {
+      String nodeID, String oldLongName, String columnName, String value) {
     this.dbUtility.updateMoveWithoutObject(nodeID, oldLongName, columnName, value);
   }
 

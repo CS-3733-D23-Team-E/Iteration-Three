@@ -43,8 +43,8 @@ public class MapUtilities {
 
     //    System.out.println("nodetype: " + SQLRepo.INSTANCE.getNodeTypeFromNodeID(105));
     LocationName.NodeType nodeType =
-            LocationName.NodeType.stringToNodeType(
-                    SQLRepo.INSTANCE.getNodeTypeFromNodeID(Integer.parseInt(nodeID)));
+        LocationName.NodeType.stringToNodeType(
+            SQLRepo.INSTANCE.getNodeTypeFromNodeID(Integer.parseInt(nodeID)));
 
     Circle circle = drawCircle(x, y, 5);
     setHospitalNodeColor(circle, nodeType);
@@ -188,7 +188,7 @@ public class MapUtilities {
    * @return
    */
   public Circle drawRing(
-          int x, int y, int radius, int thickness, Color innerColor, Color outerColor) {
+      int x, int y, int radius, int thickness, Color innerColor, Color outerColor) {
     x = (int) convertX(x);
     y = (int) convertY(y);
 

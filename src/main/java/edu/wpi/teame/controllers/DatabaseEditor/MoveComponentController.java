@@ -52,60 +52,60 @@ public class MoveComponentController {
 
   private void initButtons() {
     swapTab.setOnSelectionChanged(
-            event -> {
-              if (swapTab.isSelected()) {
-                confirmButton.setOnAction(e -> swapDepartments());
-              }
-            });
+        event -> {
+          if (swapTab.isSelected()) {
+            confirmButton.setOnAction(e -> swapDepartments());
+          }
+        });
     moveTab.setOnSelectionChanged(
-            event -> {
-              if (moveTab.isSelected()) {
-                confirmButton.setOnAction(e -> moveToNewNode());
-              }
-            });
+        event -> {
+          if (moveTab.isSelected()) {
+            confirmButton.setOnAction(e -> moveToNewNode());
+          }
+        });
     resetButton.setOnAction(event -> resetFieldSelections());
     confirmButton.setOnAction(e -> moveToNewNode());
     mapPreviewButton.setOnAction(
-            event -> {
-              if (moveTab.isSelected()) {
-                if (departmentMoveSelector.getValue() != null && newNodeSelector.getValue() != null) {
-                  openStage(
-                          movUtil.getNodeFromMove(
-                                  movUtil
-                                          .findMostRecentMoveByDate(departmentMoveSelector.getValue())
-                                          .getNodeID()),
-                          movUtil.getNodeFromMove(newNodeSelector.getValue()));
-                }
-              } else {
-                if (departmentOneSelector.getValue() != null
-                        && departmentTwoSelector.getValue() != null) {
-                  openStage(
-                          movUtil.getNodeFromMove(
-                                  movUtil
-                                          .findMostRecentMoveByDate(departmentOneSelector.getValue())
-                                          .getNodeID()),
-                          movUtil.getNodeFromMove(
-                                  movUtil
-                                          .findMostRecentMoveByDate(departmentTwoSelector.getValue())
-                                          .getNodeID()));
-                }
-              }
-            });
+        event -> {
+          if (moveTab.isSelected()) {
+            if (departmentMoveSelector.getValue() != null && newNodeSelector.getValue() != null) {
+              openStage(
+                  movUtil.getNodeFromMove(
+                      movUtil
+                          .findMostRecentMoveByDate(departmentMoveSelector.getValue())
+                          .getNodeID()),
+                  movUtil.getNodeFromMove(newNodeSelector.getValue()));
+            }
+          } else {
+            if (departmentOneSelector.getValue() != null
+                && departmentTwoSelector.getValue() != null) {
+              openStage(
+                  movUtil.getNodeFromMove(
+                      movUtil
+                          .findMostRecentMoveByDate(departmentOneSelector.getValue())
+                          .getNodeID()),
+                  movUtil.getNodeFromMove(
+                      movUtil
+                          .findMostRecentMoveByDate(departmentTwoSelector.getValue())
+                          .getNodeID()));
+            }
+          }
+        });
   }
 
   private void refreshFields() {
 
     ObservableList<String> availableLocations =
-            FXCollections.observableList(
-                    movUtil.getMovesForDepartments().stream()
-                            .map(move -> move.getLongName())
-                            .sorted()
-                            .distinct()
-                            .toList());
+        FXCollections.observableList(
+            movUtil.getMovesForDepartments().stream()
+                .map(move -> move.getLongName())
+                .sorted()
+                .distinct()
+                .toList());
 
     // List of node IDs that only contains the node IDs of departments
     List<Integer> nodeIDs =
-            movUtil.getMovesForDepartments().stream().map(MoveAttribute::getNodeID).distinct().toList();
+        movUtil.getMovesForDepartments().stream().map(MoveAttribute::getNodeID).distinct().toList();
     newNodeSelector.setItems(FXCollections.observableList(nodeIDs));
 
     departmentMoveSelector.setItems(availableLocations);
@@ -115,8 +115,8 @@ public class MoveComponentController {
 
   private void swapDepartments() {
     if ((departmentOneSelector.getValue() != null)
-            && (departmentTwoSelector.getValue() != null)
-            && (moveDateSelector.getValue() != null)) {
+        && (departmentTwoSelector.getValue() != null)
+        && (moveDateSelector.getValue() != null)) {
       // MoveAttribute moveOne = findMoveAttribute(departmentOneSelector.getValue());
       MoveAttribute moveOne = movUtil.findMostRecentMoveByDate(departmentOneSelector.getValue());
       //      MoveAttribute moveTwo = findMoveAttribute(departmentTwoSelector.getValue());
@@ -124,13 +124,13 @@ public class MoveComponentController {
 
       // make sure the current moves aren't on the same day as the suggested move
       if (movUtil.afterDate(moveOne, moveDateSelector.getValue()) != 0
-              && movUtil.afterDate(moveTwo, moveDateSelector.getValue()) != 0) {
+          && movUtil.afterDate(moveTwo, moveDateSelector.getValue()) != 0) {
         MoveAttribute swaping1With2 =
-                new MoveAttribute(
-                        moveOne.getNodeID(), moveTwo.getLongName(), moveDateSelector.getValue().toString());
+            new MoveAttribute(
+                moveOne.getNodeID(), moveTwo.getLongName(), moveDateSelector.getValue().toString());
         MoveAttribute swaping2With1 =
-                new MoveAttribute(
-                        moveTwo.getNodeID(), moveOne.getLongName(), moveDateSelector.getValue().toString());
+            new MoveAttribute(
+                moveTwo.getNodeID(), moveOne.getLongName(), moveDateSelector.getValue().toString());
 
         SQLRepo.INSTANCE.addMove(swaping1With2);
         SQLRepo.INSTANCE.addMove(swaping2With1);
@@ -146,15 +146,15 @@ public class MoveComponentController {
 
   private void moveToNewNode() {
     if ((departmentMoveSelector.getValue() != null)
-            && (newNodeSelector.getValue() != null)
-            && (moveDateSelector.getValue() != null)) {
+        && (newNodeSelector.getValue() != null)
+        && (moveDateSelector.getValue() != null)) {
 
       MoveAttribute toBeMoved = movUtil.findMostRecentMoveByDate(departmentMoveSelector.getValue());
       SQLRepo.INSTANCE.addMove(
-              new MoveAttribute(
-                      newNodeSelector.getValue(),
-                      toBeMoved.getLongName(),
-                      moveDateSelector.getValue().toString()));
+          new MoveAttribute(
+              newNodeSelector.getValue(),
+              toBeMoved.getLongName(),
+              moveDateSelector.getValue().toString()));
 
       initTableAndList();
       resetFieldSelections();
@@ -186,16 +186,16 @@ public class MoveComponentController {
     MovePreviewController movePreviewController;
     if (swapTab.isSelected()) {
       movePreviewController =
-              new MovePreviewController(
-                      node1,
-                      node2,
-                      departmentOneSelector.getValue(),
-                      departmentTwoSelector.getValue(),
-                      true);
+          new MovePreviewController(
+              node1,
+              node2,
+              departmentOneSelector.getValue(),
+              departmentTwoSelector.getValue(),
+              true);
     } else {
       movePreviewController =
-              new MovePreviewController(
-                      node1, node2, departmentMoveSelector.getValue(), "New Location", false);
+          new MovePreviewController(
+              node1, node2, departmentMoveSelector.getValue(), "New Location", false);
     }
 
     FXMLLoader loader = new FXMLLoader(resource);

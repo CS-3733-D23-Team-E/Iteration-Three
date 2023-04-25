@@ -50,9 +50,7 @@ public class HomePageController {
   @FXML ImageView pathfindingI;
   @FXML ImageView databaseI;
 
-
   @FXML ImageView aboutI;
-
 
   @FXML ImageView exitI;
 
