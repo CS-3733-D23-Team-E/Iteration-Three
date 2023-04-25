@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
 
@@ -205,6 +206,9 @@ public class DatabaseMapViewController {
 
     Circle nodeCircle = currentMapUtility.drawHospitalNode(node);
     Label nodeLabel = currentMapUtility.drawHospitalNodeLabel(node);
+    nodeLabel.setStyle(
+        "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
+    nodeLabel.setFont(Font.font("Roboto", 8));
     nodeLabel.setVisible(false);
     if (LocationName.NodeType.HALL
         != LocationName.NodeType.stringToNodeType(
