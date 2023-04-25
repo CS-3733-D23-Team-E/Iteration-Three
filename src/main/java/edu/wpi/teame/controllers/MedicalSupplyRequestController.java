@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class MedicalSupplyRequestController {
@@ -30,6 +31,8 @@ public class MedicalSupplyRequestController {
   @FXML TextField numberOfSupplies;
   @FXML SearchableComboBox<String> assignedStaff;
 
+  @FXML MFXButton closeButton;
+  @FXML VBox requestSubmittedBox;
   ObservableList<String> deliveryTimes =
       FXCollections.observableArrayList(
           "10am - 11am", "11am - 12pm", "12pm - 1pm", "1pm - 2pm", "2pm - 3pm", "3pm - 4pm");
@@ -77,9 +80,17 @@ public class MedicalSupplyRequestController {
     roomName.setItems(names);
     deliveryTime.setItems(deliveryTimes);
     supplyType.setItems(MedicalSupplies);
-    submitButton.setOnMouseClicked(event -> sendRequest());
+
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
+
+    submitButton.setOnMouseClicked(
+        event -> {
+          sendRequest();
+          requestSubmittedBox.setVisible(true);
+          clearForm();
+        });
+    closeButton.setOnMouseClicked(event -> requestSubmittedBox.setVisible(false));
   }
 
   private void clearForm() {
@@ -105,7 +116,7 @@ public class MedicalSupplyRequestController {
             numberOfSupplies.getText(),
             notes.getText(),
             MedicalSuppliesData.Status.PENDING);
-    Navigation.navigate(Screen.HOME);
+
     SQLRepo.INSTANCE.addServiceRequest(requestData);
     return requestData;
   }

@@ -13,18 +13,14 @@ public enum Settings {
   String aO = "\u00F3"; // ó
   String aU = "\u00F9"; // ù
 
-  public enum Language{
+  public enum Language {
     ENGLISH,
     SPANISH,
     FRENCH,
     HAWAIIAN;
   }
+
   @Getter @Setter Language language;
 
-  Settings() {
-
-
-
-
-  }
+  Settings() {}
 }
