@@ -4,7 +4,6 @@ import edu.wpi.teame.map.Floor;
 import edu.wpi.teame.map.HospitalNode;
 import edu.wpi.teame.utilities.ColorPalette;
 import edu.wpi.teame.utilities.MapUtilities;
-import java.util.LinkedList;
 import java.util.List;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
@@ -146,11 +145,10 @@ public class MovePreviewController {
     }
     moveDescription.setText(moveDescText.toString());
 
-
-//    List<HospitalNode> nodes = new LinkedList<>();
-//    nodes.add(node1);
-//    nodes.add(node2);
-//    createMoveLabels(viewMoveBox, nodes);
+    //    List<HospitalNode> nodes = new LinkedList<>();
+    //    nodes.add(node1);
+    //    nodes.add(node2);
+    //    createMoveLabels(viewMoveBox, nodes);
   }
 
   public Floor tabToFloor(Tab tab) {
