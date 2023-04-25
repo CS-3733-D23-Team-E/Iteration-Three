@@ -238,13 +238,13 @@ public class DatabaseMapViewController {
     editPageText.setText("Edit Node: ID = " + nodeID);
 
     curNode = allNodes.get(nodeID);
-    System.out.println(curNode);
+//    System.out.println(curNode);
     //    edges =
     //        SQLRepo.INSTANCE.getEdgeList().stream()
     //            .filter((edge) -> (edge.getNodeOneID().equals(nodeID)))
     //            .toList();
     edges = curNode.getNeighbors();
-    System.out.println(curNode.getNeighbors());
+//    System.out.println(curNode.getNeighbors());
 
     workingList = new LinkedList<>();
 
@@ -270,7 +270,7 @@ public class DatabaseMapViewController {
         });
 
     edgeView.setItems(FXCollections.observableList(workingList));
-    System.out.println(workingList);
+//    System.out.println(workingList);
 
     deleteNodeButton.setVisible(true);
   }
