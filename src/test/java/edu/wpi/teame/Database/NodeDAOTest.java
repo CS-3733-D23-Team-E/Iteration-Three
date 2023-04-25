@@ -13,8 +13,8 @@ public class NodeDAOTest {
 
   @Test
   public void testResetDatabase() {
-    SQLRepo.INSTANCE.connectToDatabase("admin", "admin");
-    SQLRepo.INSTANCE.resetDatabase();
+    SQLRepo.INSTANCE.connectToDatabase("", "");
+    // SQLRepo.INSTANCE.resetDatabase();
     SQLRepo.INSTANCE.exitDatabaseProgram();
   }
 

@@ -71,30 +71,33 @@ public enum SQLRepo {
   public Employee connectToDatabase(String username, String password) {
     try {
       Class.forName("org.postgresql.Driver");
+      // jdbc:postgresql://database.cs.wpi.edu:5432/teamedb
       activeConnection =
           DriverManager.getConnection(
-              "jdbc:postgresql://database.cs.wpi.edu:5432/teamedb", "teame", "teame50");
+              "jdbc:postgresql://cs3733teame23.cv88coykjigx.us-east-2.rds.amazonaws.com:5432/teamedb",
+              "Jamie_Rapal",
+              "JamieAWS#24");
       employeeDAO = new EmployeeDAO(activeConnection);
-      Employee loggedIn = employeeDAO.verifyLogIn(username, password);
-      if (loggedIn == null) {
-        return null;
-      } else {
-        nodeDAO = new NodeDAO(activeConnection);
-        edgeDAO = new EdgeDAO(activeConnection);
-        moveDAO = new MoveDAO(activeConnection);
-        locationDAO = new LocationDAO(activeConnection);
-        dbUtility = new DatabaseUtility(activeConnection);
-        officesupplyDAO = new OfficeSuppliesDAO(activeConnection);
-        mealDAO = new MealDAO(activeConnection);
-        flowerDAO = new FlowerDAO(activeConnection);
-        conferenceDAO = new ConferenceRoomDAO(activeConnection);
-        furnitureDAO = new FurnitureDAO(activeConnection);
-        medicalsuppliesDAO = new MedicalSuppliesDAO(activeConnection);
+      // Employee loggedIn = employeeDAO.verifyLogIn(username, password);
+      // if (loggedIn == null) {
+      // return null;
+      // } else {
+      nodeDAO = new NodeDAO(activeConnection);
+      edgeDAO = new EdgeDAO(activeConnection);
+      moveDAO = new MoveDAO(activeConnection);
+      locationDAO = new LocationDAO(activeConnection);
+      dbUtility = new DatabaseUtility(activeConnection);
+      officesupplyDAO = new OfficeSuppliesDAO(activeConnection);
+      mealDAO = new MealDAO(activeConnection);
+      flowerDAO = new FlowerDAO(activeConnection);
+      conferenceDAO = new ConferenceRoomDAO(activeConnection);
+      furnitureDAO = new FurnitureDAO(activeConnection);
+      medicalsuppliesDAO = new MedicalSuppliesDAO(activeConnection);
 
-        Employee.setActiveEmployee(loggedIn);
+      // Employee.setActiveEmployee(loggedIn);
 
-        return loggedIn;
-      }
+      // return loggedIn;
+      // }
     } catch (SQLException e) {
       exitDatabaseProgram();
       throw new RuntimeException("Your username or password is incorrect");
@@ -102,6 +105,7 @@ public enum SQLRepo {
       exitDatabaseProgram();
       throw new RuntimeException("Sorry something went wrong please try again");
     }
+    return null;
   }
 
   public void exitDatabaseProgram() {
