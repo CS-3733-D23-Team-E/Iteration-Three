@@ -72,22 +72,21 @@ public class MoveComponentController {
               openStage(
                   HospitalNode.allNodes.get(
                       movUtil
-                          .findMostRecentMoveByDate(departmentMoveSelector.getValue())
-                          .getNodeID()),
-                  HospitalNode.allNodes.get(newNodeSelector.getValue()));
+                              .findMostRecentMoveByDate(departmentMoveSelector.getValue())
+                              .getNodeID()
+                          + ""),
+                  HospitalNode.allNodes.get(newNodeSelector.getValue() + ""));
             }
           } else {
             if (departmentOneSelector.getValue() != null
                 && departmentTwoSelector.getValue() != null) {
               openStage(
                   HospitalNode.allNodes.get(
-                      movUtil
-                          .findMostRecentMoveByDate(departmentOneSelector.getValue())
-                          .getNodeID()),
+                      movUtil.findMostRecentMoveByDate(departmentOneSelector.getValue()).getNodeID()
+                          + ""),
                   HospitalNode.allNodes.get(
-                      movUtil
-                          .findMostRecentMoveByDate(departmentTwoSelector.getValue())
-                          .getNodeID()));
+                      movUtil.findMostRecentMoveByDate(departmentTwoSelector.getValue()).getNodeID()
+                          + ""));
             }
           }
         });
