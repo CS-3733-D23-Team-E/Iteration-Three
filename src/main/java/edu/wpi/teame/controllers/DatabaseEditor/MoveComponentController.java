@@ -70,21 +70,21 @@ public class MoveComponentController {
           if (moveTab.isSelected()) {
             if (departmentMoveSelector.getValue() != null && newNodeSelector.getValue() != null) {
               openStage(
-                  movUtil.getNodeFromMove(
+                  HospitalNode.allNodes.get(
                       movUtil
                           .findMostRecentMoveByDate(departmentMoveSelector.getValue())
                           .getNodeID()),
-                  movUtil.getNodeFromMove(newNodeSelector.getValue()));
+                  HospitalNode.allNodes.get(newNodeSelector.getValue()));
             }
           } else {
             if (departmentOneSelector.getValue() != null
                 && departmentTwoSelector.getValue() != null) {
               openStage(
-                  movUtil.getNodeFromMove(
+                  HospitalNode.allNodes.get(
                       movUtil
                           .findMostRecentMoveByDate(departmentOneSelector.getValue())
                           .getNodeID()),
-                  movUtil.getNodeFromMove(
+                  HospitalNode.allNodes.get(
                       movUtil
                           .findMostRecentMoveByDate(departmentTwoSelector.getValue())
                           .getNodeID()));
