@@ -9,6 +9,8 @@ import edu.wpi.teame.utilities.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.animation.Interpolator;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -58,6 +60,25 @@ public class MapController {
   @FXML GesturePane gesturePane1;
   @FXML GesturePane gesturePane2;
   @FXML GesturePane gesturePane3;
+  @FXML StackPane labelButton;
+  @FXML StackPane zoomInButton;
+  @FXML StackPane zoomOutButton;
+  @FXML MFXButton menuButton;
+  @FXML MFXButton menuBarHome;
+  @FXML MFXButton menuBarServices;
+  @FXML MFXButton menuBarMaps;
+  @FXML MFXButton menuBarDatabase;
+  @FXML MFXButton menuBarSignage;
+  @FXML MFXButton menuBarBlank;
+  @FXML MFXButton menuBarExit;
+  @FXML ImageView homeI;
+  @FXML ImageView servicesI;
+  @FXML ImageView signageI;
+  @FXML ImageView pathfindingI;
+  @FXML ImageView databaseI;
+  @FXML ImageView exitI;
+  boolean menuVisibilty = false;
+  boolean labelFaded = false;
   boolean isPathDisplayed = false;
   Floor currentFloor = Floor.LOWER_TWO;
   Circle currentCircle = new Circle();
@@ -99,7 +120,63 @@ public class MapController {
           displayPath(curLocFromComboBox, destFromComboBox);
         });
 
+    // Set the svg images for the map buttons
     setSVG();
+
+    menuBarVisible(false);
+
+    // When the menu button is clicked, invert the value of menuVisibility and set the menu bar to
+    // that value
+    // (so each time the menu button is clicked it changes the visibility of menu bar back and
+    // forth)
+    menuButton.setOnMouseClicked(
+        event -> {
+          menuVisibilty = !menuVisibilty;
+          menuBarVisible(menuVisibilty);
+        });
+
+    // Navigation controls for the button in the menu bar
+    menuBarHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    menuBarServices.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUESTS));
+    menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
+    menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_EDITOR));
+    menuBarExit.setOnMouseClicked((event -> Platform.exit()));
+
+    // makes the menu bar buttons get highlighted when the mouse hovers over them
+    ButtonUtilities.mouseSetupMenuBar(
+        menuBarHome,
+        "baseline-left",
+        homeI,
+        "images/house-blank.png",
+        "images/house-blank-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
+        menuBarServices,
+        "baseline-left",
+        servicesI,
+        "images/hand-holding-medical.png",
+        "images/hand-holding-medical-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
+        menuBarSignage,
+        "baseline-left",
+        signageI,
+        "images/diamond-turn-right.png",
+        "images/diamond-turn-right-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
+        menuBarMaps, "baseline-left", pathfindingI, "images/marker.png", "images/marker-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
+        menuBarDatabase,
+        "baseline-left",
+        databaseI,
+        "images/folder-tree.png",
+        "images/folder-tree-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
+        menuBarExit,
+        "baseline-center",
+        exitI,
+        "images/sign-out-alt.png",
+        "images/sign-out-alt-blue.png");
+
     // Make sure location list is initialized so that we can filter out the hallways
     SQLRepo.INSTANCE.getLocationList();
 
@@ -391,9 +468,6 @@ public class MapController {
                     previousLabel.setBorder(Border.EMPTY);
                   }
 
-                  // Zoom in on the starting node
-                  startingPane.zoomTo(2, startingPane.targetPointAtViewportCentre());
-
                   // Pan so starting node is centered
                   startingPane
                       .animate(Duration.millis(200))
@@ -438,7 +512,8 @@ public class MapController {
       return TurnType.END;
     }
     // Check if the node is an elevator or stairs
-    // Elevator
+    // If the current node is elevator and the next node is on another floor, then set the turn type
+    // to elevator
     if ((LocationName.NodeType.stringToNodeType(
                 SQLRepo.INSTANCE.getNodeTypeFromNodeID(
                     Integer.parseInt(path.get(index).getNodeID())))
@@ -446,7 +521,8 @@ public class MapController {
         && (path.get(index).getFloor()) != path.get(index + 1).getFloor()) {
       return TurnType.ELEVATOR;
     }
-    // Stairs
+    // If the current node is stairs and the next node is on another floor, then set the turn type
+    // to stairs
     if ((LocationName.NodeType.stringToNodeType(
                 SQLRepo.INSTANCE.getNodeTypeFromNodeID(
                     Integer.parseInt(path.get(index).getNodeID())))
@@ -532,5 +608,60 @@ public class MapController {
         "M19.2933 9.95137L16.96 7.15137C16.6073 6.72814 16.43 6.51639 16.2139 6.36426C16.0223 6.22946 15.8084 6.12953 15.5822 6.06868C15.327 6 15.0523 6 14.5014 6H7.2002C6.08009 6 5.51962 6 5.0918 6.21799C4.71547 6.40973 4.40973 6.71547 4.21799 7.0918C4 7.51962 4 8.08009 4 9.2002V14.8002C4 15.9203 4 16.4801 4.21799 16.9079C4.40973 17.2842 4.71547 17.5905 5.0918 17.7822C5.5192 18 6.07899 18 7.19691 18H14.5014C15.0523 18 15.327 17.9998 15.5822 17.9312C15.8084 17.8703 16.0223 17.7702 16.2139 17.6354C16.43 17.4833 16.6073 17.2721 16.96 16.8488L19.2933 14.0488C19.9006 13.32 20.2036 12.9556 20.3197 12.5488C20.422 12.1902 20.422 11.8095 20.3197 11.4509C20.2036 11.0441 19.9006 10.6801 19.2933 9.95137Z");
     labelRegion.setShape(labelSVG);
     labelRegion.setStyle("-fx-background-color: 'f1f1f1'");
+
+    labelButton.setOnMouseClicked(
+        event -> {
+          labelFaded = !labelFaded;
+          setFaded(labelFaded, labelButton);
+        });
+    zoomInButton.setOnMouseClicked(
+        event -> {
+          zoomIn();
+        });
+    zoomOutButton.setOnMouseClicked(
+        event -> {
+          zoomOut();
+        });
+  }
+
+  public void setFaded(boolean isFaded, Node node) {
+    if (isFaded) {
+      node.setOpacity(0.75);
+    } else {
+      node.setOpacity(1);
+    }
+  }
+
+  public void zoomIn() {
+    AnchorPane currentPane =
+        (AnchorPane) tabPane.getSelectionModel().getSelectedItem().getContent();
+    GesturePane currentGesture = (GesturePane) currentPane.getChildren().get(0);
+    // Zoom in
+    currentGesture
+        .animate(Duration.millis(200))
+        .interpolateWith(Interpolator.EASE_BOTH)
+        .zoomBy(currentGesture.getCurrentScale(), currentGesture.targetPointAtViewportCentre());
+  }
+
+  public void zoomOut() {
+    AnchorPane currentPane =
+        (AnchorPane) tabPane.getSelectionModel().getSelectedItem().getContent();
+    GesturePane currentGesture = (GesturePane) currentPane.getChildren().get(0);
+    // Zoom in
+    currentGesture
+        .animate(Duration.millis(200))
+        .interpolateWith(Interpolator.EASE_BOTH)
+        .zoomBy(
+            -(currentGesture.getCurrentScale() / 2), currentGesture.targetPointAtViewportCentre());
+  }
+
+  public void menuBarVisible(boolean bool) {
+    menuBarHome.setVisible(bool);
+    menuBarServices.setVisible(bool);
+    menuBarSignage.setVisible(bool);
+    menuBarMaps.setVisible(bool);
+    menuBarDatabase.setVisible(bool);
+    menuBarExit.setVisible(bool);
+    menuBarBlank.setVisible(bool);
   }
 }

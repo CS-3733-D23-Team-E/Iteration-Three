@@ -40,43 +40,22 @@ public class Directions {
     Label destinationLabel;
     // Check if the node is first or last
     if (index == 0) { // first
-      destinationLabel =
-          new Label(SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(currentNode.getNodeID())));
+      destinationLabel = new Label();
     } else if (index == path.size() - 1) { // last
       destinationLabel =
           new Label(SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(currentNode.getNodeID())));
     } else { // all other nodes
       // Destination Label
-      destinationLabel = new Label("In " + distance + "ft " + turnType.getTurnString());
     }
-
-    // Set the image
-    Image icon = setImage();
-    ImageView pathIcon = new ImageView();
-    pathIcon.setImage(icon);
-    pathIcon.setPreserveRatio(true);
-    pathIcon.setFitWidth(30);
-
-    // Draw the dividing line
-    Line line = new Line();
-    line.setStartX(0);
-    line.setStartY(0);
-    line.setEndX(0);
-    line.setEndY(50);
-    line.setOpacity(0.25);
-
-    destinationLabel.setFont(Font.font("Roboto", 16));
-    destinationLabel.setTextAlignment(TextAlignment.CENTER);
-    destinationLabel.setWrapText(true);
 
     // Configure hbox
     HBox hBox = new HBox();
     configureHBOX(hBox);
     setDropShadow(hBox);
     setInteractions(hBox);
+    setAttributes(hBox);
 
     // Add children to hbox
-    hBox.getChildren().addAll(pathIcon, line, destinationLabel);
     this.hbox = hBox;
   }
 
@@ -125,34 +104,68 @@ public class Directions {
     hBox.setPadding(new Insets(0, 10, 0, 10));
   }
 
-  public Image setImage() {
+  public void setAttributes(HBox hBox) {
     Image icon = null;
+    String directionsText = "In " + distance + "ft ";
     switch (this.turnType) {
       case START:
         icon = new Image(String.valueOf(Main.class.getResource("images/start.png")));
+        directionsText =
+            SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(currentNode.getNodeID()));
         break;
       case END:
         icon = new Image(String.valueOf(Main.class.getResource("images/destination.png")));
+        directionsText =
+            SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(currentNode.getNodeID()));
         break;
       case RIGHT:
         icon = new Image(String.valueOf(Main.class.getResource("images/right_arrow.png")));
+        directionsText += "turn right.";
         break;
       case LEFT:
         icon = new Image(String.valueOf(Main.class.getResource("images/left_arrow.png")));
+        directionsText += "turn left.";
         break;
       case STRAIGHT:
         icon = new Image(String.valueOf(Main.class.getResource("images/straight_arrow.png")));
+        directionsText += "continue straight.";
         break;
       case ELEVATOR:
         icon = new Image(String.valueOf(Main.class.getResource("images/elevator.png")));
+        directionsText +=
+            "take the elevator to floor " + Floor.floorToString(path.get(index + 1).getFloor()) + ".";
         break;
       case STAIRS:
         icon = new Image(String.valueOf(Main.class.getResource("images/stairs.png")));
+        directionsText +=
+            "take the stairs to floor " + Floor.floorToString(path.get(index + 1).getFloor()) + ".";
         break;
       case ERROR:
         icon = new Image(String.valueOf(Main.class.getResource("images/interrogation.png")));
+        directionsText = "ERROR";
         break;
     }
-    return icon;
+    // Set the image view icon
+    ImageView pathIcon = new ImageView();
+    pathIcon.setImage(icon);
+    pathIcon.setPreserveRatio(true);
+    pathIcon.setFitWidth(30);
+
+    // Draw the dividing line
+    Line line = new Line();
+    line.setStartX(0);
+    line.setStartY(0);
+    line.setEndX(0);
+    line.setEndY(50);
+    line.setOpacity(0.25);
+
+    // Set the label text
+    Label destinationLabel = new Label(directionsText);
+    destinationLabel.setFont(Font.font("Roboto", 16));
+    destinationLabel.setTextAlignment(TextAlignment.CENTER);
+    destinationLabel.setWrapText(true);
+
+    // Add the attributes to the HBox
+    hBox.getChildren().addAll(pathIcon, line, destinationLabel);
   }
 }
