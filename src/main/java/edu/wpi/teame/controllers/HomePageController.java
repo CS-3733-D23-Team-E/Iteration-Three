@@ -14,6 +14,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -21,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public class HomePageController {
   @FXML MFXButton serviceRequestButton;
@@ -76,7 +80,7 @@ public class HomePageController {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy");
     String currentDateString = currentDate.format(format);
     // Format the current time as a string
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     String currentTimeString = currentTime.format(formatter);
 
     // Print the current time as a string
@@ -107,7 +111,11 @@ public class HomePageController {
           SQLRepo.INSTANCE.exitDatabaseProgram();
         });
 
-    alertSubmitButton.setOnMouseClicked(event -> setAlert());
+    alertSubmitButton.setOnMouseClicked(
+        event -> {
+          setAlert();
+          alertTextBox.clear();
+        });
 
     // Initially set the menu bar to invisible
     menuBarVisible(false);
@@ -179,7 +187,21 @@ public class HomePageController {
     ButtonUtilities.mouseSetup(databaseButton);
     ButtonUtilities.mouseSetup(logoutButton);
 
-    fillAlertList();
+    // fillAlertList();
+
+    Timeline timeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(1),
+                event -> {
+                  LocalTime now = LocalTime.now();
+                  String formattedTime = now.format(formatter);
+                  timeText.setText(formattedTime);
+                  fillAlertList();
+                }));
+
+    timeline.setCycleCount(Animation.INDEFINITE);
+    timeline.play();
   }
 
   public void attemptLogin() {

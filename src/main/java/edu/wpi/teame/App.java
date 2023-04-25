@@ -36,8 +36,8 @@ public class App extends Application {
 
     final Scene scene = new Scene(root);
     primaryStage.setScene(scene);
-    primaryStage.setMinWidth(1600);
-    primaryStage.setMinHeight(900);
+    primaryStage.setMinWidth(1920);
+    primaryStage.setMinHeight(1080);
     primaryStage.show();
     Navigation.navigate(Screen.SIGNAGE_TEXT);
   }
