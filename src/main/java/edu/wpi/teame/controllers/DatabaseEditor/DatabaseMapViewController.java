@@ -162,6 +162,7 @@ public class DatabaseMapViewController {
     for (Label aLabel : allNodeLabels) {
       aLabel.setVisible(visible);
     }
+    currentLabel.setVisible(true);
   }
 
   private void deleteNode() {
