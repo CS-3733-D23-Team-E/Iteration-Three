@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXRadioButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.SettingsPageController">
+   <center>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: e1e1e1;">
+         <children>
+            <StackPane prefHeight="1005.0" prefWidth="1920.0" AnchorPane.topAnchor="75.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="1007.0" opacity="0.65" stroke="BLACK" strokeType="INSIDE" width="1720.0" />
+                  <TabPane maxWidth="1090.0" prefHeight="200.0" prefWidth="1090.0" style="-fx-background-color: #f1f1f1;" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="200.0">
+                    <tabs>
+                      <Tab text="Account">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <HBox prefHeight="970.0" prefWidth="1090.0" spacing="5.0">
+                                       <children>
+                                          <VBox alignment="TOP_RIGHT" prefHeight="970.0" prefWidth="540.0" spacing="100.0">
+                                             <children>
+                                                <VBox prefHeight="200.0" prefWidth="100.0" spacing="40.0">
+                                                   <VBox.margin>
+                                                      <Insets left="20.0" top="50.0" />
+                                                   </VBox.margin>
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Account Information">
+                                                         <font>
+                                                            <Font name="Roboto Black" size="36.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name: ">
+                                                               <font>
+                                                                  <Font name="Roboto" size="24.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FirstName LastName">
+                                                               <font>
+                                                                  <Font name="Roboto" size="24.0" />
+                                                               </font>
+                                                            </Text>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username: ">
+                                                               <font>
+                                                                  <Font name="Roboto" size="24.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="username">
+                                                               <font>
+                                                                  <Font name="Roboto" size="24.0" />
+                                                               </font>
+                                                            </Text>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Access Level: ">
+                                                               <font>
+                                                                  <Font name="Roboto" size="24.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="staff">
+                                                               <font>
+                                                                  <Font name="Roboto" size="24.0" />
+                                                               </font>
+                                                            </Text>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                                <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password Reset">
+                                                         <font>
+                                                            <Font name="Roboto Black" size="36.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                                         <children>
+                                                            <VBox prefHeight="200.0" prefWidth="100.0" spacing="45.0">
+                                                               <children>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Current Password: ">
+                                                                     <font>
+                                                                        <Font name="Roboto" size="24.0" />
+                                                                     </font>
+                                                                     <VBox.margin>
+                                                                        <Insets top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New Password:">
+                                                                     <font>
+                                                                        <Font name="Roboto" size="24.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password: ">
+                                                                     <font>
+                                                                        <Font name="Roboto" size="24.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                               </children>
+                                                            </VBox>
+                                                            <VBox prefHeight="189.0" prefWidth="244.0" spacing="20.0">
+                                                               <children>
+                                                                  <MFXTextField fx:id="currentPasswordField" prefHeight="50.0" prefWidth="200.0" />
+                                                                  <MFXTextField fx:id="newPasswordField" prefHeight="50.0" prefWidth="200.0" />
+                                                                  <MFXTextField fx:id="confirmPasswordField" prefHeight="50.0" prefWidth="200.0" />
+                                                               </children>
+                                                            </VBox>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" />
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" />
+                                                      <MFXButton fx:id="submitPasswordButton" maxHeight="50.0" maxWidth="100.0" prefHeight="50.0" prefWidth="100.0" styleClass="submitButton" stylesheets="@../styles/eStyleSheet.css" text="Submit">
+                                                         <VBox.margin>
+                                                            <Insets left="350.0" top="-30.0" />
+                                                         </VBox.margin>
+                                                      </MFXButton>
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </VBox.margin>
+                                                </VBox>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin></VBox>
+                                          <Line endX="100.0" rotate="90.0" scaleX="3.0" startX="-100.0" stroke="#012d5a" strokeWidth="5.0">
+                                             <HBox.margin>
+                                                <Insets top="500.0" />
+                                             </HBox.margin>
+                                          </Line>
+                                          <VBox maxHeight="970.0" maxWidth="1090.0" prefHeight="970.0" prefWidth="540.0">
+                                             <children>
+                                                <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Color Scheme Options">
+                                                         <font>
+                                                            <Font name="Roboto Black" size="36.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <MFXRadioButton fx:id="lightModeButton" selected="true" text="Light Mode">
+                                                         <font>
+                                                            <Font name="Roboto" size="24.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </VBox.margin>
+                                                      </MFXRadioButton>
+                                                      <MFXRadioButton fx:id="darkModeButton" text="Dark Mode">
+                                                         <font>
+                                                            <Font name="Roboto" size="24.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </VBox.margin>
+                                                      </MFXRadioButton>
+                                                      <MFXRadioButton fx:id="colorBlindButton" text="Color-Blind Mode">
+                                                         <font>
+                                                            <Font name="Roboto" size="24.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </VBox.margin>
+                                                      </MFXRadioButton>
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets top="50.0" />
+                                                   </VBox.margin>
+                                                </VBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab text="Languages ">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox prefHeight="970.0" prefWidth="1090.0" spacing="50.0" AnchorPane.topAnchor="40.0">
+                                       <children>
+                                          <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                             <children>
+                                                <MFXButton fx:id="englishButton" contentDisplay="GRAPHIC_ONLY">
+                                                   <graphic>
+                                                      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/800px-Flag_of_the_United_States_(Pantone).svg.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </MFXButton>
+                                                <MFXButton fx:id="spanishButton" contentDisplay="GRAPHIC_ONLY">
+                                                   <graphic>
+                                                      <ImageView fitHeight="105.0" fitWidth="200.0" pickOnBounds="true">
+                                                         <image>
+                                                            <Image url="@../images/spainish.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </MFXButton>
+                                                <MFXButton fx:id="frenchButton" contentDisplay="GRAPHIC_ONLY">
+                                                   <graphic>
+                                                      <ImageView fitHeight="105.0" fitWidth="200.0" pickOnBounds="true">
+                                                         <image>
+                                                            <Image url="@../images/FrenchFlag.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </MFXButton>
+                                                <MFXButton fx:id="hawaiianButton" contentDisplay="GRAPHIC_ONLY">
+                                                   <graphic>
+                                                      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/Flag_of_Hawaii.svg.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </MFXButton>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets top="50.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The language that you have selected is:">
+                                             <font>
+                                                <Font name="Roboto Bold" size="48.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets left="80.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" text="English (U.S.)" underline="true">
+                                             <font>
+                                                <Font name="Roboto Light Italic" size="48.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets left="80.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="For another language, please select one of the options above">
+                                             <font>
+                                                <Font name="Roboto Light" size="36.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets left="80.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                 </children></AnchorPane>
+                        </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+               </children>
+            </StackPane>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="75.0" stroke="BLACK" strokeType="INSIDE" width="1920.0" />
+            <HBox alignment="CENTER_LEFT" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="1900.0" spacing="1750.0">
+               <children>
+                  <MFXButton fx:id="menuButton" alignment="BOTTOM_CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" rippleColor="WHITE" style="-fx-background-color: #012d5a;" text="Menu" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/menu-burger.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MFXButton>
+                  <MFXButton fx:id="userButton" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" rippleColor="WHITE" style="-fx-background-color: #012d5a;" text="User">
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/circle-user.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MFXButton>
+               </children>
+            </HBox>
+            <VBox fx:id="menuBar" maxHeight="1007.0" maxWidth="-Infinity" prefHeight="1007.0" prefWidth="250.0" style="-fx-background-color: #012d5a;" AnchorPane.topAnchor="75.0">
+               <children>
+                  <MFXButton fx:id="menuBarHome" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text=" Home" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="homeI" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/house-blank.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarServices" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Services" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="servicesI" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/hand-holding-medical.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarSignage" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Signage" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="signageI" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/diamond-turn-right.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarMaps" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Pathfinding" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="pathfindingI" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/marker.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarDatabase" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Database" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="databaseI" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/folder-tree.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarHome1" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="About" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="homeI1" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/house-blank.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarHome11" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Help" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="homeI11" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/interrogation.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarHome111" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Settings" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="homeI111" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/house-blank.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarBlank" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text=" " />
+                  <Line endX="100.0" fill="#2c425e" scaleX="1.25" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarExit" alignment="BOTTOM_CENTER" graphicTextGap="10.0" prefHeight="70.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Exit" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="exitI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/sign-out-alt.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

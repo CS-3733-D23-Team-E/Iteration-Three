@@ -1,5 +1,7 @@
+
 package edu.wpi.teame.controllers;
 
+import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.entities.LoginData;
 import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
@@ -30,6 +32,7 @@ public class HomePageController {
   @FXML MFXButton menuBarHome;
   @FXML MFXButton menuBarServices;
   @FXML MFXButton menuBarMaps;
+  @FXML MFXButton menuBarAbout;
   @FXML MFXButton menuBarDatabase;
   @FXML MFXButton menuBarSignage;
   @FXML MFXButton menuBarBlank;
@@ -44,6 +47,7 @@ public class HomePageController {
   @FXML MFXButton logoutButton;
   @FXML MFXButton userButton;
   @FXML ImageView homeI;
+  @FXML ImageView aboutI;
   @FXML ImageView servicesI;
   @FXML ImageView signageI;
   @FXML ImageView pathfindingI;
@@ -132,7 +136,12 @@ public class HomePageController {
           logoutPopup(logoutVisible);
         });
 
-    logoutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
+    logoutButton.setOnMouseClicked(
+            event -> {
+              Navigation.navigate(Screen.SIGNAGE_TEXT);
+              SQLRepo.INSTANCE.exitDatabaseProgram();
+            });
+
     menuBarServices.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUESTS));
     menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
     menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
@@ -166,6 +175,8 @@ public class HomePageController {
         databaseI,
         "images/folder-tree.png",
         "images/folder-tree-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
+            menuBarAbout, "baseline-left", aboutI, "images/abouticon.png", "images/abouticon-blue.png");
     ButtonUtilities.mouseSetupMenuBar(
         menuBarExit,
         "baseline-center",

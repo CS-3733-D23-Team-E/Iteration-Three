@@ -1,13 +1,11 @@
 package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.entities.Employee;
 import edu.wpi.teame.entities.OfficeSuppliesData;
 import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.util.List;
 import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class OfficeSuppliesController {
@@ -32,6 +31,8 @@ public class OfficeSuppliesController {
   @FXML SearchableComboBox<String> supplyType;
   @FXML TextField numberOfSupplies;
   @FXML SearchableComboBox<String> assignedStaff;
+  @FXML MFXButton closeButton;
+  @FXML VBox requestSubmittedBox;
 
   @FXML Text recipientNameText;
   @FXML Text roomText;
@@ -62,6 +63,8 @@ public class OfficeSuppliesController {
 
   @FXML
   public void initialize() {
+    requestSubmittedBox.setVisible(false);
+
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
     ObservableList<String> names =
         FXCollections.observableArrayList(
@@ -80,26 +83,20 @@ public class OfficeSuppliesController {
                 .sorted()
                 .toList());
 
-    /*assignedStaff.setItems(
-    FXCollections.observableList(
-        SQLRepo.INSTANCE.getEmployeeList().stream()
-            .filter(employee -> employee.getPermission().equals("STAFF"))
-            .map(employee -> employee.getFullName())
-            .toList()));*/
-
-    List<Employee> employeeList = SQLRepo.INSTANCE.getEmployeeList();
-    for (Employee emp : employeeList) {
-      staffMembers.add(emp.getUsername());
-    }
-
-    assignedStaff.setItems(FXCollections.observableArrayList(staffMembers));
+    assignedStaff.setItems(
+        FXCollections.observableList(
+            SQLRepo.INSTANCE.getEmployeeList().stream()
+                .filter(employee -> employee.getPermission().equals("STAFF"))
+                .map(employee -> employee.getUsername())
+                .toList()));
 
     roomName.setItems(names);
     deliveryTime.setItems(deliveryTimes);
     supplyType.setItems(officeSupplies);
-    submitButton.setOnMouseClicked(event -> sendRequest());
+
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
+
 
     // Page Language Translation Code
     if (language.equals("english")) {
@@ -110,6 +107,15 @@ public class OfficeSuppliesController {
     {
       // throw some sort of error here at some point
     }
+
+    submitButton.setOnMouseClicked(
+        event -> {
+          sendRequest();
+          requestSubmittedBox.setVisible(true);
+          clearForm();
+        });
+    closeButton.setOnMouseClicked(event -> requestSubmittedBox.setVisible(false));
+
   }
 
   private void clearForm() {
@@ -135,7 +141,7 @@ public class OfficeSuppliesController {
             numberOfSupplies.getText(),
             notes.getText(),
             OfficeSuppliesData.Status.PENDING);
-    Navigation.navigate(Screen.HOME);
+
     SQLRepo.INSTANCE.addServiceRequest(requestData);
     return requestData;
   }

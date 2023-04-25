@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class FurnitureController {
@@ -38,6 +39,8 @@ public class FurnitureController {
   @FXML SearchableComboBox<String> assignedStaff;
   @FXML MFXButton cancelButton;
   @FXML MFXButton resetButton;
+  @FXML MFXButton closeButton;
+  @FXML VBox requestSubmittedBox;
 
   @FXML Text recipientNameText;
   @FXML Text roomText;
@@ -57,6 +60,8 @@ public class FurnitureController {
   String aQuestion = "\u00BF"; // Upside down question mark
 
   public void initialize() {
+    requestSubmittedBox.setVisible(false);
+
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
     ObservableList<String> names =
         FXCollections.observableArrayList(
@@ -81,21 +86,22 @@ public class FurnitureController {
     }
 
     assignedStaff.setItems(FXCollections.observableArrayList(staffMembers));
-    /*assignedStaff.setItems(
-    FXCollections.observableList(
-        SQLRepo.INSTANCE.getEmployeeList().stream()
-            .filter(employee -> employee.getPermission().equals("STAFF"))
-            .map(employee -> employee.getFullName())
-            .toList()));*/
+    assignedStaff.setItems(
+        FXCollections.observableList(
+            SQLRepo.INSTANCE.getEmployeeList().stream()
+                .filter(employee -> employee.getPermission().equals("STAFF"))
+                .map(employee -> employee.getUsername())
+                .toList()));
 
     roomName.setItems(names);
     // Add the items to the combo boxes
     furnitureType.setItems(typeOfFurniture);
     deliveryTime.setItems(deliveryTimes);
     // Initialize the buttons
-    submitButton.setOnMouseClicked(event -> sendRequest());
+
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
+
 
     // Page Language Translation Code
     if (language.equals("english")) {
@@ -106,6 +112,14 @@ public class FurnitureController {
     {
       // throw some sort of error here at some point
     }
+
+    submitButton.setOnMouseClicked(
+        event -> {
+          sendRequest();
+          requestSubmittedBox.setVisible(true);
+          clearForm();
+        });
+    closeButton.setOnMouseClicked(event -> requestSubmittedBox.setVisible(false));
   }
 
   public FurnitureRequestData sendRequest() {
@@ -126,7 +140,7 @@ public class FurnitureController {
     System.out.println("furniture request submitted");
 
     // Return to the home screen
-    Navigation.navigate(Screen.HOME);
+
     return requestData;
   }
 

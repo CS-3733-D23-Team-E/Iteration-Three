@@ -26,8 +26,6 @@ public class HospitalNode {
     this.yCoord = yCoord;
     this.floor = floor;
     this.building = building;
-    // Add this node to the collection of all nodes
-    allNodes.put(nodeID, this);
   }
 
   public HospitalNode() {
@@ -113,5 +111,27 @@ public class HospitalNode {
     buildings.add("BTM");
     buildings.add("Shapiro");
     return buildings;
+  }
+
+  public static void processNodeList(List<HospitalNode> nodeList) {
+    for (HospitalNode node : nodeList) {
+      allNodes.put(node.getNodeID(), node);
+    }
+  }
+
+  public static void removeEdge(HospitalNode node1, HospitalNode node2) {
+    node1.neighbors.remove(node2);
+    node2.neighbors.remove(node1);
+  }
+
+  public static void removeEdge(String nodeId1, String nodeId2) {
+    removeEdge(allNodes.get(nodeId1), allNodes.get(nodeId2));
+  }
+
+  public static void removeNode(HospitalNode node) {
+    for (HospitalNode neighbor : node.neighbors) {
+      removeEdge(node, neighbor);
+    }
+    allNodes.remove(node.getNodeID());
   }
 }

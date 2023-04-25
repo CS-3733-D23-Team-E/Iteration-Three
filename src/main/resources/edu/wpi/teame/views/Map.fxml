@@ -5,6 +5,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -45,6 +46,7 @@
                                  <children>
                                     <SearchableComboBox fx:id="currentLocationList" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Start" style="-fx-border-color: #1e1e1e; -fx-border-width: 3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #D9DAD7;" />
                                     <SearchableComboBox fx:id="destinationList" layoutX="10.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Destination" style="-fx-border-color: #1e1e1e; -fx-border-width: 3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #D9DAD7;" />
+                                    <DatePicker fx:id="pathfindingDate" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #D9DAD7; -fx-background-radius: 5; -fx-border-color: #1E1E1E; -fx-border-width: 3; -fx-border-radius: 5;" />
                                  </children>
                                  <HBox.margin>
                                     <Insets bottom="10.0" top="10.0" />
@@ -73,6 +75,12 @@
                               </MFXRadioButton>
                               <Region layoutX="44.0" layoutY="10.0" minWidth="30.0" HBox.hgrow="ALWAYS" />
                               <MFXRadioButton fx:id="bfsButton" layoutX="270.0" layoutY="20.0" radius="10.0" text="BFS" toggleGroup="$pathGroup">
+                                 <font>
+                                    <Font name="Roboto" size="20.0" />
+                                 </font>
+                              </MFXRadioButton>
+                              <Region layoutX="44.0" layoutY="10.0" minWidth="30.0" HBox.hgrow="ALWAYS" />
+                              <MFXRadioButton fx:id="dijkstraButton" layoutX="270.0" layoutY="20.0" radius="10.0" text="Dijkstra" toggleGroup="$pathGroup">
                                  <font>
                                     <Font name="Roboto" size="20.0" />
                                  </font>
@@ -281,7 +289,7 @@
             <Insets left="15.0" right="15.0" />
          </padding>
       </HBox>
-      <VBox fx:id="menuBar" layoutX="10.0" layoutY="10.0" maxHeight="825.0" maxWidth="-Infinity" prefHeight="825.0" prefWidth="250.0" style="-fx-background-color: #001A3C;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="75.0">
+      <VBox fx:id="menuBar" layoutX="10.0" layoutY="10.0" maxHeight="825.0" maxWidth="-Infinity" prefHeight="825.0" prefWidth="250.0" style="-fx-background-color: #001A3C;" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="75.0">
          <children>
             <MFXButton fx:id="menuBarHome" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text=" Home" textFill="#f1f1f1">
                <graphic>
@@ -356,6 +364,23 @@
                   <ImageView fx:id="databaseI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
                      <image>
                         <Image url="@../images/folder-tree.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Roboto" size="18.0" />
+               </font>
+            </MFXButton>
+            <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+               <VBox.margin>
+                  <Insets left="25.0" />
+               </VBox.margin>
+            </Line>
+            <MFXButton fx:id="menuBarAbout" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="About" textFill="#f1f1f1">
+               <graphic>
+                  <ImageView fx:id="aboutI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../images/abouticon.png" />
                      </image>
                   </ImageView>
                </graphic>
