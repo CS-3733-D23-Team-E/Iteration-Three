@@ -97,14 +97,16 @@ public class ButtonUtilities {
           btn.setStyle(
               "-fx-background-color: #f1f1f1; -fx-alignment: "
                   + alignment
-                  + "; -fx-border-color: #001A3C; -fx-border-width: 0; -fx-font-size: 18;");
-          btn.setTextFill(Color.web("#192d5aff", 1.0));
+                  + "; -fx-border-color: #012d5a; -fx-border-width: 0; -fx-font-size: 18;");
+          btn.setTextFill(Color.web("#012d5a", 1.0));
           pic.setImage(hPic);
         });
     btn.setOnMouseExited(
         event -> {
           btn.setStyle(
-              "-fx-background-color: #001A3C; -fx-alignment: " + alignment + ";-fx-font-size: 18;");
+              "-fx-background-color:  #012d5a; -fx-alignment: "
+                  + alignment
+                  + ";-fx-font-size: 18;");
           btn.setTextFill(Color.web("#f1f1f1", 1.0));
           pic.setImage(uPic);
         });
@@ -140,12 +142,12 @@ public class ButtonUtilities {
     btn.setOnMouseEntered(
         event -> {
           btn.setStyle(
-              "-fx-background-color: #f1f1f1; -fx-alignment: top-left; -fx-border-color:  #001A3C; -fx-border-width: 3;");
-          btn.setTextFill(Color.web("#192d5aff", 1.0));
+              "-fx-background-color: #f1f1f1; -fx-alignment: top-left; -fx-border-color:  #012d5a; -fx-border-width: 3;");
+          btn.setTextFill(Color.web("#012d5a", 1.0));
         });
     btn.setOnMouseExited(
         event -> {
-          btn.setStyle("-fx-background-color:#001A3C; -fx-alignment: top-left;");
+          btn.setStyle("-fx-background-color:#012d5a; -fx-alignment: top-left;");
           btn.setTextFill(Color.web("#f1f1f1", 1.0));
         });
   }

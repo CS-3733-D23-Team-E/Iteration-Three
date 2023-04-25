@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import net.kurobako.gesturefx.GesturePane?>
+
+<AnchorPane prefHeight="825.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox layoutX="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TabPane fx:id="tabPane" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMaxWidth="180.0" tabMinHeight="30.0" tabMinWidth="130.0">
+               <tabs>
+                  <Tab fx:id="lowerLevelTwoTab" text="Lower Level 2">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <GesturePane maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <AnchorPane fx:id="mapPaneLowerTwo" minWidth="1500.0">
+                                       <children>
+                                          <ImageView fx:id="mapImageLowerTwo" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                             <image>
+                                                <Image url="@../../maps/00_thelowerlevel2.png" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                          </ImageView>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </GesturePane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="lowerLevelOneTab" text="Lower Level 1">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <GesturePane maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <AnchorPane fx:id="mapPaneLowerOne" minWidth="1500.0">
+                                       <children>
+                                          <ImageView fx:id="mapImageLowerOne" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                             <image>
+                                                <Image url="@../../maps/00_thelowerlevel1.png" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                          </ImageView>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </GesturePane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="floorOneTab" text="Floor 1">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <GesturePane maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <AnchorPane fx:id="mapPaneOne" minWidth="1500.0">
+                                       <children>
+                                          <ImageView fx:id="mapImageOne" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../maps/01_thefirstfloor.png" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                          </ImageView>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </GesturePane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="floorTwoTab" text="Floor 2">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <GesturePane maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <AnchorPane fx:id="mapPaneTwo" minWidth="1500.0">
+                                       <children>
+                                          <ImageView fx:id="mapImageTwo" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                             <image>
+                                                <Image url="@../../maps/02_thesecondfloor.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </GesturePane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="floorThreeTab" text="Floor 3">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <GesturePane maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <AnchorPane fx:id="mapPaneThree" minWidth="1500.0">
+                                       <children>
+                                          <ImageView fx:id="mapImageThree" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                             <image>
+                                                <Image url="@../../maps/03_thethirdfloor.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </GesturePane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+            <AnchorPane fx:id="sidebar" prefWidth="460.0">
+               <children>
+                  <VBox fx:id="editNodeView" alignment="TOP_CENTER" layoutX="193.0" layoutY="5.0" spacing="20.0" style="-fx-background-color: #F1F1F1;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                     <children>
+                        <Text fx:id="editPageText" strokeType="OUTSIDE" strokeWidth="0.0" text="Move:">
+                           <font>
+                              <Font size="32.0" />
+                           </font>
+                        </Text>
+                        <Label fx:id="moveDescription" text="Something on floor blah to  to something on floor bleh" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
+                     </padding>
+                     <effect>
+                        <DropShadow offsetX="4.0" offsetY="4.0">
+                           <color>
+                              <Color opacity="0.25" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </VBox>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
