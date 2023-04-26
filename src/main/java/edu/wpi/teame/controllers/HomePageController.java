@@ -76,7 +76,7 @@ public class HomePageController {
   @FXML ImageView signageI;
   @FXML ImageView pathfindingI;
   @FXML ImageView databaseI;
-@FXML ImageView settingsI;
+  @FXML ImageView settingsI;
   @FXML ImageView exitI;
   @FXML MFXButton menuBarSettings;
 
@@ -277,8 +277,6 @@ public class HomePageController {
         event -> {
           translateToSpanish(String.valueOf(announcementString));
         });*/
-
-
 
     englishButton.setOnMouseClicked(
         event -> {
