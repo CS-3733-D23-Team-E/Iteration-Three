@@ -100,6 +100,11 @@ public class MovePreviewController {
               AnchorPane newPane = (AnchorPane) newTab.getContent();
               GesturePane newGesture = (GesturePane) newPane.getChildren().get(0);
               adjustGesture(oldGesture, newGesture);
+              if (node1Selected) {
+                renderNodeArrow(toNode2Arrow, toNode1Arrow);
+              } else {
+                renderNodeArrow(toNode1Arrow, toNode2Arrow);
+              }
             });
     initializeMapUtilities();
     currentFloor = Floor.LOWER_TWO;
