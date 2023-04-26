@@ -80,7 +80,7 @@ public class HomePageController {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy");
     String currentDateString = currentDate.format(format);
     // Format the current time as a string
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
     String currentTimeString = currentTime.format(formatter);
 
     // Print the current time as a string

@@ -13,6 +13,9 @@ import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.List;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -21,6 +24,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 public class ServiceRequestPageController {
 
@@ -141,7 +145,16 @@ public class ServiceRequestPageController {
 
     mouseSetup(logoutButton);
 
-    fillServiceRequestsFields();
+    Timeline timeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(1),
+                event -> {
+                  fillServiceRequestsFields();
+                }));
+
+    timeline.setCycleCount(Animation.INDEFINITE);
+    timeline.play();
   }
 
   public void logoutPopup(boolean bool) {
