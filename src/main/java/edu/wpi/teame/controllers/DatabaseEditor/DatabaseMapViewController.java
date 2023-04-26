@@ -18,9 +18,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.SearchableComboBox;
+import org.controlsfx.control.ToggleSwitch;
 
 public class DatabaseMapViewController {
 
@@ -59,8 +61,8 @@ public class DatabaseMapViewController {
 
   @FXML MFXButton addEdgeButton;
   @FXML MFXButton removeEdgeButton;
-  @FXML TableView<HospitalEdge> edgeView;
-  @FXML TableColumn<HospitalEdge, String> edgeColumn;
+  @FXML TableView<HospitalNode> edgeView;
+  @FXML TableColumn<HospitalNode, String> edgeColumn;
   @FXML SearchableComboBox<String> addEdgeField;
 
   @FXML TextField newLongNameField;
@@ -77,6 +79,8 @@ public class DatabaseMapViewController {
   @FXML ImageView mapImageOne; // Floor 1
   @FXML ImageView mapImageTwo; // Floor 2
   @FXML ImageView mapImageThree; // Floor 3
+  @FXML ToggleSwitch locationNameToggle;
+  boolean isLocationNamesDisplayed = false;
 
   Floor currentFloor;
   MapUtilities mapUtilityLowerTwo = new MapUtilities(mapPaneLowerTwo);
@@ -88,11 +92,12 @@ public class DatabaseMapViewController {
   private Circle currentCircle;
   private Label currentLabel;
 
-  List<HospitalEdge> edges = new LinkedList<>();
-  List<HospitalEdge> addList = new LinkedList<>();
-  List<HospitalEdge> deleteList = new LinkedList<>();
+  List<HospitalNode> edges = new LinkedList<>();
+  List<HospitalNode> addList = new LinkedList<>();
+  List<HospitalNode> deleteList = new LinkedList<>();
 
-  List<HospitalEdge> workingList = new LinkedList<>();
+  List<HospitalNode> workingList = new LinkedList<>();
+//  List<Label> allNodeLabels = new LinkedList<>();
 
   HospitalNode currNode;
 
@@ -358,6 +363,10 @@ public class DatabaseMapViewController {
     double newX = circle.getCenterX();
     double newY = circle.getCenterY();
 
+    Label currLabel = circleToLabelMap.get(circle);
+    currLabel.setLayoutX(newX);
+    currLabel.setLayoutY(newY);
+
     if (!updatedCircles.contains(circle)) {
       updatedCircles.add(circle);
     }
@@ -557,7 +566,6 @@ public class DatabaseMapViewController {
   }
 
   private final HashMap<Circle, HospitalNode> circleToHospitalNodeMap = new HashMap<>();
-  private final HashMap<Circle, LocationName> circleToLocationName = new HashMap<>();
 
   ArrayList<Circle> updatedCircles = new ArrayList<>();
 
@@ -614,7 +622,7 @@ public class DatabaseMapViewController {
               }
             });
 
-    edgeColumn.setCellValueFactory(new PropertyValueFactory<HospitalEdge, String>("nodeTwoID"));
+    edgeColumn.setCellValueFactory(new PropertyValueFactory<HospitalNode, String>("nodeID"));
 
     //    displayAddMenu();
   }
@@ -628,6 +636,15 @@ public class DatabaseMapViewController {
     currentCircle = null;
     currentLabel = null;
     displayAddMenu();
+  }
+
+  private void labelsVisibility(boolean visible) {
+    for (Label aLabel : circleToLabelMap.values()) {
+      aLabel.setVisible(visible);
+    }
+    if (currentLabel != null) {
+      currentLabel.setVisible(true);
+    }
   }
 
   private void deleteNode() {
@@ -657,10 +674,11 @@ public class DatabaseMapViewController {
         lineToEdgeMap.put(edgeLine, edge);
       }
     }
-
+//    allNodeLabels.clear();
     for (HospitalNode node : floorNodes) {
       setupNode(node);
     }
+    labelsVisibility(isLocationNamesDisplayed);
   }
 
   private void setupNode(HospitalNode node) {
@@ -672,11 +690,19 @@ public class DatabaseMapViewController {
     circleToHospitalNodeMap.put(nodeCircle, allNodes.get(nodeID));
 
     Label nodeLabel = currentMapUtility.drawHospitalNodeLabel(node);
+    nodeLabel.setStyle(
+        "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
+    nodeLabel.setFont(Font.font("Roboto", 6));
     nodeLabel.setVisible(false);
     circleToLabelMap.put(nodeCircle, nodeLabel);
 
     nodeCircle.setOnMouseClicked(event -> updateOnClick(nodeCircle));
     nodeCircle.setOnMouseDragged(event -> updateOnDrag(nodeCircle, event));
+    if (LocationName.NodeType.HALL
+        != LocationName.NodeType.stringToNodeType(
+            SQLRepo.INSTANCE.getNodeTypeFromNodeID(Integer.parseInt(node.getNodeID())))) {
+//      allNodeLabels.add(nodeLabel);
+    }
   }
 
   public void refreshMap() {
@@ -1071,9 +1097,9 @@ public class DatabaseMapViewController {
           if (edges.contains(addEdgeField.getValue())) {
             deleteList.remove(addEdgeField.getValue());
           } else { // if item is not in edge list, add to add list
-            addList.add(new HospitalEdge(currentCircle.getId(), addEdgeField.getValue()));
+            addList.add(allNodes.get(addEdgeField.getValue()));
           }
-          workingList.add(new HospitalEdge(currentCircle.getId(), addEdgeField.getValue()));
+          workingList.add(allNodes.get(addEdgeField.getValue()));
           // System.out.println("item added to working list!");
           // refresh the table
           refreshEdgeTable();
@@ -1096,19 +1122,15 @@ public class DatabaseMapViewController {
           removeLocation();
         });
     addLocationButton.setOnAction(event -> addLocationName());
+    locationNameToggle.setOnMouseClicked(
+        event -> {
+          isLocationNamesDisplayed = locationNameToggle.isSelected();
+          labelsVisibility(isLocationNamesDisplayed);
+        });
   }
 
   private void refreshEdgeTable() {
     edgeView.setItems(FXCollections.observableList(workingList));
-  }
-
-  private void edgeUpdateDatabase() {
-    for (HospitalEdge edgeAddition : addList) {
-      SQLRepo.INSTANCE.addEdge(edgeAddition);
-    }
-    for (HospitalEdge edgeDeletion : deleteList) {
-      SQLRepo.INSTANCE.deleteEdge(edgeDeletion);
-    }
   }
 
   private int makeNewNodeID() {

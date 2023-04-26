@@ -24,6 +24,7 @@
 <?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
 <?import org.controlsfx.control.SearchableComboBox?>
+<?import org.controlsfx.control.ToggleSwitch?>
 
 <AnchorPane prefHeight="825.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.DatabaseEditor.DatabaseMapViewController">
    <children>
@@ -598,5 +599,11 @@
             </StackPane>
          </children>
       </HBox>
+      <VBox alignment="CENTER" prefHeight="37.0" prefWidth="92.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0">
+         <children>
+            <Label text="Display Names" />
+            <ToggleSwitch fx:id="locationNameToggle" style="-fx-alignment: center;" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
