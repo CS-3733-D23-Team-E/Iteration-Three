@@ -78,6 +78,7 @@ public class HomePageController {
   @FXML ImageView settingsI;
   @FXML ImageView exitI;
   @FXML MFXButton menuBarSettings;
+  @FXML MFXButton menuBarHelp;
 
   Boolean loggedIn;
   String language = "english";
@@ -340,6 +341,9 @@ public class HomePageController {
     menuBarSignage.setText("Se" + nyay + "alizaci" + aO + "n"); // Signage
     menuBarMaps.setText("Navegaci" + aO + "n"); // Pathfinding
     menuBarDatabase.setText("Base de Datos"); // Database
+    menuBarAbout.setText("Sobre"); // About
+    menuBarHelp.setText("Ayudar"); // Help
+    menuBarSettings.setText("Configuraci" + aO + "n"); // Settings
     menuBarExit.setText(("Salida")); // Exit
 
     // Home Page Buttons
@@ -365,6 +369,10 @@ public class HomePageController {
     logoutButton.setText("Cerrar Sesi" + aO + "n"); // Logout
     Font spanishLogout = new Font("Roboto", 13);
     logoutButton.setFont(spanishLogout);
+
+    // Submit Button and Box
+    alertSubmitButton.setText("Presentar"); // Submit
+    alertTextBox.setPromptText("Texto de Alerta Aqu" + aI); // Alert Text Here
   }
 
   public void translateToEnglish(String announcmentString) {
@@ -377,6 +385,9 @@ public class HomePageController {
     menuBarSignage.setText("Signage"); // Keep in English
     menuBarMaps.setText("Pathfinding"); // Keep in English
     menuBarDatabase.setText("Database"); // Keep in English
+    menuBarAbout.setText("About"); // Keep ion English
+    menuBarHelp.setText("Help"); // Keep in English
+    menuBarSettings.setText("Settings"); // Keep in English
     menuBarExit.setText(("Exit")); // Keep in English
 
     // Home Page Buttons

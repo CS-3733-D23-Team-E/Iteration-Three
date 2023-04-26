@@ -86,12 +86,22 @@ public class MapController {
   @FXML ImageView pathfindingI;
   @FXML ImageView databaseI;
   @FXML ImageView exitI;
+  @FXML MFXButton menuBarAbout;
+  @FXML MFXButton menuBarHelp;
+  @FXML MFXButton menuBarSettings;
   boolean menuVisibilty = false;
   boolean disableLabel = false;
   boolean isPathDisplayed = false;
   boolean areLabelsCreated = false;
   boolean widthLoaded = false;
   boolean heightLoaded = false;
+  String nyay = "\u00F1"; // �
+  String aA = "\u0301"; // �
+  String aE = "\u00E9"; // �
+  String aI = "\u00ED"; // �
+  String aO = "\u00F3"; // �
+  String aU = "\u00FA"; // �
+  String aQuestion = "\u00BF"; // Upside down question mark
   Floor currentFloor = Floor.LOWER_TWO;
   String language;
   Circle currentCircle = new Circle();
@@ -813,7 +823,9 @@ public class MapController {
     menuBarMaps.setText("Navegaci" + Settings.INSTANCE.aO + "n"); // Pathfinding
     menuBarDatabase.setText("Base de Datos"); // Database
     menuBarExit.setText(("Salida")); // Exit
-
+    menuBarAbout.setText("Sobre"); // About
+    menuBarHelp.setText("Ayudar"); // Help
+    menuBarSettings.setText("Configuraci" + aO + "n"); // Settings
     startButton.setText("Comenzar"); // Start
 
     // Map Tabs
@@ -841,6 +853,9 @@ public class MapController {
     menuBarSignage.setText("Signage"); // Keep in English
     menuBarMaps.setText("Pathfinding"); // Keep in English
     menuBarDatabase.setText("Database"); // Keep in English
+    menuBarAbout.setText("About"); // Keep ion English
+    menuBarHelp.setText("Help"); // Keep in English
+    menuBarSettings.setText("Settings"); // Keep in English
     menuBarExit.setText(("Exit")); // Keep in English
 
     startButton.setText("Start"); // Start
