@@ -106,6 +106,7 @@ public class Directions {
 
   public void setAttributes(HBox hBox) {
     Image icon = null;
+    Floor nextFloor;
     String directionsText = "In " + distance + "ft ";
     switch (this.turnType) {
       case START:
@@ -134,16 +135,28 @@ public class Directions {
         directionsText += "continue straight.";
         break;
       case ELEVATOR:
+        nextFloor = path.get(index + 1).getFloor();
         icon = new Image(String.valueOf(Main.class.getResource("images/elevator.png")));
-        directionsText +=
-            "take the elevator to floor "
-                + Floor.floorToString(path.get(index + 1).getFloor())
-                + ".";
+        if (currentNode.getFloor() != nextFloor) {
+          directionsText +=
+              "take the elevator to floor "
+                  + Floor.floorToString(path.get(index + 1).getFloor())
+                  + ".";
+        } else {
+          directionsText = "Floor " + Floor.floorToString(nextFloor);
+        }
         break;
       case STAIRS:
+        nextFloor = path.get(index + 1).getFloor();
         icon = new Image(String.valueOf(Main.class.getResource("images/stairs.png")));
-        directionsText +=
-            "take the stairs to floor " + Floor.floorToString(path.get(index + 1).getFloor()) + ".";
+        if (currentNode.getFloor() != nextFloor) {
+          directionsText +=
+              "take the stairs to floor "
+                  + Floor.floorToString(path.get(index + 1).getFloor())
+                  + ".";
+        } else {
+          directionsText = "Floor " + Floor.floorToString(nextFloor);
+        }
         break;
       case ERROR:
         icon = new Image(String.valueOf(Main.class.getResource("images/interrogation.png")));
