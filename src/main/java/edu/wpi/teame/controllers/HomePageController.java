@@ -71,7 +71,6 @@ public class HomePageController {
   @FXML MFXButton englishButton;
   @FXML MFXButton spanishButton;
   @FXML ImageView aboutI;
-
   @FXML ImageView servicesI;
   @FXML ImageView signageI;
   @FXML ImageView pathfindingI;

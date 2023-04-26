@@ -430,7 +430,7 @@
                                           </ImageView>
                                        </graphic>
                                     </MFXButton>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spanish">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Español">
                                        <font>
                                           <Font name="Roboto" size="18.0" />
                                        </font>
