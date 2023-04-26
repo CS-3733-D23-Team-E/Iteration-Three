@@ -81,7 +81,7 @@
                                     <Font name="Roboto" size="24.0" />
                                  </font>
                               </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Albert Lewis - Assistant LEad Front-End Developer">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Albert Lewis - Assistant Lead Front-End Developer">
                                  <font>
                                     <Font name="Roboto" size="24.0" />
                                  </font>
@@ -334,7 +334,7 @@
                      <graphic>
                         <ImageView fx:id="settingsI" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
                            <image>
-                              <Image url="@../images/settings.png" />
+                              <Image url="@../images/settingsicon.png" />
                            </image>
                         </ImageView>
                      </graphic>
