@@ -1,7 +1,6 @@
 package edu.wpi.teame.utilities;
 
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.map.HospitalNode;
 import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.map.MoveAttribute;
 import java.text.ParseException;
@@ -9,13 +8,13 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class MoveUtilities {
   Date today;
   SimpleDateFormat formatter;
+
+  HashMap<String, LocalDate> dateHashMap;
 
   public MoveUtilities() {
     today = new Date();
@@ -177,14 +176,74 @@ public class MoveUtilities {
    * @return
    */
   public String formatToday() {
-    return formatter.format(today);
+    return formatDate(today);
   }
 
-  public HospitalNode getNodeFromMove(int id) {
-    return SQLRepo.INSTANCE.getNodeList().stream()
-        .filter(move -> Integer.parseInt(move.getNodeID()) == id)
-        .toList()
-        .get(0);
+  /**
+   * formats date into the formatter's form (YYYY-MM-DD)
+   *
+   * @return
+   */
+  public String formatDate(Date date) {
+    return formatter.format(date);
+  }
+
+  public HashMap<String, String> getMapForDate(LocalDate date) {
+    HashMap<String, String> map = new HashMap<>();
+    dateHashMap = new HashMap<>();
+    for (MoveAttribute move : SQLRepo.INSTANCE.getMoveList()) {
+      if (date.compareTo(LocalDate.parse(move.getDate())) < 0)
+        // Move hasn't happened yet
+        continue;
+      if (dateHashMap.containsKey(move.getLongName())) {
+        if (dateHashMap.get(move.getLongName()).compareTo(LocalDate.parse(move.getDate())) < 0) {
+          // Move is more recent than one already in the map, remove the old one
+          dateHashMap.remove(move.getLongName());
+          map.remove(move.getLongName());
+        }
+      }
+      dateHashMap.put(move.getLongName(), LocalDate.parse(move.getDate()));
+      map.put(move.getLongName(), move.getNodeID() + "");
+    }
+    return map;
+  }
+
+  public HashMap<String, String> invertHashMap(HashMap<String, String> map) {
+    HashMap<String, String> invertedMap = new HashMap<>();
+    for (Map.Entry<String, String> entry : map.entrySet()) {
+      if (invertedMap.containsKey(entry.getValue())) {
+        if (dateHashMap
+                .get(invertedMap.get(entry.getValue()))
+                .compareTo(dateHashMap.get(entry.getKey()))
+            < 0) {
+          // Move is more recent than one already in the map, remove the old one
+          dateHashMap.remove(entry.getValue());
+          invertedMap.remove(entry.getValue());
+        } else
+          continue; // Move is less recent than one already in the map, ignore it (don't add it)
+      }
+      invertedMap.put(entry.getValue(), entry.getKey());
+    }
+    return invertedMap;
+  }
+
+  public int daysCompareMove(String longName, LocalDate date) {
+    int days = Integer.MAX_VALUE;
+    List<MoveAttribute> movesForNode =
+        SQLRepo.INSTANCE.getMoveList().stream()
+            .filter(move -> (move.getLongName()).equals(longName))
+            .toList();
+    for (MoveAttribute move : movesForNode) {
+      if (Math.abs(date.until(LocalDate.parse(move.getDate())).getDays()) < Math.abs(days))
+        days = date.until(LocalDate.parse(move.getDate())).getDays();
+    }
+    return days;
+  }
+
+  public static void main(String[] args) {
+    MoveUtilities moveUtilities = new MoveUtilities();
+    System.out.println();
+    System.out.println(moveUtilities.daysCompareMove("CART Waiting", LocalDate.now()));
   }
 
   ////////////////// Setters (sending new move data to database) ///////////////////////
