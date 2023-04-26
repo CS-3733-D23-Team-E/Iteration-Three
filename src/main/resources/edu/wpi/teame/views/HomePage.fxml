@@ -4,6 +4,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXListView?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -183,7 +185,7 @@
                                     <graphic>
                                         <ImageView fx:id="settingsI" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
                                             <image>
-                                                <Image url="@../images/settings.png" />
+                                                <Image url="@../images/settingsicon.png" />
                                             </image>
                                         </ImageView>
                                     </graphic>
@@ -219,43 +221,6 @@
                                 <Insets top="75.0" />
                             </StackPane.margin>
                         </VBox>
-                        <StackPane maxHeight="150.0" maxWidth="1030.0" prefHeight="150.0" prefWidth="1030.0" StackPane.alignment="TOP_CENTER">
-                            <children>
-                                <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#f1f1f1" height="150.0" stroke="#001a3c" strokeType="INSIDE" strokeWidth="5.0" width="1234.0" StackPane.alignment="TOP_CENTER">
-                                    <StackPane.margin>
-                                        <Insets />
-                                    </StackPane.margin>
-                                </Rectangle>
-                                <Text fx:id="todayIsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Today is...." StackPane.alignment="TOP_LEFT">
-                                    <StackPane.margin>
-                                        <Insets left="20.0" top="20.0" />
-                                    </StackPane.margin>
-                                    <font>
-                                        <Font name="Roboto Italic" size="24.0" />
-                                    </font>
-                                </Text>
-                                <HBox alignment="BOTTOM_LEFT" maxHeight="75.0" prefHeight="100.0" prefWidth="200.0" spacing="300.0" StackPane.alignment="CENTER_LEFT">
-                                    <children>
-                                        <Text fx:id="dateText" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
-                                            <font>
-                                                <Font name="Roboto Bold" size="48.0" />
-                                            </font>
-                                        </Text>
-                                        <Text fx:id="timeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Time">
-                                            <font>
-                                                <Font name="Roboto Bold" size="48.0" />
-                                            </font>
-                                        </Text>
-                                    </children>
-                                    <StackPane.margin>
-                                        <Insets left="150.0" />
-                                    </StackPane.margin>
-                                </HBox>
-                            </children>
-                            <StackPane.margin>
-                                <Insets top="150.0" />
-                            </StackPane.margin>
-                        </StackPane>
                         <HBox maxHeight="550.0" maxWidth="1230.0" prefHeight="550.0" prefWidth="200.0" spacing="38.0" StackPane.alignment="TOP_CENTER">
                             <children>
                                 <StackPane prefHeight="150.0" prefWidth="200.0">
@@ -381,6 +346,109 @@
                         </VBox>
                     </children>
                 </StackPane>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="40.0" AnchorPane.leftAnchor="340.0" AnchorPane.topAnchor="125.0">
+               <children>
+                        <StackPane maxHeight="150.0" maxWidth="600.0" prefHeight="150.0" prefWidth="644.0">
+                            <children>
+                                <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#f1f1f1" height="150.0" stroke="#001a3c" strokeType="INSIDE" strokeWidth="5.0" width="600.0" StackPane.alignment="TOP_CENTER">
+                                    <StackPane.margin>
+                                        <Insets />
+                                    </StackPane.margin>
+                                </Rectangle>
+                                <Text fx:id="todayIsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Today is...." StackPane.alignment="TOP_LEFT">
+                                    <StackPane.margin>
+                                        <Insets left="20.0" top="20.0" />
+                                    </StackPane.margin>
+                                    <font>
+                                        <Font name="Roboto Italic" size="24.0" />
+                                    </font>
+                                </Text>
+                                <HBox alignment="BOTTOM_LEFT" maxHeight="75.0" maxWidth="600.0" prefHeight="75.0" prefWidth="529.0" spacing="150.0" StackPane.alignment="CENTER_LEFT">
+                                    <children>
+                                        <Text fx:id="dateText" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+                                            <font>
+                                                <Font name="Roboto Bold" size="36.0" />
+                                            </font>
+                                        </Text>
+                                        <Text fx:id="timeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Time">
+                                            <font>
+                                                <Font name="Roboto Bold" size="36.0" />
+                                            </font>
+                                        </Text>
+                                    </children>
+                                    <StackPane.margin>
+                                        <Insets left="75.0" />
+                                    </StackPane.margin>
+                                </HBox>
+                            </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                        </StackPane>
+                  <StackPane maxHeight="150.0" maxWidth="600.0" prefHeight="150.0" prefWidth="644.0">
+                     <children>
+                        <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#f1f1f1" height="150.0" stroke="#001a3c" strokeType="INSIDE" strokeWidth="5.0" width="600.0" StackPane.alignment="TOP_CENTER">
+                           <StackPane.margin>
+                              <Insets />
+                           </StackPane.margin>
+                        </Rectangle>
+                        <HBox maxHeight="150.0" maxWidth="600.0" prefHeight="150.0" prefWidth="600.0" spacing="50.0" StackPane.alignment="CENTER">
+                           <children>
+                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                                 <children>
+                                    <MFXButton fx:id="englishButton" contentDisplay="GRAPHIC_ONLY" depthLevel="LEVEL4" maxWidth="100.0" minWidth="150.0" prefHeight="60.0" prefWidth="100.0">
+                                       <graphic>
+                                          <ImageView fitHeight="70.0" fitWidth="140.0" pickOnBounds="true">
+                                             <image>
+                                                <Image url="@../images/800px-Flag_of_the_United_States_(Pantone).svg.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <effect>
+                                          <DropShadow height="50.31" radius="17.3275" spread="0.71">
+                                             <color>
+                                                <Color red="0.12156862765550613" green="0.12156862765550613" blue="0.12156862765550613" opacity="0.5" />
+                                             </color>
+                                          </DropShadow>
+                                       </effect>
+                                    </MFXButton>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="English (U.S)">
+                                       <font>
+                                          <Font name="Roboto" size="18.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                                 <children>
+                                    <MFXButton fx:id="spanishButton" contentDisplay="GRAPHIC_ONLY" depthLevel="LEVEL4" maxWidth="100.0" minWidth="150.0" prefHeight="60.0" prefWidth="100.0">
+                                       <graphic>
+                                          <ImageView fitHeight="70.0" fitWidth="140.0" pickOnBounds="true">
+                                             <image>
+                                                <Image url="@../images/spainish.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </MFXButton>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spanish">
+                                       <font>
+                                          <Font name="Roboto" size="18.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets left="70.0" top="20.0" />
+                           </padding>
+                           <StackPane.margin>
+                              <Insets left="50.0" top="10.0" />
+                           </StackPane.margin>
+                        </HBox>
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
             </children>
         </AnchorPane>
     </center>

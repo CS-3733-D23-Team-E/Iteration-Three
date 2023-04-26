@@ -3,6 +3,7 @@ package edu.wpi.teame.controllers;
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.entities.AlertData;
 import edu.wpi.teame.entities.LoginData;
+import edu.wpi.teame.entities.Settings;
 import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
@@ -15,14 +16,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public class HomePageController {
   @FXML MFXButton serviceRequestButton;
@@ -50,6 +57,8 @@ public class HomePageController {
   // @FXML MFXButton announcementButton;
   // @FXML Text announcementText;
   // @FXML MFXTextField announcementTextBox;
+  @FXML Text todayIsText;
+  @FXML Text alertText;
 
   @FXML MFXButton alertSubmitButton;
 
@@ -59,19 +68,17 @@ public class HomePageController {
   @FXML MFXButton logoutButton;
   @FXML MFXButton userButton;
   @FXML ImageView homeI;
-
+  @FXML MFXButton englishButton;
+  @FXML MFXButton spanishButton;
   @FXML ImageView aboutI;
 
   @FXML ImageView servicesI;
   @FXML ImageView signageI;
   @FXML ImageView pathfindingI;
   @FXML ImageView databaseI;
-
+@FXML ImageView settingsI;
   @FXML ImageView exitI;
-  @FXML MFXButton spanishButton;
-  @FXML MFXButton englishButton;
-  @FXML Text todayIsText;
-  @FXML Text alertText;
+  @FXML MFXButton menuBarSettings;
 
   Boolean loggedIn;
   String language = "english";
@@ -91,6 +98,15 @@ public class HomePageController {
   List<AlertData> alerts;
 
   public void initialize() {
+
+    DropShadow dropShadow = new DropShadow();
+    dropShadow.setRadius(10);
+    dropShadow.setSpread(.71);
+    dropShadow.setWidth(21);
+    dropShadow.setHeight(50);
+    Color paint = new Color(0.0, 0.6175, 0.65, 0.5);
+
+    englishButton.setEffect(dropShadow);
     LocalTime currentTime = LocalTime.now();
     LocalDate currentDate = LocalDate.now();
 
@@ -116,7 +132,7 @@ public class HomePageController {
     menuBarServices.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUESTS));
     menuBarHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-
+    menuBarSettings.setOnMouseClicked(event -> Navigation.navigate(Screen.SETTINGS));
     menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate((Screen.DATABASE_TABLEVIEW)));
     menuBarExit.setOnMouseClicked(event -> Platform.exit());
 
@@ -145,7 +161,11 @@ public class HomePageController {
           SQLRepo.INSTANCE.exitDatabaseProgram();
         });
 
-    alertSubmitButton.setOnMouseClicked(event -> setAlert());
+    alertSubmitButton.setOnMouseClicked(
+        event -> {
+          setAlert();
+          alertTextBox.clear();
+        });
 
     // Initially set the menu bar to invisible
     menuBarVisible(false);
@@ -210,6 +230,12 @@ public class HomePageController {
     ButtonUtilities.mouseSetupMenuBar(
         menuBarAbout, "baseline-left", aboutI, "images/abouticon.png", "images/abouticon-blue.png");
     ButtonUtilities.mouseSetupMenuBar(
+        menuBarSettings,
+        "baseline-left",
+        settingsI,
+        "images/settingsicon.png",
+        "images/settingsicon-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
         menuBarExit,
         "baseline-center",
         exitI,
@@ -223,6 +249,25 @@ public class HomePageController {
     ButtonUtilities.mouseSetup(databaseButton);
     ButtonUtilities.mouseSetup(logoutButton);
 
+    Timeline timeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(1),
+                event -> {
+                  LocalTime now = LocalTime.now();
+                  String formattedTime = now.format(formatter);
+                  timeText.setText(formattedTime);
+                  fillAlertList();
+                  if (Settings.INSTANCE.getLanguage() == Settings.Language.ENGLISH) {
+                    translateToEnglish(String.valueOf(announcementString));
+                  } else if (Settings.INSTANCE.getLanguage() == Settings.Language.SPANISH) {
+                    translateToSpanish(String.valueOf(announcementString));
+                  }
+                }));
+
+    timeline.setCycleCount(Animation.INDEFINITE);
+    timeline.play();
+
     // Page Language Translation Code (commented out until connected to the instance)
     /*englishButton.setOnMouseClicked(
         event -> {
@@ -232,16 +277,22 @@ public class HomePageController {
         event -> {
           translateToSpanish(String.valueOf(announcementString));
         });*/
-    if (language.equals("english")) {
-      translateToEnglish(String.valueOf(announcementString));
-    } else if (language.equals("spanish")) {
-      translateToSpanish(String.valueOf(announcementString));
-    } else // throw error for language not being a valid language
-    {
-      // throw some sort of error here at some point
-    }
 
-    fillAlertList();
+
+
+    englishButton.setOnMouseClicked(
+        event -> {
+          Settings.INSTANCE.setLanguage(Settings.Language.ENGLISH);
+          englishButton.setEffect(dropShadow);
+          spanishButton.setEffect(null);
+        });
+    spanishButton.setOnMouseClicked(
+        event -> {
+          Settings.INSTANCE.setLanguage(Settings.Language.SPANISH);
+          spanishButton.setEffect(dropShadow);
+          englishButton.setEffect(null);
+        });
+    // throw error for language not being a valid language
   }
 
   public void attemptLogin() {
@@ -276,7 +327,7 @@ public class HomePageController {
     menuBarDatabase.setVisible(bool);
 
     menuBarAbout.setVisible(bool);
-
+    menuBarSettings.setVisible(bool);
     menuBarExit.setVisible(bool);
     menuBarBlank.setVisible(bool);
     menuBar.setVisible(bool);
@@ -304,7 +355,7 @@ public class HomePageController {
     todayIsText.setText("Hoy es..."); // Today is...
 
     // Announcements Bar
-    alertText.setText("Anuncios"); // Announcements
+    alertText.setText("Alertas"); // Alerts
     /*if (announcmentString.equals("")) { // Do this if there are currently no announcements
       announcementText.setText("No hay nuevos anuncios."); // No new announcements.
     }
@@ -341,11 +392,8 @@ public class HomePageController {
     todayIsText.setText("Today is..."); // Keep in English
 
     // Announcements Bar
-    alertText.setText("Announcements"); // Keep in English
-    if (announcmentString.equals("")) { // Do this if there are currently no announcements
-      alertText.setText("No new announcements."); // Keep in English
-    }
-    // announcementTextBox.setPromptText("Announcement Text Here"); // Keep in English
+    alertText.setText("Alerts"); // Keep in English
+
     // announcementButton.setText("Submit"); // Keep in English
 
     // Logout Button

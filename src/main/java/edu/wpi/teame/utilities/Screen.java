@@ -19,6 +19,7 @@ public enum Screen {
   DATABASE_SERVICEVIEW("views/DatabaseEditor/DatabaseServiceRequestView.fxml"),
   DATABASE_EMPLOYEEVIEW("views/DatabaseEditor/DatabaseEmployeeView.fxml"),
   ABOUT("views/AboutPage.fxml"),
+  SETTINGS("views/SettingsPage.fxml"),
   CREDITS("views/CreditsPage.fxml");
 
   private final String filename;
