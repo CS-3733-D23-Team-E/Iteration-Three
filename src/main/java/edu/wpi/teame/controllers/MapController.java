@@ -318,6 +318,12 @@ public class MapController {
       y2 = node.getYCoord();
 
       Floor newFloor = node.getFloor();
+      if (newFloor != currentFloor) {
+        Floor oldFloor = currentFloor;
+        currentFloor = newFloor;
+        currentMapUtility = whichMapUtility(currentFloor);
+      }
+
       // Only draw a line between nodes if the current floor is the same as the new floor
       if (newFloor == currentFloor) {
         currentMapUtility.drawStyledLine(x1, y1, x2, y2);
