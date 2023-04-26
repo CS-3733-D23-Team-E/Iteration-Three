@@ -75,6 +75,8 @@ public class MovePreviewController {
   List<Node> toNode2Arrow;
   List<Node> toNode1Arrow;
 
+  boolean node1Selected = true;
+
   public MovePreviewController(
       HospitalNode node1, HospitalNode node2, String name1, String name2, boolean bidirectional) {
     this.node1 = node1;
@@ -236,14 +238,24 @@ public class MovePreviewController {
         if (node2.getFloor().equals(currentFloor)) {
           setupNode(node2, name2);
         } else {
-          whichMapUtility(currentFloor)
-              .drawHospitalNodeLabel(node2, "Moved to floor: " + node2.getFloor());
+          String nodeLabel = "";
+          if (node1Selected || !bidirectional) {
+            nodeLabel = "Moved to floor " + node2.getFloor();
+          } else {
+            nodeLabel = "Moved from floor " + node2.getFloor();
+          }
+          whichMapUtility(currentFloor).drawHospitalNodeLabel(node2, nodeLabel);
         }
       } else {
         // draw phantom label for node 1
         setupNode(node2, name2);
-        whichMapUtility(currentFloor)
-            .drawHospitalNodeLabel(node1, "Moved to floor: " + node1.getFloor());
+        String nodeLabel = "";
+        if (node1Selected || !bidirectional) {
+          nodeLabel = "Moved from floor " + node1.getFloor();
+        } else {
+          nodeLabel = "Moved to floor " + node1.getFloor();
+        }
+        whichMapUtility(currentFloor).drawHospitalNodeLabel(node1, nodeLabel);
       }
     }
   }
@@ -262,7 +274,10 @@ public class MovePreviewController {
     for (int i = 0; i < path.size(); i++) {
 
       HospitalNode currentNode = path.get(i);
-      String destination = i == 0 ? name1 : name2;
+      String destination =
+          i == 0
+              ? (name1 + " to node " + node2.getNodeID())
+              : (bidirectional ? (name2 + " to node " + node1.getNodeID()) : name2);
       System.out.println(destination);
 
       // Line
@@ -358,8 +373,10 @@ public class MovePreviewController {
             System.out.println("currentCircle: " + currentCircle);
             System.out.println("Node List: " + nodeList);
             if (currentNode.equals(node1)) {
+              node1Selected = true;
               renderNodeArrow(toNode2Arrow, toNode1Arrow);
             } else {
+              node1Selected = false;
               renderNodeArrow(toNode1Arrow, toNode2Arrow);
             }
 
