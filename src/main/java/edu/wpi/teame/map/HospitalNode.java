@@ -4,6 +4,7 @@ import static java.util.Objects.hash;
 
 import java.util.*;
 import lombok.Getter;
+import lombok.Setter;
 
 public class HospitalNode {
   public static HashMap<String, HospitalNode> allNodes = new HashMap<>();
@@ -13,10 +14,10 @@ public class HospitalNode {
 
   @Getter String nodeID;
 
-  @Getter int xCoord;
-  @Getter int yCoord;
-  @Getter Floor floor;
-  @Getter String building;
+  @Setter @Getter int xCoord;
+  @Setter @Getter int yCoord;
+  @Setter @Getter Floor floor;
+  @Setter @Getter String building;
 
   public HospitalNode(String id, int xCoord, int yCoord, Floor floor, String building) {
     this.neighbors = new LinkedList<HospitalNode>();
