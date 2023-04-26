@@ -1,15 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="825.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.DatabaseEditor.DatabaseEditorController">
    <children>
-      <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox>
          <children>
-            <fx:include fx:id="tableView" source="DatabaseTableView.fxml" />
-            <fx:include fx:id="mapView" source="DatabaseMapView.fxml" />
+            <VBox fx:id="sidebar" alignment="TOP_CENTER" minWidth="-Infinity" prefWidth="225.0" spacing="20.0" style="-fx-background-color: #f1f1f1;">
+               <children>
+                  <Label fx:id="editorTitle" text="Choose Editor">
+                     <font>
+                        <Font name="Roboto" size="36.0" />
+                     </font>
+                  </Label>
+                  <Line endX="125.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="tableEditorSwapButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: #001A3C;" text="Table Editor" textFill="WHITE">
+                     <font>
+                        <Font name="Roboto" size="16.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="mapEditorSwapButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: #001A3C;" text="Map Editor" textFill="WHITE">
+                     <font>
+                        <Font name="Roboto" size="16.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="moveEditorSwapButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: #001A3C;" text="Move Editor" textFill="WHITE">
+                     <font>
+                        <Font name="Roboto" size="16.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="requestsEditorSwapButton" layoutX="48.0" layoutY="106.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: #001A3C;" text="Requests Editor" textFill="WHITE">
+                     <font>
+                        <Font name="Roboto" size="16.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="employeeEditorSwapButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: #001A3C;" text="Employee Editor" textFill="WHITE">
+                     <font>
+                        <Font name="Roboto" size="16.0" />
+                     </font>
+                  </MFXButton>
+                  <VBox fx:id="importExportZone" alignment="TOP_CENTER" spacing="20.0">
+                     <children>
+                        <Line endX="125.0" />
+                        <MFXButton fx:id="importButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: #001A3C;" text="Import" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto" size="16.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="exportButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: #001A3C;" text="Export" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto" size="16.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="100.0" />
+                  <VBox alignment="TOP_CENTER" spacing="20.0">
+                     <children>
+                        <Line endX="125.0" />
+                        <MFXButton fx:id="backButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: #001A3C;" text="Back to Home" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto" size="16.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </VBox>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+            <StackPane>
+               <children>
+                  <fx:include fx:id="moveView" source="MoveComponent.fxml" />
+                  <fx:include fx:id="tableView" source="DatabaseTableView.fxml" />
+                  <fx:include fx:id="mapView" source="DatabaseMapView.fxml" />
+                  <fx:include fx:id="serviceView" source="DatabaseServiceRequestView.fxml" />
+                  <fx:include fx:id="employeeView" source="DatabaseEmployeeView.fxml" />
+               </children>
+            </StackPane>
          </children>
-      </StackPane>
+      </HBox>
    </children>
 </AnchorPane>

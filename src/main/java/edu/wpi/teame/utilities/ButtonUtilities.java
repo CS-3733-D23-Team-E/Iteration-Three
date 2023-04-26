@@ -1,8 +1,9 @@
 package edu.wpi.teame.utilities;
 
-import static javafx.scene.paint.Color.WHITE;
-
+import edu.wpi.teame.Main;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 public class ButtonUtilities {
@@ -83,20 +84,31 @@ public class ButtonUtilities {
         });
   }
 
-  public static void mouseSetupMenuBar(MFXButton btn, String alignment) {
+  public static void mouseSetupMenuBar(
+      MFXButton btn,
+      String alignment,
+      ImageView pic,
+      String unhighlightedPic,
+      String highlightedPic) {
+    Image uPic = new Image(Main.class.getResource(unhighlightedPic).toString());
+    Image hPic = new Image(Main.class.getResource(highlightedPic).toString());
     btn.setOnMouseEntered(
         event -> {
           btn.setStyle(
               "-fx-background-color: #f1f1f1; -fx-alignment: "
                   + alignment
-                  + "; -fx-border-color: #001A3C; -fx-border-width: 0; -fx-font-size: 18;");
-          btn.setTextFill(Color.web("#192d5aff", 1.0));
+                  + "; -fx-border-color: #012d5a; -fx-border-width: 0; -fx-font-size: 18;");
+          btn.setTextFill(Color.web("#012d5a", 1.0));
+          pic.setImage(hPic);
         });
     btn.setOnMouseExited(
         event -> {
           btn.setStyle(
-              "-fx-background-color: #001A3C; -fx-alignment: " + alignment + ";-fx-font-size: 18;");
-          btn.setTextFill(WHITE);
+              "-fx-background-color:  #012d5a; -fx-alignment: "
+                  + alignment
+                  + ";-fx-font-size: 18;");
+          btn.setTextFill(Color.web("#f1f1f1", 1.0));
+          pic.setImage(uPic);
         });
   }
 
@@ -124,5 +136,19 @@ public class ButtonUtilities {
     // find the end index of the alignment field
     int end = style.substring(loc).indexOf(";");
     return style.substring(loc, loc + end);
+  }
+
+  public static void mouseSetup(MFXButton btn) {
+    btn.setOnMouseEntered(
+        event -> {
+          btn.setStyle(
+              "-fx-background-color: #f1f1f1; -fx-alignment: top-left; -fx-border-color:  #012d5a; -fx-border-width: 3;");
+          btn.setTextFill(Color.web("#012d5a", 1.0));
+        });
+    btn.setOnMouseExited(
+        event -> {
+          btn.setStyle("-fx-background-color:#012d5a; -fx-alignment: top-left;");
+          btn.setTextFill(Color.web("#f1f1f1", 1.0));
+        });
   }
 }

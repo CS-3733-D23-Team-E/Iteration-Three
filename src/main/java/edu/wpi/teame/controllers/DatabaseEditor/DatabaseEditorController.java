@@ -1,29 +1,107 @@
 package edu.wpi.teame.controllers.DatabaseEditor;
 
+import edu.wpi.teame.utilities.Navigation;
+import edu.wpi.teame.utilities.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 public class DatabaseEditorController {
-  @FXML TabPane tabPane;
-  @FXML Tab editMapTab;
-
-  @FXML Tab editDatabaseTab;
 
   @FXML DatabaseMapViewController mapViewController;
+  @FXML DatabaseTableViewController tableViewController;
+  @FXML DatabaseServiceRequestViewController serviceRequestViewController;
+  @FXML MoveComponentController moveComponentController;
+
+  @FXML AnchorPane tableView;
+  @FXML AnchorPane moveView;
+  @FXML AnchorPane serviceView;
+  @FXML AnchorPane mapView;
+  @FXML AnchorPane employeeView;
+
+  @FXML MFXButton tableEditorSwapButton;
+  @FXML MFXButton mapEditorSwapButton;
+  @FXML MFXButton moveEditorSwapButton;
+  @FXML MFXButton requestsEditorSwapButton;
+  @FXML MFXButton employeeEditorSwapButton;
+  @FXML VBox importExportZone;
+
+  @FXML MFXButton importButton;
+  @FXML MFXButton exportButton;
+
+  @FXML MFXButton backButton;
+  @FXML Label editorTitle;
 
   @FXML
   public void initialize() {
+    onlyVisible(tableView);
+    importExportZone.setVisible(true);
+    onlyDisable(tableEditorSwapButton);
+    editorTitle.setText("Table editor");
 
-    //    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    //    tabPane
-    //        .getSelectionModel()
-    //        .selectedItemProperty()
-    //        .addListener(
-    //            (observable, oldTab, newTab) -> {
-    //              if (newTab == editMapTab) {
-    //                mapViewController.initialLoadFloor(Floor.LOWER_TWO);
-    //              }
-    //            });
+    initButtons();
+  }
+
+  private void initButtons() {
+    tableEditorSwapButton.setOnAction(
+        event -> {
+          onlyVisible(tableView);
+          importExportZone.setVisible(true);
+          onlyDisable(tableEditorSwapButton);
+          editorTitle.setText("Table editor");
+        });
+    mapEditorSwapButton.setOnAction(
+        event -> {
+          onlyVisible(mapView);
+          importExportZone.setVisible(false);
+          onlyDisable(mapEditorSwapButton);
+          editorTitle.setText("Map editor");
+        });
+    moveEditorSwapButton.setOnAction(
+        event -> {
+          onlyVisible(moveView);
+          importExportZone.setVisible(false);
+          onlyDisable(moveEditorSwapButton);
+          editorTitle.setText("Move editor");
+        });
+    requestsEditorSwapButton.setOnAction(
+        event -> {
+          onlyVisible(serviceView);
+          importExportZone.setVisible(false);
+          onlyDisable(requestsEditorSwapButton);
+          editorTitle.setText("Request editor");
+        });
+    employeeEditorSwapButton.setOnAction(
+        event -> {
+          onlyVisible(employeeView);
+          importExportZone.setVisible(false);
+          onlyDisable(employeeEditorSwapButton);
+          editorTitle.setText("Employee editor");
+        });
+
+    importButton.setOnAction(event -> tableViewController.importTable());
+    exportButton.setOnAction(event -> tableViewController.exportTable());
+
+    backButton.setOnAction(event -> Navigation.navigate(Screen.HOME));
+  }
+
+  private void onlyDisable(MFXButton btn) {
+    tableEditorSwapButton.setDisable(false);
+    mapEditorSwapButton.setDisable(false);
+    moveEditorSwapButton.setDisable(false);
+    requestsEditorSwapButton.setDisable(false);
+    employeeEditorSwapButton.setDisable(false);
+    btn.setDisable(true);
+  }
+
+  private void onlyVisible(AnchorPane pane) {
+    tableView.setVisible(false);
+    moveView.setVisible(false);
+    serviceView.setVisible(false);
+    mapView.setVisible(false);
+    employeeView.setVisible(false);
+    pane.setVisible(true);
   }
 }

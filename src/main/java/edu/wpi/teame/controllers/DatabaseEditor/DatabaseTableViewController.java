@@ -5,8 +5,6 @@ import static java.lang.Integer.parseInt;
 import edu.wpi.teame.App;
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.map.*;
-import edu.wpi.teame.utilities.Navigation;
-import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.File;
@@ -29,9 +27,6 @@ import org.controlsfx.control.SearchableComboBox;
 public class DatabaseTableViewController {
 
   // common buttons:
-  @FXML MFXButton importButton;
-  @FXML MFXButton exportButton;
-  // @FXML MFXButton backButton;
   @FXML MFXButton deleteButton;
   @FXML MFXButton addNodeButton;
   @FXML MFXButton addMoveButton;
@@ -131,13 +126,6 @@ public class DatabaseTableViewController {
   @FXML TextField editEdgeEndField;
   ///////////////////////////
   @FXML MFXButton confirmEditButton;
-  @FXML MFXButton mapEditorSwapButton;
-
-  @FXML MFXButton moveEditorSwapButton;
-
-  @FXML MFXButton requestsButton;
-
-  @FXML MFXButton backButton;
 
   FileChooser saveChooser = new FileChooser();
   FileChooser selectChooser = new FileChooser();
@@ -161,6 +149,7 @@ public class DatabaseTableViewController {
 
     saveChooser.setTitle("Select where to save your file");
     saveChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV File", ".csv"));
+    saveChooser.setInitialFileName("Node_Table");
     selectChooser.setTitle("Select file to import");
 
     SQLRepo dC = SQLRepo.INSTANCE;
@@ -268,17 +257,6 @@ public class DatabaseTableViewController {
           removeItem();
         });
 
-    mapEditorSwapButton.setOnMouseClicked(
-        event -> {
-          Navigation.navigate(Screen.DATABASE_MAPVIEW);
-        });
-    requestsButton.setOnMouseClicked(
-        event -> {
-          Navigation.navigate(Screen.DATABASE_SERVICEVIEW);
-        });
-    moveEditorSwapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_COMPONENT));
-    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-
     App.getPrimaryStage()
         .addEventHandler(
             KeyEvent.KEY_PRESSED,
@@ -353,88 +331,6 @@ public class DatabaseTableViewController {
     //          }
     //        });
 
-    importButton.setOnMouseClicked(
-        event -> {
-          File selectedFile = selectChooser.showOpenDialog(App.getPrimaryStage());
-          if (selectedFile == null) {
-            // cancel
-          } else {
-            // add the file
-
-            dC.importFromCSV(activeTableEnum, selectedFile.getAbsolutePath());
-            // refresh
-            switch (activeTableEnum) {
-              case MOVE:
-                activeTable.setItems(FXCollections.observableArrayList(dC.getMoveList()));
-                break;
-              case NODE:
-                activeTable.setItems(FXCollections.observableArrayList(dC.getNodeList()));
-                break;
-              case LOCATION_NAME:
-                activeTable.setItems(FXCollections.observableArrayList(dC.getLocationList()));
-                break;
-              case EDGE:
-                activeTable.setItems(FXCollections.observableArrayList(dC.getEdgeList()));
-                break;
-            }
-            activeTable.refresh();
-            /*
-            try {
-              dC.importFromCSV(
-                      activeTableEnum,
-                  selectedFile.getAbsolutePath());
-              // refresh
-              switch (activeTableEnum) {
-                case MOVE:
-                  activeTable.setItems(FXCollections.observableArrayList(dC.getMoveList()));
-                  break;
-                case NODE:
-                  activeTable.setItems(FXCollections.observableArrayList(dC.getNodeList()));
-                  break;
-                case LOCATION_NAME:
-                  activeTable.setItems(FXCollections.observableArrayList(dC.getLocationList()));
-                  break;
-                case EDGE:
-                  activeTable.setItems(FXCollections.observableArrayList(dC.getEdgeList()));
-                  break;
-              }
-
-            } catch (IOException e) {
-              System.out.println("You messed up big time!!!!!!");
-              System.out.println(e);
-            }
-
-             */
-          }
-        });
-
-    exportButton.setOnMouseClicked(
-        event -> {
-          // File selectedDirectory = directoryChooser.showDialog(App.getPrimaryStage());
-          File selectedFile = saveChooser.showSaveDialog(App.getPrimaryStage());
-          if (selectedFile == null) {
-            // cancel
-          } else {
-            // export to the given path
-
-            dC.exportToCSV(
-                activeTableEnum,
-                selectedFile.getParentFile().getAbsolutePath(),
-                selectedFile.getName());
-            /*
-            try {
-              dC.exportToCSV(
-                  activeTableEnum,
-                  selectedFile.getParentFile().getAbsolutePath(),
-                  selectedFile.getName());
-            } catch (SQLException | IOException e) {
-              System.out.println("You messed up big time!!!!!!");
-              System.out.println(e);
-            }
-
-             */
-          }
-        });
   }
 
   private void addNode(Popup windowPop, Popup confirmPop) {
@@ -560,30 +456,26 @@ public class DatabaseTableViewController {
         case EDGE:
           activeTable = edgeTable;
           activeTableEnum = table;
-          importButton.setDisable(false);
-          exportButton.setDisable(false);
           deleteButton.setDisable(false);
+          saveChooser.setInitialFileName("Edge_Table");
           break;
         case MOVE:
           activeTable = moveTable;
           activeTableEnum = table;
-          importButton.setDisable(false);
-          exportButton.setDisable(false);
           deleteButton.setDisable(false);
+          saveChooser.setInitialFileName("Move_Table");
           break;
         case NODE:
           activeTable = nodeTable;
           activeTableEnum = table;
-          importButton.setDisable(false);
-          exportButton.setDisable(false);
           deleteButton.setDisable(false);
+          saveChooser.setInitialFileName("Node_Table");
           break;
         case LOCATION_NAME:
           activeTable = locationTable;
           activeTableEnum = table;
-          importButton.setDisable(false);
-          exportButton.setDisable(false);
           deleteButton.setDisable(false);
+          saveChooser.setInitialFileName("Name_Table");
           break;
           //        case SERVICE_REQUESTS:
           //          activeTable = requestTable;
@@ -688,5 +580,45 @@ public class DatabaseTableViewController {
               FXCollections.observableArrayList(SQLRepo.INSTANCE.getLocationList()));
           locationTable.refresh();
         });
+  }
+
+  public void importTable() {
+    File selectedFile = selectChooser.showOpenDialog(App.getPrimaryStage());
+    if (selectedFile == null) {
+      // cancel
+    } else {
+      // add the file
+
+      SQLRepo.INSTANCE.importFromCSV(activeTableEnum, selectedFile.getAbsolutePath());
+      // refresh
+      switch (activeTableEnum) {
+        case MOVE:
+          activeTable.setItems(FXCollections.observableArrayList(SQLRepo.INSTANCE.getMoveList()));
+          break;
+        case NODE:
+          activeTable.setItems(FXCollections.observableArrayList(SQLRepo.INSTANCE.getNodeList()));
+          break;
+        case LOCATION_NAME:
+          activeTable.setItems(
+              FXCollections.observableArrayList(SQLRepo.INSTANCE.getLocationList()));
+          break;
+        case EDGE:
+          activeTable.setItems(FXCollections.observableArrayList(SQLRepo.INSTANCE.getEdgeList()));
+          break;
+      }
+      activeTable.refresh();
+    }
+  }
+
+  public void exportTable() {
+    // File selectedDirectory = directoryChooser.showDialog(App.getPrimaryStage());
+    File selectedFile = saveChooser.showSaveDialog(App.getPrimaryStage());
+    if (selectedFile == null) {
+      // cancel
+    } else {
+      // export to the given path
+      SQLRepo.INSTANCE.exportToCSV(
+          activeTableEnum, selectedFile.getParentFile().getAbsolutePath(), selectedFile.getName());
+    }
   }
 }

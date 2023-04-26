@@ -114,6 +114,24 @@ public class MapUtilities {
   }
 
   /**
+   * OVERLOADED: draws a given message associated with a hospitalNode's location (ie "went to floor
+   * 4")
+   *
+   * @param hospitalNode
+   * @param message
+   * @return
+   */
+  public Label drawHospitalNodeLabel(HospitalNode hospitalNode, String message) {
+    int x = hospitalNode.getXCoord();
+    int y = hospitalNode.getYCoord();
+    String nodeID = hospitalNode.getNodeID();
+
+    Label label = createStyledLabel(x, y, 10, 10, message);
+    label.setId("label" + hospitalNode.getNodeID());
+    return label;
+  }
+
+  /**
    * Draws the edge between two given nodes
    *
    * @param node
@@ -126,6 +144,17 @@ public class MapUtilities {
     int y2 = neighbor.getYCoord();
 
     return drawLine(x1, y1, x2, y2);
+  }
+
+  public Line drawMove(HospitalNode from, HospitalNode to) {
+    int x1 = from.getXCoord();
+    int y1 = from.getYCoord();
+    int x2 = to.getXCoord();
+    int y2 = to.getYCoord();
+
+    String message = from.getNodeID() + " to " + to.getNodeID();
+
+    return drawLineWithLabel(x1, y1, x2, y2, message);
   }
 
   /**
@@ -156,6 +185,23 @@ public class MapUtilities {
     Line line = new Line(x1, y1, x2, y2);
     addShape(line);
     return line;
+  }
+
+  /**
+   * draws a line with a given label over it
+   *
+   * @param x1
+   * @param y1
+   * @param x2
+   * @param y2
+   * @param message
+   * @return
+   */
+  public Line drawLineWithLabel(int x1, int y1, int x2, int y2, String message) {
+    int ax = (x1 + x2) / 2;
+    int ay = (y1 + y2) / 2;
+    Label lineMessage = this.createStyledLabel(ax, ay, message);
+    return drawLine(x1, y1, x2, y2);
   }
 
   /**
