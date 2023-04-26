@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.SearchableComboBox?>
+
+<AnchorPane prefHeight="825.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.DatabaseEditor.EmployeeViewController">
+    <children>
+        <HBox prefHeight="800.0" prefWidth="1375.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <TabPane fx:id="employeeTabs" prefHeight="800.0" prefWidth="850.0" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
+                    <tabs>
+                        <Tab fx:id="employeeTab" closable="false" text="Employees">
+                            <content>
+                                <AnchorPane>
+                                    <children>
+                                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <children>
+                                                <TableView fx:id="employeeTable" prefHeight="712.0" prefWidth="850.0">
+                                                    <columns>
+                                                        <TableColumn fx:id="employeeFullNameCol" minWidth="150.0" prefWidth="150.0" text="Full Name" />
+                                                        <TableColumn fx:id="employeeUsernameCol" minWidth="150.0" prefWidth="150.0" text="Username" />
+                                                        <TableColumn fx:id="employeePasswordCol" minWidth="150.0" prefWidth="150.0" text="Password" />
+                                                        <TableColumn fx:id="employeePermissionCol" minWidth="200.0" prefWidth="200.0" text="Permission" />
+                                                    </columns>
+                                                </TableView>
+                                                <HBox fx:id="employeeAddZone" alignment="CENTER_LEFT">
+                                                    <children>
+                                                        <MFXTextField fx:id="newFullNameField" maxWidth="1.7976931348623157E308" prefHeight="30.0" promptText="Full Name" HBox.hgrow="ALWAYS" />
+                                                        <MFXTextField fx:id="newUsernameField" maxWidth="1.7976931348623157E308" prefHeight="30.0" promptText="Username" HBox.hgrow="ALWAYS" />
+                                                        <MFXTextField fx:id="newPasswordField" maxWidth="1.7976931348623157E308" prefHeight="30.0" promptText="Password" HBox.hgrow="ALWAYS" />
+                                                        <MFXTextField fx:id="newPermissionField" maxWidth="1.7976931348623157E308" prefHeight="30.0" promptText="Permission" HBox.hgrow="ALWAYS" />
+                                                        <MFXButton fx:id="addEmployeeButton" maxWidth="1.7976931348623157E308" prefHeight="30.0" text="Add Employee" HBox.hgrow="ALWAYS" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+                <VBox>
+                    <children>
+                        <MFXButton fx:id="deleteButton" text="Delete Selected Row" />
+                        <StackPane prefWidth="465.0">
+                            <children>
+                                <VBox fx:id="editEmployeeZone" visible="false" StackPane.alignment="TOP_CENTER">
+                                    <children>
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Full Name:" />
+                                        <MFXTextField fx:id="editFullNameField" minHeight="25.0" prefHeight="25.0" />
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+                                        <MFXTextField fx:id="editUsernameField" minHeight="25.0" prefHeight="25.0" />
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+                                        <MFXTextField fx:id="editPasswordField" minHeight="25.0" prefHeight="25.0" />
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Permission:" />
+                                        <SearchableComboBox fx:id="editPermissionChoice" maxWidth="150.0" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </StackPane>
+                        <MFXButton fx:id="confirmEditButton" text="Confirm Changes" visible="false" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

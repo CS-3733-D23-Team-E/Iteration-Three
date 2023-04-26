@@ -16,6 +16,7 @@ public enum Screen {
   DATABASE_TABLEVIEW("views/DatabaseEditor/DatabaseTableView.fxml"),
   DATABASE_MAPVIEW("views/DatabaseEditor/DatabaseMapView.fxml"),
   DATABASE_SERVICEVIEW("views/DatabaseEditor/DatabaseServiceRequestView.fxml"),
+  DATABASE_EMPLOYEEVIEW("views/DatabaseEditor/DatabaseEmployeeView.fxml"),
   ABOUT("views/AboutPage.fxml"),
   CREDITS("views/CreditsPage.fxml");
 
