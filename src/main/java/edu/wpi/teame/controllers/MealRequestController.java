@@ -1,19 +1,23 @@
 package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.entities.Employee;
 import edu.wpi.teame.entities.MealRequestData;
+import edu.wpi.teame.entities.Settings;
 import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.util.List;
 import java.util.stream.Stream;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.controlsfx.control.SearchableComboBox;
 
 public class MealRequestController {
@@ -32,6 +36,28 @@ public class MealRequestController {
   @FXML TextField allergiesBox;
   @FXML SearchableComboBox<String> assignedStaff;
   @FXML MFXButton resetButton;
+  @FXML MFXButton closeButton;
+  @FXML VBox requestSubmittedBox;
+
+  @FXML Text recipientNameText;
+  @FXML Text mainCourseText;
+  @FXML Text roomText;
+  @FXML Text sideCourseText;
+  @FXML Text deliveryDateText;
+  @FXML Text drinkChoiceText;
+  @FXML Text deliveryTimeText;
+  @FXML Text allergiesText;
+  @FXML Text staffText;
+  @FXML Text notesText;
+
+  String language = "english";
+  String nyay = "\u00F1"; // ñ
+  String aA = "\u0301"; // á
+  String aE = "\u00E9"; // é
+  String aI = "\u00ED"; // í
+  String aO = "\u00F3"; // ó
+  String aU = "\u00FA"; // ù
+  String aQuestion = "\u00BF"; // Upside down question mark
 
   ObservableList<String> deliveryTimes =
       FXCollections.observableArrayList(
@@ -50,6 +76,8 @@ public class MealRequestController {
 
   @FXML
   public void initialize() {
+    requestSubmittedBox.setVisible(false);
+
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
     ObservableList<String> names =
         FXCollections.observableArrayList(
@@ -68,19 +96,12 @@ public class MealRequestController {
                 .sorted()
                 .toList());
 
-    /*assignedStaff.setItems(
-    FXCollections.observableList(
-        SQLRepo.INSTANCE.getEmployeeList().stream()
-            .filter(employee -> employee.getPermission().equals("STAFF"))
-            .map(employee -> employee.getFullName())
-            .toList()));*/
-
-    List<Employee> employeeList = SQLRepo.INSTANCE.getEmployeeList();
-    for (Employee emp : employeeList) {
-      staffMembers.add(emp.getUsername());
-    }
-
-    assignedStaff.setItems(FXCollections.observableArrayList(staffMembers));
+    assignedStaff.setItems(
+        FXCollections.observableList(
+            SQLRepo.INSTANCE.getEmployeeList().stream()
+                .filter(employee -> employee.getPermission().equals("STAFF"))
+                .map(employee -> employee.getUsername())
+                .toList()));
 
     roomName.setItems(names);
     mainCourse.setItems(mainCourses);
@@ -88,8 +109,28 @@ public class MealRequestController {
     drinkChoice.setItems(drinks);
     deliveryTime.setItems(deliveryTimes);
     cancelButton.setOnMouseClicked(event -> cancelRequest());
-    submitButton.setOnMouseClicked(event -> sendRequest());
+
     resetButton.setOnMouseClicked(event -> clearForm());
+
+    // Page Language Translation Code
+    Timeline timeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(1),
+                event -> {
+                  if (Settings.INSTANCE.getLanguage() == Settings.Language.ENGLISH) {
+                    translateToEnglish();
+                  } else if (Settings.INSTANCE.getLanguage() == Settings.Language.SPANISH) {
+                    translateToSpanish();
+                  }
+                }));
+    submitButton.setOnMouseClicked(
+        event -> {
+          sendRequest();
+          requestSubmittedBox.setVisible(true);
+          clearForm();
+        });
+    closeButton.setOnMouseClicked(event -> requestSubmittedBox.setVisible(false));
   }
 
   public MealRequestData sendRequest() {
@@ -114,7 +155,6 @@ public class MealRequestController {
     System.out.println("Meal Request Added");
 
     // Return to the home screen
-    Navigation.navigate(Screen.HOME);
 
     return requestData;
   }
@@ -134,5 +174,42 @@ public class MealRequestController {
     deliveryDate.setValue(null);
     notes.clear();
     assignedStaff.setValue(null);
+  }
+
+  public void translateToSpanish() {
+    // Input Fields
+    recipientNameText.setText("Nombre de Destinatario"); // Recipient Name
+    mainCourseText.setText("Plato Fuerte"); // Main Course
+    roomText.setText("Cuarto"); // Room
+    sideCourseText.setText("Plato Lateral"); // Side Course
+    deliveryDateText.setText("Fecha de Entrega"); // Delivery Date
+    drinkChoiceText.setText("Opci" + aO + "n de la Bebida"); // Drink Choice
+    deliveryTimeText.setText("Tiempo de Entrega"); // Delivery Time
+    allergiesText.setText("Alergias"); // Allergies
+    staffText.setText("Empleado"); // Staff
+    notesText.setText("Notas"); // Notes
+
+    // Buttons
+    cancelButton.setText("Cancelar"); // Cancel
+    resetButton.setText("Poner a Cero"); // Reset
+    submitButton.setText("Presentar"); // Submit
+  }
+
+  public void translateToEnglish() {
+    recipientNameText.setText("Recipient Name"); // Keep in English
+    mainCourseText.setText("Main Course"); // Keep in English
+    roomText.setText("Room"); // Keep in English
+    sideCourseText.setText("Side Course"); // Keep in English
+    deliveryDateText.setText("Delivery Date"); // Keep in English
+    drinkChoiceText.setText("Drink Choice"); // Keep in English
+    deliveryTimeText.setText("Delivery Time"); // Keep in English
+    allergiesText.setText("Allergies"); // Keep in English
+    staffText.setText("Staff"); // Keep in English
+    notesText.setText("Notes"); // Keep in English
+
+    // Buttons
+    cancelButton.setText("Cancel"); // Keep in English
+    resetButton.setText("Reset"); // Keep in English
+    submitButton.setText("Submit"); // Keep in English
   }
 }

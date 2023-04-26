@@ -21,8 +21,10 @@ public enum SQLRepo {
     MEAL_REQUESTS,
     FLOWER_REQUESTS,
     FURNITURE_REQUESTS,
-    CONFERENCE_ROOM;
-    ;
+    CONFERENCE_ROOM,
+    MEDICAL_SUPPLIES,
+    SIGNAGE_FORM,
+    ALERT;
 
     public static String tableToString(Table tb) {
       switch (tb) {
@@ -48,6 +50,8 @@ public enum SQLRepo {
           return "ConfRoomService";
         case FURNITURE_REQUESTS:
           return "FurnitureService";
+        case SIGNAGE_FORM:
+          return "SignageForm";
         default:
           throw new NoSuchElementException("No such Table found");
       }
@@ -66,6 +70,9 @@ public enum SQLRepo {
   ServiceDAO<MealRequestData> mealDAO;
   ServiceDAO<FlowerRequestData> flowerDAO;
   ServiceDAO<ConferenceRequestData> conferenceDAO;
+  SignageComponentDAO signageDAO;
+  ServiceDAO<MedicalSuppliesData> medicalsuppliesDAO;
+  AlertDAO<AlertData> alertDAO;
 
   public Employee connectToDatabase(String username, String password) {
     try {
@@ -88,6 +95,9 @@ public enum SQLRepo {
         flowerDAO = new FlowerDAO(activeConnection);
         conferenceDAO = new ConferenceRoomDAO(activeConnection);
         furnitureDAO = new FurnitureDAO(activeConnection);
+        signageDAO = new SignageComponentDAO(activeConnection);
+        medicalsuppliesDAO = new MedicalSuppliesDAO(activeConnection);
+        alertDAO = new AlertDAO(activeConnection);
 
         Employee.setActiveEmployee(loggedIn);
 
@@ -198,6 +208,14 @@ public enum SQLRepo {
         case FURNITURE_REQUESTS:
           this.furnitureDAO.importFromCSV(filepath, "FurnitureService");
           break;
+        case SIGNAGE_FORM:
+          this.signageDAO.importFromCSV(filepath, "SignageForm");
+          break;
+        case MEDICAL_SUPPLIES:
+          this.medicalsuppliesDAO.importFromCSV(filepath, "MedicalSupplies");
+        case ALERT:
+          this.alertDAO.importFromCSV(filepath, "Alert");
+          break;
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());
@@ -238,6 +256,14 @@ public enum SQLRepo {
         case FURNITURE_REQUESTS:
           this.furnitureDAO.exportToCSV(filepath, tableName);
           break;
+        case MEDICAL_SUPPLIES:
+          this.medicalsuppliesDAO.exportToCSV(filepath, tableName);
+        case SIGNAGE_FORM:
+          this.signageDAO.exportToCSV(filepath, "SignageForm");
+          break;
+        case ALERT:
+          this.alertDAO.exportToCSV(filepath, tableName);
+          break;
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());
@@ -245,6 +271,9 @@ public enum SQLRepo {
   }
 
   // ALL GETS FOR DAOS
+  public List<AlertData> getAlertList() {
+    return this.alertDAO.get();
+  }
 
   public List<HospitalNode> getNodeList() {
     return this.nodeDAO.get();
@@ -260,6 +289,15 @@ public enum SQLRepo {
 
   public List<MoveAttribute> getMoveList() {
     return this.moveDAO.get();
+  }
+
+  public List<SignageComponentData> getSignageList() {
+    return this.signageDAO.get();
+  }
+
+  public SignageComponentData.ArrowDirections getDirectionFromPKeyL(
+      String date, String klocation, String location) throws SQLException {
+    return this.signageDAO.getDirectionFromPKey(date, klocation, location);
   }
 
   public List<Employee> getEmployeeList() {
@@ -286,7 +324,14 @@ public enum SQLRepo {
     return this.furnitureDAO.get();
   }
 
+  public List<MedicalSuppliesData> getMedicalSuppliesList() {
+    return this.medicalsuppliesDAO.get();
+  }
+
   // ALL UPDATES FOR DAOS
+  public void updateAlert(AlertData obj, String attribute, String value) {
+    this.alertDAO.update(obj, attribute, value);
+  }
 
   public void updateNode(HospitalNode obj, String attribute, String value) {
     this.nodeDAO.update(obj, attribute, value);
@@ -320,9 +365,16 @@ public enum SQLRepo {
     } else if (obj instanceof ConferenceRequestData) {
       ConferenceRequestData updateConf = (ConferenceRequestData) obj;
       this.conferenceDAO.update(updateConf, attribute, value);
+    } else if (obj instanceof MedicalSuppliesData) {
+      MedicalSuppliesData updateMed = (MedicalSuppliesData) obj;
+      this.medicalsuppliesDAO.update(updateMed, attribute, value);
     } else {
       throw new NoSuchElementException("No Service Request of this type");
     }
+  }
+
+  public void updateSignage(SignageComponentData obj, String attribute, String value) {
+    this.signageDAO.update(obj, attribute, value);
   }
 
   public void updateOfficeSupply(OfficeSuppliesData obj, String attribute, String value) {
@@ -366,9 +418,20 @@ public enum SQLRepo {
     } else if (obj instanceof ConferenceRequestData) {
       ConferenceRequestData deleteConf = (ConferenceRequestData) obj;
       this.conferenceDAO.delete(deleteConf);
+    } else if (obj instanceof MedicalSuppliesData) {
+      MedicalSuppliesData deleteMed = (MedicalSuppliesData) obj;
+      this.medicalsuppliesDAO.delete(deleteMed);
     } else {
       throw new NoSuchElementException("No Service Request of this type");
     }
+  }
+
+  public void deleteSignage(SignageComponentData obj) {
+    this.signageDAO.delete(obj);
+  }
+
+  public void deleteAlert(AlertData obj) {
+    this.alertDAO.delete(obj);
   }
 
   public void deleteOfficeSupplyRequest(OfficeSuppliesData obj) {
@@ -428,9 +491,20 @@ public enum SQLRepo {
     } else if (obj instanceof ConferenceRequestData) {
       ConferenceRequestData addConf = (ConferenceRequestData) obj;
       this.conferenceDAO.add(addConf);
+    } else if (obj instanceof MedicalSuppliesData) {
+      MedicalSuppliesData addMed = (MedicalSuppliesData) obj;
+      this.medicalsuppliesDAO.add(addMed);
     } else {
       throw new NoSuchElementException("No Service Request of this type");
     }
+  }
+
+  public void addSignage(SignageComponentData obj) {
+    this.signageDAO.add(obj);
+  }
+
+  public void addAlert(AlertData obj) {
+    this.alertDAO.add(obj);
   }
 
   public void addOfficeSupplyRequest(OfficeSuppliesData obj) {

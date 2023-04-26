@@ -31,6 +31,7 @@
      -fx-text-fill: #F1F1F1;
  }
 
+
  .MFXTextField{
      -fx-text-fill: #1F1F1F;
      -fx-background-color: #FFFFFF;
@@ -51,3 +52,96 @@
       -fx-alignment: "center-left";
   }
 
+ .radio-button:selected .radio .dot {
+     -fx-background-color: #3B63A5;
+     -fx-background-insets: 0;
+ }
+
+ .tab-pane {
+     -fx-focus-color: transparent;
+ }
+
+ .root {
+     -fx-focus-color: transparent;
+     -fx-faint-focus-color: transparent;
+ }
+
+ .tab-pane .tab {
+     -fx-background-color: white;
+     -fx-border-color: #1f1f1f;
+     -fx-border-radius: 10px 10px 0px 0px;
+     -fx-border-style: solid solid none solid inside;
+     -fx-background-radius: 10px 10px 0px 0px;
+     -fx-background-insets: 0;
+     -fx-focus-color: transparent;
+ }
+
+ .tab-pane .tab:selected {
+     -fx-background-color: #3b63a5;
+     -fx-border-color: transparent;
+     -fx-border-radius: 10px 10px 0px 0px;
+     -fx-background-radius: 10px 10px 0px 0px;
+     -fx-background-insets: 0;
+     -fx-focus-color: transparent;
+ }
+
+ .tab .tab-label {
+     -fx-alignment: CENTER;
+     -fx-text-fill: black;
+     -fx-font-size: 24px;
+     -fx-font-family: ROBOTO;
+     -fx-focus-color: transparent;
+ }
+
+ .tab:selected .tab-label {
+     -fx-alignment: CENTER;
+     -fx-text-fill: white;
+     -fx-font-size: 24px;
+     -fx-font-family: ROBOTO;
+     -fx-focus-color: transparent;
+ }
+
+ .scroll-pane {
+     -fx-background-color: transparent;
+
+ }
+
+ .scroll-pane > .corner {
+     -fx-background-color: transparent;
+ }
+
+ .scroll-bar:vertical{
+     -fx-background-color:transparent;
+     -fx-padding :0.0 0.2em;
+ }
+
+ .scroll-bar:vertical .increment-arrow,
+ .scroll-bar:vertical .decrement-arrow{
+     -fx-shape : " ";
+ }
+
+ .scroll-bar:horizontal .increment-arrow,
+ .scroll-bar:horizontal .decrement-arrow{
+     -fx-shape : " ";
+ }
+
+ .scroll-bar:horizontal .track,
+ .scroll-bar:vertical .track{
+     -fx-background-color: #B1B1B1;
+     -fx-background-radius: 5em;
+ }
+
+ .scroll-bar:horizontal .thumb,
+ .scroll-bar:vertical .thumb {
+     -fx-background-color: #001A3C;
+     -fx-background-radius: 5em;
+ }
+
+ .toggle-switch {
+     -thumb-move-animation-time: 100;
+     -toggle-display: thumb-only;
+ }
+
+ .toggle-switch:selected .thumb-area{
+     -fx-background-color: #001A3C;
+ }

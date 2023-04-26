@@ -1,19 +1,23 @@
 package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.entities.Employee;
 import edu.wpi.teame.entities.OfficeSuppliesData;
+import edu.wpi.teame.entities.Settings;
 import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.util.List;
 import java.util.stream.Stream;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.controlsfx.control.SearchableComboBox;
 
 public class OfficeSuppliesController {
@@ -31,6 +35,26 @@ public class OfficeSuppliesController {
   @FXML SearchableComboBox<String> supplyType;
   @FXML TextField numberOfSupplies;
   @FXML SearchableComboBox<String> assignedStaff;
+  @FXML MFXButton closeButton;
+  @FXML VBox requestSubmittedBox;
+
+  @FXML Text recipientNameText;
+  @FXML Text roomText;
+  @FXML Text officeSupplyTypeText;
+  @FXML Text deliveryDateText;
+  @FXML Text numberOfSuppliesText;
+  @FXML Text deliveryTimeText;
+  @FXML Text notesText;
+  @FXML Text staffText;
+
+  String language = "english";
+  String nyay = "\u00F1"; // ñ
+  String aA = "\u0301"; // á
+  String aE = "\u00E9"; // é
+  String aI = "\u00ED"; // í
+  String aO = "\u00F3"; // ó
+  String aU = "\u00FA"; // ù
+  String aQuestion = "\u00BF"; // Upside down question mark
 
   ObservableList<String> deliveryTimes =
       FXCollections.observableArrayList(
@@ -43,6 +67,8 @@ public class OfficeSuppliesController {
 
   @FXML
   public void initialize() {
+    requestSubmittedBox.setVisible(false);
+
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
     ObservableList<String> names =
         FXCollections.observableArrayList(
@@ -61,26 +87,39 @@ public class OfficeSuppliesController {
                 .sorted()
                 .toList());
 
-    /*assignedStaff.setItems(
-    FXCollections.observableList(
-        SQLRepo.INSTANCE.getEmployeeList().stream()
-            .filter(employee -> employee.getPermission().equals("STAFF"))
-            .map(employee -> employee.getFullName())
-            .toList()));*/
-
-    List<Employee> employeeList = SQLRepo.INSTANCE.getEmployeeList();
-    for (Employee emp : employeeList) {
-      staffMembers.add(emp.getUsername());
-    }
-
-    assignedStaff.setItems(FXCollections.observableArrayList(staffMembers));
+    assignedStaff.setItems(
+        FXCollections.observableList(
+            SQLRepo.INSTANCE.getEmployeeList().stream()
+                .filter(employee -> employee.getPermission().equals("STAFF"))
+                .map(employee -> employee.getUsername())
+                .toList()));
 
     roomName.setItems(names);
     deliveryTime.setItems(deliveryTimes);
     supplyType.setItems(officeSupplies);
-    submitButton.setOnMouseClicked(event -> sendRequest());
+
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
+
+    Timeline timeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(1),
+                event -> {
+                  if (Settings.INSTANCE.getLanguage() == Settings.Language.ENGLISH) {
+                    translateToEnglish();
+                  } else if (Settings.INSTANCE.getLanguage() == Settings.Language.SPANISH) {
+                    translateToSpanish();
+                  }
+                }));
+
+    submitButton.setOnMouseClicked(
+        event -> {
+          sendRequest();
+          requestSubmittedBox.setVisible(true);
+          clearForm();
+        });
+    closeButton.setOnMouseClicked(event -> requestSubmittedBox.setVisible(false));
   }
 
   private void clearForm() {
@@ -106,12 +145,45 @@ public class OfficeSuppliesController {
             numberOfSupplies.getText(),
             notes.getText(),
             OfficeSuppliesData.Status.PENDING);
-    Navigation.navigate(Screen.HOME);
+
     SQLRepo.INSTANCE.addServiceRequest(requestData);
     return requestData;
   }
 
   public void cancelRequest() {
     Navigation.navigate(Screen.HOME);
+  }
+
+  public void translateToSpanish() {
+    // Input Fields
+    recipientNameText.setText("Nombre de Destinatario"); // Recipient Name
+    roomText.setText("Cuarto"); // Room
+    officeSupplyTypeText.setText("Tipo de Suministros de Oficina"); // Office Supply Type
+    deliveryDateText.setText("Fecha de Entrega"); // Delivery Date
+    numberOfSuppliesText.setText("N" + aU + "mero de Suministros"); // Number of Supplies
+    deliveryTimeText.setText("Tiempo de Entrega"); // Delivery Time
+    notesText.setText("Notas"); // Notes
+    staffText.setText("Empleado"); // Staff
+
+    // Buttons
+    cancelButton.setText("Cancelar"); // Cancel
+    resetButton.setText("Poner a Cero"); // Reset
+    submitButton.setText("Presentar"); // Submit
+  }
+
+  public void translateToEnglish() {
+    recipientNameText.setText("Recipient Name"); // Keep in English
+    roomText.setText("Room"); // Keep in English
+    officeSupplyTypeText.setText("Office Supply Type"); // Keep in English
+    deliveryDateText.setText("Delivery Date"); // Keep in English
+    numberOfSuppliesText.setText("Number of Supplies"); // Keep in English
+    deliveryTimeText.setText("Delivery Time"); // Keep in English
+    notesText.setText("Notes"); // Keep in English
+    staffText.setText("Staff"); // Keep in English
+
+    // Buttons
+    cancelButton.setText("Cancel"); // Keep in English
+    resetButton.setText("Reset"); // Keep in English
+    submitButton.setText("Submit"); // Keep in English
   }
 }

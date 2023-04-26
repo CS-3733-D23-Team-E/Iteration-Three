@@ -4,6 +4,7 @@ import static java.util.Objects.hash;
 
 import java.util.*;
 import lombok.Getter;
+import lombok.Setter;
 
 public class HospitalNode {
   public static HashMap<String, HospitalNode> allNodes = new HashMap<>();
@@ -13,10 +14,10 @@ public class HospitalNode {
 
   @Getter String nodeID;
 
-  @Getter int xCoord;
-  @Getter int yCoord;
-  @Getter Floor floor;
-  @Getter String building;
+  @Setter @Getter int xCoord;
+  @Setter @Getter int yCoord;
+  @Setter @Getter Floor floor;
+  @Setter @Getter String building;
 
   public HospitalNode(String id, int xCoord, int yCoord, Floor floor, String building) {
     this.neighbors = new LinkedList<HospitalNode>();
@@ -26,8 +27,6 @@ public class HospitalNode {
     this.yCoord = yCoord;
     this.floor = floor;
     this.building = building;
-    // Add this node to the collection of all nodes
-    allNodes.put(nodeID, this);
   }
 
   public HospitalNode() {
@@ -113,5 +112,27 @@ public class HospitalNode {
     buildings.add("BTM");
     buildings.add("Shapiro");
     return buildings;
+  }
+
+  public static void processNodeList(List<HospitalNode> nodeList) {
+    for (HospitalNode node : nodeList) {
+      allNodes.put(node.getNodeID(), node);
+    }
+  }
+
+  public static void removeEdge(HospitalNode node1, HospitalNode node2) {
+    node1.neighbors.remove(node2);
+    node2.neighbors.remove(node1);
+  }
+
+  public static void removeEdge(String nodeId1, String nodeId2) {
+    removeEdge(allNodes.get(nodeId1), allNodes.get(nodeId2));
+  }
+
+  public static void removeNode(HospitalNode node) {
+    for (HospitalNode neighbor : node.neighbors) {
+      removeEdge(node, neighbor);
+    }
+    allNodes.remove(node.getNodeID());
   }
 }

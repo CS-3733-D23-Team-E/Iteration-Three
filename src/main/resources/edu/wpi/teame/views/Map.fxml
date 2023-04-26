@@ -1,392 +1,525 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXRadioButton?>
-<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 <?import org.controlsfx.control.SearchableComboBox?>
+<?import org.controlsfx.control.ToggleSwitch?>
 
-<AnchorPane fx:id="theBigPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.MapController">
-   <children>
-      <HBox nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
+
+<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.MapController">
+   <center>
+      <AnchorPane fx:id="theBigPane" prefHeight="1080.0" prefWidth="1920.0">
          <children>
-            <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefWidth="400.0">
+            <HBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="1005.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
                <children>
-                  <VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" spacing="14.0" style="-fx-background-color: #f1f1f1;">
+                  <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefWidth="500.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                        <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="360.0" spacing="30.0" style="-fx-background-color: #f1f1f1;">
                            <children>
-                              <ImageView fitHeight="99.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/pathfinding.png" />
-                                 </image>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </ImageView>
-                              <VBox spacing="20.0">
+                              <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                                  <children>
-                                    <SearchableComboBox fx:id="currentLocationList" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Start" style="-fx-border-color: #1e1e1e; -fx-border-width: 3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #D9DAD7;" />
-                                    <SearchableComboBox fx:id="destinationList" layoutX="10.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Destination" style="-fx-border-color: #1e1e1e; -fx-border-width: 3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #D9DAD7;" />
+                                    <ImageView fitHeight="100.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/pathfinding.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </ImageView>
+                                    <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <SearchableComboBox fx:id="currentLocationList" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0" promptText="Start" style="-fx-border-color: #1e1e1e; -fx-border-width: 3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #D9DAD7;" />
+                                          <SearchableComboBox fx:id="destinationList" layoutX="10.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0" promptText="Destination" style="-fx-border-color: #1e1e1e; -fx-border-width: 3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #D9DAD7;" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <ImageView fitHeight="100.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                       <image>
+                                          <Image url="@../images/pathfinding.png" />
+                                       </image>
+                                    </ImageView>
                                  </children>
-                                 <HBox.margin>
-                                    <Insets bottom="10.0" top="10.0" />
-                                 </HBox.margin>
+                              </HBox>
+                              <DatePicker fx:id="pathfindingDate" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="375.0" promptText="Date" style="-fx-background-color: #D9DAD7; -fx-background-radius: 5; -fx-border-color: #1E1E1E; -fx-border-width: 3; -fx-border-radius: 5;" />
+                              <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                 <children>
+                                    <RadioButton fx:id="aStarButton" selected="true" stylesheets="@../styles/eStyleSheet.css" text="A*">
+                                       <font>
+                                          <Font name="Roboto" size="20.0" />
+                                       </font>
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="pathGroup" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <Region minWidth="30.0" HBox.hgrow="ALWAYS" />
+                                    <RadioButton fx:id="dfsButton" layoutX="40.0" layoutY="20.0" stylesheets="@../styles/eStyleSheet.css" text="DFS" toggleGroup="$pathGroup">
+                                       <font>
+                                          <Font name="Roboto" size="20.0" />
+                                       </font>
+                                    </RadioButton>
+                                    <Region layoutX="44.0" layoutY="10.0" minWidth="30.0" HBox.hgrow="ALWAYS" />
+                                    <RadioButton fx:id="bfsButton" layoutX="270.0" layoutY="20.0" stylesheets="@../styles/eStyleSheet.css" text="BFS" toggleGroup="$pathGroup">
+                                       <font>
+                                          <Font name="Roboto" size="20.0" />
+                                       </font>
+                                    </RadioButton>
+                                    <Region layoutX="179.0" layoutY="10.0" minWidth="30.0" />
+                                    <RadioButton fx:id="dijkstraButton" layoutX="282.0" layoutY="10.0" stylesheets="@../styles/eStyleSheet.css" text="Dijkstra" toggleGroup="$pathGroup">
+                                       <font>
+                                          <Font name="Roboto" size="20.0" />
+                                       </font>
+                                    </RadioButton>
+                                 </children>
                                  <padding>
-                                    <Insets right="10.0" />
+                                    <Insets left="30.0" right="30.0" />
                                  </padding>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-                           <children>
-                              <MFXRadioButton fx:id="aStarButton" radius="10.0" selected="true" text="A*">
+                              </HBox>
+                              <MFXButton fx:id="startButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="70.0" style="-fx-background-color: #001A3C;" text="Start" textAlignment="CENTER" textFill="WHITE">
                                  <font>
-                                    <Font name="SansSerif Regular" size="20.0" />
+                                    <Font name="Roboto" size="17.0" />
                                  </font>
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="pathGroup" />
-                                 </toggleGroup>
-                              </MFXRadioButton>
-                              <Region minWidth="30.0" HBox.hgrow="ALWAYS" />
-                              <MFXRadioButton fx:id="dfsButton" layoutX="40.0" layoutY="20.0" radius="10.0" text="DFS" toggleGroup="$pathGroup">
-                                 <font>
-                                    <Font name="Roboto" size="20.0" />
-                                 </font>
-                              </MFXRadioButton>
-                              <Region layoutX="44.0" layoutY="10.0" minWidth="30.0" HBox.hgrow="ALWAYS" />
-                              <MFXRadioButton fx:id="bfsButton" layoutX="270.0" layoutY="20.0" radius="10.0" text="BFS" toggleGroup="$pathGroup">
-                                 <font>
-                                    <Font name="Roboto" size="20.0" />
-                                 </font>
-                              </MFXRadioButton>
+                              </MFXButton>
                            </children>
                            <padding>
-                              <Insets left="30.0" right="30.0" />
-                           </padding>
-                        </HBox>
-                        <MFXButton fx:id="startButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="70.0" style="-fx-background-color: #001A3C;" text="Start" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font name="SansSerif Regular" size="16.0" />
-                           </font>
-                        </MFXButton>
-                     </children>
-                     <padding>
-                        <Insets bottom="18.0" left="15.0" right="15.0" top="18.0" />
-                     </padding>
-                  </VBox>
-                  <MFXScrollPane hbarPolicy="NEVER" style="-fx-background-color: #f1f1f1;" thumbColor="#001a3c" thumbHoverColor="#001a3c" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
-                     <content>
-                        <VBox fx:id="pathBox" alignment="TOP_CENTER" prefWidth="375.0" spacing="10.0" style="-fx-background-color: #e1e1e1;">
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" top="10.0" />
+                              <Insets bottom="30.0" left="15.0" right="15.0" top="30.0" />
                            </padding>
                         </VBox>
-                     </content>
+                        <ScrollPane hbarPolicy="NEVER" stylesheets="@../styles/eStyleSheet.css" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+                           <content>
+                              <VBox fx:id="pathBox" alignment="TOP_CENTER" prefWidth="487.0" spacing="10.0">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                           <effect>
+                              <InnerShadow offsetY="2.0">
+                                 <color>
+                                    <Color opacity="0.25190839171409607" />
+                                 </color>
+                              </InnerShadow>
+                           </effect>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+                  <AnchorPane HBox.hgrow="ALWAYS">
+                     <children>
+                        <TabPane fx:id="tabPane" prefWidth="1200.0" stylesheets="@../styles/eStyleSheet.css" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMaxWidth="275.0" tabMinHeight="40.0" tabMinWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <tabs>
+                              <Tab fx:id="lowerLevelTwoTab" text="Lower Level 2">
+                                 <content>
+                                    <AnchorPane>
+                                       <children>
+                                          <GesturePane fx:id="gesturePaneL2" hbarPolicy="NEVER" maxScale="6.0" minScale="1.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <content>
+                                                <AnchorPane fx:id="mapPaneLowerTwo">
+                                                   <children>
+                                                      <StackPane fx:id="imagePane1111">
+                                                         <children>
+                                                            <ImageView fx:id="mapImageLowerTwo" fitWidth="2000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                               <image>
+                                                                  <Image url="@../maps/00_thelowerlevel2.png" />
+                                                               </image>
+                                                               <viewport>
+                                                                  <Rectangle2D />
+                                                               </viewport>
+                                                            </ImageView>
+                                                         </children>
+                                                      </StackPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </GesturePane>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="lowerLevelOneTab" text="Lower Level 1">
+                                 <content>
+                                    <AnchorPane>
+                                       <children>
+                                          <GesturePane fx:id="gesturePaneL1" hbarPolicy="NEVER" maxScale="6.0" minScale="1.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <content>
+                                                <AnchorPane fx:id="mapPaneLowerOne">
+                                                   <children>
+                                                      <StackPane fx:id="imagePane111" minHeight="0.0" minWidth="0.0">
+                                                         <children>
+                                                            <ImageView fx:id="mapImageLowerOne" fitWidth="2000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                               <image>
+                                                                  <Image url="@../maps/00_thelowerlevel1.png" />
+                                                               </image>
+                                                               <viewport>
+                                                                  <Rectangle2D />
+                                                               </viewport>
+                                                            </ImageView>
+                                                         </children>
+                                                      </StackPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </GesturePane>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="floorOneTab" text="Floor 1">
+                                 <content>
+                                    <AnchorPane>
+                                       <children>
+                                          <GesturePane fx:id="gesturePane1" hbarPolicy="NEVER" maxScale="6.0" minScale="1.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <content>
+                                                <AnchorPane fx:id="mapPaneOne" minWidth="-Infinity">
+                                                   <children>
+                                                      <StackPane fx:id="imagePane" minHeight="-Infinity" minWidth="-Infinity">
+                                                         <children>
+                                                            <ImageView fx:id="mapImageOne" fitWidth="2000.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../maps/01_thefirstfloor.png" />
+                                                               </image>
+                                                               <viewport>
+                                                                  <Rectangle2D />
+                                                               </viewport>
+                                                            </ImageView>
+                                                         </children>
+                                                      </StackPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </GesturePane>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="floorTwoTab" text="Floor 2">
+                                 <content>
+                                    <AnchorPane>
+                                       <children>
+                                          <GesturePane fx:id="gesturePane2" hbarPolicy="NEVER" maxScale="6.0" minScale="1.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <content>
+                                                <AnchorPane fx:id="mapPaneTwo">
+                                                   <children>
+                                                      <StackPane fx:id="imagePane1" minHeight="0.0" minWidth="0.0">
+                                                         <children>
+                                                            <ImageView fx:id="mapImageTwo" fitWidth="2000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                               <image>
+                                                                  <Image url="@../maps/02_thesecondfloor.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </children>
+                                                      </StackPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </GesturePane>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="floorThreeTab" text="Floor 3">
+                                 <content>
+                                    <AnchorPane>
+                                       <children>
+                                          <GesturePane fx:id="gesturePane3" hbarPolicy="NEVER" maxScale="6.0" minScale="1.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <content>
+                                                <AnchorPane fx:id="mapPaneThree">
+                                                   <children>
+                                                      <StackPane fx:id="imagePane11" minHeight="0.0" minWidth="0.0">
+                                                         <children>
+                                                            <ImageView fx:id="mapImageThree" fitWidth="2000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                               <image>
+                                                                  <Image url="@../maps/03_thethirdfloor.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </children>
+                                                      </StackPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </GesturePane>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                           </tabs>
+                        </TabPane>
+                        <VBox alignment="CENTER" layoutX="1303.0" layoutY="814.0" prefWidth="70.0" spacing="5.0" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="25.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="70.0" prefWidth="70.0" spacing="5.0" style="-fx-background-color: #3B63A5; -fx-background-radius: 5;">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" text="Show Labels" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                       <font>
+                                          <Font name="Roboto" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <ToggleSwitch fx:id="labelSwitch" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 5;" stylesheets="@../styles/eStyleSheet.css" textAlignment="CENTER">
+                                       <effect>
+                                          <DropShadow offsetX="-2.0" offsetY="2.0">
+                                             <color>
+                                                <Color opacity="0.5038167834281921" />
+                                             </color>
+                                          </DropShadow>
+                                       </effect>
+                                    </ToggleSwitch>
+                                 </children>
+                                 <effect>
+                                    <DropShadow offsetX="-2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5038167834281921" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="5.0" right="5.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox alignment="CENTER" prefWidth="70.0" spacing="15.0" style="-fx-background-color: #3B63A5; -fx-background-radius: 5;">
+                                 <children>
+                                    <Button fx:id="zoomInButton" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: #3B63A5; -fx-background-radius: 5;">
+                                       <graphic>
+                                          <Region fx:id="zoomInRegion" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="45.0" />
+                                       </graphic>
+                                    </Button>
+                                    <Line endX="50.0" stroke="#001a3c" />
+                                    <Button fx:id="zoomOutButton" layoutX="18.0" layoutY="20.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: #3B63A5; -fx-background-radius: 5;">
+                                       <graphic>
+                                          <Region fx:id="zoomOutRegion" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="45.0" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                                 <effect>
+                                    <DropShadow offsetX="-2.0" offsetY="2.0">
+                                       <color>
+                                          <Color opacity="0.5038167834281921" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
                      <effect>
-                        <InnerShadow height="10.0" offsetY="2.0" radius="2.0" width="0.0">
+                        <InnerShadow>
                            <color>
-                              <Color opacity="0.24809160828590393" />
+                              <Color opacity="0.5" />
                            </color>
                         </InnerShadow>
                      </effect>
-                  </MFXScrollPane>
+                  </AnchorPane>
                </children>
-            </VBox>
-            <TabPane fx:id="tabPane" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMaxWidth="225.0" tabMinHeight="40.0" tabMinWidth="200.0" HBox.hgrow="ALWAYS">
-               <tabs>
-                  <Tab fx:id="lowerLevelTwoTab" text="Lower Level 2">
-                     <content>
-                        <AnchorPane>
-                           <children>
-                              <GesturePane fx:id="gesturePaneL2" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <content>
-                                    <AnchorPane fx:id="mapPaneLowerTwo">
-                                       <children>
-                                          <StackPane fx:id="imagePane1111">
-                                             <children>
-                                                <ImageView fx:id="mapImageLowerTwo" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
-                                                   <image>
-                                                      <Image url="@../maps/00_thelowerlevel2.png" />
-                                                   </image>
-                                                   <viewport>
-                                                      <Rectangle2D />
-                                                   </viewport>
-                                                </ImageView>
-                                             </children>
-                                          </StackPane>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </GesturePane>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="lowerLevelOneTab" text="Lower Level 1">
-                     <content>
-                        <AnchorPane>
-                           <children>
-                              <GesturePane fx:id="gesturePaneL1" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <content>
-                                    <AnchorPane fx:id="mapPaneLowerOne">
-                                       <children>
-                                          <StackPane fx:id="imagePane111" minHeight="0.0" minWidth="0.0">
-                                             <children>
-                                                <ImageView fx:id="mapImageLowerOne" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
-                                                   <image>
-                                                      <Image url="@../maps/00_thelowerlevel1.png" />
-                                                   </image>
-                                                   <viewport>
-                                                      <Rectangle2D />
-                                                   </viewport>
-                                                </ImageView>
-                                             </children>
-                                          </StackPane>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </GesturePane>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="floorOneTab" text="Floor 1">
-                     <content>
-                        <AnchorPane>
-                           <children>
-                              <GesturePane fx:id="gesturePane1" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <content>
-                                    <AnchorPane fx:id="mapPaneOne" minWidth="-Infinity">
-                                       <children>
-                                          <StackPane fx:id="imagePane" minHeight="-Infinity" minWidth="-Infinity">
-                                             <children>
-                                                <ImageView fx:id="mapImageOne" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../maps/01_thefirstfloor.png" />
-                                                   </image>
-                                                   <viewport>
-                                                      <Rectangle2D />
-                                                   </viewport>
-                                                </ImageView>
-                                             </children>
-                                          </StackPane>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </GesturePane>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="floorTwoTab" text="Floor 2">
-                     <content>
-                        <AnchorPane>
-                           <children>
-                              <GesturePane fx:id="gesturePane2" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <content>
-                                    <AnchorPane fx:id="mapPaneTwo">
-                                       <children>
-                                          <StackPane fx:id="imagePane1" minHeight="0.0" minWidth="0.0">
-                                             <children>
-                                                <ImageView fx:id="mapImageTwo" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
-                                                   <image>
-                                                      <Image url="@../maps/02_thesecondfloor.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </StackPane>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </GesturePane>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="floorThreeTab" text="Floor 3">
-                     <content>
-                        <AnchorPane>
-                           <children>
-                              <GesturePane fx:id="gesturePane3" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <content>
-                                    <AnchorPane fx:id="mapPaneThree">
-                                       <children>
-                                          <StackPane fx:id="imagePane11" minHeight="0.0" minWidth="0.0">
-                                             <children>
-                                                <ImageView fx:id="mapImageThree" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
-                                                   <image>
-                                                      <Image url="@../maps/03_thethirdfloor.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </StackPane>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </GesturePane>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-               </tabs>
-            </TabPane>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" style="-fx-background-color: #001A3C;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <MFXButton fx:id="menuButton" alignment="BOTTOM_CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" rippleColor="WHITE" style="-fx-background-color: #001A3C;" text="Menu" HBox.hgrow="ALWAYS">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../images/menu-burger.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </MFXButton>
-            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <MFXButton fx:id="loginButton" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" rippleColor="WHITE" style="-fx-background-color: #001A3C;" text="User">
-               <graphic>
-                  <StackPane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <Circle fill="#1f93ff00" radius="25.0" stroke="#e5bc3b" strokeType="INSIDE" strokeWidth="3.0" StackPane.alignment="CENTER" />
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true">
+            </HBox>
+            <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="1600.0" style="-fx-background-color: #012D5A;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <MFXButton fx:id="menuButton" alignment="BOTTOM_CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" rippleColor="WHITE" style="-fx-background-color: #012D5A;" text="Menu" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/menu-burger.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MFXButton>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <MFXButton fx:id="userButton" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" rippleColor="WHITE" style="-fx-background-color: #012D5A;" text="User">
+                     <graphic>
+                        <ImageView fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/circle-user.png" />
                            </image>
                         </ImageView>
-                     </children>
-                  </StackPane>
-               </graphic>
-            </MFXButton>
+                     </graphic>
+                  </MFXButton>
+               </children>
+               <padding>
+                  <Insets left="12.0" right="12.0" />
+               </padding>
+            </HBox>
+            <VBox fx:id="menuBar" maxHeight="1007.0" maxWidth="-Infinity" prefHeight="1007.0" prefWidth="250.0" style="-fx-background-color: #012d5a;" AnchorPane.topAnchor="75.0">
+               <children>
+                  <MFXButton fx:id="menuBarHome" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text=" Home" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="homeI" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/house-blank.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarServices" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Services" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="servicesI" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/hand-holding-medical.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarSignage" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Signage" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="signageI" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/diamond-turn-right.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarMaps" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Pathfinding" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="pathfindingI" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/marker.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarDatabase" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Database" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="databaseI" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/folder-tree.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarAbout" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="About" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="aboutI" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/abouticon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarHelp" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Help" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="helpI" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/interrogation.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarSettings" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Settings" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="settingsI" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/settingsicon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+                  <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarBlank" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text=" " />
+                  <Line endX="100.0" fill="#2c425e" scaleX="1.25" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="menuBarExit" alignment="BOTTOM_CENTER" graphicTextGap="10.0" prefHeight="70.0" prefWidth="250.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Exit" textFill="#f1f1f1">
+                     <graphic>
+                        <ImageView fx:id="exitI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/sign-out-alt.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+            </VBox>
          </children>
-         <padding>
-            <Insets left="15.0" right="15.0" />
-         </padding>
-      </HBox>
-      <VBox fx:id="menuBar" layoutX="10.0" layoutY="10.0" maxHeight="825.0" maxWidth="-Infinity" prefHeight="825.0" prefWidth="250.0" style="-fx-background-color: #001A3C;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="75.0">
-         <children>
-            <MFXButton fx:id="menuBarHome" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text=" Home" textFill="#f1f1f1">
-               <graphic>
-                  <ImageView fx:id="homeI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../images/house-blank.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Roboto" size="18.0" />
-               </font>
-            </MFXButton>
-            <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
-               <VBox.margin>
-                  <Insets left="25.0" />
-               </VBox.margin>
-            </Line>
-            <MFXButton fx:id="menuBarServices" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="Services" textFill="#f1f1f1">
-               <graphic>
-                  <ImageView fx:id="servicesI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../images/hand-holding-medical.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Roboto" size="18.0" />
-               </font>
-            </MFXButton>
-            <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
-               <VBox.margin>
-                  <Insets left="25.0" />
-               </VBox.margin>
-            </Line>
-            <MFXButton fx:id="menuBarSignage" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="Signage" textFill="#f1f1f1">
-               <graphic>
-                  <ImageView fx:id="signageI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../images/diamond-turn-right.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Roboto" size="18.0" />
-               </font>
-            </MFXButton>
-            <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
-               <VBox.margin>
-                  <Insets left="25.0" />
-               </VBox.margin>
-            </Line>
-            <MFXButton fx:id="menuBarMaps" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="Pathfinding" textFill="#f1f1f1">
-               <graphic>
-                  <ImageView fx:id="pathfindingI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../images/marker.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Roboto" size="18.0" />
-               </font>
-            </MFXButton>
-            <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
-               <VBox.margin>
-                  <Insets left="25.0" />
-               </VBox.margin>
-            </Line>
-            <MFXButton fx:id="menuBarDatabase" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="Database" textFill="#f1f1f1">
-               <graphic>
-                  <ImageView fx:id="databaseI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../images/folder-tree.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Roboto" size="18.0" />
-               </font>
-            </MFXButton>
-            <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
-               <VBox.margin>
-                  <Insets left="25.0" />
-               </VBox.margin>
-            </Line>
-            <MFXButton fx:id="menuBarBlank" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="290.0" prefWidth="250.0" style="-fx-background-color: #001A3C;" text=" " />
-            <Line endX="100.0" fill="#2c425e" scaleX="1.25" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
-               <VBox.margin>
-                  <Insets left="25.0" />
-               </VBox.margin>
-            </Line>
-            <MFXButton fx:id="menuBarExit" alignment="BOTTOM_CENTER" graphicTextGap="10.0" prefHeight="70.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="Exit" textFill="#f1f1f1">
-               <graphic>
-                  <ImageView fx:id="exitI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../images/sign-out-alt.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Roboto" size="18.0" />
-               </font>
-            </MFXButton>
-         </children>
-      </VBox>
-   </children>
-</AnchorPane>
+      </AnchorPane>
+   </center>
+</BorderPane>

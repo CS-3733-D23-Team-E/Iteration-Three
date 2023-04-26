@@ -1,19 +1,23 @@
 package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.entities.Employee;
 import edu.wpi.teame.entities.FlowerRequestData;
+import edu.wpi.teame.entities.Settings;
 import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.util.List;
 import java.util.stream.Stream;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.controlsfx.control.SearchableComboBox;
 
 public class FlowerRequestController {
@@ -47,8 +51,33 @@ public class FlowerRequestController {
   @FXML MFXButton cancelButton;
   @FXML MFXButton resetButton;
 
+  @FXML Text recipientNameText;
+  @FXML Text flowerChoiceText;
+  @FXML Text roomText;
+  @FXML Text numberOfFlowersText;
+  @FXML Text deliveryDateText;
+  @FXML Text includeACardText;
+  @FXML Text deliveryTimeText;
+  @FXML Text cardMessageText;
+  @FXML Text staffText;
+  @FXML Text notesText;
+
+  String language = "english";
+  String nyay = "\u00F1"; // ñ
+  String aA = "\u0301"; // á
+  String aE = "\u00E9"; // é
+  String aI = "\u00ED"; // í
+  String aO = "\u00F3"; // ó
+  String aU = "\u00FA"; // ù
+  String aQuestion = "\u00BF"; // Upside down question mark
+  @FXML MFXButton closeButton;
+  @FXML VBox requestSubmittedBox;
+
   @FXML
   public void initialize() {
+
+    requestSubmittedBox.setVisible(false);
+
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
     ObservableList<String> names =
         FXCollections.observableArrayList(
@@ -67,18 +96,12 @@ public class FlowerRequestController {
                 .sorted()
                 .toList());
 
-    /*assignedStaff.setItems(
-    FXCollections.observableList(
-        SQLRepo.INSTANCE.getEmployeeList().stream()
-            .filter(employee -> employee.getPermission().equals("STAFF"))
-            .map(employee -> employee.getFullName())
-            .toList()));*/
-    List<Employee> employeeList = SQLRepo.INSTANCE.getEmployeeList();
-    for (Employee emp : employeeList) {
-      staffMembers.add(emp.getUsername());
-    }
-
-    assignedStaff.setItems(FXCollections.observableArrayList(staffMembers));
+    assignedStaff.setItems(
+        FXCollections.observableList(
+            SQLRepo.INSTANCE.getEmployeeList().stream()
+                .filter(employee -> employee.getPermission().equals("STAFF"))
+                .map(employee -> employee.getUsername())
+                .toList()));
 
     roomName.setItems(names);
     // Add the items to the combo boxes
@@ -87,9 +110,39 @@ public class FlowerRequestController {
     deliveryTime.setItems(deliveryTimes);
     cardQuestion.setItems(yesNo);
     // Initialize the buttons
-    submitButton.setOnMouseClicked(event -> sendRequest());
+
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
+
+    Timeline timeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(1),
+                event -> {
+                  if (Settings.INSTANCE.getLanguage() == Settings.Language.ENGLISH) {
+                    translateToEnglish();
+                  } else if (Settings.INSTANCE.getLanguage() == Settings.Language.SPANISH) {
+                    translateToSpanish();
+                  }
+                }));
+
+    // Page Language Translation Code
+    if (language.equals("english")) {
+      translateToEnglish();
+    } else if (language.equals("spanish")) {
+      translateToSpanish();
+    } else // throw error for language not being a valid language
+    {
+      // throw some sort of error here at some point
+    }
+
+    submitButton.setOnMouseClicked(
+        event -> {
+          sendRequest();
+          requestSubmittedBox.setVisible(true);
+          clearForm();
+        });
+    closeButton.setOnMouseClicked(event -> requestSubmittedBox.setVisible(false));
   }
 
   public FlowerRequestData sendRequest() {
@@ -113,9 +166,6 @@ public class FlowerRequestController {
 
     SQLRepo.INSTANCE.addServiceRequest(requestData);
 
-    // Return to the home screen
-    Navigation.navigate(Screen.HOME);
-
     return requestData;
   }
   // Cancels the current service request
@@ -135,6 +185,43 @@ public class FlowerRequestController {
     recipientName.clear();
     notes.clear();
     assignedStaff.setValue(null);
+  }
+
+  public void translateToSpanish() {
+    // Input Fields
+    recipientNameText.setText("Nombre de Destinatario"); // Recipient Name
+    flowerChoiceText.setText("Elecci" + aO + "n de Flores"); // Flower Choice
+    roomText.setText("Cuarto"); // Room
+    numberOfFlowersText.setText("N" + aU + "mero de Flores"); // Number of Flowers
+    deliveryDateText.setText("Fecha de Entrega"); // Delivery Date
+    includeACardText.setText(aQuestion + "Incluir una Tarjeta?"); // Include a Card?
+    deliveryTimeText.setText("Tiempo de Entrega"); // Delivery Time
+    cardMessageText.setText("Mensaje de Tarjeta"); // Card Mesage
+    staffText.setText("Empleado"); // Staff
+    notesText.setText("Notas"); // Notes
+
+    // Buttons
+    cancelButton.setText("Cancelar"); // Cancel
+    resetButton.setText("Poner a Cero"); // Reset
+    submitButton.setText("Presentar"); // Submit
+  }
+
+  public void translateToEnglish() {
+    recipientNameText.setText("Recipient Name"); // Keep in English
+    flowerChoiceText.setText("Flower Choice"); // Keep in English
+    roomText.setText("Room"); // Keep in English
+    numberOfFlowersText.setText("Number of Flowers"); // Keep in English
+    deliveryDateText.setText("Delivery Date"); // Keep in English
+    includeACardText.setText("Include a Card?"); // Keep in English
+    deliveryTimeText.setText("Delivery Time"); // Keep in English
+    cardMessageText.setText("Card Message"); // Keep in English
+    staffText.setText("Staff"); // Keep in English
+    notesText.setText("Notes"); // Keep in English
+
+    // Buttons
+    cancelButton.setText("Cancel"); // Keep in English
+    resetButton.setText("Reset"); // Keep in English
+    submitButton.setText("Submit"); // Keep in English
   }
 
   // public List<Employee> getEmployeeList() {

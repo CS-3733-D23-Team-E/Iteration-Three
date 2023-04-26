@@ -1,17 +1,22 @@
 package edu.wpi.teame.controllers.DatabaseEditor;
 
+import edu.wpi.teame.App;
 import edu.wpi.teame.Database.SQLRepo;
+import edu.wpi.teame.map.HospitalNode;
 import edu.wpi.teame.map.MoveAttribute;
 import edu.wpi.teame.utilities.MoveUtilities;
-import edu.wpi.teame.utilities.Navigation;
-import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.IOException;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
 
 public class MoveComponentController {
@@ -25,7 +30,6 @@ public class MoveComponentController {
   @FXML MFXButton confirmButton;
   @FXML MFXButton resetButton;
   @FXML Label todayIsLabel;
-  @FXML MFXButton tableEditorSwapButton;
   @FXML Label moveCountText;
   @FXML ListView<String> currentMoveList;
   @FXML TableView<MoveAttribute> futureMoveTable;
@@ -35,6 +39,8 @@ public class MoveComponentController {
 
   MoveUtilities movUtil;
 
+  @FXML MFXButton mapPreviewButton;
+
   @FXML
   public void initialize() {
     movUtil = new MoveUtilities();
@@ -42,11 +48,7 @@ public class MoveComponentController {
     refreshFields();
     initTableAndList();
     initButtons();
-    confirmButton.setOnAction(e -> moveToNewNode());
-    tableEditorSwapButton.setOnMouseClicked(
-        event -> {
-          Navigation.navigate(Screen.DATABASE_TABLEVIEW);
-        });
+    mapPreviewButton.setDisable(true);
   }
 
   private void initButtons() {
@@ -55,14 +57,47 @@ public class MoveComponentController {
           if (swapTab.isSelected()) {
             confirmButton.setOnAction(e -> swapDepartments());
           }
+          enablePreviewCondition();
         });
     moveTab.setOnSelectionChanged(
         event -> {
           if (moveTab.isSelected()) {
             confirmButton.setOnAction(e -> moveToNewNode());
           }
+          enablePreviewCondition();
         });
     resetButton.setOnAction(event -> resetFieldSelections());
+    confirmButton.setOnAction(e -> moveToNewNode());
+    mapPreviewButton.setOnAction(
+        event -> {
+          if (moveTab.isSelected()) {
+            if (departmentMoveSelector.getValue() != null && newNodeSelector.getValue() != null) {
+              openStage(
+                  HospitalNode.allNodes.get(
+                      movUtil
+                              .findMostRecentMoveByDate(departmentMoveSelector.getValue())
+                              .getNodeID()
+                          + ""),
+                  HospitalNode.allNodes.get(newNodeSelector.getValue() + ""));
+            }
+          } else {
+            if (departmentOneSelector.getValue() != null
+                && departmentTwoSelector.getValue() != null) {
+              openStage(
+                  HospitalNode.allNodes.get(
+                      movUtil.findMostRecentMoveByDate(departmentOneSelector.getValue()).getNodeID()
+                          + ""),
+                  HospitalNode.allNodes.get(
+                      movUtil.findMostRecentMoveByDate(departmentTwoSelector.getValue()).getNodeID()
+                          + ""));
+            }
+          }
+        });
+
+    departmentMoveSelector.setOnAction(event -> enablePreviewCondition());
+    departmentOneSelector.setOnAction(event -> enablePreviewCondition());
+    departmentTwoSelector.setOnAction(event -> enablePreviewCondition());
+    newNodeSelector.setOnAction(event -> enablePreviewCondition());
   }
 
   private void refreshFields() {
@@ -151,5 +186,57 @@ public class MoveComponentController {
     currentMoveList.setItems(FXCollections.observableList(movUtil.getCurrentMoveMessages()));
 
     moveCountText.setText(currentMoveList.getItems().size() + " Move(s) Today: ");
+  }
+
+  private void openStage(HospitalNode node1, HospitalNode node2) {
+    var resource = App.class.getResource("views/DatabaseEditor/MovePreview.fxml");
+    MovePreviewController movePreviewController;
+    if (swapTab.isSelected()) {
+      movePreviewController =
+          new MovePreviewController(
+              node1,
+              node2,
+              departmentOneSelector.getValue(),
+              departmentTwoSelector.getValue(),
+              true);
+    } else {
+      movePreviewController =
+          new MovePreviewController(
+              node1, node2, departmentMoveSelector.getValue(), "New Location", false);
+    }
+
+    FXMLLoader loader = new FXMLLoader(resource);
+    loader.setController(movePreviewController); // NOTE: replaces this line in the FXML:
+    // fx:controller="edu.wpi.teame.controllers.DatabaseEditor.MovePreviewController"
+
+    AnchorPane previewLayout;
+    try {
+      previewLayout = loader.load();
+    } catch (IOException e) {
+      previewLayout = new AnchorPane();
+    }
+
+    Scene newScene = new Scene(previewLayout);
+
+    Stage newStage = new Stage();
+    newStage.setTitle("Move Preview");
+    newStage.setScene(newScene);
+    newStage.show();
+  }
+
+  private void enablePreviewCondition() {
+    if (swapTab.isSelected()) {
+      if (departmentTwoSelector.getValue() != null && departmentOneSelector.getValue() != null) {
+        mapPreviewButton.setDisable(false);
+      } else {
+        mapPreviewButton.setDisable(true);
+      }
+    } else {
+      if (departmentMoveSelector.getValue() != null && newNodeSelector.getValue() != null) {
+        mapPreviewButton.setDisable(false);
+      } else {
+        mapPreviewButton.setDisable(true);
+      }
+    }
   }
 }

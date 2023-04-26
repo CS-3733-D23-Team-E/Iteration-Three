@@ -9,6 +9,7 @@ import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -36,8 +37,17 @@ public class SignageController {
         event -> {
           loginVisible = !loginVisible;
           loginPopout(loginVisible);
+          usernameField.requestFocus();
+          usernameField.positionCaret(0);
         });
-
+    usernameField.setOnKeyPressed(
+        event -> {
+          if (event.getCode() == (KeyCode.ENTER)) attemptLogin();
+        });
+    passwordField.setOnKeyPressed(
+        event -> {
+          if (event.getCode() == (KeyCode.ENTER)) attemptLogin();
+        });
     loginButton.setOnMouseClicked(
         event -> {
           attemptLogin();
