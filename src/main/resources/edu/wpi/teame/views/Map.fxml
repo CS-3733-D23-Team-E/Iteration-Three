@@ -137,7 +137,7 @@
                                              <children>
                                                 <StackPane fx:id="imagePane1111">
                                                    <children>
-                                                      <ImageView fx:id="mapImageLowerTwo" fitWidth="5000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                      <ImageView fx:id="mapImageLowerTwo" fitWidth="2000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
                                                          <image>
                                                             <Image url="@../maps/00_thelowerlevel2.png" />
                                                          </image>
@@ -165,7 +165,7 @@
                                              <children>
                                                 <StackPane fx:id="imagePane111" minHeight="0.0" minWidth="0.0">
                                                    <children>
-                                                      <ImageView fx:id="mapImageLowerOne" fitWidth="5000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                      <ImageView fx:id="mapImageLowerOne" fitWidth="2000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
                                                          <image>
                                                             <Image url="@../maps/00_thelowerlevel1.png" />
                                                          </image>
@@ -193,7 +193,7 @@
                                              <children>
                                                 <StackPane fx:id="imagePane" minHeight="-Infinity" minWidth="-Infinity">
                                                    <children>
-                                                      <ImageView fx:id="mapImageOne" fitWidth="5000.0" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fx:id="mapImageOne" fitWidth="2000.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../maps/01_thefirstfloor.png" />
                                                          </image>
@@ -221,7 +221,7 @@
                                              <children>
                                                 <StackPane fx:id="imagePane1" minHeight="0.0" minWidth="0.0">
                                                    <children>
-                                                      <ImageView fx:id="mapImageTwo" fitWidth="5000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                      <ImageView fx:id="mapImageTwo" fitWidth="2000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
                                                          <image>
                                                             <Image url="@../maps/02_thesecondfloor.png" />
                                                          </image>
@@ -246,7 +246,7 @@
                                              <children>
                                                 <StackPane fx:id="imagePane11" minHeight="0.0" minWidth="0.0">
                                                    <children>
-                                                      <ImageView fx:id="mapImageThree" fitWidth="5000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                      <ImageView fx:id="mapImageThree" fitWidth="2000.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
                                                          <image>
                                                             <Image url="@../maps/03_thethirdfloor.png" />
                                                          </image>

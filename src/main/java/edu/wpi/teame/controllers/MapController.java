@@ -621,7 +621,6 @@ public class MapController {
         event -> {
           disableLabel = labelSwitch.isSelected();
           makeLocationNamesVisible(disableLabel);
-          System.out.println("Labels Disabled: " + disableLabel);
         });
     zoomInButton.setOnMouseClicked(
         event -> {
