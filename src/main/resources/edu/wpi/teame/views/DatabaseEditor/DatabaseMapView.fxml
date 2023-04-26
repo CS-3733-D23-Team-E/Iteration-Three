@@ -22,6 +22,7 @@
 <?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
 <?import org.controlsfx.control.SearchableComboBox?>
+<?import org.controlsfx.control.ToggleSwitch?>
 
 <AnchorPane prefHeight="825.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.DatabaseEditor.DatabaseMapViewController">
    <children>
@@ -250,7 +251,7 @@
                                        <font>
                                           <Font name="Roboto" size="13.0" />
                                        </font></Text>
-                                    <SearchableComboBox fx:id="addEdgeField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="75.0" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" HBox.hgrow="ALWAYS" />
+                                    <SearchableComboBox fx:id="addEdgeField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" HBox.hgrow="ALWAYS" />
                                     <MFXButton fx:id="addEdgeButton" prefWidth="80.0" styleClass="submitButton" stylesheets="@../../styles/eStyleSheet.css" text="Add" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Roboto" size="13.0" />
@@ -299,5 +300,11 @@
             </AnchorPane>
          </children>
       </HBox>
+      <VBox alignment="CENTER" prefHeight="37.0" prefWidth="92.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0">
+         <children>
+            <Label text="Display Names" />
+            <ToggleSwitch fx:id="locationNameToggle" style="-fx-alignment: center;" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

@@ -7,10 +7,7 @@ import edu.wpi.teame.map.*;
 import edu.wpi.teame.utilities.MapUtilities;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -18,8 +15,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
+import org.controlsfx.control.ToggleSwitch;
 
 public class DatabaseMapViewController {
 
@@ -69,6 +68,8 @@ public class DatabaseMapViewController {
   @FXML ImageView mapImageOne; // Floor 1
   @FXML ImageView mapImageTwo; // Floor 2
   @FXML ImageView mapImageThree; // Floor 3
+  @FXML ToggleSwitch locationNameToggle;
+  boolean isLocationNamesDisplayed = false;
 
   Floor currentFloor;
   MapUtilities mapUtilityLowerTwo = new MapUtilities(mapPaneLowerTwo);
@@ -85,6 +86,7 @@ public class DatabaseMapViewController {
   List<HospitalNode> deleteList = new LinkedList<>();
 
   List<HospitalNode> workingList = new LinkedList<>();
+  List<Label> allNodeLabels = new LinkedList<>();
 
   HospitalNode curNode;
 
@@ -157,6 +159,15 @@ public class DatabaseMapViewController {
 
   }
 
+  private void labelsVisibility(boolean visible) {
+    for (Label aLabel : allNodeLabels) {
+      aLabel.setVisible(visible);
+    }
+    if (currentLabel != null) {
+      currentLabel.setVisible(true);
+    }
+  }
+
   private void deleteNode() {
     SQLRepo.INSTANCE.deletenode(curNode);
     displayAddMenu();
@@ -183,15 +194,11 @@ public class DatabaseMapViewController {
         whichMapUtility(currentFloor).drawEdge(node1, node2);
       }
     }
-
+    allNodeLabels.clear();
     for (HospitalNode node : floorNodes) {
       setupNode(node);
     }
-  }
-
-  public void initialLoadFloor(Floor floor) {
-    currentFloor = floor;
-    loadFloorNodes();
+    labelsVisibility(isLocationNamesDisplayed);
   }
 
   private void setupNode(HospitalNode node) {
@@ -201,8 +208,15 @@ public class DatabaseMapViewController {
 
     Circle nodeCircle = currentMapUtility.drawHospitalNode(node);
     Label nodeLabel = currentMapUtility.drawHospitalNodeLabel(node);
+    nodeLabel.setStyle(
+        "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
+    nodeLabel.setFont(Font.font("Roboto", 6));
     nodeLabel.setVisible(false);
-
+    if (LocationName.NodeType.HALL
+        != LocationName.NodeType.stringToNodeType(
+            SQLRepo.INSTANCE.getNodeTypeFromNodeID(Integer.parseInt(node.getNodeID())))) {
+      allNodeLabels.add(nodeLabel);
+    }
     nodeCircle.setOnMouseClicked(
         event -> {
           if (currentCircle != null && currentLabel != null) {
@@ -540,6 +554,11 @@ public class DatabaseMapViewController {
           removeLocation();
         });
     addLocationButton.setOnAction(event -> addLocationName());
+    locationNameToggle.setOnMouseClicked(
+        event -> {
+          isLocationNamesDisplayed = locationNameToggle.isSelected();
+          labelsVisibility(isLocationNamesDisplayed);
+        });
   }
 
   private void refreshEdgeTable() {
