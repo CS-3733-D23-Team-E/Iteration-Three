@@ -7,8 +7,6 @@ import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
-
-import java.awt.*;
 import java.sql.SQLException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -50,7 +48,6 @@ public class SignageComponentController {
   @FXML SearchableComboBox<String> directions;
   @FXML MFXButton close;
   @FXML VBox formSubmitted;
-  @FXML Rectangle backgroundFrame;
 
   ObservableList<String> kioskDiffLocations =
       FXCollections.observableArrayList(
@@ -119,6 +116,7 @@ public class SignageComponentController {
           } catch (SQLException e) {
             throw new RuntimeException(e);
           }
+          clearForm();
           formSubmitted.setVisible(true);
         });
 

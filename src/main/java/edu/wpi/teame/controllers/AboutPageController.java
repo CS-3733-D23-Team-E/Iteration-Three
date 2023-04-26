@@ -73,7 +73,7 @@ public class AboutPageController {
           Navigation.navigate(Screen.SERVICE_REQUESTS);
           menuVisibilty = !menuVisibilty;
         });
-    menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
+    menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_EDITOR_PAGE));
     menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_EDITOR));
     menuBarAbout.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT));

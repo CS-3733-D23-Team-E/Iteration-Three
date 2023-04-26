@@ -152,7 +152,7 @@ public class MapController {
           Navigation.navigate(Screen.SERVICE_REQUESTS);
           menuBar.setVisible(!menuBar.isVisible());
         });
-    menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
+    menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_EDITOR_PAGE));
     menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_EDITOR));
     menuBarExit.setOnMouseClicked((event -> Platform.exit()));

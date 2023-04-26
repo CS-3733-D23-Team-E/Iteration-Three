@@ -107,14 +107,12 @@ public class HomePageController {
 
     serviceRequestButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUESTS));
 
-    editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
-
     editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_EDITOR_PAGE));
     databaseButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_EDITOR));
 
     pathfindingButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
 
-    menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
+    menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_EDITOR_PAGE));
     menuBarServices.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUESTS));
     menuBarHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
