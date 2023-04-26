@@ -3,6 +3,12 @@ package edu.wpi.teame.utilities;
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.map.HospitalNode;
 import edu.wpi.teame.map.LocationName;
+import java.util.LinkedList;
+import java.util.List;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -11,11 +17,14 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.util.Duration;
 import javax.swing.*;
 
 public class MapUtilities {
   private final int MAP_X = 5000;
   private final int MAP_Y = 3400;
+
+  private final double ARROW_SHORTENING_CONSTANT = 10.0;
   private final Pane pane;
 
   private String lineStyle = "";
@@ -159,6 +168,15 @@ public class MapUtilities {
     return drawLineWithLabel(x1, y1, x2, y2, message);
   }
 
+  public List<Node> drawMoveArrow(HospitalNode from, HospitalNode to) {
+    int x1 = from.getXCoord();
+    int y1 = from.getYCoord();
+    int x2 = to.getXCoord();
+    int y2 = to.getYCoord();
+
+    return drawArrowLine(x1, y1, x2, y2);
+  }
+
   /**
    * draws a stylized version of the line determined by the lineStyle attribute
    *
@@ -191,7 +209,7 @@ public class MapUtilities {
   }
 
   /**
-   * <<<<<<< HEAD ======= draws a line with a given label over it
+   * draws a line with a given label over it
    *
    * @param x1
    * @param y1
@@ -207,9 +225,72 @@ public class MapUtilities {
     return drawLine(x1, y1, x2, y2);
   }
 
+  public List<Node> drawArrowLine(int startX, int startY, int endX, int endY) {
+    startX = (int) convertX(startX);
+    startY = (int) convertY(startY);
+    endX = (int) convertX(endX);
+    endY = (int) convertY(endY);
+
+    // get the slope of the line and find its angle
+    double slope = (startY - endY) * 1.0 / (startX - endX);
+    double lineAngle = Math.atan(slope);
+
+    double arrowAngle = startX > endX ? Math.toRadians(45) : -Math.toRadians(225);
+
+    Line line =
+        new Line(
+            startX,
+            startY,
+            endX - (Math.signum(endX - startX)) * (ARROW_SHORTENING_CONSTANT * Math.cos(lineAngle)),
+            endY
+                - (Math.signum(endX - startX)) * (ARROW_SHORTENING_CONSTANT * Math.sin(lineAngle)));
+
+    line.getStrokeDashArray().setAll(15d, 15d, 15d, 15d);
+
+    double maxOffset = line.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
+
+    Timeline timeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.ZERO,
+                new KeyValue(line.strokeDashOffsetProperty(), maxOffset, Interpolator.LINEAR)),
+            new KeyFrame(
+                Duration.seconds(2),
+                new KeyValue(line.strokeDashOffsetProperty(), 0, Interpolator.LINEAR)));
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    timeline.play();
+
+    double arrowLength = 10;
+
+    // create the arrow legs
+    Line arrow1 = new Line();
+    arrow1.setStartX(line.getEndX());
+    arrow1.setStartY(line.getEndY());
+    arrow1.setEndX(line.getEndX() + arrowLength * Math.cos(lineAngle - arrowAngle));
+    arrow1.setEndY(line.getEndY() + arrowLength * Math.sin(lineAngle - arrowAngle));
+
+    Line arrow2 = new Line();
+    arrow2.setStartX(line.getEndX());
+    arrow2.setStartY(line.getEndY());
+    arrow2.setEndX(line.getEndX() + arrowLength * Math.cos(lineAngle + arrowAngle));
+    arrow2.setEndY(line.getEndY() + arrowLength * Math.sin(lineAngle + arrowAngle));
+
+    line.setStrokeWidth(3);
+    arrow1.setStrokeWidth(3);
+    arrow2.setStrokeWidth(3);
+
+    addShape(line);
+    addShape(arrow1);
+    addShape(arrow2);
+    List<Node> arrow = new LinkedList<>();
+    arrow.add(line);
+    arrow.add(arrow1);
+    arrow.add(arrow2);
+    return arrow;
+  }
+
   /**
-   * >>>>>>> dev draws a ring by creating two circles, returns the outer circle, has parameters for
-   * colors
+   * draws a ring by creating two circles, returns the outer circle, has parameters for colors
    *
    * @param x
    * @param y
