@@ -725,7 +725,7 @@ public class MapController {
             node.getXCoord(),
             node.getYCoord(),
             SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(node.getNodeID())));
-    thisLabel.setFont(Font.font("Roboto", 12));
+    thisLabel.setFont(Font.font("Roboto", 8));
     thisLabel.setStyle(
         "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
     allLocationNameLabels.add(thisLabel);
