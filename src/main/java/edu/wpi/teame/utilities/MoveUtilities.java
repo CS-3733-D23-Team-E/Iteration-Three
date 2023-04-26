@@ -227,5 +227,24 @@ public class MoveUtilities {
     return invertedMap;
   }
 
+  public int daysCompareMove(String longName, LocalDate date) {
+    int days = Integer.MAX_VALUE;
+    List<MoveAttribute> movesForNode =
+        SQLRepo.INSTANCE.getMoveList().stream()
+            .filter(move -> (move.getLongName()).equals(longName))
+            .toList();
+    for (MoveAttribute move : movesForNode) {
+      if (Math.abs(date.until(LocalDate.parse(move.getDate())).getDays()) < Math.abs(days))
+        days = date.until(LocalDate.parse(move.getDate())).getDays();
+    }
+    return days;
+  }
+
+  public static void main(String[] args) {
+    MoveUtilities moveUtilities = new MoveUtilities();
+    System.out.println();
+    System.out.println(moveUtilities.daysCompareMove("CART Waiting", LocalDate.now()));
+  }
+
   ////////////////// Setters (sending new move data to database) ///////////////////////
 }

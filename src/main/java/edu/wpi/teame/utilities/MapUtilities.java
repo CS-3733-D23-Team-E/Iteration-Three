@@ -169,6 +169,7 @@ public class MapUtilities {
   public Line drawStyledLine(int x1, int y1, int x2, int y2) {
     Line line = this.drawLine(x1, y1, x2, y2);
     line.setStyle(lineStyle);
+    line.setViewOrder(-1);
     return line;
   }
 
