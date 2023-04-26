@@ -168,7 +168,6 @@
                         </Tab>
                      </tabs>
                   </TabPane>
-                  <MFXButton fx:id="mapPreviewButton" styleClass="mfx-button" stylesheets="@../../styles/eStyleSheet.css" text="Preview Map" />
                   <HBox maxWidth="640.0" spacing="10.0">
                      <children>
                         <VBox alignment="TOP_CENTER" spacing="20.0" HBox.hgrow="ALWAYS">

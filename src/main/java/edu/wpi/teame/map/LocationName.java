@@ -117,6 +117,8 @@ public class LocationName {
     this.longName = longName;
     this.shortName = shortName;
     this.nodeType = nodeType;
+
+    allLocations.put(this.longName, this);
   }
 
   @Override
