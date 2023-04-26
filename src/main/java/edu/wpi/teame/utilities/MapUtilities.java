@@ -143,7 +143,9 @@ public class MapUtilities {
     int x2 = neighbor.getXCoord();
     int y2 = neighbor.getYCoord();
 
-    return drawLine(x1, y1, x2, y2);
+    Line line = drawLine(x1, y1, x2, y2);
+    line.setId("startNode:" + node + "endNode:" + neighbor);
+    return line;
   }
 
   public Line drawMove(HospitalNode from, HospitalNode to) {
@@ -189,7 +191,7 @@ public class MapUtilities {
   }
 
   /**
-   * draws a line with a given label over it
+   * <<<<<<< HEAD ======= draws a line with a given label over it
    *
    * @param x1
    * @param y1
@@ -206,7 +208,8 @@ public class MapUtilities {
   }
 
   /**
-   * draws a ring by creating two circles, returns the outer circle, has parameters for colors
+   * >>>>>>> dev draws a ring by creating two circles, returns the outer circle, has parameters for
+   * colors
    *
    * @param x
    * @param y
@@ -361,14 +364,14 @@ public class MapUtilities {
     return coord * (paneWidth / mapWidth);
   }
 
-  public double PaneXToImageX(double coord) {
+  public int PaneXToImageX(double coord) {
     double paneWidth = this.pane.getWidth();
-    return coord * (MAP_X / paneWidth);
+    return (int) (coord * (MAP_X / paneWidth));
   }
 
-  public double PaneYToImageY(double coord) {
+  public int PaneYToImageY(double coord) {
     double paneWidth = this.pane.getHeight();
-    return coord * (MAP_Y / paneWidth);
+    return (int) (coord * (MAP_Y / paneWidth));
   }
 
   /**
