@@ -5,6 +5,10 @@ import edu.wpi.teame.map.HospitalNode;
 import edu.wpi.teame.map.LocationName;
 import java.util.LinkedList;
 import java.util.List;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -13,6 +17,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.util.Duration;
 import javax.swing.*;
 
 public class MapUtilities {
@@ -237,6 +242,21 @@ public class MapUtilities {
             endY
                 - (Math.signum(endX - startX)) * (ARROW_SHORTENING_CONSTANT * Math.sin(lineAngle)));
 
+    line.getStrokeDashArray().setAll(15d, 15d, 15d, 15d);
+
+    double maxOffset = line.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
+
+    Timeline timeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.ZERO,
+                new KeyValue(line.strokeDashOffsetProperty(), maxOffset, Interpolator.LINEAR)),
+            new KeyFrame(
+                Duration.seconds(2),
+                new KeyValue(line.strokeDashOffsetProperty(), 0, Interpolator.LINEAR)));
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    timeline.play();
+
     double arrowLength = 10;
 
     // create the arrow legs
@@ -256,7 +276,9 @@ public class MapUtilities {
     arrow1.setStrokeWidth(3);
     arrow2.setStrokeWidth(3);
 
-    pane.getChildren().addAll(line, arrow1, arrow2);
+    addShape(line);
+    addShape(arrow1);
+    addShape(arrow2);
     List<Node> arrow = new LinkedList<>();
     arrow.add(line);
     arrow.add(arrow1);
