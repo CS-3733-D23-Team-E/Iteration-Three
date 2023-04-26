@@ -72,6 +72,8 @@ public class MovePreviewController {
   Circle circle2;
   Circle currentCircle;
   HBox previousLabel;
+  List<Node> toNode2Arrow;
+  List<Node> toNode1Arrow;
 
   public MovePreviewController(
       HospitalNode node1, HospitalNode node2, String name1, String name2, boolean bidirectional) {
@@ -221,7 +223,13 @@ public class MovePreviewController {
     // create edges
     if (node1.getFloor().equals(currentFloor) || node2.getFloor().equals(currentFloor)) {
       // whichMapUtility(currentFloor).drawMove(node1, node2);
-      whichMapUtility(currentFloor).drawMoveArrow(node1, node2);
+      toNode2Arrow = whichMapUtility(currentFloor).drawMoveArrow(node1, node2);
+      if (bidirectional) {
+        toNode1Arrow = whichMapUtility(currentFloor).drawMoveArrow(node2, node1);
+      } else {
+        toNode1Arrow = whichMapUtility(currentFloor).drawMoveArrow(node1, node2);
+      }
+      renderNodeArrow(toNode2Arrow, toNode1Arrow);
       if (node1.getFloor().equals(currentFloor)) {
         // draw phantom label for node 2
         setupNode(node1, name1);
@@ -349,6 +357,11 @@ public class MovePreviewController {
             currentCircle.setViewOrder(-5);
             System.out.println("currentCircle: " + currentCircle);
             System.out.println("Node List: " + nodeList);
+            if (currentNode.equals(node1)) {
+              renderNodeArrow(toNode2Arrow, toNode1Arrow);
+            } else {
+              renderNodeArrow(toNode1Arrow, toNode2Arrow);
+            }
 
             // Set the current label as the previous
             previousLabel = hBox;
@@ -400,5 +413,14 @@ public class MovePreviewController {
   public void adjustGesture(GesturePane oldGesture, GesturePane newGesture) {
     newGesture.centreOn(oldGesture.targetPointAtViewportCentre());
     newGesture.zoomTo(oldGesture.getCurrentScale(), newGesture.targetPointAtViewportCentre());
+  }
+
+  private void renderNodeArrow(List<Node> arrow, List<Node> other) {
+    for (Node node : arrow) {
+      node.setVisible(true);
+    }
+    for (Node node : other) {
+      node.setVisible(false);
+    }
   }
 }
