@@ -1,5 +1,6 @@
 package edu.wpi.teame.controllers;
 
+import static edu.wpi.teame.entities.ServiceRequestData.Status.*;
 import static edu.wpi.teame.entities.ServiceRequestData.Status.DONE;
 import static edu.wpi.teame.entities.ServiceRequestData.Status.IN_PROGRESS;
 import static javafx.scene.paint.Color.WHITE;
@@ -17,9 +18,12 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class ServiceRequestPageController {
 
@@ -29,8 +33,12 @@ public class ServiceRequestPageController {
   @FXML MFXButton menuBarSignage;
   @FXML MFXButton menuBarMaps;
   @FXML MFXButton menuBarDatabase;
+  @FXML MFXButton menuBarAbout;
   @FXML MFXButton menuBarBlank;
   @FXML MFXButton menuBarExit;
+
+  @FXML MFXButton menuBarHelp;
+  @FXML MFXButton menuBarSettings;
   @FXML MFXButton userButton;
   @FXML VBox menuBar;
   @FXML ImageView homeI;
@@ -38,6 +46,9 @@ public class ServiceRequestPageController {
   @FXML ImageView signageI;
   @FXML ImageView pathfindingI;
   @FXML ImageView databaseI;
+
+  @FXML ImageView aboutI;
+
   @FXML ImageView exitI;
 
   @FXML Label pendingRequestText;
@@ -47,6 +58,18 @@ public class ServiceRequestPageController {
   @FXML Label completedRequestText;
 
   @FXML Label nonCompletedText;
+  @FXML MFXButton spanishButton;
+  @FXML MFXButton englishButton;
+
+  @FXML Text inProgressRequestTitleText;
+  @FXML Text pendingRequestsTitleText;
+  @FXML Text completedRequestTitleText;
+  @FXML Label nonCompletedTitleText;
+  @FXML Tab flowerRequestTab;
+  @FXML Tab mealRequestTab;
+  @FXML Tab officeSuppliesTab;
+  @FXML Tab conferenceRoomTab;
+  @FXML Tab furnitureDeliveryTab;
 
   @FXML ListView<String> outgoingRequestsList;
 
@@ -55,6 +78,15 @@ public class ServiceRequestPageController {
 
   boolean menuVisibilty = false;
   boolean logoutVisible = false;
+
+  String language = "english";
+  String nyay = "\u00F1"; // ñ
+  String aA = "\u0301"; // á
+  String aE = "\u00E9"; // é
+  String aI = "\u00ED"; // í
+  String aO = "\u00F3"; // ó
+  String aU = "\u00FA"; // ù
+  String aQuestion = "\u00BF"; // Upside down question mark
 
   @FXML
   public void initialize() {
@@ -89,6 +121,9 @@ public class ServiceRequestPageController {
     menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
     menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate(Screen.DATABASE_EDITOR));
+
+    menuBarAbout.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT));
+
     menuBarExit.setOnMouseClicked((event -> Platform.exit()));
     logoutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
 
@@ -120,6 +155,8 @@ public class ServiceRequestPageController {
         "images/folder-tree.png",
         "images/folder-tree-blue.png");
     ButtonUtilities.mouseSetupMenuBar(
+        menuBarAbout, "baseline-left", aboutI, "images/abouticon.png", "images/abouticon-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
         menuBarExit,
         "baseline-center",
         exitI,
@@ -129,6 +166,15 @@ public class ServiceRequestPageController {
     mouseSetup(logoutButton);
 
     fillServiceRequestsFields();
+
+    if (language.equals("english")) {
+      translateToEnglish();
+    } else if (language.equals("spanish")) {
+      translateToSpanish();
+    } else // throw error for language not being a valid language
+    {
+      // throw some sort of error here at some point
+    }
   }
 
   public void logoutPopup(boolean bool) {
@@ -141,9 +187,12 @@ public class ServiceRequestPageController {
     menuBarSignage.setVisible(bool);
     menuBarMaps.setVisible(bool);
     menuBarDatabase.setVisible(bool);
+    menuBarAbout.setVisible(bool);
     menuBarBlank.setVisible(bool);
     menuBarExit.setVisible(bool);
     menuBar.setVisible(bool);
+    menuBarSettings.setVisible(bool);
+    menuBarHelp.setVisible(bool);
   }
 
   private void mouseSetup(MFXButton btn) {
@@ -182,6 +231,7 @@ public class ServiceRequestPageController {
         SQLRepo.INSTANCE.getConfList().stream()
             .map(request -> (ServiceRequestData) request)
             .toList());
+
     requests.addAll(
         SQLRepo.INSTANCE.getMedicalSuppliesList().stream()
             .map(request -> (ServiceRequestData) request)
@@ -191,6 +241,7 @@ public class ServiceRequestPageController {
         requests.stream()
             .filter(request -> request.getRequestStatus().equals(ServiceRequestData.Status.PENDING))
             .toList();
+
     List<ServiceRequestData> inProgressRequests =
         requests.stream()
             .filter(request -> request.getRequestStatus().equals(IN_PROGRESS))
@@ -212,9 +263,9 @@ public class ServiceRequestPageController {
                           .getAssignedStaff()
                           .equalsIgnoreCase(Employee.activeEmployee.getUsername()))
               .toList();
-      nonCompletedText.setText("Your Non-completed requests:");
+      nonCompletedTitleText.setText("Your Non-completed requests:");
     } else {
-      nonCompletedText.setText("All Non-completed requests:");
+      nonCompletedTitleText.setText("All Non-completed requests:");
     }
     List<ServiceRequestData> nonCompleteRequests =
         requests.stream().filter(request -> !request.getRequestStatus().equals(DONE)).toList();
@@ -230,5 +281,67 @@ public class ServiceRequestPageController {
                         + request.getRequestStatus()))
             .toList();
     outgoingRequestsList.setItems(FXCollections.observableList(requestTexts));
+  }
+
+  public void translateToSpanish() {
+    // Change language variable
+    language = "spanish";
+
+    // Menu Bar
+    menuBarHome.setText("Principal"); // Home
+    menuBarServices.setText("Servicios"); // Services
+    menuBarSignage.setText("Se" + nyay + "alizaci" + aO + "n"); // Signage
+    menuBarMaps.setText("Navegaci" + aO + "n"); // Pathfinding
+    menuBarDatabase.setText("Base de Datos"); // Database
+    menuBarExit.setText(("Salida")); // Exit
+
+    // Logout Button
+    logoutButton.setText("Cerrar Sesi" + aO + "n"); // Logout
+    Font spanishLogout = new Font("Roboto", 13);
+    logoutButton.setFont(spanishLogout);
+
+    // Request Status Bar
+    pendingRequestsTitleText.setText("Pendiente"); // Pending:
+    inProgressRequestTitleText.setText("En Curso"); // In Progress:
+    completedRequestTitleText.setText("Completo"); // Completed:
+    nonCompletedTitleText.setText("Solicitudes No Completadas"); // Non-Completed Requests
+
+    // Service Request Tabs
+    flowerRequestTab.setText("Solicitud de Flores"); // Flower Request
+    mealRequestTab.setText("Solicitud de Comida"); // Meal Request
+    officeSuppliesTab.setText("Suministros de Oficina"); // Office Supplies
+    conferenceRoomTab.setText("Sala de Conferencias"); // Conference Room
+    furnitureDeliveryTab.setText("Entrega de Muebles"); // Furniture Delivery
+  }
+
+  public void translateToEnglish() {
+    // Change language variable
+    language = "english";
+
+    // Menu Bar
+    menuBarHome.setText("Home"); // Keep in English
+    menuBarServices.setText("Services"); // Keep in English
+    menuBarSignage.setText("Signage"); // Keep in English
+    menuBarMaps.setText("Pathfinding"); // Keep in English
+    menuBarDatabase.setText("Database"); // Keep in English
+    menuBarExit.setText(("Exit")); // Keep in English
+
+    // Logout Button
+    logoutButton.setText("Logout"); // Keep in English
+    Font englishLogout = new Font("Roboto", 18);
+    logoutButton.setFont(englishLogout);
+
+    // Request Status Bar
+    inProgressRequestTitleText.setText("In Progress"); // Keep in English
+    pendingRequestsTitleText.setText("Pending:"); // Keep in English
+    completedRequestTitleText.setText("Completed:"); // Keep in English
+    nonCompletedTitleText.setText("Non-completed Requests"); // Keep in English
+
+    // Service Request Tabs
+    flowerRequestTab.setText("Flower Request"); // Flower Request
+    mealRequestTab.setText("Meal Request"); // Meal Request
+    officeSuppliesTab.setText("Office Supplies"); // Office Supplies
+    conferenceRoomTab.setText("Conference Room"); // Conference Room
+    furnitureDeliveryTab.setText("Furniture Delivery"); // Furniture Delivery
   }
 }

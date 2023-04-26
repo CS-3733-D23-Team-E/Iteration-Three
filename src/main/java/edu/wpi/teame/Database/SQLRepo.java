@@ -23,7 +23,8 @@ public enum SQLRepo {
     FURNITURE_REQUESTS,
     CONFERENCE_ROOM,
     MEDICAL_SUPPLIES,
-    SIGNAGE_FORM;
+    SIGNAGE_FORM,
+    ALERT;
 
     public static String tableToString(Table tb) {
       switch (tb) {
@@ -71,6 +72,7 @@ public enum SQLRepo {
   ServiceDAO<ConferenceRequestData> conferenceDAO;
   SignageComponentDAO signageDAO;
   ServiceDAO<MedicalSuppliesData> medicalsuppliesDAO;
+  AlertDAO<AlertData> alertDAO;
 
   public Employee connectToDatabase(String username, String password) {
     try {
@@ -95,6 +97,7 @@ public enum SQLRepo {
         furnitureDAO = new FurnitureDAO(activeConnection);
         signageDAO = new SignageComponentDAO(activeConnection);
         medicalsuppliesDAO = new MedicalSuppliesDAO(activeConnection);
+        alertDAO = new AlertDAO(activeConnection);
 
         Employee.setActiveEmployee(loggedIn);
 
@@ -210,6 +213,9 @@ public enum SQLRepo {
           break;
         case MEDICAL_SUPPLIES:
           this.medicalsuppliesDAO.importFromCSV(filepath, "MedicalSupplies");
+        case ALERT:
+          this.alertDAO.importFromCSV(filepath, "Alert");
+          break;
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());
@@ -255,6 +261,9 @@ public enum SQLRepo {
         case SIGNAGE_FORM:
           this.signageDAO.exportToCSV(filepath, "SignageForm");
           break;
+        case ALERT:
+          this.alertDAO.exportToCSV(filepath, tableName);
+          break;
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());
@@ -262,6 +271,9 @@ public enum SQLRepo {
   }
 
   // ALL GETS FOR DAOS
+  public List<AlertData> getAlertList() {
+    return this.alertDAO.get();
+  }
 
   public List<HospitalNode> getNodeList() {
     return this.nodeDAO.get();
@@ -317,6 +329,9 @@ public enum SQLRepo {
   }
 
   // ALL UPDATES FOR DAOS
+  public void updateAlert(AlertData obj, String attribute, String value) {
+    this.alertDAO.update(obj, attribute, value);
+  }
 
   public void updateNode(HospitalNode obj, String attribute, String value) {
     this.nodeDAO.update(obj, attribute, value);
@@ -415,6 +430,30 @@ public enum SQLRepo {
     this.signageDAO.delete(obj);
   }
 
+  public void deleteAlert(AlertData obj) {
+    this.alertDAO.delete(obj);
+  }
+
+  public void deleteOfficeSupplyRequest(OfficeSuppliesData obj) {
+    this.officesupplyDAO.delete(obj);
+  }
+
+  public void deleteMealRequest(MealRequestData obj) {
+    this.mealDAO.delete(obj);
+  }
+
+  public void deleteConfRoomRequest(ConferenceRequestData obj) {
+    this.conferenceDAO.delete(obj);
+  }
+
+  public void deleteFurnitureRequest(FurnitureRequestData obj) {
+    this.furnitureDAO.delete(obj);
+  }
+
+  public void deleteFlowerRequest(FlowerRequestData obj) {
+    this.flowerDAO.delete(obj);
+  }
+
   public void deletenode(HospitalNode obj) {
     this.nodeDAO.delete(obj);
   }
@@ -462,6 +501,30 @@ public enum SQLRepo {
 
   public void addSignage(SignageComponentData obj) {
     this.signageDAO.add(obj);
+  }
+
+  public void addAlert(AlertData obj) {
+    this.alertDAO.add(obj);
+  }
+
+  public void addOfficeSupplyRequest(OfficeSuppliesData obj) {
+    this.officesupplyDAO.add(obj);
+  }
+
+  public void addMealRequest(MealRequestData obj) {
+    this.mealDAO.add(obj);
+  }
+
+  public void addConfRoomRequest(ConferenceRequestData obj) {
+    this.conferenceDAO.add(obj);
+  }
+
+  public void addFurnitureRequest(FurnitureRequestData obj) {
+    this.furnitureDAO.add(obj);
+  }
+
+  public void addFlowerRequest(FlowerRequestData obj) {
+    this.flowerDAO.add(obj);
   }
 
   public void addNode(HospitalNode obj) {
