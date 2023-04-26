@@ -366,7 +366,8 @@ public class MapController {
 
     if (daysUntilMove > 0 && daysUntilMove <= 7) {
 
-      endLabel.setTooltip(new Tooltip("This location will be moved in " + daysUntilMove + " day(s)"));
+      endLabel.setTooltip(
+          new Tooltip("This location will be moved in " + daysUntilMove + " day(s)"));
       endLabel.getTooltip().setFont(new Font("Roboto", 20));
       endLabel.setText(endLabel.getText() + "*");
 
@@ -618,7 +619,7 @@ public class MapController {
       vbox.getChildren().add(hBox);
     }
   }
-  
+
   public void translateToSpanish() {
     // Change language variable
     language = "spanish";
@@ -626,7 +627,8 @@ public class MapController {
     // Menu Bar
     menuBarHome.setText("Principal"); // Home
     menuBarServices.setText("Servicios"); // Services
-    menuBarSignage.setText("Se" + Settings.INSTANCE.nyay + "alizaci" + Settings.INSTANCE.aO + "n"); // Signage
+    menuBarSignage.setText(
+        "Se" + Settings.INSTANCE.nyay + "alizaci" + Settings.INSTANCE.aO + "n"); // Signage
     menuBarMaps.setText("Navegaci" + Settings.INSTANCE.aO + "n"); // Pathfinding
     menuBarDatabase.setText("Base de Datos"); // Database
     menuBarExit.setText(("Salida")); // Exit
