@@ -11,6 +11,7 @@ import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.map.pathfinding.AbstractPathfinder;
 import edu.wpi.teame.utilities.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -142,8 +143,10 @@ public class MapController {
 
     // Set the svg images for the map buttons
     setSVG();
-
     menuBarVisible(false);
+
+    // Set the default date to be the current date
+    pathfindingDate.setValue(LocalDate.now());
 
     // When the menu button is clicked, invert the value of menuVisibility and set the menu bar to
     // that value
@@ -379,6 +382,7 @@ public class MapController {
         moveUtilities.daysCompareMove(
             nodeToLongName.get(path.get(path.size() - 1).getNodeID()), pathfindingDate.getValue());
     endLabel.setTooltip(null);
+    endLabel.setViewOrder(-8);
 
     if (daysUntilMove > 0 && daysUntilMove <= 7) {
 
@@ -491,11 +495,12 @@ public class MapController {
       // Get the turn type
       TurnType turnType = getTurn(path, i);
 
-      // If the last type was an elevator or stairs, just skip it
-      if (lastTurnType == TurnType.ELEVATOR || lastTurnType == TurnType.STAIRS) {
-        lastTurnType = turnType;
-        continue;
-      }
+      //      // If the last type was an elevator or stairs, just skip it
+      //      if (lastTurnType == TurnType.ELEVATOR || lastTurnType == TurnType.STAIRS) {
+      //        lastTurnType = turnType;
+      //        continue;
+      //      }
+
       // Get the current node
       HospitalNode currentNode = path.get(i);
       currentDistance += getDistance(path, i);
@@ -539,9 +544,9 @@ public class MapController {
                     previousLabel.setBorder(Border.EMPTY);
                   }
 
-                  // Pan so starting node is centered
+                  // Pan so node is centered
                   startingPane
-                      .animate(Duration.millis(200))
+                      .animate(Duration.millis(100))
                       .centreOn(
                           new Point2D(
                               currentMapUtility.convertX(currentNode.getXCoord()),
@@ -587,19 +592,15 @@ public class MapController {
     // If the current node is elevator and the next node is on another floor, then set the turn type
     // to elevator
     if ((LocationName.NodeType.stringToNodeType(
-                SQLRepo.INSTANCE.getNodeTypeFromNodeID(
-                    Integer.parseInt(path.get(index).getNodeID())))
-            == LocationName.NodeType.ELEV)
-        && (path.get(index).getFloor()) != path.get(index + 1).getFloor()) {
+            SQLRepo.INSTANCE.getNodeTypeFromNodeID(Integer.parseInt(path.get(index).getNodeID())))
+        == LocationName.NodeType.ELEV)) {
       return TurnType.ELEVATOR;
     }
     // If the current node is stairs and the next node is on another floor, then set the turn type
     // to stairs
     if ((LocationName.NodeType.stringToNodeType(
-                SQLRepo.INSTANCE.getNodeTypeFromNodeID(
-                    Integer.parseInt(path.get(index).getNodeID())))
-            == LocationName.NodeType.STAI)
-        && (path.get(index).getFloor()) != path.get(index + 1).getFloor()) {
+            SQLRepo.INSTANCE.getNodeTypeFromNodeID(Integer.parseInt(path.get(index).getNodeID())))
+        == LocationName.NodeType.STAI)) {
       return TurnType.STAIRS;
     }
     // Straight
@@ -715,6 +716,7 @@ public class MapController {
   }
 
   public void menuBarVisible(boolean bool) {
+    menuBar.setVisible(bool);
     menuBarHome.setVisible(bool);
     menuBarServices.setVisible(bool);
     menuBarSignage.setVisible(bool);
