@@ -7,11 +7,16 @@ import javafx.fxml.FXML;
 public class SettingsPageController {
 
   @FXML MFXButton englishButton;
+  @FXML MFXButton spanishButton;
+  @FXML MFXButton frenchButton;
 
   @FXML MFXButton hawaiianButton;
 
   @FXML
   public void initialize() {
-    Settings.INSTANCE.setLanguage(Settings.Language.ENGLISH);
+
+
+    englishButton.setOnMouseClicked(event -> Settings.INSTANCE.setLanguage(Settings.Language.ENGLISH));
+
   }
 }
