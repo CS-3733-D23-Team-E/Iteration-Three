@@ -36,11 +36,6 @@ public class MapController {
   @FXML AnchorPane mapPaneThree;
   @FXML AnchorPane mapPaneLowerOne;
   @FXML AnchorPane mapPaneLowerTwo;
-  @FXML AnchorPane lowerTwoLabelPane;
-  @FXML AnchorPane lowerOneLabelPane;
-  @FXML AnchorPane floorOneLabelPane;
-  @FXML AnchorPane floorTwoLabelPane;
-  @FXML AnchorPane floorThreeLabelPane;
   @FXML VBox pathBox;
   @FXML TabPane tabPane;
   @FXML Tab floorOneTab;
@@ -323,14 +318,6 @@ public class MapController {
       y2 = node.getYCoord();
 
       Floor newFloor = node.getFloor();
-      if (newFloor != currentFloor) {
-        Floor oldFloor = currentFloor;
-        currentMapUtility.createLabel(x2, y2, "Went to Floor: " + newFloor.toString());
-        currentFloor = newFloor;
-        currentMapUtility = whichMapUtility(currentFloor);
-        currentMapUtility.createLabel(x2, y2, "Came from Floor: " + oldFloor.toString());
-      }
-
       // Only draw a line between nodes if the current floor is the same as the new floor
       if (newFloor == currentFloor) {
         currentMapUtility.drawStyledLine(x1, y1, x2, y2);
@@ -689,26 +676,26 @@ public class MapController {
 
   private void createLabelsForToggleDisplay(List<HospitalNode> nodes) {
     //    List<HospitalNode> allNodes = SQLRepo.INSTANCE.getNodeList();
-    lowerTwoLabelPane.setMinWidth(5000);
-    lowerTwoLabelPane.setMinHeight(3400);
-
-    lowerOneLabelPane.setMinWidth(5000);
-    lowerOneLabelPane.setMinHeight(3400);
-
-    floorOneLabelPane.setMinWidth(5000);
-    floorOneLabelPane.setMinHeight(3400);
-
-    floorTwoLabelPane.setMinWidth(5000);
-    floorTwoLabelPane.setMinHeight(3400);
-
-    floorThreeLabelPane.setMinWidth(5000);
-    floorThreeLabelPane.setMinHeight(3400);
-
-    MapUtilities lowerTwoUtil = new MapUtilities(lowerTwoLabelPane);
-    MapUtilities lowerOneUtil = new MapUtilities(lowerOneLabelPane);
-    MapUtilities floorOneUtil = new MapUtilities(floorOneLabelPane);
-    MapUtilities floorTwoUtil = new MapUtilities(floorTwoLabelPane);
-    MapUtilities floorThreeUtil = new MapUtilities(floorThreeLabelPane);
+    //    lowerTwoLabelPane.setMinWidth(5000);
+    //    lowerTwoLabelPane.setMinHeight(3400);
+    //
+    //    lowerOneLabelPane.setMinWidth(5000);
+    //    lowerOneLabelPane.setMinHeight(3400);
+    //
+    //    floorOneLabelPane.setMinWidth(5000);
+    //    floorOneLabelPane.setMinHeight(3400);
+    //
+    //    floorTwoLabelPane.setMinWidth(5000);
+    //    floorTwoLabelPane.setMinHeight(3400);
+    //
+    //    floorThreeLabelPane.setMinWidth(5000);
+    //    floorThreeLabelPane.setMinHeight(3400);
+    //
+    //    MapUtilities lowerTwoUtil = new MapUtilities(lowerTwoLabelPane);
+    //    MapUtilities lowerOneUtil = new MapUtilities(lowerOneLabelPane);
+    //    MapUtilities floorOneUtil = new MapUtilities(floorOneLabelPane);
+    //    MapUtilities floorTwoUtil = new MapUtilities(floorTwoLabelPane);
+    //    MapUtilities floorThreeUtil = new MapUtilities(floorThreeLabelPane);
 
     for (HospitalNode aNode : nodes) {
       if (LocationName.NodeType.HALL
