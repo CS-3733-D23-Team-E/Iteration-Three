@@ -734,6 +734,10 @@ public class MapController {
     thisLabel.setFont(Font.font("Roboto", 8));
     thisLabel.setStyle(
         "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
+    thisLabel.setOnMouseClicked(
+        event -> {
+          thisLabel.toFront();
+        });
     allLocationNameLabels.add(thisLabel);
   }
 }
