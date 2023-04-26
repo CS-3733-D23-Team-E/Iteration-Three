@@ -76,7 +76,7 @@ public class HomePageController {
   @FXML ImageView signageI;
   @FXML ImageView pathfindingI;
   @FXML ImageView databaseI;
-
+@FXML ImageView settingsI;
   @FXML ImageView exitI;
   @FXML MFXButton menuBarSettings;
 
@@ -98,6 +98,15 @@ public class HomePageController {
   List<AlertData> alerts;
 
   public void initialize() {
+
+    DropShadow dropShadow = new DropShadow();
+    dropShadow.setRadius(10);
+    dropShadow.setSpread(.71);
+    dropShadow.setWidth(21);
+    dropShadow.setHeight(50);
+    Color paint = new Color(0.0, 0.6175, 0.65, 0.5);
+
+    englishButton.setEffect(dropShadow);
     LocalTime currentTime = LocalTime.now();
     LocalDate currentDate = LocalDate.now();
 
@@ -224,7 +233,7 @@ public class HomePageController {
     ButtonUtilities.mouseSetupMenuBar(
         menuBarSettings,
         "baseline-left",
-        aboutI,
+        settingsI,
         "images/settingsicon.png",
         "images/settingsicon-blue.png");
     ButtonUtilities.mouseSetupMenuBar(
@@ -270,12 +279,7 @@ public class HomePageController {
           translateToSpanish(String.valueOf(announcementString));
         });*/
 
-    DropShadow dropShadow = new DropShadow();
-    dropShadow.setRadius(10);
-    dropShadow.setSpread(.71);
-    dropShadow.setWidth(21);
-    dropShadow.setHeight(50);
-    Color paint = new Color(0.0, 0.6175, 0.65, 0.5);
+
 
     englishButton.setOnMouseClicked(
         event -> {
