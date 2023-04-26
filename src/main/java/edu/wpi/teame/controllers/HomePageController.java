@@ -402,8 +402,13 @@ public class HomePageController {
   public AlertData setAlert() {
     System.out.println("alert sent");
 
-    AlertData alertData = new AlertData(alerts.get(0).getAlertID() + 1, alertTextBox.getText());
+    AlertData alertData;
 
+    if (alerts.isEmpty()) {
+      alertData = new AlertData(0, alertTextBox.getText());
+    } else {
+      alertData = new AlertData(alerts.get(0).getAlertID() + 1, alertTextBox.getText());
+    }
     SQLRepo.INSTANCE.addAlert(alertData);
 
     return alertData;
