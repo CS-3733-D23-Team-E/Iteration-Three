@@ -48,6 +48,7 @@ public class MoveComponentController {
     refreshFields();
     initTableAndList();
     initButtons();
+    mapPreviewButton.setDisable(true);
   }
 
   private void initButtons() {
@@ -56,12 +57,14 @@ public class MoveComponentController {
           if (swapTab.isSelected()) {
             confirmButton.setOnAction(e -> swapDepartments());
           }
+          enablePreviewCondition();
         });
     moveTab.setOnSelectionChanged(
         event -> {
           if (moveTab.isSelected()) {
             confirmButton.setOnAction(e -> moveToNewNode());
           }
+          enablePreviewCondition();
         });
     resetButton.setOnAction(event -> resetFieldSelections());
     confirmButton.setOnAction(e -> moveToNewNode());
@@ -90,6 +93,11 @@ public class MoveComponentController {
             }
           }
         });
+
+    departmentMoveSelector.setOnAction(event -> enablePreviewCondition());
+    departmentOneSelector.setOnAction(event -> enablePreviewCondition());
+    departmentTwoSelector.setOnAction(event -> enablePreviewCondition());
+    newNodeSelector.setOnAction(event -> enablePreviewCondition());
   }
 
   private void refreshFields() {
@@ -214,5 +222,21 @@ public class MoveComponentController {
     newStage.setTitle("Move Preview");
     newStage.setScene(newScene);
     newStage.show();
+  }
+
+  private void enablePreviewCondition() {
+    if (swapTab.isSelected()) {
+      if (departmentTwoSelector.getValue() != null && departmentOneSelector.getValue() != null) {
+        mapPreviewButton.setDisable(false);
+      } else {
+        mapPreviewButton.setDisable(true);
+      }
+    } else {
+      if (departmentMoveSelector.getValue() != null && newNodeSelector.getValue() != null) {
+        mapPreviewButton.setDisable(false);
+      } else {
+        mapPreviewButton.setDisable(true);
+      }
+    }
   }
 }
