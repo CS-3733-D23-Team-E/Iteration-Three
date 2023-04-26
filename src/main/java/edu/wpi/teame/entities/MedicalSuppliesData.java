@@ -12,6 +12,12 @@ public class MedicalSuppliesData extends ServiceRequestData {
   @Getter @Setter private String medicalSupply;
   @Getter @Setter private String notes;
   @Getter @Setter private String quantity;
+  /*@Getter @Setter private String quantity;
+  @Getter @Setter private String quantity;
+  @Getter @Setter private String quantity;
+  @Getter @Setter private String quantity;
+  @Getter @Setter private String quantity;
+  @Getter @Setter private String quantity;*/
 
   public MedicalSuppliesData(
       int requestID,

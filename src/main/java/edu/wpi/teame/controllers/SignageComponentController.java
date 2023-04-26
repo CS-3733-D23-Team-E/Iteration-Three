@@ -208,7 +208,7 @@ public class SignageComponentController {
         new SignageComponentData(
             date.getValue().toString(), kioskLocations.getValue(), locations.getValue(), get);
 
-    SQLRepo.INSTANCE.updateSignage(requestData, "arrowDirection", directions.getValue());git
+    SQLRepo.INSTANCE.updateSignage(requestData, "arrowDirection", directions.getValue());
 
     return requestData;
   }
