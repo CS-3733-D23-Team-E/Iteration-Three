@@ -6,7 +6,6 @@ import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.map.*;
 import edu.wpi.teame.utilities.MapUtilities;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import java.time.LocalDate;
 import java.util.*;
 import javafx.collections.FXCollections;
@@ -19,6 +18,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
+import org.controlsfx.control.ToggleSwitch;
 
 public class DatabaseMapViewController {
 
@@ -68,7 +68,7 @@ public class DatabaseMapViewController {
   @FXML ImageView mapImageOne; // Floor 1
   @FXML ImageView mapImageTwo; // Floor 2
   @FXML ImageView mapImageThree; // Floor 3
-  @FXML MFXToggleButton locationNameToggle;
+  @FXML ToggleSwitch locationNameToggle;
   boolean isLocationNamesDisplayed = false;
 
   Floor currentFloor;
@@ -552,7 +552,7 @@ public class DatabaseMapViewController {
           removeLocation();
         });
     addLocationButton.setOnAction(event -> addLocationName());
-    locationNameToggle.setOnAction(
+    locationNameToggle.setOnMouseClicked(
         event -> {
           isLocationNamesDisplayed = locationNameToggle.isSelected();
           labelsVisibility(isLocationNamesDisplayed);
