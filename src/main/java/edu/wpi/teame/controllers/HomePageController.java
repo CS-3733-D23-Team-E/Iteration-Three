@@ -408,6 +408,9 @@ public class HomePageController {
     logoutButton.setText("Logout"); // Keep in English
     Font englishLogout = new Font("Roboto", 18);
     logoutButton.setFont(englishLogout);
+    // Submit Button and Box
+    alertSubmitButton.setText("Submit"); // Submit
+    alertTextBox.setPromptText("Alert Text Here"); // Alert Text Here
   }
 
   public AlertData setAlert() {
