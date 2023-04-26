@@ -89,6 +89,7 @@ public class MapController {
   boolean heightLoaded = false;
   Floor currentFloor = Floor.LOWER_TWO;
   Circle currentCircle = new Circle();
+  Label currentFrontLabel = null;
   HBox previousLabel;
   AbstractPathfinder pf = AbstractPathfinder.getInstance("A*");
   String curLocFromComboBox;
@@ -330,7 +331,7 @@ public class MapController {
         currentMapUtility.drawStyledLine(x1, y1, x2, y2);
       }
       Circle intermediateCircle = currentMapUtility.drawStyledCircle(x2, y2, 4);
-      intermediateCircle.setViewOrder(-1);
+      intermediateCircle.setViewOrder(-2);
       intermediateCircle.setId(node.getNodeID());
       intermediateCircle.setVisible(false);
       x1 = x2;
@@ -459,7 +460,7 @@ public class MapController {
                 event -> {
                   // reset highlighted node
                   currentCircle.setRadius(4);
-                  currentCircle.setViewOrder(-1);
+                  currentCircle.setViewOrder(-2);
                   currentCircle.setVisible(false);
 
                   // Set the selected tab to the floor of the node
@@ -734,9 +735,14 @@ public class MapController {
     thisLabel.setFont(Font.font("Roboto", 8));
     thisLabel.setStyle(
         "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
+    thisLabel.setViewOrder(-3);
     thisLabel.setOnMouseClicked(
         event -> {
-          thisLabel.toFront();
+          if (currentFrontLabel != null) {
+            currentFrontLabel.setViewOrder(-3);
+          }
+          thisLabel.setViewOrder(-4);
+          currentFrontLabel = thisLabel;
         });
     allLocationNameLabels.add(thisLabel);
   }
