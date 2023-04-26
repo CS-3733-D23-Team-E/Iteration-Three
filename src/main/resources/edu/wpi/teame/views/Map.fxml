@@ -33,7 +33,7 @@
          <children>
             <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefWidth="500.0">
                <children>
-                  <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" spacing="30.0" style="-fx-background-color: #f1f1f1;">
+                  <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="360.0" spacing="30.0" style="-fx-background-color: #f1f1f1;">
                      <children>
                         <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
@@ -61,7 +61,7 @@
                               </ImageView>
                            </children>
                         </HBox>
-                        <DatePicker fx:id="pathfindingDate" maxWidth="-Infinity" prefHeight="40.0" prefWidth="375.0" promptText="Date" style="-fx-background-color: #D9DAD7; -fx-background-radius: 5; -fx-border-color: #1E1E1E; -fx-border-width: 3; -fx-border-radius: 5;" />
+                        <DatePicker fx:id="pathfindingDate" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="375.0" promptText="Date" style="-fx-background-color: #D9DAD7; -fx-background-radius: 5; -fx-border-color: #1E1E1E; -fx-border-width: 3; -fx-border-radius: 5;" />
                         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
                               <RadioButton fx:id="aStarButton" selected="true" stylesheets="@../styles/eStyleSheet.css" text="A*">
