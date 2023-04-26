@@ -15,11 +15,11 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<AnchorPane prefHeight="750.0" prefWidth="900.0" style="-fx-background-color: #f1f1f1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.RoomRequestController">
+<AnchorPane prefHeight="750.0" prefWidth="900.0" style="-fx-background-color: #f1f1f1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.MedicalSupplyRequestController">
    <children>
-      <StackPane maxHeight="750.0" prefHeight="720.0" prefWidth="900.0" AnchorPane.topAnchor="50.0">
+      <StackPane prefHeight="720.0" prefWidth="900.0" AnchorPane.topAnchor="50.0">
          <children>
-            <VBox prefHeight="750.0" prefWidth="900.0" spacing="125.0">
+            <VBox prefHeight="749.0" prefWidth="900.0" spacing="125.0">
                <children>
                   <HBox prefHeight="500.0" prefWidth="730.0">
                      <children>
@@ -32,7 +32,7 @@
                                  <children>
                                     <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recipient Name">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -54,7 +54,7 @@
                                  <children>
                                     <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text fx:id="roomText" strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -73,7 +73,7 @@
                                  <children>
                                     <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text fx:id="bookingDateText" strokeType="OUTSIDE" strokeWidth="0.0" text="Booking Date">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery Date">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -85,14 +85,14 @@
                                           </ImageView>
                                        </children>
                                     </HBox>
-                                    <DatePicker fx:id="bookingDate" maxHeight="40.0" maxWidth="300.0" styleClass="MFXTextField" stylesheets="@../styles/eStyleSheet.css" />
+                                    <DatePicker fx:id="deliveryDate" maxHeight="40.0" maxWidth="300.0" styleClass="MFXTextField" stylesheets="@../styles/eStyleSheet.css" />
                                  </children>
                               </VBox>
                               <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
                                  <children>
                                     <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text fx:id="bookingTimeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Booking Time">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery Time">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -104,12 +104,12 @@
                                           </ImageView>
                                        </children>
                                     </HBox>
-                                    <SearchableComboBox fx:id="bookingTime" maxHeight="50.0" maxWidth="300.0" prefHeight="44.0" prefWidth="267.0" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
+                                    <SearchableComboBox fx:id="deliveryTime" maxHeight="50.0" maxWidth="300.0" prefHeight="44.0" prefWidth="267.0" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
                                  </children>
                               </VBox>
                               <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
                                  <children>
-                                    <Text fx:id="staffText" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff">
                                        <font>
                                           <Font name="Roboto" size="24.0" />
                                        </font>
@@ -126,14 +126,14 @@
                         </Line>
                         <VBox maxHeight="600.0" prefHeight="460.0" prefWidth="298.0" spacing="50.0">
                            <HBox.margin>
-                              <Insets top="100.0" />
+                              <Insets />
                            </HBox.margin>
                            <children>
                               <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
                                  <children>
                                     <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text fx:id="roomChangesText" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Changes">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Medical Supply Item">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -145,31 +145,22 @@
                                           </ImageView>
                                        </children>
                                     </HBox>
-                                    <SearchableComboBox fx:id="roomChanges" maxHeight="30.0" maxWidth="300.0" prefHeight="40.0" prefWidth="300.0" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
+                                    <SearchableComboBox fx:id="supplyType" maxHeight="30.0" maxWidth="300.0" prefHeight="40.0" prefWidth="300.0" styleClass="SearchableComboBox" stylesheets="@../styles/eStyleSheet.css" />
                                  </children>
                               </VBox>
                               <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
                                  <children>
-                                    <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
-                                       <children>
-                                          <Text fx:id="numberOfHoursText" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Hours">
-                                             <font>
-                                                <Font name="Roboto" size="24.0" />
-                                             </font>
-                                          </Text>
-                                          <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/medical-star.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </HBox>
-                                    <TextField fx:id="numberOfHours" maxHeight="30.0" prefHeight="30.0" styleClass="MFXTextField" stylesheets="@../styles/eStyleSheet.css" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Supplies">
+                                       <font>
+                                          <Font name="Roboto" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="numberOfSupplies" maxHeight="30.0" prefHeight="70.0" styleClass="MFXTextField" stylesheets="@../styles/eStyleSheet.css" />
                                  </children>
                               </VBox>
                               <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
                                  <children>
-                                    <Text fx:id="notesText" strokeType="OUTSIDE" strokeWidth="0.0" text="Notes">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Notes">
                                        <font>
                                           <Font name="Roboto" size="24.0" />
                                        </font>
@@ -178,6 +169,9 @@
                                  </children>
                               </VBox>
                            </children>
+                           <padding>
+                              <Insets top="100.0" />
+                           </padding>
                         </VBox>
                      </children>
                      <padding>
@@ -185,9 +179,6 @@
                      </padding>
                   </HBox>
                   <HBox maxWidth="640.0" prefHeight="50.0" prefWidth="640.0" spacing="150.0">
-                     <VBox.margin>
-                        <Insets left="100.0" />
-                     </VBox.margin>
                      <children>
                         <HBox prefHeight="50.0" prefWidth="325.0" spacing="20.0">
                            <children>
@@ -209,8 +200,14 @@
                            </font>
                         </MFXButton>
                      </children>
+                     <VBox.margin>
+                        <Insets left="100.0" />
+                     </VBox.margin>
                   </HBox>
                </children>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
             </VBox>
             <VBox fx:id="requestSubmittedBox" alignment="CENTER" maxHeight="400.0" maxWidth="400.0" prefHeight="732.0" prefWidth="627.0" spacing="10.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 25; -fx-border-color: #012d5a; -fx-border-radius: 25; -fx-border-width: 5;">
                <children>

@@ -12,6 +12,7 @@ import edu.wpi.teame.utilities.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
@@ -53,6 +54,7 @@ public class MapController {
   @FXML Tab lowerLevelOneTab;
   @FXML SearchableComboBox<String> currentLocationList;
   @FXML SearchableComboBox<String> destinationList;
+  @FXML DatePicker pathfindingDate;
   @FXML MFXButton menuButton;
   @FXML MFXButton menuBarHome;
   @FXML MFXButton menuBarServices;
@@ -84,6 +86,15 @@ public class MapController {
   @FXML ImageView databaseI;
   @FXML ImageView exitI;
   boolean isPathDisplayed = false;
+
+  String language = "english";
+  String nyay = "\u00F1"; // �
+  String aA = "\u0301"; // �
+  String aE = "\u00E9"; // �
+  String aI = "\u00ED"; // �
+  String aO = "\u00F3"; // �
+  String aU = "\u00FA"; // �
+  String aQuestion = "\u00BF"; // Upside down question mark
   Floor currentFloor = Floor.LOWER_TWO;
 
   Circle currentCircle = new Circle();
@@ -97,10 +108,15 @@ public class MapController {
   MapUtilities mapUtilityTwo = new MapUtilities(mapPaneTwo);
   MapUtilities mapUtilityThree = new MapUtilities(mapPaneThree);
 
+  MoveUtilities moveUtilities = new MoveUtilities();
+
   ObservableList<String> floorLocations =
       FXCollections.observableArrayList(
           SQLRepo.INSTANCE.getLongNamesFromMove(
               SQLRepo.INSTANCE.getMoveAttributeFromFloor(currentFloor)));
+
+  HashMap<String, String> nameToNodeID;
+  HashMap<String, String> nodeToLongName;
 
   @FXML
   public void initialize() {
@@ -184,9 +200,18 @@ public class MapController {
         "images/sign-out-alt-blue.png");
 
     // Make sure location list is initialized so that we can filter out the hallways
-    SQLRepo.INSTANCE.getLocationList();
+    LocationName.processLocationList(SQLRepo.INSTANCE.getLocationList());
 
     resetComboboxes();
+
+    if (language.equals("english")) {
+      translateToEnglish();
+    } else if (language.equals("spanish")) {
+      translateToSpanish();
+    } else // throw error for language not being a valid language
+    {
+      // throw some sort of error here at some point
+    }
   }
 
   private void initializeMapUtilities() {
@@ -212,21 +237,17 @@ public class MapController {
   public void resetComboboxes() {
     floorLocations =
         FXCollections.observableArrayList(
-            SQLRepo.INSTANCE.getMoveList().stream()
+            LocationName.allLocations.values().stream()
                 .filter(
-                    (move) -> // Filter out hallways and long names with no corresponding
+                    (location) -> // Filter out hallways and long names with no corresponding
                         // LocationName
-                        LocationName.allLocations.get(move.getLongName()) == null
+                        location == null
                             ? false
-                            : LocationName.allLocations.get(move.getLongName()).getNodeType()
-                                    != LocationName.NodeType.HALL
-                                && LocationName.allLocations.get(move.getLongName()).getNodeType()
-                                    != LocationName.NodeType.STAI
-                                && LocationName.allLocations.get(move.getLongName()).getNodeType()
-                                    != LocationName.NodeType.ELEV
-                                && LocationName.allLocations.get(move.getLongName()).getNodeType()
-                                    != LocationName.NodeType.REST)
-                .map((move) -> move.getLongName())
+                            : location.getNodeType() != LocationName.NodeType.HALL
+                                && location.getNodeType() != LocationName.NodeType.STAI
+                                && location.getNodeType() != LocationName.NodeType.ELEV
+                                && location.getNodeType() != LocationName.NodeType.REST)
+                .map((location) -> location.getLongName())
                 .sorted() // Sort alphabetically
                 .toList());
     currentLocationList.setItems(floorLocations);
@@ -255,15 +276,15 @@ public class MapController {
     if (dijkstraButton.isSelected()) {
       pf = AbstractPathfinder.getInstance("Dijkstra");
     }
-
-    String toNodeID = SQLRepo.INSTANCE.getNodeIDFromName(to) + "";
-    String fromNodeID = SQLRepo.INSTANCE.getNodeIDFromName(from) + "";
+    nameToNodeID = moveUtilities.getMapForDate(pathfindingDate.getValue());
+    nodeToLongName = moveUtilities.invertHashMap(nameToNodeID);
+    String toNodeID = nameToNodeID.get(to);
+    String fromNodeID = nameToNodeID.get(from);
 
     System.out.println(HospitalNode.allNodes.get(fromNodeID));
     System.out.println(HospitalNode.allNodes.get(toNodeID));
 
-    List<HospitalNode> path =
-        pf.findPath(HospitalNode.allNodes.get(fromNodeID), HospitalNode.allNodes.get(toNodeID));
+    List<HospitalNode> path = pf.findPath(fromNodeID, toNodeID);
     if (path == null) {
       System.out.println("Path does not exist");
       return;
@@ -440,8 +461,7 @@ public class MapController {
     for (int i = 0; i < path.size(); i++) {
 
       HospitalNode currentNode = path.get(i);
-      String destination =
-          SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(currentNode.getNodeID()));
+      String destination = nodeToLongName.get(currentNode.getNodeID());
 
       // Image
       Image icon;
@@ -576,5 +596,56 @@ public class MapController {
       // Add path label to VBox
       vbox.getChildren().add(hBox);
     }
+  }
+
+  public void translateToSpanish() {
+    // Change language variable
+    language = "spanish";
+
+    // Menu Bar
+    menuBarHome.setText("Principal"); // Home
+    menuBarServices.setText("Servicios"); // Services
+    menuBarSignage.setText("Se" + nyay + "alizaci" + aO + "n"); // Signage
+    menuBarMaps.setText("Navegaci" + aO + "n"); // Pathfinding
+    menuBarDatabase.setText("Base de Datos"); // Database
+    menuBarExit.setText(("Salida")); // Exit
+
+    startButton.setText("Comenzar"); // Start
+
+    // Map Tabs
+    lowerLevelTwoTab.setText("Piso Baja 2"); // Lower Level 2
+    lowerLevelOneTab.setText("Piso Baja 1"); // Lower Level 1
+    floorOneTab.setText("Piso 1");
+    floorTwoTab.setText("Piso 2");
+    floorThreeTab.setText("Piso 3");
+
+    /* Uncomment when logout button is fixed
+    // Logout Button
+    logoutButton.setText("Cerrar Sesi" + aO + "n"); // Logout
+    Font spanishLogout = new Font("Roboto", 13);
+    logoutButton.setFont(spanishLogout);
+     */
+  }
+
+  public void translateToEnglish() {
+    // Change language variable
+    language = "english";
+
+    // Menu Bar
+    menuBarHome.setText("Home"); // Keep in English
+    menuBarServices.setText("Services"); // Keep in English
+    menuBarSignage.setText("Signage"); // Keep in English
+    menuBarMaps.setText("Pathfinding"); // Keep in English
+    menuBarDatabase.setText("Database"); // Keep in English
+    menuBarExit.setText(("Exit")); // Keep in English
+
+    startButton.setText("Start"); // Start
+
+    /* Uncomment when logout button is fixed
+    // Logout Button
+    logoutButton.setText("Logout"); // Keep in English
+    Font englishLogout = new Font("Roboto", 18);
+    logoutButton.setFont(englishLogout);
+     */
   }
 }
