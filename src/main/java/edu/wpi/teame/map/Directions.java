@@ -116,7 +116,10 @@ public class Directions {
       case END:
         icon = new Image(String.valueOf(Main.class.getResource("images/destination.png")));
         directionsText =
-            SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(currentNode.getNodeID()));
+            SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(currentNode.getNodeID()))
+                + " ("
+                + distance
+                + "ft)";
         break;
       case RIGHT:
         icon = new Image(String.valueOf(Main.class.getResource("images/right_arrow.png")));

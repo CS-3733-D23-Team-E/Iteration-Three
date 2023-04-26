@@ -597,7 +597,7 @@ public class MapController {
 
   public int getDistance(List<HospitalNode> path, int index) {
     // If the node is the starting or ending node, return 0
-    if (index == 0 || index == path.size() - 1) {
+    if (index == 0) {
       return 0;
     }
     // Get the points
@@ -607,7 +607,7 @@ public class MapController {
     double y2 = path.get(index).getYCoord();
     // Calculate length
     int length = (int) Math.sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
-    return length;
+    return length / 3; // insert the actual conversion here if we ever get it
   }
 
   public void setSVG() {
