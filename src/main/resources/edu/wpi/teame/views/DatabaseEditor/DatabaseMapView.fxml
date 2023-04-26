@@ -221,7 +221,7 @@
                                           <Font name="Roboto" size="13.0" />
                                        </font>
                                     </Label>
-                                    <TextField promptText="X Coordinate:" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" fx:id="xField1" />
+                                    <TextField fx:id="addNodeXField" promptText="X Coordinate:" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" />
                                  </children>
                               </VBox>
                               <Region HBox.hgrow="ALWAYS" />
@@ -232,7 +232,7 @@
                                           <Font name="Roboto" size="13.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="yField1" promptText="Y Coordinate:" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" />
+                                    <TextField fx:id="addNodeYField" promptText="Y Coordinate:" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" />
                                  </children>
                               </VBox>
                            </children>
@@ -246,7 +246,7 @@
                                           <Font name="Roboto" size="13.0" />
                                        </font>
                                     </Label>
-                                    <SearchableComboBox fx:id="longNameSelector1" maxWidth="1.7976931348623157E308" prefHeight="26.0" promptText="Location Name:" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" />
+                                    <SearchableComboBox fx:id="addNodeLongNameSelector" maxWidth="1.7976931348623157E308" prefHeight="26.0" promptText="Location Name:" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" />
                                  </children>
                               </VBox>
                            </children>
@@ -321,7 +321,7 @@
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building:" />
-                              <SearchableComboBox fx:id="buildingSelector1" maxHeight="26.0" maxWidth="1.7976931348623157E308" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" HBox.hgrow="ALWAYS" />
+                              <SearchableComboBox fx:id="addNodeBuildingSelector" maxHeight="26.0" maxWidth="1.7976931348623157E308" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                         <Region VBox.vgrow="ALWAYS" />
@@ -329,7 +329,7 @@
                            <children>
                               <MFXButton fx:id="cancelButton1" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #000000; -fx-border-radius: 10;" text="Cancel" />
                               <MFXButton fx:id="deleteNodeButton1" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #FB0000; -fx-border-radius: 10;" text="Delete" textFill="#fb0000" HBox.hgrow="ALWAYS" />
-                              <MFXButton fx:id="confirmButton1" minHeight="30.0" prefWidth="100.0" style="-fx-background-color: #3B63A5; -fx-background-radius: 10;" text="Confirm" textFill="WHITE" HBox.hgrow="ALWAYS">
+                              <MFXButton fx:id="addConfirmButton" minHeight="30.0" prefWidth="100.0" style="-fx-background-color: #3B63A5; -fx-background-radius: 10;" text="Confirm" textFill="WHITE" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Roboto" size="13.0" />
                                  </font>

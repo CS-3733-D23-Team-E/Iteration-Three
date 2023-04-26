@@ -6,6 +6,7 @@ import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.map.*;
 import edu.wpi.teame.utilities.MapUtilities;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.time.LocalDate;
 import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -55,6 +56,12 @@ public class DatabaseMapViewController {
   @FXML TextField dragNodeXField;
   @FXML TextField dragNodeYField;
   @FXML SearchableComboBox<String> buildingSelector;
+  @FXML SearchableComboBox<String> addNodeBuildingSelector;
+  @FXML SearchableComboBox<String> addNodeLongNameSelector;
+
+  @FXML TextField addNodeXField;
+  @FXML TextField addNodeYField;
+
   @FXML MFXButton editConfirmButton;
   @FXML MFXButton deleteNodeButton;
   @FXML MFXButton cancelButton;
@@ -192,6 +199,7 @@ public class DatabaseMapViewController {
   @FXML MFXButton alignConfirmButton;
   @FXML MFXButton dragConfirmButton;
   @FXML MFXButton addEdgeConfirmButton;
+  @FXML MFXButton addConfirmButton;
 
   private void handleAlignNodes(Circle circle) {
     setViewOnlyVisible(alignNodesView);
@@ -550,6 +558,47 @@ public class DatabaseMapViewController {
     refreshMap();
     turnOffAllViews();
     System.out.println("update longname and building");
+  }
+
+  //    int id = makeNewNodeID();
+  //    // add respective node
+  //    HospitalNode node =
+  //        new HospitalNode(
+  //            id + "",
+  //            Integer.parseInt(xField.getText()),
+  //            Integer.parseInt(yField.getText()),
+  //            currentFloor,
+  //            buildingSelector.getValue());
+  //      SQLRepo.INSTANCE.addNode(node);
+  //      // add respective move
+  //      MoveAttribute move =
+  //          new MoveAttribute(id, longNameSelector.getValue(), LocalDate.now().toString());
+  //      SQLRepo.INSTANCE.addMove(move);
+  //      // add respective edges
+  //      edgeUpdateDatabase();
+  //      refreshMap();
+
+  private void confirmAddNode() {
+    int ID = makeNewNodeID();
+
+    HospitalNode node =
+        new HospitalNode(
+            ID + "",
+            Integer.parseInt(addNodeXField.getText()),
+            Integer.parseInt(addNodeYField.getText()),
+            currentFloor,
+            addNodeBuildingSelector.getValue());
+
+    SQLRepo.INSTANCE.addNode(node);
+    // add respective move
+    MoveAttribute move =
+        new MoveAttribute(ID, addNodeLongNameSelector.getValue(), LocalDate.now().toString());
+    SQLRepo.INSTANCE.addMove(move);
+    // add respective edges TODO
+    //    edgeUpdateDatabase();
+    refreshMap();
+
+    allNodes.put(ID + "", node);
   }
 
   private void setViewOnlyVisible(VBox view) {
@@ -979,6 +1028,12 @@ public class DatabaseMapViewController {
         FXCollections.observableArrayList(LocationName.NodeType.allNodeTypes()));
 
     addEdgeField.setItems(FXCollections.observableList(allNodes.keySet().stream().toList()));
+
+    // DO EDGE AND ADD STUFF
+    addNodeLongNameSelector.setItems(FXCollections.observableList(longNames));
+
+    addNodeBuildingSelector.setItems(
+        FXCollections.observableArrayList(HospitalNode.allBuildings()));
   }
 
   public GesturePane whichGesturePane(Floor curFloor) {
@@ -1075,8 +1130,12 @@ public class DatabaseMapViewController {
   }
 
   private void initializeButtons() {
+    addConfirmButton.setOnAction(
+        event -> {
+          confirmAddNode();
+        });
     editConfirmButton.setOnAction(
-        (event) -> {
+        event -> {
           confirmEditNode();
         });
 
