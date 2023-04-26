@@ -399,6 +399,39 @@ public class HomePageController {
     logoutButton.setFont(englishLogout);
   }
 
+  public void translateToHawaiian()
+  {
+    language = "hawaiian";
+
+    // Menu Bar
+    menuBarHome.setText("Home");
+    menuBarServices.setText("Lawelawe"); //
+    menuBarSignage.setText("Kuhikuhi"); // Keep in English
+    menuBarMaps.setText("ʻImi ala"); // Keep in English
+    menuBarDatabase.setText("ʻIkepili"); // Keep in English
+    menuBarExit.setText(("Puka")); // Keep in English
+
+    // Home Page Buttons
+    editSignageButton.setText("Hoʻoponopono kuhikuhi"); // Keep in English
+    serviceRequestButton.setText("Lawelawe"); // Keep in English
+    pathfindingButton.setText("ʻImi ala"); // Keep in English
+    databaseButton.setText("ʻIkepili"); // Keep in English
+
+    // Date Bar
+    todayIsText.setText("o kēia lā..."); // Keep in English
+
+    // Announcements Bar
+    alertText.setText("Makaʻala"); // Keep in English
+
+    // announcementButton.setText("Submit"); // Keep in English
+
+    // Logout Button
+    logoutButton.setText("Lele"); // Keep in English
+    Font englishLogout = new Font("Roboto", 18);
+    logoutButton.setFont(englishLogout);
+
+    
+  }
   public AlertData setAlert() {
     System.out.println("alert sent");
 
