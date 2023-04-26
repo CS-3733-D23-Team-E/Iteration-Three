@@ -208,7 +208,7 @@ public class DatabaseMapViewController {
     Label nodeLabel = currentMapUtility.drawHospitalNodeLabel(node);
     nodeLabel.setStyle(
         "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
-    nodeLabel.setFont(Font.font("Roboto", 8));
+    nodeLabel.setFont(Font.font("Roboto", 6));
     nodeLabel.setVisible(false);
     if (LocationName.NodeType.HALL
         != LocationName.NodeType.stringToNodeType(
