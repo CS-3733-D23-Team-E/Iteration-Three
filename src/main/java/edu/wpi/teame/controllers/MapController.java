@@ -299,6 +299,7 @@ public class MapController {
     currentFloor = path.get(0).getFloor();
     MapUtilities currentMapUtility = whichMapUtility(currentFloor);
     Floor startingFloor = currentFloor;
+    Floor oldFloor = null;
 
     int startX, startY;
     // create circle to symbolize start
@@ -308,7 +309,6 @@ public class MapController {
     startY = y1;
     Circle currentLocationCircle = currentMapUtility.drawStyledCircle(x1, y1, 4);
     currentLocationCircle.setId(path.get(0).getNodeID());
-    currentMapUtility.createLabel(x1, y1, 5, 5, "Current Location");
 
     // draw the lines between each node
     int x2, y2;
@@ -317,15 +317,16 @@ public class MapController {
       x2 = node.getXCoord();
       y2 = node.getYCoord();
 
-      Floor newFloor = node.getFloor();
-      if (newFloor != currentFloor) {
-        Floor oldFloor = currentFloor;
-        currentFloor = newFloor;
+      oldFloor = currentFloor;
+      currentFloor = node.getFloor();
+
+      // If the current floor is different from the previous then change the map utlilty
+      if (oldFloor != currentFloor) {
         currentMapUtility = whichMapUtility(currentFloor);
       }
 
       // Only draw a line between nodes if the current floor is the same as the new floor
-      if (newFloor == currentFloor) {
+      if (oldFloor == currentFloor) {
         currentMapUtility.drawStyledLine(x1, y1, x2, y2);
       }
       Circle intermediateCircle = currentMapUtility.drawStyledCircle(x2, y2, 4);
@@ -340,7 +341,6 @@ public class MapController {
     Circle endingCircle = currentMapUtility.drawStyledCircle(x1, y1, 4);
     endingCircle.setId(path.get(path.size() - 1).getNodeID());
     endingCircle.toFront();
-    currentMapUtility.createLabel(x1, y1, 5, 5, "Destination");
 
     // Switch the current tab to the same floor as the starting point
     currentFloor = startingFloor;
