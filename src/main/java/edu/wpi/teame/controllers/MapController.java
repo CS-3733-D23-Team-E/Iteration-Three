@@ -4,6 +4,7 @@ import static javafx.scene.paint.Color.WHITE;
 
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.Main;
+import edu.wpi.teame.entities.Settings;
 import edu.wpi.teame.map.Floor;
 import edu.wpi.teame.map.HospitalNode;
 import edu.wpi.teame.map.LocationName;
@@ -86,17 +87,8 @@ public class MapController {
   @FXML ImageView databaseI;
   @FXML ImageView exitI;
   boolean isPathDisplayed = false;
-
-  String language = "english";
-  String nyay = "\u00F1"; // �
-  String aA = "\u0301"; // �
-  String aE = "\u00E9"; // �
-  String aI = "\u00ED"; // �
-  String aO = "\u00F3"; // �
-  String aU = "\u00FA"; // �
-  String aQuestion = "\u00BF"; // Upside down question mark
   Floor currentFloor = Floor.LOWER_TWO;
-
+  String language;
   Circle currentCircle = new Circle();
   HBox previousLabel;
   AbstractPathfinder pf = AbstractPathfinder.getInstance("A*");
@@ -203,15 +195,6 @@ public class MapController {
     LocationName.processLocationList(SQLRepo.INSTANCE.getLocationList());
 
     resetComboboxes();
-
-    if (language.equals("english")) {
-      translateToEnglish();
-    } else if (language.equals("spanish")) {
-      translateToSpanish();
-    } else // throw error for language not being a valid language
-    {
-      // throw some sort of error here at some point
-    }
   }
 
   private void initializeMapUtilities() {
@@ -325,8 +308,27 @@ public class MapController {
     startY = y1;
     Circle currentLocationCircle = currentMapUtility.drawStyledCircle(x1, y1, 4);
     currentLocationCircle.setId(path.get(0).getNodeID());
-    currentMapUtility.createLabel(x1, y1, 5, 5, "Current Location");
 
+    Label startLabel = currentMapUtility.createLabel(x1, y1, 5, 5, "Current Location");
+    int daysUntilMove =
+        moveUtilities.daysCompareMove(
+            nodeToLongName.get(path.get(0).getNodeID()), pathfindingDate.getValue());
+    startLabel.setTooltip(null);
+
+    if (daysUntilMove > 0 && daysUntilMove <= 7) {
+
+      startLabel.setTooltip(
+          new Tooltip("This location will be moved in " + daysUntilMove + " day(s)"));
+      startLabel.getTooltip().setFont(new Font("Roboto", 20));
+      startLabel.setText(startLabel.getText() + "*");
+
+    } else if (daysUntilMove <= 0 && daysUntilMove >= -7) {
+
+      startLabel.setTooltip(
+          new Tooltip("This location recently moved " + -daysUntilMove + " day(s) ago"));
+      startLabel.getTooltip().setFont(new Font("Roboto", 20));
+      startLabel.setText(startLabel.getText() + "*");
+    }
     // draw the lines between each node
     int x2, y2;
     for (int i = 1; i < path.size(); i++) {
@@ -355,7 +357,26 @@ public class MapController {
     Circle endingCircle = currentMapUtility.drawStyledCircle(x1, y1, 4);
     endingCircle.setId(path.get(path.size() - 1).getNodeID());
     endingCircle.toFront();
-    currentMapUtility.createLabel(x1, y1, 5, 5, "Destination");
+
+    Label endLabel = currentMapUtility.createLabel(x1, y1, 5, 5, "Destination");
+    daysUntilMove =
+        moveUtilities.daysCompareMove(
+            nodeToLongName.get(path.get(path.size() - 1).getNodeID()), pathfindingDate.getValue());
+    endLabel.setTooltip(null);
+
+    if (daysUntilMove > 0 && daysUntilMove <= 7) {
+
+      endLabel.setTooltip(new Tooltip("This location will be moved in " + daysUntilMove + " day(s)"));
+      endLabel.getTooltip().setFont(new Font("Roboto", 20));
+      endLabel.setText(endLabel.getText() + "*");
+
+    } else if (daysUntilMove < 0 && daysUntilMove >= -7) {
+
+      endLabel.setTooltip(
+          new Tooltip("This location recently moved " + -daysUntilMove + " day(s) ago"));
+      endLabel.getTooltip().setFont(new Font("Roboto", 20));
+      endLabel.setText(endLabel.getText() + "*");
+    }
 
     // Switch the current tab to the same floor as the starting point
     currentFloor = startingFloor;
@@ -597,7 +618,7 @@ public class MapController {
       vbox.getChildren().add(hBox);
     }
   }
-
+  
   public void translateToSpanish() {
     // Change language variable
     language = "spanish";
@@ -605,8 +626,8 @@ public class MapController {
     // Menu Bar
     menuBarHome.setText("Principal"); // Home
     menuBarServices.setText("Servicios"); // Services
-    menuBarSignage.setText("Se" + nyay + "alizaci" + aO + "n"); // Signage
-    menuBarMaps.setText("Navegaci" + aO + "n"); // Pathfinding
+    menuBarSignage.setText("Se" + Settings.INSTANCE.nyay + "alizaci" + Settings.INSTANCE.aO + "n"); // Signage
+    menuBarMaps.setText("Navegaci" + Settings.INSTANCE.aO + "n"); // Pathfinding
     menuBarDatabase.setText("Base de Datos"); // Database
     menuBarExit.setText(("Salida")); // Exit
 
