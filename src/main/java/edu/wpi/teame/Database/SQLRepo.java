@@ -23,6 +23,7 @@ public enum SQLRepo {
     FURNITURE_REQUESTS,
     CONFERENCE_ROOM,
     MEDICAL_SUPPLIES,
+    SIGNAGE_FORM,
     ALERT;
 
     public static String tableToString(Table tb) {
@@ -49,6 +50,8 @@ public enum SQLRepo {
           return "ConfRoomService";
         case FURNITURE_REQUESTS:
           return "FurnitureService";
+        case SIGNAGE_FORM:
+          return "SignageForm";
         default:
           throw new NoSuchElementException("No such Table found");
       }
@@ -67,6 +70,7 @@ public enum SQLRepo {
   ServiceDAO<MealRequestData> mealDAO;
   ServiceDAO<FlowerRequestData> flowerDAO;
   ServiceDAO<ConferenceRequestData> conferenceDAO;
+  SignageComponentDAO signageDAO;
   ServiceDAO<MedicalSuppliesData> medicalsuppliesDAO;
   AlertDAO<AlertData> alertDAO;
 
@@ -91,6 +95,7 @@ public enum SQLRepo {
         flowerDAO = new FlowerDAO(activeConnection);
         conferenceDAO = new ConferenceRoomDAO(activeConnection);
         furnitureDAO = new FurnitureDAO(activeConnection);
+        signageDAO = new SignageComponentDAO(activeConnection);
         medicalsuppliesDAO = new MedicalSuppliesDAO(activeConnection);
         alertDAO = new AlertDAO(activeConnection);
 
@@ -203,6 +208,9 @@ public enum SQLRepo {
         case FURNITURE_REQUESTS:
           this.furnitureDAO.importFromCSV(filepath, "FurnitureService");
           break;
+        case SIGNAGE_FORM:
+          this.signageDAO.importFromCSV(filepath, "SignageForm");
+          break;
         case MEDICAL_SUPPLIES:
           this.medicalsuppliesDAO.importFromCSV(filepath, "MedicalSupplies");
         case ALERT:
@@ -250,6 +258,9 @@ public enum SQLRepo {
           break;
         case MEDICAL_SUPPLIES:
           this.medicalsuppliesDAO.exportToCSV(filepath, tableName);
+        case SIGNAGE_FORM:
+          this.signageDAO.exportToCSV(filepath, "SignageForm");
+          break;
         case ALERT:
           this.alertDAO.exportToCSV(filepath, tableName);
           break;
@@ -278,6 +289,15 @@ public enum SQLRepo {
 
   public List<MoveAttribute> getMoveList() {
     return this.moveDAO.get();
+  }
+
+  public List<SignageComponentData> getSignageList() {
+    return this.signageDAO.get();
+  }
+
+  public SignageComponentData.ArrowDirections getDirectionFromPKeyL(
+      String date, String klocation, String location) throws SQLException {
+    return this.signageDAO.getDirectionFromPKey(date, klocation, location);
   }
 
   public List<Employee> getEmployeeList() {
@@ -353,6 +373,10 @@ public enum SQLRepo {
     }
   }
 
+  public void updateSignage(SignageComponentData obj, String attribute, String value) {
+    this.signageDAO.update(obj, attribute, value);
+  }
+
   public void updateOfficeSupply(OfficeSuppliesData obj, String attribute, String value) {
     this.officesupplyDAO.update(obj, attribute, value);
   }
@@ -400,6 +424,10 @@ public enum SQLRepo {
     } else {
       throw new NoSuchElementException("No Service Request of this type");
     }
+  }
+
+  public void deleteSignage(SignageComponentData obj) {
+    this.signageDAO.delete(obj);
   }
 
   public void deleteAlert(AlertData obj) {
@@ -469,6 +497,10 @@ public enum SQLRepo {
     } else {
       throw new NoSuchElementException("No Service Request of this type");
     }
+  }
+
+  public void addSignage(SignageComponentData obj) {
+    this.signageDAO.add(obj);
   }
 
   public void addAlert(AlertData obj) {
