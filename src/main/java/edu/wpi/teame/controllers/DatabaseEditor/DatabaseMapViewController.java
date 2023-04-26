@@ -97,7 +97,7 @@ public class DatabaseMapViewController {
   List<HospitalNode> deleteList = new LinkedList<>();
 
   List<HospitalNode> workingList = new LinkedList<>();
-//  List<Label> allNodeLabels = new LinkedList<>();
+  //  List<Label> allNodeLabels = new LinkedList<>();
 
   HospitalNode currNode;
 
@@ -648,8 +648,13 @@ public class DatabaseMapViewController {
   }
 
   private void deleteNode() {
+
+    String nodeID = editPageText.getText().substring(16);
+    HospitalNode currNode = allNodes.get(nodeID);
+
     SQLRepo.INSTANCE.deletenode(currNode);
-    displayAddMenu();
+    HospitalNode.removeNode(currNode);
+    turnOffAllViews();
     refreshMap();
   }
 
@@ -674,7 +679,7 @@ public class DatabaseMapViewController {
         lineToEdgeMap.put(edgeLine, edge);
       }
     }
-//    allNodeLabels.clear();
+    //    allNodeLabels.clear();
     for (HospitalNode node : floorNodes) {
       setupNode(node);
     }
@@ -701,7 +706,7 @@ public class DatabaseMapViewController {
     if (LocationName.NodeType.HALL
         != LocationName.NodeType.stringToNodeType(
             SQLRepo.INSTANCE.getNodeTypeFromNodeID(Integer.parseInt(node.getNodeID())))) {
-//      allNodeLabels.add(nodeLabel);
+      //      allNodeLabels.add(nodeLabel);
     }
   }
 
