@@ -45,6 +45,7 @@ public class SignageComponentController {
   @FXML SearchableComboBox<String> directions;
   @FXML MFXButton close;
   @FXML VBox formSubmitted;
+
   ObservableList<String> kioskDiffLocations =
       FXCollections.observableArrayList(
           "Screen 1, By the info desk", "Screen 2, By the Q Elevator");
@@ -78,6 +79,8 @@ public class SignageComponentController {
 
   @FXML
   public void initialize() {
+    menuBar.setVisible(false);
+    logoutPopup(false);
     formSubmitted.setVisible(false);
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
@@ -114,8 +117,6 @@ public class SignageComponentController {
           formSubmitted.setVisible(true);
         });
 
-
-    // menu shit
     menuBarSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TEXT));
     menuBarServices.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUESTS));
     menuBarHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
@@ -125,12 +126,10 @@ public class SignageComponentController {
 
     loggedIn = false;
     logoutButton.setOnMouseClicked(
-            event -> {
-              Navigation.navigate(Screen.SIGNAGE_TEXT);
-              SQLRepo.INSTANCE.exitDatabaseProgram();
-            });
-    menuBarVisible(false);
-    logoutPopup(false);
+        event -> {
+          Navigation.navigate(Screen.SIGNAGE_TEXT);
+          SQLRepo.INSTANCE.exitDatabaseProgram();
+        });
 
     // When the menu button is clicked, invert the value of menuVisibility and set the menu bar to
     // that value

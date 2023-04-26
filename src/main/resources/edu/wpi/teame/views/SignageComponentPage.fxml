@@ -32,7 +32,170 @@
                         <Insets top="75.0" />
                      </StackPane.margin>
                   </Rectangle>
+                  <HBox alignment="CENTER" prefHeight="1082.0" prefWidth="1634.0" spacing="75.0">
+                     <children>
+                        <StackPane minHeight="40.0" minWidth="100.0" prefHeight="800.0" prefWidth="350.0">
+                           <children>
+                              <Rectangle arcHeight="35.0" arcWidth="35.0" fill="#022e59bb" height="700.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="25.0" strokeType="INSIDE" width="600.0">
+                                 <StackPane.margin>
+                                    <Insets left="150.0" />
+                                 </StackPane.margin></Rectangle>
+                              <VBox alignment="TOP_CENTER" maxHeight="700.0" prefHeight="700.0" prefWidth="615.0" spacing="20.0" StackPane.alignment="CENTER">
+                                 <children>
+                                    <Text fill="#f1f1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Signage Component Form">
+                                       <font>
+                                          <Font name="Roboto" size="40.0" />
+                                       </font>
+                                    </Text>
+                                    <VBox alignment="CENTER" minWidth="265.0" prefHeight="0.0" prefWidth="466.0">
+                                       <children>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+                                             <font>
+                                                <Font name="Roboto" size="24.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets left="-155.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                          <MFXDatePicker fx:id="date" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER" maxWidth="266.0" prefHeight="87.0" prefWidth="266.0">
+                                       <children>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Kiosk Location">
+                                             <font>
+                                                <Font name="Roboto" size="24.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets left="-40.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                          <SearchableComboBox fx:id="kioskLocations" maxWidth="200.0" minHeight="40.0" minWidth="100.0" prefWidth="100.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" prefHeight="102.0" prefWidth="466.0">
+                                       <children>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Locations">
+                                             <font>
+                                                <Font name="Roboto" size="24.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets left="-95.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                          <SearchableComboBox fx:id="locations" maxWidth="200.0" minHeight="40.0" minWidth="100.0" prefWidth="100.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="466.0">
+                                       <children>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Directions">
+                                             <font>
+                                                <Font name="Roboto" size="24.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets left="-95.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                          <SearchableComboBox fx:id="directions" maxWidth="200.0" minHeight="40.0" minWidth="100.0" prefWidth="100.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <StackPane.margin>
+                                    <Insets top="40.0" />
+                                 </StackPane.margin>
+                                 <padding>
+                                    <Insets left="150.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
+                  <VBox fx:id="logoutBox" alignment="TOP_CENTER" maxHeight="210.0" maxWidth="200.0" prefHeight="200.0" prefWidth="162.0" spacing="20.0" style="-fx-background-color: #f1f1f1; -fx-border-color: #001a3c; -fx-border-width: 3;" StackPane.alignment="TOP_RIGHT">
+                     <StackPane.margin>
+                        <Insets top="70.0" />
+                     </StackPane.margin>
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/userBlue.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Name">
+                           <font>
+                              <Font name="Roboto" size="24.0" />
+                           </font>
+                        </Text>
+                        <MFXButton fx:id="logoutButton" maxHeight="50.0" maxWidth="100.0" prefHeight="50.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Logout">
+                           <font>
+                              <Font name="Roboto" size="16.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </VBox>
+                  <HBox maxHeight="100.0" maxWidth="645.0" prefHeight="100.0" prefWidth="1000.0" spacing="20.0" StackPane.alignment="BOTTOM_CENTER">
+                     <children>
+                        <HBox alignment="BOTTOM_CENTER" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" prefWidth="800.0" spacing="20.0">
+                           <children>
+                              <MFXButton fx:id="cancelButton" cancelButton="true" prefHeight="75.0" prefWidth="200.0" stylesheets="@../styles/eStyleSheet.css" text="Cancel">
+                                 <font>
+                                    <Font name="Roboto" size="25.0" />
+                                 </font>
+                              </MFXButton>
+                              <MFXButton fx:id="resetButton" minWidth="0.0" prefHeight="75.0" prefWidth="200.0" styleClass="resetButton" stylesheets="@../styles/eStyleSheet.css" text="Reset">
+                                 <font>
+                                    <Font name="Roboto" size="25.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                        </HBox>
+                        <HBox alignment="BOTTOM_CENTER" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" prefWidth="700.0">
+                           <children>
+                              <MFXButton fx:id="submitButton" maxHeight="75.0" prefHeight="75.0" prefWidth="200.0" styleClass="submitButton" stylesheets="@../styles/eStyleSheet.css" text="Submit">
+                                 <font>
+                                    <Font name="Roboto" size="25.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="80.0" />
+                     </padding>
+                     <StackPane.margin>
+                        <Insets left="175.0" />
+                     </StackPane.margin>
+                  </HBox>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="75.0" stroke="BLACK" strokeType="INSIDE" width="1920.0" />
+                  <VBox fx:id="formSubmitted" alignment="TOP_CENTER" maxHeight="500.0" maxWidth="500.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 25;" StackPane.alignment="CENTER">
+                     <StackPane.margin>
+                        <Insets left="125.0" />
+                     </StackPane.margin>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Form Submitted">
+                           <font>
+                              <Font name="Roboto" size="50.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="100.0" />
+                           </VBox.margin>
+                        </Text>
+                        <MFXButton fx:id="close" pickOnBounds="false" prefHeight="75.0" prefWidth="250.0" style="-fx-background-radius: 25; -fx-border-radius: 25;" styleClass="submitButton" stylesheets="@../styles/eStyleSheet.css" text="Close">
+                           <VBox.margin>
+                              <Insets top="125.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Roboto" size="30.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </VBox>
                   <HBox alignment="CENTER_LEFT" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="1920.0" spacing="1750.0" StackPane.alignment="TOP_LEFT">
                      <children>
                         <MFXButton fx:id="menuButton" alignment="BOTTOM_CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" rippleColor="WHITE" style="-fx-background-color: #012d5a;" text="Menu" HBox.hgrow="ALWAYS">
@@ -218,169 +381,6 @@
                      <StackPane.margin>
                         <Insets top="75.0" />
                      </StackPane.margin>
-                  </VBox>
-                  <HBox alignment="CENTER" prefHeight="1082.0" prefWidth="1634.0" spacing="75.0">
-                     <children>
-                        <StackPane minHeight="40.0" minWidth="100.0" prefHeight="800.0" prefWidth="350.0">
-                           <children>
-                              <Rectangle arcHeight="35.0" arcWidth="35.0" fill="#022e59bb" height="700.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="25.0" strokeType="INSIDE" width="600.0">
-                                 <StackPane.margin>
-                                    <Insets left="150.0" />
-                                 </StackPane.margin></Rectangle>
-                              <VBox alignment="TOP_CENTER" maxHeight="700.0" prefHeight="700.0" prefWidth="615.0" spacing="20.0" StackPane.alignment="CENTER">
-                                 <children>
-                                    <Text fill="#f1f1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Signage Component Form">
-                                       <font>
-                                          <Font name="Roboto" size="40.0" />
-                                       </font>
-                                    </Text>
-                                    <VBox alignment="CENTER" minWidth="265.0" prefHeight="0.0" prefWidth="466.0">
-                                       <children>
-                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
-                                             <font>
-                                                <Font name="Roboto" size="24.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets left="-155.0" />
-                                             </VBox.margin>
-                                          </Text>
-                                          <MFXDatePicker fx:id="date" />
-                                       </children>
-                                    </VBox>
-                                    <VBox alignment="CENTER" maxWidth="266.0" prefHeight="87.0" prefWidth="266.0">
-                                       <children>
-                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Kiosk Location">
-                                             <font>
-                                                <Font name="Roboto" size="24.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets left="-40.0" />
-                                             </VBox.margin>
-                                          </Text>
-                                          <SearchableComboBox fx:id="kioskLocations" maxWidth="200.0" minHeight="40.0" minWidth="100.0" prefWidth="100.0" />
-                                       </children>
-                                    </VBox>
-                                    <VBox alignment="TOP_CENTER" prefHeight="102.0" prefWidth="466.0">
-                                       <children>
-                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Locations">
-                                             <font>
-                                                <Font name="Roboto" size="24.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets left="-95.0" />
-                                             </VBox.margin>
-                                          </Text>
-                                          <SearchableComboBox fx:id="locations" maxWidth="200.0" minHeight="40.0" minWidth="100.0" prefWidth="100.0" />
-                                       </children>
-                                    </VBox>
-                                    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="466.0">
-                                       <children>
-                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Directions">
-                                             <font>
-                                                <Font name="Roboto" size="24.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets left="-95.0" />
-                                             </VBox.margin>
-                                          </Text>
-                                          <SearchableComboBox fx:id="directions" maxWidth="200.0" minHeight="40.0" minWidth="100.0" prefWidth="100.0" />
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <StackPane.margin>
-                                    <Insets top="40.0" />
-                                 </StackPane.margin>
-                                 <padding>
-                                    <Insets left="150.0" />
-                                 </padding>
-                              </VBox>
-                           </children>
-                        </StackPane>
-                     </children>
-                  </HBox>
-                  <VBox fx:id="logoutBox" alignment="TOP_CENTER" maxHeight="210.0" maxWidth="200.0" prefHeight="200.0" prefWidth="162.0" spacing="20.0" style="-fx-background-color: #f1f1f1; -fx-border-color: #001a3c; -fx-border-width: 3;" StackPane.alignment="TOP_RIGHT">
-                     <StackPane.margin>
-                        <Insets top="70.0" />
-                     </StackPane.margin>
-                     <children>
-                        <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/userBlue.png" />
-                           </image>
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Name">
-                           <font>
-                              <Font name="Roboto" size="24.0" />
-                           </font>
-                        </Text>
-                        <MFXButton fx:id="logoutButton" maxHeight="50.0" maxWidth="100.0" prefHeight="50.0" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Logout">
-                           <font>
-                              <Font name="Roboto" size="16.0" />
-                           </font>
-                        </MFXButton>
-                     </children>
-                  </VBox>
-                  <HBox maxHeight="100.0" maxWidth="645.0" prefHeight="100.0" prefWidth="1000.0" spacing="20.0" StackPane.alignment="BOTTOM_CENTER">
-                     <children>
-                        <HBox alignment="BOTTOM_CENTER" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" prefWidth="800.0" spacing="20.0">
-                           <children>
-                              <MFXButton fx:id="cancelButton" cancelButton="true" prefHeight="75.0" prefWidth="200.0" stylesheets="@../styles/eStyleSheet.css" text="Cancel">
-                                 <font>
-                                    <Font name="Roboto" size="25.0" />
-                                 </font>
-                              </MFXButton>
-                              <MFXButton fx:id="resetButton" minWidth="0.0" prefHeight="75.0" prefWidth="200.0" styleClass="resetButton" stylesheets="@../styles/eStyleSheet.css" text="Reset">
-                                 <font>
-                                    <Font name="Roboto" size="25.0" />
-                                 </font>
-                              </MFXButton>
-                           </children>
-                        </HBox>
-                        <HBox alignment="BOTTOM_CENTER" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" prefWidth="700.0">
-                           <children>
-                              <MFXButton fx:id="submitButton" maxHeight="75.0" prefHeight="75.0" prefWidth="200.0" styleClass="submitButton" stylesheets="@../styles/eStyleSheet.css" text="Submit">
-                                 <font>
-                                    <Font name="Roboto" size="25.0" />
-                                 </font>
-                              </MFXButton>
-                           </children>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets bottom="80.0" />
-                     </padding>
-                     <StackPane.margin>
-                        <Insets left="175.0" />
-                     </StackPane.margin>
-                  </HBox>
-                  <VBox fx:id="formSubmitted" alignment="TOP_CENTER" maxHeight="500.0" maxWidth="500.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 25;" StackPane.alignment="CENTER">
-                     <StackPane.margin>
-                        <Insets left="125.0" />
-                     </StackPane.margin>
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Form Submitted">
-                           <font>
-                              <Font name="Roboto" size="50.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="100.0" />
-                           </VBox.margin>
-                        </Text>
-                        <MFXButton fx:id="close" pickOnBounds="false" prefHeight="75.0" prefWidth="250.0" style="-fx-background-radius: 25; -fx-border-radius: 25;" styleClass="submitButton" stylesheets="@../styles/eStyleSheet.css" text="Close">
-                           <VBox.margin>
-                              <Insets top="125.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font name="Roboto" size="30.0" />
-                           </font>
-                        </MFXButton>
-                     </children>
                   </VBox>
                </children>
             </StackPane>
