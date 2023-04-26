@@ -4,6 +4,11 @@ import static java.lang.Math.PI;
 
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.map.*;
+import edu.wpi.teame.Main;
+import edu.wpi.teame.entities.Settings;
+import edu.wpi.teame.map.Floor;
+import edu.wpi.teame.map.HospitalNode;
+import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.map.pathfinding.AbstractPathfinder;
 import edu.wpi.teame.utilities.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -88,6 +93,7 @@ public class MapController {
   boolean widthLoaded = false;
   boolean heightLoaded = false;
   Floor currentFloor = Floor.LOWER_TWO;
+  String language;
   Circle currentCircle = new Circle();
   Label currentFrontLabel = null;
   HBox previousLabel;
@@ -311,6 +317,26 @@ public class MapController {
     Circle currentLocationCircle = currentMapUtility.drawStyledCircle(x1, y1, 4);
     currentLocationCircle.setId(path.get(0).getNodeID());
 
+    Label startLabel = currentMapUtility.createLabel(x1, y1, 5, 5, "Current Location");
+    int daysUntilMove =
+        moveUtilities.daysCompareMove(
+            nodeToLongName.get(path.get(0).getNodeID()), pathfindingDate.getValue());
+    startLabel.setTooltip(null);
+
+    if (daysUntilMove > 0 && daysUntilMove <= 7) {
+
+      startLabel.setTooltip(
+          new Tooltip("This location will be moved in " + daysUntilMove + " day(s)"));
+      startLabel.getTooltip().setFont(new Font("Roboto", 20));
+      startLabel.setText(startLabel.getText() + "*");
+
+    } else if (daysUntilMove <= 0 && daysUntilMove >= -7) {
+
+      startLabel.setTooltip(
+          new Tooltip("This location recently moved " + -daysUntilMove + " day(s) ago"));
+      startLabel.getTooltip().setFont(new Font("Roboto", 20));
+      startLabel.setText(startLabel.getText() + "*");
+    }
     // draw the lines between each node
     int x2, y2;
     for (int i = 1; i < path.size(); i++) {
@@ -342,6 +368,27 @@ public class MapController {
     Circle endingCircle = currentMapUtility.drawStyledCircle(x1, y1, 4);
     endingCircle.setId(path.get(path.size() - 1).getNodeID());
     endingCircle.toFront();
+
+    Label endLabel = currentMapUtility.createLabel(x1, y1, 5, 5, "Destination");
+    daysUntilMove =
+        moveUtilities.daysCompareMove(
+            nodeToLongName.get(path.get(path.size() - 1).getNodeID()), pathfindingDate.getValue());
+    endLabel.setTooltip(null);
+
+    if (daysUntilMove > 0 && daysUntilMove <= 7) {
+
+      endLabel.setTooltip(
+          new Tooltip("This location will be moved in " + daysUntilMove + " day(s)"));
+      endLabel.getTooltip().setFont(new Font("Roboto", 20));
+      endLabel.setText(endLabel.getText() + "*");
+
+    } else if (daysUntilMove < 0 && daysUntilMove >= -7) {
+
+      endLabel.setTooltip(
+          new Tooltip("This location recently moved " + -daysUntilMove + " day(s) ago"));
+      endLabel.getTooltip().setFont(new Font("Roboto", 20));
+      endLabel.setText(endLabel.getText() + "*");
+    }
 
     // Switch the current tab to the same floor as the starting point
     currentFloor = startingFloor;
@@ -745,5 +792,57 @@ public class MapController {
           currentFrontLabel = thisLabel;
         });
     allLocationNameLabels.add(thisLabel);
+  }
+
+  public void translateToSpanish() {
+    // Change language variable
+    language = "spanish";
+
+    // Menu Bar
+    menuBarHome.setText("Principal"); // Home
+    menuBarServices.setText("Servicios"); // Services
+    menuBarSignage.setText(
+        "Se" + Settings.INSTANCE.nyay + "alizaci" + Settings.INSTANCE.aO + "n"); // Signage
+    menuBarMaps.setText("Navegaci" + Settings.INSTANCE.aO + "n"); // Pathfinding
+    menuBarDatabase.setText("Base de Datos"); // Database
+    menuBarExit.setText(("Salida")); // Exit
+
+    startButton.setText("Comenzar"); // Start
+
+    // Map Tabs
+    lowerLevelTwoTab.setText("Piso Baja 2"); // Lower Level 2
+    lowerLevelOneTab.setText("Piso Baja 1"); // Lower Level 1
+    floorOneTab.setText("Piso 1");
+    floorTwoTab.setText("Piso 2");
+    floorThreeTab.setText("Piso 3");
+
+    /* Uncomment when logout button is fixed
+    // Logout Button
+    logoutButton.setText("Cerrar Sesi" + aO + "n"); // Logout
+    Font spanishLogout = new Font("Roboto", 13);
+    logoutButton.setFont(spanishLogout);
+     */
+  }
+
+  public void translateToEnglish() {
+    // Change language variable
+    language = "english";
+
+    // Menu Bar
+    menuBarHome.setText("Home"); // Keep in English
+    menuBarServices.setText("Services"); // Keep in English
+    menuBarSignage.setText("Signage"); // Keep in English
+    menuBarMaps.setText("Pathfinding"); // Keep in English
+    menuBarDatabase.setText("Database"); // Keep in English
+    menuBarExit.setText(("Exit")); // Keep in English
+
+    startButton.setText("Start"); // Start
+
+    /* Uncomment when logout button is fixed
+    // Logout Button
+    logoutButton.setText("Logout"); // Keep in English
+    Font englishLogout = new Font("Roboto", 18);
+    logoutButton.setFont(englishLogout);
+     */
   }
 }
