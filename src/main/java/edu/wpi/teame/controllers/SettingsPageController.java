@@ -15,8 +15,13 @@ public class SettingsPageController {
   @FXML
   public void initialize() {
 
-
-    englishButton.setOnMouseClicked(event -> Settings.INSTANCE.setLanguage(Settings.Language.ENGLISH));
-
+    englishButton.setOnMouseClicked(
+        event -> Settings.INSTANCE.setLanguage(Settings.Language.ENGLISH));
+    spanishButton.setOnMouseClicked(
+        event -> Settings.INSTANCE.setLanguage(Settings.Language.SPANISH));
+    hawaiianButton.setOnMouseClicked(
+        event -> Settings.INSTANCE.setLanguage(Settings.Language.HAWAIIAN));
+    frenchButton.setOnMouseClicked(
+        event -> Settings.INSTANCE.setLanguage(Settings.Language.FRENCH));
   }
 }

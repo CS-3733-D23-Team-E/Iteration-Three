@@ -3,6 +3,7 @@ package edu.wpi.teame.controllers;
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.entities.AlertData;
 import edu.wpi.teame.entities.LoginData;
+import edu.wpi.teame.entities.Settings;
 import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
@@ -14,10 +15,10 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import java.util.concurrent.atomic.AtomicReference;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -54,6 +55,8 @@ public class HomePageController {
   // @FXML MFXButton announcementButton;
   // @FXML Text announcementText;
   // @FXML MFXTextField announcementTextBox;
+  @FXML Text todayIsText;
+  @FXML Text alertText;
 
   @FXML MFXButton alertSubmitButton;
 
@@ -72,10 +75,7 @@ public class HomePageController {
   @FXML ImageView databaseI;
 
   @FXML ImageView exitI;
-  @FXML MFXButton spanishButton;
-  @FXML MFXButton englishButton;
-  @FXML Text todayIsText;
-  @FXML Text alertText;
+  @FXML MFXButton menuBarSettings;
 
   Boolean loggedIn;
   String language = "english";
@@ -121,7 +121,7 @@ public class HomePageController {
     menuBarServices.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUESTS));
     menuBarHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     menuBarMaps.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-
+    menuBarSettings.setOnMouseClicked(event -> Navigation.navigate(Screen.SETTINGS));
     menuBarDatabase.setOnMouseClicked(event -> Navigation.navigate((Screen.DATABASE_TABLEVIEW)));
     menuBarExit.setOnMouseClicked(event -> Platform.exit());
 
@@ -219,6 +219,12 @@ public class HomePageController {
     ButtonUtilities.mouseSetupMenuBar(
         menuBarAbout, "baseline-left", aboutI, "images/abouticon.png", "images/abouticon-blue.png");
     ButtonUtilities.mouseSetupMenuBar(
+        menuBarSettings,
+        "baseline-left",
+        aboutI,
+        "images/settingsicon.png",
+        "images/settingsicon-blue.png");
+    ButtonUtilities.mouseSetupMenuBar(
         menuBarExit,
         "baseline-center",
         exitI,
@@ -231,8 +237,6 @@ public class HomePageController {
     ButtonUtilities.mouseSetup(pathfindingButton);
     ButtonUtilities.mouseSetup(databaseButton);
     ButtonUtilities.mouseSetup(logoutButton);
-
-
 
     Timeline timeline =
         new Timeline(
@@ -257,17 +261,11 @@ public class HomePageController {
         event -> {
           translateToSpanish(String.valueOf(announcementString));
         });*/
-    if (language.equals("english")) {
+    if (Settings.INSTANCE.getLanguage() == Settings.Language.ENGLISH) {
       translateToEnglish(String.valueOf(announcementString));
-    } else if (language.equals("spanish")) {
+    } else if (Settings.INSTANCE.getLanguage() == Settings.Language.SPANISH) {
       translateToSpanish(String.valueOf(announcementString));
-    } else // throw error for language not being a valid language
-    {
-      // throw some sort of error here at some point
-    }
-
-
-
+    } // throw error for language not being a valid language
   }
 
   public void attemptLogin() {
@@ -302,7 +300,7 @@ public class HomePageController {
     menuBarDatabase.setVisible(bool);
 
     menuBarAbout.setVisible(bool);
-
+    menuBarSettings.setVisible(bool);
     menuBarExit.setVisible(bool);
     menuBarBlank.setVisible(bool);
     menuBar.setVisible(bool);
@@ -330,7 +328,7 @@ public class HomePageController {
     todayIsText.setText("Hoy es..."); // Today is...
 
     // Announcements Bar
-    alertText.setText("Anuncios"); // Announcements
+    alertText.setText("Alertas"); // Alerts
     /*if (announcmentString.equals("")) { // Do this if there are currently no announcements
       announcementText.setText("No hay nuevos anuncios."); // No new announcements.
     }
@@ -367,11 +365,8 @@ public class HomePageController {
     todayIsText.setText("Today is..."); // Keep in English
 
     // Announcements Bar
-    alertText.setText("Announcements"); // Keep in English
-    if (announcmentString.equals("")) { // Do this if there are currently no announcements
-      alertText.setText("No new announcements."); // Keep in English
-    }
-    // announcementTextBox.setPromptText("Announcement Text Here"); // Keep in English
+    alertText.setText("Alerts"); // Keep in English
+
     // announcementButton.setText("Submit"); // Keep in English
 
     // Logout Button

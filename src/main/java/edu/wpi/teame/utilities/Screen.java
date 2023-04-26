@@ -17,6 +17,7 @@ public enum Screen {
   DATABASE_MAPVIEW("views/DatabaseEditor/DatabaseMapView.fxml"),
   DATABASE_SERVICEVIEW("views/DatabaseEditor/DatabaseServiceRequestView.fxml"),
   ABOUT("views/AboutPage.fxml"),
+  SETTINGS("views/SettingsPage.fxml"),
   CREDITS("views/CreditsPage.fxml");
 
   private final String filename;

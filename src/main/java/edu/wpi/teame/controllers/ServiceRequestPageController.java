@@ -25,10 +25,9 @@ import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
+import javafx.util.Duration;
 
 public class ServiceRequestPageController {
 
@@ -170,7 +169,6 @@ public class ServiceRequestPageController {
 
     mouseSetup(logoutButton);
 
-
     Timeline timeline =
         new Timeline(
             new KeyFrame(
@@ -192,7 +190,6 @@ public class ServiceRequestPageController {
     {
       // throw some sort of error here at some point
     }
-
   }
 
   public void logoutPopup(boolean bool) {
