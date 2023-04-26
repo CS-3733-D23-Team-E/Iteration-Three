@@ -8,6 +8,7 @@ import static javafx.scene.paint.Color.WHITE;
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.entities.Employee;
 import edu.wpi.teame.entities.ServiceRequestData;
+import edu.wpi.teame.entities.Settings;
 import edu.wpi.teame.utilities.ButtonUtilities;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
@@ -175,6 +176,11 @@ public class ServiceRequestPageController {
                 Duration.seconds(1),
                 event -> {
                   fillServiceRequestsFields();
+                  if (Settings.INSTANCE.getLanguage() == Settings.Language.ENGLISH) {
+                    translateToEnglish();
+                  } else if (Settings.INSTANCE.getLanguage() == Settings.Language.SPANISH) {
+                    translateToSpanish();
+                  }
                 }));
 
     timeline.setCycleCount(Animation.INDEFINITE);

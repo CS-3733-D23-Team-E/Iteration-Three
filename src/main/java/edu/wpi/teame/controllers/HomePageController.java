@@ -23,8 +23,10 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -66,7 +68,8 @@ public class HomePageController {
   @FXML MFXButton logoutButton;
   @FXML MFXButton userButton;
   @FXML ImageView homeI;
-
+  @FXML MFXButton englishButton;
+  @FXML MFXButton spanishButton;
   @FXML ImageView aboutI;
 
   @FXML ImageView servicesI;
@@ -247,6 +250,11 @@ public class HomePageController {
                   String formattedTime = now.format(formatter);
                   timeText.setText(formattedTime);
                   fillAlertList();
+                  if (Settings.INSTANCE.getLanguage() == Settings.Language.ENGLISH) {
+                    translateToEnglish(String.valueOf(announcementString));
+                  } else if (Settings.INSTANCE.getLanguage() == Settings.Language.SPANISH) {
+                    translateToSpanish(String.valueOf(announcementString));
+                  }
                 }));
 
     timeline.setCycleCount(Animation.INDEFINITE);
@@ -261,11 +269,27 @@ public class HomePageController {
         event -> {
           translateToSpanish(String.valueOf(announcementString));
         });*/
-    if (Settings.INSTANCE.getLanguage() == Settings.Language.ENGLISH) {
-      translateToEnglish(String.valueOf(announcementString));
-    } else if (Settings.INSTANCE.getLanguage() == Settings.Language.SPANISH) {
-      translateToSpanish(String.valueOf(announcementString));
-    } // throw error for language not being a valid language
+
+    DropShadow dropShadow = new DropShadow();
+    dropShadow.setRadius(10);
+    dropShadow.setSpread(.71);
+    dropShadow.setWidth(21);
+    dropShadow.setHeight(50);
+    Color paint = new Color(0.0, 0.6175, 0.65, 0.5);
+
+    englishButton.setOnMouseClicked(
+        event -> {
+          Settings.INSTANCE.setLanguage(Settings.Language.ENGLISH);
+          englishButton.setEffect(dropShadow);
+          spanishButton.setEffect(null);
+        });
+    spanishButton.setOnMouseClicked(
+        event -> {
+          Settings.INSTANCE.setLanguage(Settings.Language.SPANISH);
+          spanishButton.setEffect(dropShadow);
+          englishButton.setEffect(null);
+        });
+    // throw error for language not being a valid language
   }
 
   public void attemptLogin() {
