@@ -183,7 +183,7 @@
                                     <graphic>
                                         <ImageView fx:id="settingsI" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
                                             <image>
-                                                <Image url="@../images/settings.png" />
+                                                <Image url="@../images/settingsicon.png" />
                                             </image>
                                         </ImageView>
                                     </graphic>
