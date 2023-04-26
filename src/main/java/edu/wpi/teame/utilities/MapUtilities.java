@@ -3,6 +3,8 @@ package edu.wpi.teame.utilities;
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.map.HospitalNode;
 import edu.wpi.teame.map.LocationName;
+import java.util.LinkedList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -16,6 +18,8 @@ import javax.swing.*;
 public class MapUtilities {
   private final int MAP_X = 5000;
   private final int MAP_Y = 3400;
+
+  private final double ARROW_SHORTENING_CONSTANT = 10.0;
   private final Pane pane;
 
   private String lineStyle = "";
@@ -157,6 +161,15 @@ public class MapUtilities {
     return drawLineWithLabel(x1, y1, x2, y2, message);
   }
 
+  public List<Node> drawMoveArrow(HospitalNode from, HospitalNode to) {
+    int x1 = from.getXCoord();
+    int y1 = from.getYCoord();
+    int x2 = to.getXCoord();
+    int y2 = to.getYCoord();
+
+    return drawArrowLine(x1, y1, x2, y2);
+  }
+
   /**
    * draws a stylized version of the line determined by the lineStyle attribute
    *
@@ -202,6 +215,53 @@ public class MapUtilities {
     int ay = (y1 + y2) / 2;
     Label lineMessage = this.createStyledLabel(ax, ay, message);
     return drawLine(x1, y1, x2, y2);
+  }
+
+  public List<Node> drawArrowLine(int startX, int startY, int endX, int endY) {
+    startX = (int) convertX(startX);
+    startY = (int) convertY(startY);
+    endX = (int) convertX(endX);
+    endY = (int) convertY(endY);
+
+    // get the slope of the line and find its angle
+    double slope = (startY - endY) * 1.0 / (startX - endX);
+    double lineAngle = Math.atan(slope);
+
+    double arrowAngle = startX > endX ? Math.toRadians(45) : -Math.toRadians(225);
+
+    Line line =
+        new Line(
+            startX,
+            startY,
+            endX - (Math.signum(endX - startX)) * (ARROW_SHORTENING_CONSTANT * Math.cos(lineAngle)),
+            endY
+                - (Math.signum(endX - startX)) * (ARROW_SHORTENING_CONSTANT * Math.sin(lineAngle)));
+
+    double arrowLength = 10;
+
+    // create the arrow legs
+    Line arrow1 = new Line();
+    arrow1.setStartX(line.getEndX());
+    arrow1.setStartY(line.getEndY());
+    arrow1.setEndX(line.getEndX() + arrowLength * Math.cos(lineAngle - arrowAngle));
+    arrow1.setEndY(line.getEndY() + arrowLength * Math.sin(lineAngle - arrowAngle));
+
+    Line arrow2 = new Line();
+    arrow2.setStartX(line.getEndX());
+    arrow2.setStartY(line.getEndY());
+    arrow2.setEndX(line.getEndX() + arrowLength * Math.cos(lineAngle + arrowAngle));
+    arrow2.setEndY(line.getEndY() + arrowLength * Math.sin(lineAngle + arrowAngle));
+
+    line.setStrokeWidth(3);
+    arrow1.setStrokeWidth(3);
+    arrow2.setStrokeWidth(3);
+
+    pane.getChildren().addAll(line, arrow1, arrow2);
+    List<Node> arrow = new LinkedList<>();
+    arrow.add(line);
+    arrow.add(arrow1);
+    arrow.add(arrow2);
+    return arrow;
   }
 
   /**

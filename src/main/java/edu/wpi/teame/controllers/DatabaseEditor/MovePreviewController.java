@@ -4,6 +4,7 @@ import edu.wpi.teame.map.Floor;
 import edu.wpi.teame.map.HospitalNode;
 import edu.wpi.teame.utilities.ColorPalette;
 import edu.wpi.teame.utilities.MapUtilities;
+import java.util.LinkedList;
 import java.util.List;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
@@ -118,8 +119,7 @@ public class MovePreviewController {
               }
               if (widthLoaded && heightLoaded) {
                 currentFloor = Floor.LOWER_TWO;
-                loadFloorNodes();
-                tabPane.getSelectionModel().select(floorToTab(node1.getFloor()));
+                runInitFunctions();
               }
             });
     mapPaneLowerTwo
@@ -131,24 +131,35 @@ public class MovePreviewController {
               }
               if (widthLoaded && heightLoaded) {
                 currentFloor = Floor.LOWER_TWO;
-                loadFloorNodes();
-                tabPane.getSelectionModel().select(floorToTab(node1.getFloor()));
+                runInitFunctions();
               }
             });
 
     // set the move description text
 
-    StringBuilder moveDescText = new StringBuilder();
-    moveDescText.append(name1).append(" to node ").append(node2.getNodeID()).append("\n");
-    if (bidirectional) {
-      moveDescText.append(name2).append(" to node ").append(node1.getNodeID()).append("\n");
-    }
-    moveDescription.setText(moveDescText.toString());
+    //    StringBuilder moveDescText = new StringBuilder();
+    //    moveDescText.append(name1).append(" to node ").append(node2.getNodeID()).append("\n");
+    //    if (bidirectional) {
+    //      moveDescText.append(name2).append(" to node ").append(node1.getNodeID()).append("\n");
+    //    }
+    //    moveDescription.setText(moveDescText.toString());
 
-    //    List<HospitalNode> nodes = new LinkedList<>();
-    //    nodes.add(node1);
-    //    nodes.add(node2);
-    //    createMoveLabels(viewMoveBox, nodes);
+  }
+
+  private void runInitFunctions() {
+    loadFloorNodes();
+    tabPane.getSelectionModel().select(floorToTab(node1.getFloor()));
+    List<HospitalNode> nodes = new LinkedList<>();
+    nodes.add(node1);
+    nodes.add(node2);
+    createMoveLabels(viewMoveBox, nodes);
+    moveDescription.setText("");
+    MapUtilities currentMapUtility = whichMapUtility(currentFloor);
+    ((GesturePane) currentMapUtility.getPane().getParent())
+        .centreOn(
+            new Point2D(
+                currentMapUtility.convertX(node1.getXCoord()),
+                currentMapUtility.convertY(node1.getYCoord())));
   }
 
   public Floor tabToFloor(Tab tab) {
@@ -177,11 +188,11 @@ public class MovePreviewController {
     mapUtilityTwo = new MapUtilities(mapPaneTwo);
     mapUtilityThree = new MapUtilities(mapPaneThree);
 
-    mapUtilityLowerTwo.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F1;");
-    mapUtilityLowerOne.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F1;");
-    mapUtilityOne.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F1;");
-    mapUtilityTwo.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F1;");
-    mapUtilityThree.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F1;");
+    mapUtilityLowerTwo.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F199;");
+    mapUtilityLowerOne.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F199;");
+    mapUtilityOne.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F199;");
+    mapUtilityTwo.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F199;");
+    mapUtilityThree.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F199;");
   }
 
   public void refreshMap() {
@@ -209,7 +220,8 @@ public class MovePreviewController {
   public void loadFloorNodes() {
     // create edges
     if (node1.getFloor().equals(currentFloor) || node2.getFloor().equals(currentFloor)) {
-      whichMapUtility(currentFloor).drawMove(node1, node2);
+      // whichMapUtility(currentFloor).drawMove(node1, node2);
+      whichMapUtility(currentFloor).drawMoveArrow(node1, node2);
       if (node1.getFloor().equals(currentFloor)) {
         // draw phantom label for node 2
         setupNode(node1, name1);
@@ -233,7 +245,7 @@ public class MovePreviewController {
     String nodeID = node.getNodeID();
     MapUtilities currentMapUtility = whichMapUtility(currentFloor);
 
-    Circle nodeCircle = currentMapUtility.drawHospitalNode(node);
+    currentCircle = currentMapUtility.drawHospitalNode(node);
     Label nodeLabel = currentMapUtility.drawHospitalNodeLabel(node, name);
     nodeLabel.setVisible(true);
   }
@@ -280,6 +292,7 @@ public class MovePreviewController {
       hBox.setAlignment(Pos.CENTER_LEFT);
       hBox.setSpacing(10);
       hBox.setPadding(new Insets(0, 10, 0, 10));
+      hBox.getChildren().add(destinationLabel);
 
       // Add the event listener
       hBox.setOnMouseClicked(
