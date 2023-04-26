@@ -3,9 +3,8 @@ package edu.wpi.teame.controllers;
 import static java.lang.Math.PI;
 
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.map.*;
-import edu.wpi.teame.Main;
 import edu.wpi.teame.entities.Settings;
+import edu.wpi.teame.map.*;
 import edu.wpi.teame.map.Floor;
 import edu.wpi.teame.map.HospitalNode;
 import edu.wpi.teame.map.LocationName;
@@ -556,7 +555,7 @@ public class MapController {
                           .toList();
                   currentCircle = (Circle) nodeList.get(0);
                   currentCircle.setRadius(5);
-                  currentCircle.setViewOrder(-5);
+                  currentCircle.setViewOrder(-3);
                   currentCircle.setVisible(true);
 
                   // Set the current label as the previous
@@ -782,13 +781,13 @@ public class MapController {
     thisLabel.setFont(Font.font("Roboto", 8));
     thisLabel.setStyle(
         "-fx-background-color: white; -fx-border-width: .5; -fx-border-color: black");
-    thisLabel.setViewOrder(-3);
+    thisLabel.setViewOrder(-4);
     thisLabel.setOnMouseClicked(
         event -> {
           if (currentFrontLabel != null) {
-            currentFrontLabel.setViewOrder(-3);
+            currentFrontLabel.setViewOrder(-4);
           }
-          thisLabel.setViewOrder(-4);
+          thisLabel.setViewOrder(-5);
           currentFrontLabel = thisLabel;
         });
     allLocationNameLabels.add(thisLabel);

@@ -163,7 +163,7 @@ public class DatabaseMapViewController {
     for (Label aLabel : allNodeLabels) {
       aLabel.setVisible(visible);
     }
-    if (currentLabel!=null) {
+    if (currentLabel != null) {
       currentLabel.setVisible(true);
     }
   }
