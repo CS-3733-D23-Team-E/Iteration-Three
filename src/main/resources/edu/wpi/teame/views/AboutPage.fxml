@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="900.0" maxWidth="1600.0" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #e1e1e1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.AboutPageController">
+    <children>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#001a3c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="1600.0" />
+        <StackPane prefHeight="825.0" prefWidth="1400.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="75.0">
+            <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#022e59a6" height="825.0" stroke="BLACK" strokeType="INSIDE" width="1400.0" />
+            </children>
+        </StackPane>
+        <StackPane alignment="TOP_CENTER" layoutX="1298.0" layoutY="96.0" prefHeight="144.0" prefWidth="186.0">
+            <children>
+                <MFXButton fx:id="creditsButton" prefHeight="65.0" prefWidth="155.0" rippleColor="WHITE" style="-fx-background-color: #001a3c;" text="Credits" textFill="WHITE">
+                    <font>
+                        <Font name="Roboto" size="20.0" />
+                    </font>
+                </MFXButton>
+            </children>
+        </StackPane>
+        <StackPane layoutX="34.0" layoutY="300.0" prefHeight="574.0" prefWidth="554.0" AnchorPane.leftAnchor="120.0">
+            <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="574.0" smooth="false" stroke="BLACK" strokeMiterLimit="20.0" strokeType="INSIDE" strokeWidth="3.0" width="554.0" />
+                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="1.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Team Ethical Easter Bunnies">
+                            <font>
+                                <Font name="System Bold" size="30.0" />
+                            </font>
+                        </Text>
+                        <Line endX="100.0" startX="-271.22607421875" startY="0.6213539242744446" />
+                        <VBox prefHeight="449.0" prefWidth="601.0" spacing="10.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Kevin Siegall - Lead Software Engineer">
+                                    <font>
+                                        <Font name="Roboto" size="20.0" />
+                                    </font>
+                                </Text>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Megan Jacques - Assistant Lead Front-End Developer">
+                                    <font>
+                                        <Font name="Roboto" size="20.0" />
+                                    </font>
+                                </Text>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Anthony Virone - Front-End &amp; Feature Engineer">
+                                    <font>
+                                        <Font name="Roboto" size="20.0" />
+                                    </font>
+                                </Text>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Joseph Thesmar - Back-End Software Developer">
+                                    <font>
+                                        <Font name="Roboto" size="20.0" />
+                                    </font>
+                                </Text>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Diyar Aljabbari - Scrum Master &amp; Front-End Software Engineer" wrappingWidth="516.1694946289062">
+                                    <font>
+                                        <Font name="Roboto" size="20.0" />
+                                    </font>
+                                </Text>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nicholas Borrello - Front-End &amp; Feature Engineer">
+                                    <font>
+                                        <Font name="Roboto" size="20.0" />
+                                    </font>
+                                </Text>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jamie Rapal - Lead Back-End Database Developer">
+                                    <font>
+                                        <Font name="Roboto" size="20.0" />
+                                    </font>
+                                </Text>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Albert Lewis - Assistant LEad Front-End Developer">
+                                    <font>
+                                        <Font name="Roboto" size="20.0" />
+                                    </font>
+                                </Text>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Aarsh Zadaphiya - Project Manager &amp; Part-time Front-End Developer" wrappingWidth="508.10687255859375">
+                                    <font>
+                                        <Font name="Roboto" size="20.0" />
+                                    </font>
+                                </Text>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Braeden Swain - Product Owner &amp; Part-time Front-End Developer" wrappingWidth="520.2671508789062">
+                                    <font>
+                                        <Font name="Roboto" size="20.0" />
+                                    </font>
+                                </Text>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Michiba Toryu - Front-End &amp; Feature Engineer">
+                                    <font>
+                                        <Font name="Roboto" size="20.0" />
+                                    </font>
+                                </Text>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ben Kresge - Team Coach">
+                                    <font>
+                                        <Font name="Roboto" size="20.0" />
+                                    </font>
+                                </Text>
+                            </children>
+                            <VBox.margin>
+                                <Insets bottom="20.0" left="20.0" top="20.0" />
+                            </VBox.margin>
+                        </VBox>
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+        <StackPane layoutX="614.0" layoutY="300.0" prefHeight="574.0" prefWidth="780.0" AnchorPane.rightAnchor="120.0">
+            <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="574.0" smooth="false" stroke="BLACK" strokeMiterLimit="20.0" strokeType="INSIDE" strokeWidth="3.0" width="780.0" />
+                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <ImageView fitHeight="414.0" fitWidth="744.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/TeamEPicture.png" />
+                            </image>
+                        </ImageView>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="169.694091796875" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="169.694091796875" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Special Thanks to Brigham And Women's Hospital &amp; their Representative Andrew Shinn for their Time &amp; Input" textAlignment="CENTER" wrappingWidth="502.5296630859375">
+                            <font>
+                                <Font name="Roboto" size="20.0" />
+                            </font>
+                        </Text>
+                    </children>
+                    <StackPane.margin>
+                        <Insets left="20.0" right="20.0" top="20.0" />
+                    </StackPane.margin>
+                </VBox>
+            </children>
+        </StackPane>
+        <StackPane layoutX="321.0" layoutY="95.0" prefHeight="178.0" prefWidth="957.0">
+            <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="178.0" smooth="false" stroke="BLACK" strokeMiterLimit="20.0" strokeType="INSIDE" strokeWidth="3.0" width="957.0" />
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                    <StackPane.margin>
+                        <Insets />
+                    </StackPane.margin>
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="WPI Computer Science Department">
+                            <font>
+                                <Font name="Roboto" size="50.0" />
+                            </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CS3733-D23 Software Engineering">
+                            <font>
+                                <Font name="Roboto" size="40.0" />
+                            </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Prof. Wilson Wong">
+                            <font>
+                                <Font name="Roboto" size="35.0" />
+                            </font>
+                        </Text>
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+        <HBox alignment="CENTER_LEFT" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="1580.0" spacing="1430.0" AnchorPane.leftAnchor="20.0">
+            <children>
+                <MFXButton fx:id="menuButton" alignment="BOTTOM_CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" rippleColor="WHITE" style="-fx-background-color: #001A3C;" text="Menu" HBox.hgrow="ALWAYS">
+                    <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../images/menu-burger.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </MFXButton>
+                <MFXButton fx:id="userButton" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" rippleColor="WHITE" style="-fx-background-color: #001A3C;" text="User">
+                    <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/circle-user.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </MFXButton>
+            </children>
+        </HBox>
+        <VBox fx:id="menuBar" layoutY="75.0" maxHeight="900.0" maxWidth="-Infinity" prefHeight="825.0" prefWidth="250.0" style="-fx-background-color: #001A3C;">
+            <children>
+                <MFXButton fx:id="menuBarHome" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text=" Home" textFill="#f1f1f1">
+                    <graphic>
+                        <ImageView fx:id="homeI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../images/house-blank.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Roboto" size="18.0" />
+                    </font>
+                </MFXButton>
+                <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                    <VBox.margin>
+                        <Insets left="25.0" />
+                    </VBox.margin>
+                </Line>
+                <MFXButton fx:id="menuBarServices" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="Services" textFill="#f1f1f1">
+                    <graphic>
+                        <ImageView fx:id="servicesI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../images/hand-holding-medical.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Roboto" size="18.0" />
+                    </font>
+                </MFXButton>
+                <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                    <VBox.margin>
+                        <Insets left="25.0" />
+                    </VBox.margin>
+                </Line>
+                <MFXButton fx:id="menuBarSignage" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="Signage" textFill="#f1f1f1">
+                    <graphic>
+                        <ImageView fx:id="signageI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../images/diamond-turn-right.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Roboto" size="18.0" />
+                    </font>
+                </MFXButton>
+                <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                    <VBox.margin>
+                        <Insets left="25.0" />
+                    </VBox.margin>
+                </Line>
+                <MFXButton fx:id="menuBarMaps" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="Pathfinding" textFill="#f1f1f1">
+                    <graphic>
+                        <ImageView fx:id="pathfindingI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../images/marker.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Roboto" size="18.0" />
+                    </font>
+                </MFXButton>
+                <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                    <VBox.margin>
+                        <Insets left="25.0" />
+                    </VBox.margin>
+                </Line>
+                <MFXButton fx:id="menuBarDatabase" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="Database" textFill="#f1f1f1">
+                    <graphic>
+                        <ImageView fx:id="databaseI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../images/folder-tree.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Roboto" size="18.0" />
+                    </font>
+                </MFXButton>
+                <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                    <VBox.margin>
+                        <Insets left="25.0" />
+                    </VBox.margin>
+                </Line>
+                <MFXButton fx:id="menuBarAbout" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="About" textFill="#f1f1f1">
+                    <graphic>
+                        <ImageView fx:id="aboutI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../images/abouticon.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Roboto" size="18.0" />
+                    </font>
+                </MFXButton>
+                <Line endX="100.0" fill="#2c425e" scaleX="0.75" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                    <VBox.margin>
+                        <Insets left="25.0" />
+                    </VBox.margin>
+                </Line>
+                <MFXButton fx:id="menuBarBlank" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="290.0" prefWidth="250.0" style="-fx-background-color: #001A3C;" text=" " />
+                <Line endX="100.0" fill="#2c425e" scaleX="1.25" startX="-100.0" stroke="#2c425e" strokeWidth="2.0">
+                    <VBox.margin>
+                        <Insets left="25.0" />
+                    </VBox.margin>
+                </Line>
+                <MFXButton fx:id="menuBarExit" alignment="BOTTOM_CENTER" graphicTextGap="10.0" prefHeight="70.0" prefWidth="250.0" style="-fx-background-color: #001A3C; -fx-text-fill: #f1f1f1;" text="Exit" textFill="#f1f1f1">
+                    <graphic>
+                        <ImageView fx:id="exitI" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../images/sign-out-alt.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Roboto" size="18.0" />
+                    </font>
+                </MFXButton>
+            </children>
+        </VBox>
+        <VBox fx:id="logoutBox" alignment="TOP_CENTER" layoutX="1450.0" layoutY="75.0" maxHeight="150.0" maxWidth="150.0" prefHeight="200.0" prefWidth="162.0" spacing="20.0" style="-fx-background-color: #f1f1f1; -fx-border-color: #001a3c; -fx-border-width: 3;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="75.0">
+            <children>
+                <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/userBlue.png" />
+                    </image>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </ImageView>
+                <MFXButton fx:id="logoutButton" maxHeight="50.0" maxWidth="100.0" prefHeight="50.0" style="-fx-background-color: #001a3c; -fx-text-fill: #f1f1f1;" text="Logout">
+                    <font>
+                        <Font name="Roboto" size="16.0" />
+                    </font>
+                </MFXButton>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
