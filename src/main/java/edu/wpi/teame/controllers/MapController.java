@@ -4,6 +4,7 @@ import static javafx.scene.paint.Color.WHITE;
 
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.Main;
+import edu.wpi.teame.entities.Settings;
 import edu.wpi.teame.map.Floor;
 import edu.wpi.teame.map.HospitalNode;
 import edu.wpi.teame.map.LocationName;
@@ -87,7 +88,7 @@ public class MapController {
   @FXML ImageView exitI;
   boolean isPathDisplayed = false;
   Floor currentFloor = Floor.LOWER_TWO;
-
+  String language;
   Circle currentCircle = new Circle();
   HBox previousLabel;
   AbstractPathfinder pf = AbstractPathfinder.getInstance("A*");
@@ -625,8 +626,8 @@ public class MapController {
     // Menu Bar
     menuBarHome.setText("Principal"); // Home
     menuBarServices.setText("Servicios"); // Services
-    menuBarSignage.setText("Se" + nyay + "alizaci" + aO + "n"); // Signage
-    menuBarMaps.setText("Navegaci" + aO + "n"); // Pathfinding
+    menuBarSignage.setText("Se" + Settings.INSTANCE.nyay + "alizaci" + Settings.INSTANCE.aO + "n"); // Signage
+    menuBarMaps.setText("Navegaci" + Settings.INSTANCE.aO + "n"); // Pathfinding
     menuBarDatabase.setText("Base de Datos"); // Database
     menuBarExit.setText(("Salida")); // Exit
 
