@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
 
 public class OfficeSuppliesController {
@@ -32,6 +33,24 @@ public class OfficeSuppliesController {
   @FXML SearchableComboBox<String> assignedStaff;
   @FXML MFXButton closeButton;
   @FXML VBox requestSubmittedBox;
+
+  @FXML Text recipientNameText;
+  @FXML Text roomText;
+  @FXML Text officeSupplyTypeText;
+  @FXML Text deliveryDateText;
+  @FXML Text numberOfSuppliesText;
+  @FXML Text deliveryTimeText;
+  @FXML Text notesText;
+  @FXML Text staffText;
+
+  String language = "english";
+  String nyay = "\u00F1"; // ñ
+  String aA = "\u0301"; // á
+  String aE = "\u00E9"; // é
+  String aI = "\u00ED"; // í
+  String aO = "\u00F3"; // ó
+  String aU = "\u00FA"; // ù
+  String aQuestion = "\u00BF"; // Upside down question mark
 
   ObservableList<String> deliveryTimes =
       FXCollections.observableArrayList(
@@ -77,6 +96,17 @@ public class OfficeSuppliesController {
 
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
+
+    // Page Language Translation Code
+    if (language.equals("english")) {
+      translateToEnglish();
+    } else if (language.equals("spanish")) {
+      translateToSpanish();
+    } else // throw error for language not being a valid language
+    {
+      // throw some sort of error here at some point
+    }
+
     submitButton.setOnMouseClicked(
         event -> {
           sendRequest();
@@ -116,5 +146,38 @@ public class OfficeSuppliesController {
 
   public void cancelRequest() {
     Navigation.navigate(Screen.HOME);
+  }
+
+  public void translateToSpanish() {
+    // Input Fields
+    recipientNameText.setText("Nombre de Destinatario"); // Recipient Name
+    roomText.setText("Cuarto"); // Room
+    officeSupplyTypeText.setText("Tipo de Suministros de Oficina"); // Office Supply Type
+    deliveryDateText.setText("Fecha de Entrega"); // Delivery Date
+    numberOfSuppliesText.setText("N" + aU + "mero de Suministros"); // Number of Supplies
+    deliveryTimeText.setText("Tiempo de Entrega"); // Delivery Time
+    notesText.setText("Notas"); // Notes
+    staffText.setText("Empleado"); // Staff
+
+    // Buttons
+    cancelButton.setText("Cancelar"); // Cancel
+    resetButton.setText("Poner a Cero"); // Reset
+    submitButton.setText("Presentar"); // Submit
+  }
+
+  public void translateToEnglish() {
+    recipientNameText.setText("Recipient Name"); // Keep in English
+    roomText.setText("Room"); // Keep in English
+    officeSupplyTypeText.setText("Office Supply Type"); // Keep in English
+    deliveryDateText.setText("Delivery Date"); // Keep in English
+    numberOfSuppliesText.setText("Number of Supplies"); // Keep in English
+    deliveryTimeText.setText("Delivery Time"); // Keep in English
+    notesText.setText("Notes"); // Keep in English
+    staffText.setText("Staff"); // Keep in English
+
+    // Buttons
+    cancelButton.setText("Cancel"); // Keep in English
+    resetButton.setText("Reset"); // Keep in English
+    submitButton.setText("Submit"); // Keep in English
   }
 }

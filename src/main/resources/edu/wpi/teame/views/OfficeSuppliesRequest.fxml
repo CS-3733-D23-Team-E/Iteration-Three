@@ -32,7 +32,7 @@
                                  <children>
                                     <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recipient Name">
+                                          <Text fx:id="recipientNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipient Name">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -54,7 +54,7 @@
                                  <children>
                                     <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
+                                          <Text fx:id="roomText" strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -73,7 +73,7 @@
                                  <children>
                                     <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery Date">
+                                          <Text fx:id="deliveryDateText" strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery Date">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -92,7 +92,7 @@
                                  <children>
                                     <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery Time">
+                                          <Text fx:id="deliveryTimeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery Time">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -109,7 +109,7 @@
                               </VBox>
                               <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff">
+                                    <Text fx:id="staffText" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff">
                                        <font>
                                           <Font name="Roboto" size="24.0" />
                                        </font>
@@ -133,7 +133,7 @@
                                  <children>
                                     <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Office Supply Type">
+                                          <Text fx:id="officeSupplyTypeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Office Supply Type">
                                              <font>
                                                 <Font name="Roboto" size="24.0" />
                                              </font>
@@ -150,7 +150,7 @@
                               </VBox>
                               <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Supplies">
+                                    <Text fx:id="numberOfSuppliesText" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Supplies">
                                        <font>
                                           <Font name="Roboto" size="24.0" />
                                        </font>
@@ -160,7 +160,7 @@
                               </VBox>
                               <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Notes">
+                                    <Text fx:id="notesText" strokeType="OUTSIDE" strokeWidth="0.0" text="Notes">
                                        <font>
                                           <Font name="Roboto" size="24.0" />
                                        </font>

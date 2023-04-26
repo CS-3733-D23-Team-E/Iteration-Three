@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
 
 public class RoomRequestController {
@@ -45,6 +46,24 @@ public class RoomRequestController {
   @FXML MFXButton submitButton;
   @FXML MFXButton closeButton;
   @FXML VBox requestSubmittedBox;
+
+  @FXML Text nameText;
+  @FXML Text roomText;
+  @FXML Text roomChangesText;
+  @FXML Text bookingDateText;
+  @FXML Text numberOfHoursText;
+  @FXML Text bookingTimeText;
+  @FXML Text notesText;
+  @FXML Text staffText;
+
+  String language = "english";
+  String nyay = "\u00F1"; // �
+  String aA = "\u0301"; // �
+  String aE = "\u00E9"; // �
+  String aI = "\u00ED"; // �
+  String aO = "\u00F3"; // �
+  String aU = "\u00FA"; // �
+  String aQuestion = "\u00BF"; // Upside down question mark
 
   @FXML
   public void initialize() {
@@ -80,6 +99,17 @@ public class RoomRequestController {
 
     cancelButton.setOnMouseClicked(event -> cancelRequest());
     resetButton.setOnMouseClicked(event -> clearForm());
+
+    // Page Language Translation Code
+    if (language.equals("english")) {
+      translateToEnglish();
+    } else if (language.equals("spanish")) {
+      translateToSpanish();
+    } else // throw error for language not being a valid language
+    {
+      // throw some sort of error here at some point
+    }
+
     submitButton.setOnMouseClicked(
         event -> {
           sendRequest();
@@ -125,5 +155,39 @@ public class RoomRequestController {
     numberOfHours.clear();
     roomChanges.setValue(null);
     bookingDate.setValue(null);
+  }
+
+  public void translateToSpanish() {
+    // Input Fields
+    nameText.setText("Nombre"); // Name
+    roomText.setText("Cuarto"); // Room
+    roomChangesText.setText("Cambios de Cuarto"); // Room Changes
+    bookingDateText.setText("Fecha de Reserva"); // Booking Date
+    numberOfHoursText.setText("N" + aU + "mero de Horas"); // Number of Hours
+    bookingTimeText.setText("Tiempo de Reserva"); // Booking Time
+    staffText.setText("Empleado"); // Staff
+    notesText.setText("Notas"); // Notes
+
+    // Buttons
+    cancelButton.setText("Cancelar"); // Cancel
+    resetButton.setText("Poner a Cero"); // Reset
+    submitButton.setText("Presentar"); // Submit
+  }
+
+  public void translateToEnglish() {
+    // Input Fields
+    nameText.setText("Name"); // Keep in English
+    roomText.setText("Room"); // Keep in English
+    roomChangesText.setText("Room Changes"); // Keep in English
+    bookingDateText.setText("Booking Date"); // Keep in English
+    numberOfHoursText.setText("Number of Hours"); // Keep in English
+    bookingTimeText.setText("Booking Time"); // Keep in English
+    staffText.setText("Staff"); // Keep in English
+    notesText.setText("Notes"); // Keep in English
+
+    // Buttons
+    cancelButton.setText("Cancel"); // Keep in English
+    resetButton.setText("Reset"); // Keep in English
+    submitButton.setText("Submit"); // Keep in English
   }
 }
