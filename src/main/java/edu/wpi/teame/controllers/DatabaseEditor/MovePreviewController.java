@@ -4,6 +4,7 @@ import edu.wpi.teame.map.Floor;
 import edu.wpi.teame.map.HospitalNode;
 import edu.wpi.teame.utilities.ColorPalette;
 import edu.wpi.teame.utilities.MapUtilities;
+import java.util.LinkedList;
 import java.util.List;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
@@ -71,6 +72,10 @@ public class MovePreviewController {
   Circle circle2;
   Circle currentCircle;
   HBox previousLabel;
+  List<Node> toNode2Arrow;
+  List<Node> toNode1Arrow;
+
+  boolean node1Selected = true;
 
   public MovePreviewController(
       HospitalNode node1, HospitalNode node2, String name1, String name2, boolean bidirectional) {
@@ -95,6 +100,11 @@ public class MovePreviewController {
               AnchorPane newPane = (AnchorPane) newTab.getContent();
               GesturePane newGesture = (GesturePane) newPane.getChildren().get(0);
               adjustGesture(oldGesture, newGesture);
+              if (node1Selected) {
+                renderNodeArrow(toNode2Arrow, toNode1Arrow);
+              } else {
+                renderNodeArrow(toNode1Arrow, toNode2Arrow);
+              }
             });
     initializeMapUtilities();
     currentFloor = Floor.LOWER_TWO;
@@ -118,8 +128,7 @@ public class MovePreviewController {
               }
               if (widthLoaded && heightLoaded) {
                 currentFloor = Floor.LOWER_TWO;
-                loadFloorNodes();
-                tabPane.getSelectionModel().select(floorToTab(node1.getFloor()));
+                runInitFunctions();
               }
             });
     mapPaneLowerTwo
@@ -131,24 +140,35 @@ public class MovePreviewController {
               }
               if (widthLoaded && heightLoaded) {
                 currentFloor = Floor.LOWER_TWO;
-                loadFloorNodes();
-                tabPane.getSelectionModel().select(floorToTab(node1.getFloor()));
+                runInitFunctions();
               }
             });
 
     // set the move description text
 
-    StringBuilder moveDescText = new StringBuilder();
-    moveDescText.append(name1).append(" to node ").append(node2.getNodeID()).append("\n");
-    if (bidirectional) {
-      moveDescText.append(name2).append(" to node ").append(node1.getNodeID()).append("\n");
-    }
-    moveDescription.setText(moveDescText.toString());
+    //    StringBuilder moveDescText = new StringBuilder();
+    //    moveDescText.append(name1).append(" to node ").append(node2.getNodeID()).append("\n");
+    //    if (bidirectional) {
+    //      moveDescText.append(name2).append(" to node ").append(node1.getNodeID()).append("\n");
+    //    }
+    //    moveDescription.setText(moveDescText.toString());
 
-    //    List<HospitalNode> nodes = new LinkedList<>();
-    //    nodes.add(node1);
-    //    nodes.add(node2);
-    //    createMoveLabels(viewMoveBox, nodes);
+  }
+
+  private void runInitFunctions() {
+    loadFloorNodes();
+    tabPane.getSelectionModel().select(floorToTab(node1.getFloor()));
+    List<HospitalNode> nodes = new LinkedList<>();
+    nodes.add(node1);
+    nodes.add(node2);
+    createMoveLabels(viewMoveBox, nodes);
+    moveDescription.setText("");
+    MapUtilities currentMapUtility = whichMapUtility(currentFloor);
+    ((GesturePane) currentMapUtility.getPane().getParent())
+        .centreOn(
+            new Point2D(
+                currentMapUtility.convertX(node1.getXCoord()),
+                currentMapUtility.convertY(node1.getYCoord())));
   }
 
   public Floor tabToFloor(Tab tab) {
@@ -177,11 +197,11 @@ public class MovePreviewController {
     mapUtilityTwo = new MapUtilities(mapPaneTwo);
     mapUtilityThree = new MapUtilities(mapPaneThree);
 
-    mapUtilityLowerTwo.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F1;");
-    mapUtilityLowerOne.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F1;");
-    mapUtilityOne.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F1;");
-    mapUtilityTwo.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F1;");
-    mapUtilityThree.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F1;");
+    mapUtilityLowerTwo.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F199;");
+    mapUtilityLowerOne.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F199;");
+    mapUtilityOne.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F199;");
+    mapUtilityTwo.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F199;");
+    mapUtilityThree.setLabelStyle("-fx-font-size: 10pt; -fx-background-color: #F1F1F199;");
   }
 
   public void refreshMap() {
@@ -209,21 +229,38 @@ public class MovePreviewController {
   public void loadFloorNodes() {
     // create edges
     if (node1.getFloor().equals(currentFloor) || node2.getFloor().equals(currentFloor)) {
-      whichMapUtility(currentFloor).drawMove(node1, node2);
+      // whichMapUtility(currentFloor).drawMove(node1, node2);
+      toNode2Arrow = whichMapUtility(currentFloor).drawMoveArrow(node1, node2);
+      if (bidirectional) {
+        toNode1Arrow = whichMapUtility(currentFloor).drawMoveArrow(node2, node1);
+      } else {
+        toNode1Arrow = whichMapUtility(currentFloor).drawMoveArrow(node1, node2);
+      }
+      renderNodeArrow(toNode2Arrow, toNode1Arrow);
       if (node1.getFloor().equals(currentFloor)) {
         // draw phantom label for node 2
         setupNode(node1, name1);
         if (node2.getFloor().equals(currentFloor)) {
           setupNode(node2, name2);
         } else {
-          whichMapUtility(currentFloor)
-              .drawHospitalNodeLabel(node2, "Moved to floor: " + node2.getFloor());
+          String nodeLabel = "";
+          if (node1Selected || !bidirectional) {
+            nodeLabel = "Moved to floor " + node2.getFloor();
+          } else {
+            nodeLabel = "Moved from floor " + node2.getFloor();
+          }
+          whichMapUtility(currentFloor).drawHospitalNodeLabel(node2, nodeLabel);
         }
       } else {
         // draw phantom label for node 1
         setupNode(node2, name2);
-        whichMapUtility(currentFloor)
-            .drawHospitalNodeLabel(node1, "Moved to floor: " + node1.getFloor());
+        String nodeLabel = "";
+        if (node1Selected || !bidirectional) {
+          nodeLabel = "Moved from floor " + node1.getFloor();
+        } else {
+          nodeLabel = "Moved to floor " + node1.getFloor();
+        }
+        whichMapUtility(currentFloor).drawHospitalNodeLabel(node1, nodeLabel);
       }
     }
   }
@@ -233,7 +270,7 @@ public class MovePreviewController {
     String nodeID = node.getNodeID();
     MapUtilities currentMapUtility = whichMapUtility(currentFloor);
 
-    Circle nodeCircle = currentMapUtility.drawHospitalNode(node);
+    currentCircle = currentMapUtility.drawHospitalNode(node);
     Label nodeLabel = currentMapUtility.drawHospitalNodeLabel(node, name);
     nodeLabel.setVisible(true);
   }
@@ -242,7 +279,10 @@ public class MovePreviewController {
     for (int i = 0; i < path.size(); i++) {
 
       HospitalNode currentNode = path.get(i);
-      String destination = i == 0 ? name1 : name2;
+      String destination =
+          i == 0
+              ? (name1 + " to node " + node2.getNodeID())
+              : (bidirectional ? (name2 + " to node " + node1.getNodeID()) : name2);
       System.out.println(destination);
 
       // Line
@@ -280,6 +320,7 @@ public class MovePreviewController {
       hBox.setAlignment(Pos.CENTER_LEFT);
       hBox.setSpacing(10);
       hBox.setPadding(new Insets(0, 10, 0, 10));
+      hBox.getChildren().add(destinationLabel);
 
       // Add the event listener
       hBox.setOnMouseClicked(
@@ -336,6 +377,13 @@ public class MovePreviewController {
             currentCircle.setViewOrder(-5);
             System.out.println("currentCircle: " + currentCircle);
             System.out.println("Node List: " + nodeList);
+            if (currentNode.equals(node1)) {
+              node1Selected = true;
+              renderNodeArrow(toNode2Arrow, toNode1Arrow);
+            } else {
+              node1Selected = false;
+              renderNodeArrow(toNode1Arrow, toNode2Arrow);
+            }
 
             // Set the current label as the previous
             previousLabel = hBox;
@@ -387,5 +435,14 @@ public class MovePreviewController {
   public void adjustGesture(GesturePane oldGesture, GesturePane newGesture) {
     newGesture.centreOn(oldGesture.targetPointAtViewportCentre());
     newGesture.zoomTo(oldGesture.getCurrentScale(), newGesture.targetPointAtViewportCentre());
+  }
+
+  private void renderNodeArrow(List<Node> arrow, List<Node> other) {
+    for (Node node : arrow) {
+      node.setVisible(true);
+    }
+    for (Node node : other) {
+      node.setVisible(false);
+    }
   }
 }
