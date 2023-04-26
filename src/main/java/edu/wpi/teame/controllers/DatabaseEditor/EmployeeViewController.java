@@ -136,6 +136,12 @@ public class EmployeeViewController {
     showEditEmployeeButtons();
     currentEmployee = newSelection;
     currentStatus = "EMPLOYEE";
+
+    // Autofill the text fields with the selected row's information
+    editFullNameField.setText(newSelection.getFullName());
+    editUsernameField.setText(newSelection.getUsername());
+    editPasswordField.setText(newSelection.getPassword());
+    editPermissionChoice.setValue(newSelection.getPermission());
   }
 
   private void showEditEmployeeButtons() {
