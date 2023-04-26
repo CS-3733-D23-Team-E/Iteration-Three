@@ -37,7 +37,7 @@ public class SignageComponentDAO<E> extends DAO<SignageComponentData> {
                 rs.getString("date"),
                 rs.getString("kiosk_location"),
                 rs.getString("location"),
-                SignageComponentData.arrowDirections.stringToDirection(
+                SignageComponentData.ArrowDirections.stringToDirection(
                     rs.getString("arrowDirection"))));
       }
     } catch (SQLException e) {
@@ -51,6 +51,7 @@ public class SignageComponentDAO<E> extends DAO<SignageComponentData> {
   void update(SignageComponentData obj, String attribute, String value) {
     String date = obj.getDate();
     String kloc = obj.getKiosk_location();
+    String loc = obj.getLocationNames();
 
     String sqlUpdate =
         "UPDATE "
@@ -63,6 +64,8 @@ public class SignageComponentDAO<E> extends DAO<SignageComponentData> {
             + date
             + "' AND kiosk_location = '"
             + kloc
+            + "' AND location = '"
+            + loc
             + "';";
 
     try {
@@ -71,6 +74,39 @@ public class SignageComponentDAO<E> extends DAO<SignageComponentData> {
       stmt.close();
     } catch (SQLException e) {
       System.out.println(e.getMessage());
+    }
+  }
+
+  SignageComponentData.ArrowDirections getDirectionFromPKey(
+      String date, String klocation, String location) throws SQLException {
+    String sql =
+        "SELECT * FROM "
+            + table
+            + " WHERE location = '"
+            + location
+            + "' AND kiosk_location = '"
+            + klocation
+            + "' AND date = '"
+            + date
+            + "';";
+    Statement stmt = null;
+    ResultSet rs = null;
+    try {
+      stmt = activeConnection.createStatement();
+      rs = stmt.executeQuery(sql);
+      if (rs.next()) {
+        return SignageComponentData.ArrowDirections.stringToDirection(
+            rs.getString("arrowDirection"));
+      } else {
+        throw new SQLException("No matching record found");
+      }
+    } finally {
+      if (rs != null) {
+        rs.close();
+      }
+      if (stmt != null) {
+        stmt.close();
+      }
     }
   }
 
@@ -103,7 +139,7 @@ public class SignageComponentDAO<E> extends DAO<SignageComponentData> {
     String locationNames = obj.getLocationNames();
     String date = obj.getDate();
     String kioskLocation = obj.getKiosk_location();
-    SignageComponentData.arrowDirections arrowDirections = obj.getArrowDirections();
+    SignageComponentData.ArrowDirections arrowDirections = obj.getArrowDirections();
 
     String sqlAdd =
         "INSERT INTO "

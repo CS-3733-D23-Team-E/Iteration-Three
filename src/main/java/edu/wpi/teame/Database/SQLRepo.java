@@ -283,6 +283,11 @@ public enum SQLRepo {
     return this.signageDAO.get();
   }
 
+  public SignageComponentData.ArrowDirections getDirectionFromPKeyL(
+      String date, String klocation, String location) throws SQLException {
+    return this.signageDAO.getDirectionFromPKey(date, klocation, location);
+  }
+
   public List<Employee> getEmployeeList() {
     return this.employeeDAO.get();
   }

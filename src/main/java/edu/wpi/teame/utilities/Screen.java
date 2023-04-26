@@ -11,6 +11,7 @@ public enum Screen {
   FLOWER_REQUEST("views/FlowerRequest.fxml"),
   OFFICE_SUPPLIES_REQUEST("views/OfficeSuppliesRequest.fxml"),
   MAP("views/Map.fxml"),
+  SIGNAGE_EDITOR_PAGE("views/SignageComponentPage.fxml"),
   DATABASE_EDITOR("views/DatabaseEditor/DatabaseEditor.fxml"),
   MOVE_COMPONENT("views/DatabaseEditor/MoveComponent.fxml"),
   DATABASE_TABLEVIEW("views/DatabaseEditor/DatabaseTableView.fxml"),

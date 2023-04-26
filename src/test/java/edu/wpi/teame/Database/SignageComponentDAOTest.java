@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.teame.entities.SignageComponentData;
 import java.io.File;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.filechooser.FileSystemView;
 import org.junit.jupiter.api.Test;
@@ -18,10 +19,7 @@ public class SignageComponentDAOTest {
 
     SignageComponentData crd =
         new SignageComponentData(
-            "2023-04-22",
-            "Screen 2, By the Q Elevator",
-            "Watkins Clinics A & B",
-            SignageComponentData.arrowDirections.UP);
+            "2023-04-22", "Bam", "Patrick 123", SignageComponentData.ArrowDirections.UP);
 
     SQLRepo.INSTANCE.addSignage(crd);
     List<SignageComponentData> signageAdded = SQLRepo.INSTANCE.getSignageList();
@@ -41,13 +39,13 @@ public class SignageComponentDAOTest {
 
     SignageComponentData crd =
         new SignageComponentData(
-            "2023-04-22",
+            "2023-05-01",
             "Screen 1, By the info desk",
             "Shapiro Admitting",
-            SignageComponentData.arrowDirections.LEFT);
+            SignageComponentData.ArrowDirections.RIGHT);
 
     // SQLRepo.INSTANCE.addSignage(crd);
-    SQLRepo.INSTANCE.updateSignage(crd, "arrowDirection", "RIGHT");
+    SQLRepo.INSTANCE.updateSignage(crd, "arrowDirection", "LEFT");
   }
 
   @Test
@@ -63,5 +61,15 @@ public class SignageComponentDAOTest {
     SQLRepo.INSTANCE.importFromCSV(SQLRepo.Table.CONFERENCE_ROOM, desktopPath + "\\SignageForm");
 
     SQLRepo.INSTANCE.exitDatabaseProgram();
+  }
+
+  @Test
+  public void testGetArrowDirectionFromPKey() throws SQLException {
+    SQLRepo.INSTANCE.connectToDatabase("teame", "teame50");
+    System.out.println(
+        SQLRepo.INSTANCE.getDirectionFromPKeyL(
+            "2023-05-01",
+            "Screen 2, By the Q Elevator",
+            "Watkins Clinic C (EP & Echo) (up to 3rd fl)"));
   }
 }
