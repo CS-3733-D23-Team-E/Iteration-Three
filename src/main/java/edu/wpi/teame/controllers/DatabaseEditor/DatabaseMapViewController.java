@@ -17,7 +17,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
@@ -29,8 +28,6 @@ public class DatabaseMapViewController {
   @FXML AnchorPane mapPaneOne;
   @FXML AnchorPane mapPaneTwo;
   @FXML AnchorPane mapPaneThree;
-
-  @FXML StackPane imagePane1111;
 
   @FXML Tab floorOneTab;
   @FXML Tab floorTwoTab;
@@ -116,7 +113,7 @@ public class DatabaseMapViewController {
             });
 
     // TODO do this better
-    imagePane1111
+    mapPaneLowerTwo
         .widthProperty()
         .addListener(
             (observable, oldWidth, newWidth) -> {
@@ -128,7 +125,7 @@ public class DatabaseMapViewController {
                 loadFloorNodes();
               }
             });
-    imagePane1111
+    mapPaneLowerTwo
         .heightProperty()
         .addListener(
             (observable, oldHeight, newHeight) -> {

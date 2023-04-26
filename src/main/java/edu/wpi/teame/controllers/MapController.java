@@ -9,6 +9,7 @@ import edu.wpi.teame.utilities.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.List;
 import javafx.animation.Interpolator;
 import javafx.application.Platform;
@@ -49,6 +50,16 @@ public class MapController {
   @FXML Tab lowerLevelOneTab;
   @FXML SearchableComboBox<String> currentLocationList;
   @FXML SearchableComboBox<String> destinationList;
+  @FXML DatePicker pathfindingDate;
+  @FXML MFXButton menuButton;
+  @FXML MFXButton menuBarHome;
+  @FXML MFXButton menuBarServices;
+  @FXML MFXButton menuBarSignage;
+  @FXML MFXButton menuBarMaps;
+  @FXML MFXButton menuBarDatabase;
+  @FXML MFXButton menuBarBlank;
+  @FXML MFXButton menuBarExit;
+  @FXML VBox menuBar;
   @FXML MFXButton startButton;
   @FXML ImageView mapImageLowerTwo; // Floor L2
   @FXML ImageView mapImageLowerOne; // Floor L1
@@ -69,14 +80,6 @@ public class MapController {
   @FXML ToggleSwitch labelSwitch;
   @FXML Button zoomInButton;
   @FXML Button zoomOutButton;
-  @FXML MFXButton menuButton;
-  @FXML MFXButton menuBarHome;
-  @FXML MFXButton menuBarServices;
-  @FXML MFXButton menuBarMaps;
-  @FXML MFXButton menuBarDatabase;
-  @FXML MFXButton menuBarSignage;
-  @FXML MFXButton menuBarBlank;
-  @FXML MFXButton menuBarExit;
   @FXML ImageView homeI;
   @FXML ImageView servicesI;
   @FXML ImageView signageI;
@@ -103,10 +106,15 @@ public class MapController {
 
   List<Label> allLocationNameLabels = new LinkedList<>();
 
+  MoveUtilities moveUtilities = new MoveUtilities();
+
   ObservableList<String> floorLocations =
       FXCollections.observableArrayList(
           SQLRepo.INSTANCE.getLongNamesFromMove(
               SQLRepo.INSTANCE.getMoveAttributeFromFloor(currentFloor)));
+
+  HashMap<String, String> nameToNodeID;
+  HashMap<String, String> nodeToLongName;
 
   @FXML
   public void initialize() {
@@ -189,7 +197,8 @@ public class MapController {
         "images/sign-out-alt-blue.png");
 
     // Make sure location list is initialized so that we can filter out the hallways
-    SQLRepo.INSTANCE.getLocationList();
+    LocationName.processLocationList(SQLRepo.INSTANCE.getLocationList());
+
     resetComboboxes();
   }
 
@@ -216,21 +225,17 @@ public class MapController {
   public void resetComboboxes() {
     floorLocations =
         FXCollections.observableArrayList(
-            SQLRepo.INSTANCE.getMoveList().stream()
+            LocationName.allLocations.values().stream()
                 .filter(
-                    (move) -> // Filter out hallways and long names with no corresponding
+                    (location) -> // Filter out hallways and long names with no corresponding
                         // LocationName
-                        LocationName.allLocations.get(move.getLongName()) == null
+                        location == null
                             ? false
-                            : LocationName.allLocations.get(move.getLongName()).getNodeType()
-                                    != LocationName.NodeType.HALL
-                                && LocationName.allLocations.get(move.getLongName()).getNodeType()
-                                    != LocationName.NodeType.STAI
-                                && LocationName.allLocations.get(move.getLongName()).getNodeType()
-                                    != LocationName.NodeType.ELEV
-                                && LocationName.allLocations.get(move.getLongName()).getNodeType()
-                                    != LocationName.NodeType.REST)
-                .map((move) -> move.getLongName())
+                            : location.getNodeType() != LocationName.NodeType.HALL
+                                && location.getNodeType() != LocationName.NodeType.STAI
+                                && location.getNodeType() != LocationName.NodeType.ELEV
+                                && location.getNodeType() != LocationName.NodeType.REST)
+                .map((location) -> location.getLongName())
                 .sorted() // Sort alphabetically
                 .toList());
     currentLocationList.setItems(floorLocations);
@@ -259,9 +264,10 @@ public class MapController {
     if (dijkstraButton.isSelected()) {
       pf = AbstractPathfinder.getInstance("Dijkstra");
     }
-
-    String toNodeID = SQLRepo.INSTANCE.getNodeIDFromName(to) + "";
-    String fromNodeID = SQLRepo.INSTANCE.getNodeIDFromName(from) + "";
+    nameToNodeID = moveUtilities.getMapForDate(pathfindingDate.getValue());
+    nodeToLongName = moveUtilities.invertHashMap(nameToNodeID);
+    String toNodeID = nameToNodeID.get(to);
+    String fromNodeID = nameToNodeID.get(from);
 
     List<HospitalNode> path =
         pf.findPath(HospitalNode.allNodes.get(fromNodeID), HospitalNode.allNodes.get(toNodeID));
@@ -273,7 +279,7 @@ public class MapController {
     for (HospitalNode node : path) {
       pathNames.add(SQLRepo.INSTANCE.getNamefromNodeID(Integer.parseInt(node.getNodeID())));
     }
-    // Create the labels
+    // Create the directions
     createDirections(pathBox, path);
     createLabelsForToggleDisplay(path);
     makeLocationNamesVisible(disableLabel);
