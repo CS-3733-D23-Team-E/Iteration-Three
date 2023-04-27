@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.CreditsPageController">
+   <center>
+      <AnchorPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #e1e1e1;">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="75.0" stroke="BLACK" strokeType="INSIDE" width="1920.0" />
+            <StackPane prefHeight="825.0" prefWidth="1400.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="75.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#022e59a6" height="1005.0" stroke="BLACK" strokeType="INSIDE" width="1520.0">
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                  </Rectangle>
+               </children>
+            </StackPane>
+            <StackPane alignment="TOP_CENTER" layoutX="120.0" layoutY="96.0" prefHeight="144.0" prefWidth="186.0" AnchorPane.leftAnchor="200.0">
+               <children>
+                  <MFXButton fx:id="backButton" prefHeight="65.0" prefWidth="155.0" rippleColor="WHITE" style="-fx-background-color: #012d5a; -fx-text-fill: #f1f1f1;" text="Back" textFill="WHITE">
+                     <font>
+                        <Font name="Roboto" size="20.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+            </StackPane>
+            <StackPane layoutX="34.0" layoutY="300.0" prefHeight="574.0" prefWidth="554.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="700.0" smooth="false" stroke="BLACK" strokeMiterLimit="20.0" strokeType="INSIDE" strokeWidth="3.0" width="1354.0" />
+                  <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="100.0">
+                     <children>
+                        <Line endX="100.0" startX="-271.22607421875" startY="0.6213539242744446" />
+                        <VBox alignment="TOP_CENTER" prefHeight="449.0" prefWidth="601.0" spacing="10.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                 <font>
+                                    <Font name="Roboto" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="APIs">
+                                 <font>
+                                    <Font name="Roboto Bold" size="48.0" />
+                                 </font>
+                              </Text>
+                              <Line endX="100.0" startX="-15.150588989257812" startY="4.655122756958008E-5" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="GestureFX">
+                                 <font>
+                                    <Font name="Roboto" size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ControlsFX">
+                                 <font>
+                                    <Font name="Roboto" size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MaterialFX" textAlignment="CENTER" wrappingWidth="194.534912109375">
+                                 <font>
+                                    <Font name="Roboto" size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                 <font>
+                                    <Font name="Roboto" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Icons">
+                                 <font>
+                                    <Font name="Roboto Bold" size="48.0" />
+                                 </font>
+                              </Text>
+                              <Line endX="100.0" startX="-15.150588989257812" startY="4.655122756958008E-5" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="All icons can be found at flaticon.com ">
+                                 <font>
+                                    <Font name="Roboto" size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="508.10687255859375">
+                                 <font>
+                                    <Font name="Roboto" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="520.2671508789062">
+                                 <font>
+                                    <Font name="Roboto" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                 <font>
+                                    <Font name="Roboto" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                 <font>
+                                    <Font name="Roboto" size="20.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </StackPane>
+            <StackPane layoutX="400.0" layoutY="95.0" prefHeight="50.0" prefWidth="700.0" AnchorPane.leftAnchor="550.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="150.0" smooth="false" stroke="BLACK" strokeMiterLimit="20.0" strokeType="INSIDE" strokeWidth="3.0" width="800.0" />
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Credits">
+                           <font>
+                              <Font name="Roboto Bold Italic" size="50.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </StackPane>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

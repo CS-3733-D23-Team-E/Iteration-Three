@@ -3,6 +3,12 @@ package edu.wpi.teame.utilities;
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.map.HospitalNode;
 import edu.wpi.teame.map.LocationName;
+import java.util.LinkedList;
+import java.util.List;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -11,11 +17,14 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.util.Duration;
 import javax.swing.*;
 
 public class MapUtilities {
   private final int MAP_X = 5000;
   private final int MAP_Y = 3400;
+
+  private final double ARROW_SHORTENING_CONSTANT = 10.0;
   private final Pane pane;
 
   private String lineStyle = "";
@@ -114,6 +123,24 @@ public class MapUtilities {
   }
 
   /**
+   * OVERLOADED: draws a given message associated with a hospitalNode's location (ie "went to floor
+   * 4")
+   *
+   * @param hospitalNode
+   * @param message
+   * @return
+   */
+  public Label drawHospitalNodeLabel(HospitalNode hospitalNode, String message) {
+    int x = hospitalNode.getXCoord();
+    int y = hospitalNode.getYCoord();
+    String nodeID = hospitalNode.getNodeID();
+
+    Label label = createStyledLabel(x, y, 10, 10, message);
+    label.setId("label" + hospitalNode.getNodeID());
+    return label;
+  }
+
+  /**
    * Draws the edge between two given nodes
    *
    * @param node
@@ -125,7 +152,29 @@ public class MapUtilities {
     int x2 = neighbor.getXCoord();
     int y2 = neighbor.getYCoord();
 
-    return drawLine(x1, y1, x2, y2);
+    Line line = drawLine(x1, y1, x2, y2);
+    line.setId("startNode:" + node + "endNode:" + neighbor);
+    return line;
+  }
+
+  public Line drawMove(HospitalNode from, HospitalNode to) {
+    int x1 = from.getXCoord();
+    int y1 = from.getYCoord();
+    int x2 = to.getXCoord();
+    int y2 = to.getYCoord();
+
+    String message = from.getNodeID() + " to " + to.getNodeID();
+
+    return drawLineWithLabel(x1, y1, x2, y2, message);
+  }
+
+  public List<Node> drawMoveArrow(HospitalNode from, HospitalNode to) {
+    int x1 = from.getXCoord();
+    int y1 = from.getYCoord();
+    int x2 = to.getXCoord();
+    int y2 = to.getYCoord();
+
+    return drawArrowLine(x1, y1, x2, y2);
   }
 
   /**
@@ -140,6 +189,7 @@ public class MapUtilities {
   public Line drawStyledLine(int x1, int y1, int x2, int y2) {
     Line line = this.drawLine(x1, y1, x2, y2);
     line.setStyle(lineStyle);
+    line.setViewOrder(-1);
     return line;
   }
 
@@ -156,6 +206,87 @@ public class MapUtilities {
     Line line = new Line(x1, y1, x2, y2);
     addShape(line);
     return line;
+  }
+
+  /**
+   * draws a line with a given label over it
+   *
+   * @param x1
+   * @param y1
+   * @param x2
+   * @param y2
+   * @param message
+   * @return
+   */
+  public Line drawLineWithLabel(int x1, int y1, int x2, int y2, String message) {
+    int ax = (x1 + x2) / 2;
+    int ay = (y1 + y2) / 2;
+    Label lineMessage = this.createStyledLabel(ax, ay, message);
+    return drawLine(x1, y1, x2, y2);
+  }
+
+  public List<Node> drawArrowLine(int startX, int startY, int endX, int endY) {
+    startX = (int) convertX(startX);
+    startY = (int) convertY(startY);
+    endX = (int) convertX(endX);
+    endY = (int) convertY(endY);
+
+    // get the slope of the line and find its angle
+    double slope = (startY - endY) * 1.0 / (startX - endX);
+    double lineAngle = Math.atan(slope);
+
+    double arrowAngle = startX > endX ? Math.toRadians(45) : -Math.toRadians(225);
+
+    Line line =
+        new Line(
+            startX,
+            startY,
+            endX - (Math.signum(endX - startX)) * (ARROW_SHORTENING_CONSTANT * Math.cos(lineAngle)),
+            endY
+                - (Math.signum(endX - startX)) * (ARROW_SHORTENING_CONSTANT * Math.sin(lineAngle)));
+
+    line.getStrokeDashArray().setAll(15d, 15d, 15d, 15d);
+
+    double maxOffset = line.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
+
+    Timeline timeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.ZERO,
+                new KeyValue(line.strokeDashOffsetProperty(), maxOffset, Interpolator.LINEAR)),
+            new KeyFrame(
+                Duration.seconds(2),
+                new KeyValue(line.strokeDashOffsetProperty(), 0, Interpolator.LINEAR)));
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    timeline.play();
+
+    double arrowLength = 10;
+
+    // create the arrow legs
+    Line arrow1 = new Line();
+    arrow1.setStartX(line.getEndX());
+    arrow1.setStartY(line.getEndY());
+    arrow1.setEndX(line.getEndX() + arrowLength * Math.cos(lineAngle - arrowAngle));
+    arrow1.setEndY(line.getEndY() + arrowLength * Math.sin(lineAngle - arrowAngle));
+
+    Line arrow2 = new Line();
+    arrow2.setStartX(line.getEndX());
+    arrow2.setStartY(line.getEndY());
+    arrow2.setEndX(line.getEndX() + arrowLength * Math.cos(lineAngle + arrowAngle));
+    arrow2.setEndY(line.getEndY() + arrowLength * Math.sin(lineAngle + arrowAngle));
+
+    line.setStrokeWidth(3);
+    arrow1.setStrokeWidth(3);
+    arrow2.setStrokeWidth(3);
+
+    addShape(line);
+    addShape(arrow1);
+    addShape(arrow2);
+    List<Node> arrow = new LinkedList<>();
+    arrow.add(line);
+    arrow.add(arrow1);
+    arrow.add(arrow2);
+    return arrow;
   }
 
   /**
@@ -314,14 +445,14 @@ public class MapUtilities {
     return coord * (paneWidth / mapWidth);
   }
 
-  public double PaneXToImageX(double coord) {
+  public int PaneXToImageX(double coord) {
     double paneWidth = this.pane.getWidth();
-    return coord * (MAP_X / paneWidth);
+    return (int) (coord * (MAP_X / paneWidth));
   }
 
-  public double PaneYToImageY(double coord) {
+  public int PaneYToImageY(double coord) {
     double paneWidth = this.pane.getHeight();
-    return coord * (MAP_Y / paneWidth);
+    return (int) (coord * (MAP_Y / paneWidth));
   }
 
   /**

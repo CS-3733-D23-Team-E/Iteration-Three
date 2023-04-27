@@ -1,22 +1,22 @@
 package edu.wpi.teame.controllers.DatabaseEditor;
 
+import edu.wpi.teame.App;
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.map.HospitalNode;
-import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.map.MoveAttribute;
-import edu.wpi.teame.utilities.Navigation;
-import edu.wpi.teame.utilities.Screen;
+import edu.wpi.teame.utilities.MoveUtilities;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
+import java.io.IOException;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
 
 public class MoveComponentController {
@@ -29,8 +29,7 @@ public class MoveComponentController {
   @FXML Tab swapTab;
   @FXML MFXButton confirmButton;
   @FXML MFXButton resetButton;
-
-  @FXML MFXButton tableEditorSwapButton;
+  @FXML Label todayIsLabel;
   @FXML Label moveCountText;
   @FXML ListView<String> currentMoveList;
   @FXML TableView<MoveAttribute> futureMoveTable;
@@ -38,25 +37,18 @@ public class MoveComponentController {
   @FXML TableColumn<MoveAttribute, String> nameCol;
   @FXML TableColumn<MoveAttribute, String> dateCol;
 
-  ObservableList<String> floorLocation =
-      FXCollections.observableArrayList(
-          SQLRepo.INSTANCE.getLongNamesFromLocationName(SQLRepo.INSTANCE.getLocationList()));;
+  MoveUtilities movUtil;
 
-  Date today;
-  SimpleDateFormat formatter;
+  @FXML MFXButton mapPreviewButton;
 
   @FXML
   public void initialize() {
-    today = new Date(); // sets today var to be the current date
-    formatter = new SimpleDateFormat("yyyy-MM-dd");
+    movUtil = new MoveUtilities();
+    todayIsLabel.setText(todayIsLabel.getText() + movUtil.formatToday());
     refreshFields();
     initTableAndList();
     initButtons();
-    confirmButton.setOnAction(e -> moveToNewNode());
-    tableEditorSwapButton.setOnMouseClicked(
-        event -> {
-          Navigation.navigate(Screen.DATABASE_TABLEVIEW);
-        });
+    mapPreviewButton.setDisable(true);
   }
 
   private void initButtons() {
@@ -65,62 +57,97 @@ public class MoveComponentController {
           if (swapTab.isSelected()) {
             confirmButton.setOnAction(e -> swapDepartments());
           }
+          enablePreviewCondition();
         });
     moveTab.setOnSelectionChanged(
         event -> {
           if (moveTab.isSelected()) {
             confirmButton.setOnAction(e -> moveToNewNode());
           }
+          enablePreviewCondition();
         });
-    resetButton.setOnAction(event -> reset());
+    resetButton.setOnAction(event -> resetFieldSelections());
+    confirmButton.setOnAction(e -> moveToNewNode());
+    mapPreviewButton.setOnAction(
+        event -> {
+          if (moveTab.isSelected()) {
+            if (departmentMoveSelector.getValue() != null && newNodeSelector.getValue() != null) {
+              openStage(
+                  HospitalNode.allNodes.get(
+                      movUtil
+                              .findMostRecentMoveByDate(departmentMoveSelector.getValue())
+                              .getNodeID()
+                          + ""),
+                  HospitalNode.allNodes.get(newNodeSelector.getValue() + ""));
+            }
+          } else {
+            if (departmentOneSelector.getValue() != null
+                && departmentTwoSelector.getValue() != null) {
+              openStage(
+                  HospitalNode.allNodes.get(
+                      movUtil.findMostRecentMoveByDate(departmentOneSelector.getValue()).getNodeID()
+                          + ""),
+                  HospitalNode.allNodes.get(
+                      movUtil.findMostRecentMoveByDate(departmentTwoSelector.getValue()).getNodeID()
+                          + ""));
+            }
+          }
+        });
+
+    departmentMoveSelector.setOnAction(event -> enablePreviewCondition());
+    departmentOneSelector.setOnAction(event -> enablePreviewCondition());
+    departmentTwoSelector.setOnAction(event -> enablePreviewCondition());
+    newNodeSelector.setOnAction(event -> enablePreviewCondition());
   }
 
   private void refreshFields() {
-    floorLocation =
-        FXCollections.observableArrayList(
-            SQLRepo.INSTANCE.getMoveList().stream()
-                .filter(
-                    (move) -> // Filter out hallways and long names with no corresponding
-                        // LocationName
-                        LocationName.allLocations.get(move.getLongName()) == null
-                            ? false
-                            : LocationName.allLocations.get(move.getLongName()).getNodeType()
-                                    != LocationName.NodeType.HALL
-                                && LocationName.allLocations.get(move.getLongName()).getNodeType()
-                                    != LocationName.NodeType.STAI
-                                && LocationName.allLocations.get(move.getLongName()).getNodeType()
-                                    != LocationName.NodeType.ELEV
-                                && LocationName.allLocations.get(move.getLongName()).getNodeType()
-                                    != LocationName.NodeType.REST)
-                .map((move) -> move.getLongName())
-                .sorted() // Sort alphabetically
+
+    ObservableList<String> availableLocations =
+        FXCollections.observableList(
+            movUtil.getMovesForDepartments().stream()
+                .map(move -> move.getLongName())
+                .sorted()
+                .distinct()
                 .toList());
-    List<Integer> nodeIDs = HospitalNode.allNodes.keySet().stream().map(Integer::parseInt).toList();
+
+    // List of node IDs that only contains the node IDs of departments
+    List<Integer> nodeIDs =
+        movUtil.getMovesForDepartments().stream().map(MoveAttribute::getNodeID).distinct().toList();
     newNodeSelector.setItems(FXCollections.observableList(nodeIDs));
-    departmentMoveSelector.setItems(floorLocation);
-    departmentOneSelector.setItems(floorLocation);
-    departmentTwoSelector.setItems(floorLocation);
+
+    departmentMoveSelector.setItems(availableLocations);
+    departmentOneSelector.setItems(availableLocations);
+    departmentTwoSelector.setItems(availableLocations);
   }
 
   private void swapDepartments() {
     if ((departmentOneSelector.getValue() != null)
         && (departmentTwoSelector.getValue() != null)
         && (moveDateSelector.getValue() != null)) {
-      MoveAttribute moveOne = findMoveAttribute(departmentOneSelector.getValue());
-      MoveAttribute moveTwo = findMoveAttribute(departmentTwoSelector.getValue());
+      // MoveAttribute moveOne = findMoveAttribute(departmentOneSelector.getValue());
+      MoveAttribute moveOne = movUtil.findMostRecentMoveByDate(departmentOneSelector.getValue());
+      //      MoveAttribute moveTwo = findMoveAttribute(departmentTwoSelector.getValue());
+      MoveAttribute moveTwo = movUtil.findMostRecentMoveByDate(departmentTwoSelector.getValue());
 
-      MoveAttribute swaping1With2 =
-          new MoveAttribute(
-              moveOne.getNodeID(), moveTwo.getLongName(), moveDateSelector.getValue().toString());
-      MoveAttribute swaping2With1 =
-          new MoveAttribute(
-              moveTwo.getNodeID(), moveOne.getLongName(), moveDateSelector.getValue().toString());
+      // make sure the current moves aren't on the same day as the suggested move
+      if (movUtil.afterDate(moveOne, moveDateSelector.getValue()) != 0
+          && movUtil.afterDate(moveTwo, moveDateSelector.getValue()) != 0) {
+        MoveAttribute swaping1With2 =
+            new MoveAttribute(
+                moveOne.getNodeID(), moveTwo.getLongName(), moveDateSelector.getValue().toString());
+        MoveAttribute swaping2With1 =
+            new MoveAttribute(
+                moveTwo.getNodeID(), moveOne.getLongName(), moveDateSelector.getValue().toString());
 
-      SQLRepo.INSTANCE.addMove(swaping1With2);
-      SQLRepo.INSTANCE.addMove(swaping2With1);
+        SQLRepo.INSTANCE.addMove(swaping1With2);
+        SQLRepo.INSTANCE.addMove(swaping2With1);
 
-      initTableAndList();
-      reset();
+        initTableAndList();
+        resetFieldSelections();
+      } else {
+        // Throw an error in a popup or around the text box
+        System.out.println("The move you tried to add is too close to another move!");
+      }
     }
   }
 
@@ -129,7 +156,7 @@ public class MoveComponentController {
         && (newNodeSelector.getValue() != null)
         && (moveDateSelector.getValue() != null)) {
 
-      MoveAttribute toBeMoved = findMoveAttribute(departmentMoveSelector.getValue());
+      MoveAttribute toBeMoved = movUtil.findMostRecentMoveByDate(departmentMoveSelector.getValue());
       SQLRepo.INSTANCE.addMove(
           new MoveAttribute(
               newNodeSelector.getValue(),
@@ -137,21 +164,11 @@ public class MoveComponentController {
               moveDateSelector.getValue().toString()));
 
       initTableAndList();
-      reset();
+      resetFieldSelections();
     }
   }
 
-  private MoveAttribute findMoveAttribute(String longName) {
-    List<MoveAttribute> listOfMoveAtt = SQLRepo.INSTANCE.getMoveList();
-    for (MoveAttribute movAt : listOfMoveAtt) {
-      if (longName.equals(movAt.getLongName())) {
-        return movAt;
-      }
-    }
-    return null;
-  }
-
-  private void reset() {
+  private void resetFieldSelections() {
     departmentMoveSelector.setValue(null);
     departmentOneSelector.setValue(null);
     departmentTwoSelector.setValue(null);
@@ -164,45 +181,62 @@ public class MoveComponentController {
     nameCol.setCellValueFactory(new PropertyValueFactory<MoveAttribute, String>("longName"));
     dateCol.setCellValueFactory(new PropertyValueFactory<MoveAttribute, String>("date"));
 
-    List<MoveAttribute> allMovesTemp = SQLRepo.INSTANCE.getMoveList();
+    futureMoveTable.setItems(FXCollections.observableList(movUtil.getFutureMoves()));
 
-    List<MoveAttribute> futureMoves =
-        allMovesTemp.stream().filter(move -> inFuture(move) >= 0).toList();
+    currentMoveList.setItems(FXCollections.observableList(movUtil.getCurrentMoveMessages()));
 
-    futureMoveTable.setItems(FXCollections.observableList(futureMoves));
-
-    List<String> currentMoveDescriptions =
-        allMovesTemp.stream()
-            .filter(move -> inFuture(move) == 0)
-            .map(move -> move.getLongName() + " to Node " + move.getNodeID())
-            .toList();
-
-    currentMoveList.setItems(FXCollections.observableList(currentMoveDescriptions));
-
-    moveCountText.setText(currentMoveDescriptions.size() + " Moves Today: ");
+    moveCountText.setText(currentMoveList.getItems().size() + " Move(s) Today: ");
   }
 
-  /**
-   * returns 0 if the two date of the move is the same as the current day, less than 0 if it is
-   * before, more than 0 if afterwards
-   *
-   * @param move the given MoveAttribute that is being compared to today's date
-   * @return
-   */
-  private int inFuture(MoveAttribute move) {
-    Date moveDate;
-    try {
-      moveDate = formatter.parse(move.getDate());
-    } catch (ParseException e) {
-      moveDate = new Date();
-      System.out.println(e);
+  private void openStage(HospitalNode node1, HospitalNode node2) {
+    var resource = App.class.getResource("views/DatabaseEditor/MovePreview.fxml");
+    MovePreviewController movePreviewController;
+    if (swapTab.isSelected()) {
+      movePreviewController =
+          new MovePreviewController(
+              node1,
+              node2,
+              departmentOneSelector.getValue(),
+              departmentTwoSelector.getValue(),
+              true);
+    } else {
+      movePreviewController =
+          new MovePreviewController(
+              node1, node2, departmentMoveSelector.getValue(), "New Location", false);
     }
 
-    if (formatter.format(today).equals(formatter.format(moveDate))) return 0;
+    FXMLLoader loader = new FXMLLoader(resource);
+    loader.setController(movePreviewController); // NOTE: replaces this line in the FXML:
+    // fx:controller="edu.wpi.teame.controllers.DatabaseEditor.MovePreviewController"
 
-    return moveDate
-        .toInstant()
-        .truncatedTo(ChronoUnit.DAYS)
-        .compareTo(today.toInstant().truncatedTo(ChronoUnit.DAYS));
+    AnchorPane previewLayout;
+    try {
+      previewLayout = loader.load();
+    } catch (IOException e) {
+      previewLayout = new AnchorPane();
+    }
+
+    Scene newScene = new Scene(previewLayout);
+
+    Stage newStage = new Stage();
+    newStage.setTitle("Move Preview");
+    newStage.setScene(newScene);
+    newStage.show();
+  }
+
+  private void enablePreviewCondition() {
+    if (swapTab.isSelected()) {
+      if (departmentTwoSelector.getValue() != null && departmentOneSelector.getValue() != null) {
+        mapPreviewButton.setDisable(false);
+      } else {
+        mapPreviewButton.setDisable(true);
+      }
+    } else {
+      if (departmentMoveSelector.getValue() != null && newNodeSelector.getValue() != null) {
+        mapPreviewButton.setDisable(false);
+      } else {
+        mapPreviewButton.setDisable(true);
+      }
+    }
   }
 }

@@ -8,10 +8,11 @@ public class Main {
 
   public static void main(String[] args) {
     SQLRepo.INSTANCE.connectToDatabase("teame", "teame50");
-    SQLRepo.INSTANCE.getNodeList();
+    HospitalNode.processNodeList(SQLRepo.INSTANCE.getNodeList());
     HospitalNode.processEdgeList(SQLRepo.INSTANCE.getEdgeList());
-    SQLRepo.INSTANCE.getLocationList();
+    LocationName.processLocationList(SQLRepo.INSTANCE.getLocationList());
     System.out.println(LocationName.allLocations.keySet());
+    SQLRepo.INSTANCE.exitDatabaseProgram();
     App.launch(App.class, args);
   }
   // shortcut: psvm

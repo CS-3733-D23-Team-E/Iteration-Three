@@ -3,13 +3,14 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -19,163 +20,431 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
 <?import org.controlsfx.control.SearchableComboBox?>
+<?import org.controlsfx.control.ToggleSwitch?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.DatabaseEditor.DatabaseMapViewController">
+<AnchorPane prefHeight="825.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.DatabaseEditor.DatabaseMapViewController">
    <children>
       <HBox layoutX="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="TOP_CENTER" minWidth="-Infinity" prefWidth="225.0" spacing="20.0" style="-fx-background-color: #f1f1f1;">
+            <StackPane>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Map View">
-                     <font>
-                        <Font name="Roboto" size="38.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                  </Text>
-                  <Line endX="125.0">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Line>
-                  <MFXButton fx:id="tableEditorSwapButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20; -fx-background-color: #001A3C;" text="Table Editor" textFill="WHITE">
-                     <font>
-                        <Font name="Roboto" size="16.0" />
-                     </font>
-                  </MFXButton>
-                  <Line endX="125.0" layoutX="37.0" layoutY="86.0" />
+                  <TabPane fx:id="tabPane" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMaxWidth="180.0" tabMinHeight="30.0" tabMinWidth="130.0">
+                     <tabs>
+                        <Tab fx:id="lowerLevelTwoTab" text="Lower Level 2">
+                           <content>
+                              <AnchorPane>
+                                 <children>
+                                    <GesturePane fx:id="gesturePaneLowerTwo" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <content>
+                                          <AnchorPane fx:id="mapPaneLowerTwo" minWidth="1500.0">
+                                             <children>
+                                                      <ImageView fx:id="mapImageLowerTwo" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                         <image>
+                                                            <Image url="@../../maps/00_thelowerlevel2.png" />
+                                                         </image>
+                                                         <viewport>
+                                                            <Rectangle2D />
+                                                         </viewport>
+                                                      </ImageView>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </GesturePane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="lowerLevelOneTab" text="Lower Level 1">
+                           <content>
+                              <AnchorPane>
+                                 <children>
+                                    <GesturePane fx:id="gesturePaneLowerOne" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <content>
+                                          <AnchorPane fx:id="mapPaneLowerOne" minWidth="1500.0">
+                                             <children>
+                                                      <ImageView fx:id="mapImageLowerOne" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                         <image>
+                                                            <Image url="@../../maps/00_thelowerlevel1.png" />
+                                                         </image>
+                                                         <viewport>
+                                                            <Rectangle2D />
+                                                         </viewport>
+                                                      </ImageView>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </GesturePane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="floorOneTab" text="Floor 1">
+                           <content>
+                              <AnchorPane>
+                                 <children>
+                                    <GesturePane fx:id="gesturePaneOne" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <content>
+                                          <AnchorPane fx:id="mapPaneOne" minWidth="1500.0">
+                                             <children>
+                                                      <ImageView fx:id="mapImageOne" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../maps/01_thefirstfloor.png" />
+                                                         </image>
+                                                         <viewport>
+                                                            <Rectangle2D />
+                                                         </viewport>
+                                                      </ImageView>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </GesturePane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="floorTwoTab" text="Floor 2">
+                           <content>
+                              <AnchorPane>
+                                 <children>
+                                    <GesturePane fx:id="gesturePaneTwo" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <content>
+                                          <AnchorPane fx:id="mapPaneTwo" minWidth="1500.0">
+                                             <children>
+                                                      <ImageView fx:id="mapImageTwo" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                         <image>
+                                                            <Image url="@../../maps/02_thesecondfloor.png" />
+                                                         </image>
+                                                      </ImageView>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </GesturePane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="floorThreeTab" text="Floor 3">
+                           <content>
+                              <AnchorPane>
+                                 <children>
+                                    <GesturePane fx:id="gesturePaneThree" maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <content>
+                                          <AnchorPane fx:id="mapPaneThree" minWidth="1500.0">
+                                             <children>
+                                                      <ImageView fx:id="mapImageThree" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                         <image>
+                                                            <Image url="@../../maps/03_thethirdfloor.png" />
+                                                         </image>
+                                                      </ImageView>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </GesturePane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+                  <HBox alignment="BOTTOM_RIGHT" maxHeight="60.0" maxWidth="300.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="300.0" StackPane.alignment="BOTTOM_RIGHT">
+                     <children>
+                        <ToggleButton fx:id="panToggleButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" selected="true" text="Pan">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="buttonGroup" />
+                           </toggleGroup>
+                        </ToggleButton>
+                        <ToggleButton fx:id="addNodeToggleButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Add" toggleGroup="$buttonGroup" />
+                        <ToggleButton fx:id="editToggleButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Edit" toggleGroup="$buttonGroup" />
+                        <ToggleButton fx:id="dragToggleButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Drag" toggleGroup="$buttonGroup" />
+                        <ToggleButton fx:id="alignToggleButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Align" toggleGroup="$buttonGroup" />
+                        <ToggleButton fx:id="addEdgeToggleButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Edge" toggleGroup="$buttonGroup" />
+                     </children>
+                     <padding>
+                        <Insets bottom="15.0" right="15.0" />
+                     </padding>
+                  </HBox>
                </children>
-               <HBox.margin>
-                  <Insets top="25.0" />
-               </HBox.margin>
-            </VBox>
-            <TabPane fx:id="tabPane" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMaxWidth="180.0" tabMinHeight="30.0" tabMinWidth="130.0">
-               <tabs>
-                  <Tab fx:id="lowerLevelTwoTab" text="Lower Level 2">
-                     <content>
-                        <AnchorPane>
-                           <children>
-                              <GesturePane maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <content>
-                                    <AnchorPane fx:id="mapPaneLowerTwo" minWidth="1500.0">
-                                       <children>
-                                                <ImageView fx:id="mapImageLowerTwo" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
-                                                   <image>
-                                                      <Image url="@../../maps/00_thelowerlevel2.png" />
-                                                   </image>
-                                                   <viewport>
-                                                      <Rectangle2D />
-                                                   </viewport>
-                                                </ImageView>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </GesturePane>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="lowerLevelOneTab" text="Lower Level 1">
-                     <content>
-                        <AnchorPane>
-                           <children>
-                              <GesturePane maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <content>
-                                    <AnchorPane fx:id="mapPaneLowerOne" minWidth="1500.0">
-                                       <children>
-                                                <ImageView fx:id="mapImageLowerOne" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
-                                                   <image>
-                                                      <Image url="@../../maps/00_thelowerlevel1.png" />
-                                                   </image>
-                                                   <viewport>
-                                                      <Rectangle2D />
-                                                   </viewport>
-                                                </ImageView>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </GesturePane>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="floorOneTab" text="Floor 1">
-                     <content>
-                        <AnchorPane>
-                           <children>
-                              <GesturePane maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <content>
-                                    <AnchorPane fx:id="mapPaneOne" minWidth="1500.0">
-                                       <children>
-                                                <ImageView fx:id="mapImageOne" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../../maps/01_thefirstfloor.png" />
-                                                   </image>
-                                                   <viewport>
-                                                      <Rectangle2D />
-                                                   </viewport>
-                                                </ImageView>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </GesturePane>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="floorTwoTab" text="Floor 2">
-                     <content>
-                        <AnchorPane>
-                           <children>
-                              <GesturePane maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <content>
-                                    <AnchorPane fx:id="mapPaneTwo" minWidth="1500.0">
-                                       <children>
-                                                <ImageView fx:id="mapImageTwo" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
-                                                   <image>
-                                                      <Image url="@../../maps/02_thesecondfloor.png" />
-                                                   </image>
-                                                </ImageView>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </GesturePane>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="floorThreeTab" text="Floor 3">
-                     <content>
-                        <AnchorPane>
-                           <children>
-                              <GesturePane maxScale="6.0" minScale="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <content>
-                                    <AnchorPane fx:id="mapPaneThree" minWidth="1500.0">
-                                       <children>
-                                                <ImageView fx:id="mapImageThree" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
-                                                   <image>
-                                                      <Image url="@../../maps/03_thethirdfloor.png" />
-                                                   </image>
-                                                </ImageView>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </GesturePane>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-               </tabs>
-            </TabPane>
-            <AnchorPane fx:id="sidebar" prefWidth="460.0">
+            </StackPane>
+            <StackPane>
                <children>
-                  <VBox fx:id="editNodeView" alignment="TOP_CENTER" layoutX="193.0" layoutY="5.0" spacing="20.0" style="-fx-background-color: #F1F1F1;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                  <VBox fx:id="alignNodesView" alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #F1F1F1;">
+                     <children>
+                        <Text fx:id="alignNodeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Align Node">
+                           <font>
+                              <Font size="32.0" />
+                           </font>
+                        </Text>
+                        <Region VBox.vgrow="ALWAYS" />
+                        <HBox alignment="TOP_CENTER" spacing="10.0">
+                           <children>
+                              <MFXButton fx:id="cancelButton4" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #000000; -fx-border-radius: 10;" text="Cancel" />
+                              <MFXButton fx:id="deleteNodeButton4" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #FB0000; -fx-border-radius: 10;" text="Delete" textFill="#fb0000" HBox.hgrow="ALWAYS" />
+                              <MFXButton fx:id="alignConfirmButton" minHeight="30.0" prefWidth="100.0" style="-fx-background-color: #3B63A5; -fx-background-radius: 10;" text="Confirm" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Roboto" size="13.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
+                     </padding>
+                     <effect>
+                        <DropShadow offsetX="4.0" offsetY="4.0">
+                           <color>
+                              <Color opacity="0.25" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </VBox>
+                  <VBox fx:id="addNodeView" alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #F1F1F1;">
+                     <children>
+                        <Text fx:id="addNodeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Node">
+                           <font>
+                              <Font size="32.0" />
+                           </font>
+                        </Text>
+                        <HBox fx:id="coordFields1" spacing="10.0">
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <Label text="X Coordinate:">
+                                       <font>
+                                          <Font name="Roboto" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="addNodeXField" promptText="X Coordinate:" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" />
+                                 </children>
+                              </VBox>
+                              <Region HBox.hgrow="ALWAYS" />
+                              <VBox>
+                                 <children>
+                                    <Label text="Y Coordinate:">
+                                       <font>
+                                          <Font name="Roboto" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="addNodeYField" promptText="Y Coordinate:" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="Location Name:">
+                                       <font>
+                                          <Font name="Roboto" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <SearchableComboBox fx:id="addNodeLongNameSelector" maxWidth="1.7976931348623157E308" prefHeight="26.0" promptText="Location Name:" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Long Name:" />
+                                    <TextField fx:id="newLongNameField1" minWidth="100.0" prefWidth="100.0" promptText="Long Name" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" />
+                                 </children>
+                              </VBox>
+                              <Region minWidth="10.0" HBox.hgrow="ALWAYS" />
+                              <VBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Long Name:" />
+                                    <TextField fx:id="newLongNameField11" minWidth="100.0" prefWidth="100.0" promptText="Long Name" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" />
+                                 </children>
+                              </VBox>
+                              <Region minWidth="10.0" HBox.hgrow="ALWAYS" />
+                              <VBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node Type:" />
+                                    <SearchableComboBox fx:id="nodeTypeChoice1" minWidth="75.0" prefWidth="0.0" promptText="Type" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" />
+                                 </children>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0">
+                           <children>
+                              <MFXButton fx:id="addLocationButton1" prefWidth="125.0" styleClass="submitButton" stylesheets="@../../styles/eStyleSheet.css" text="Add Location">
+                                 <font>
+                                    <Font name="Roboto" size="13.0" />
+                                 </font>
+                              </MFXButton>
+                              <Region prefWidth="25.0" />
+                              <MFXButton fx:id="removeLocationButton1" layoutX="10.0" layoutY="10.0" prefHeight="31.0" prefWidth="130.0" styleClass="resetButton" stylesheets="@../../styles/eStyleSheet.css" text="Remove Location">
+                                 <font>
+                                    <Font name="Roboto" size="13.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                        </HBox>
+                        <TableView fx:id="edgeView1" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="edgeColumn1" prefWidth="300.0" resizable="false" style="radius: 10;" text="Node ID" />
+                           </columns>
+                        </TableView>
+                        <VBox>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New Edge:">
+                                       <font>
+                                          <Font name="Roboto" size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <SearchableComboBox fx:id="addEdgeField1" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" HBox.hgrow="ALWAYS" />
+                                    <MFXButton fx:id="addEdgeButton1" prefWidth="80.0" styleClass="submitButton" stylesheets="@../../styles/eStyleSheet.css" text="Add" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Roboto" size="13.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <MFXButton fx:id="removeEdgeButton1" prefWidth="80.0" styleClass="resetButton" stylesheets="@../../styles/eStyleSheet.css" text="Remove" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building:" />
+                              <SearchableComboBox fx:id="addNodeBuildingSelector" maxHeight="26.0" maxWidth="1.7976931348623157E308" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <Region VBox.vgrow="ALWAYS" />
+                        <HBox alignment="TOP_CENTER" spacing="10.0">
+                           <children>
+                              <MFXButton fx:id="cancelButton1" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #000000; -fx-border-radius: 10;" text="Cancel" />
+                              <MFXButton fx:id="deleteNodeButton1" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #FB0000; -fx-border-radius: 10;" text="Delete" textFill="#fb0000" HBox.hgrow="ALWAYS" />
+                              <MFXButton fx:id="addConfirmButton" minHeight="30.0" prefWidth="100.0" style="-fx-background-color: #3B63A5; -fx-background-radius: 10;" text="Confirm" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Roboto" size="13.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
+                     </padding>
+                     <effect>
+                        <DropShadow offsetX="4.0" offsetY="4.0">
+                           <color>
+                              <Color opacity="0.25" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </VBox>
+                  <VBox fx:id="addEdgeView" alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #F1F1F1;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Edge">
+                           <font>
+                              <Font size="32.0" />
+                           </font>
+                        </Text>
+                        <Region VBox.vgrow="ALWAYS" />
+                        <HBox alignment="TOP_CENTER" spacing="10.0">
+                           <children>
+                              <MFXButton fx:id="cancelButton2" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #000000; -fx-border-radius: 10;" text="Cancel" />
+                              <MFXButton fx:id="deleteNodeButton2" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #FB0000; -fx-border-radius: 10;" text="Delete" textFill="#fb0000" HBox.hgrow="ALWAYS" />
+                              <MFXButton fx:id="addEdgeConfirmButton" minHeight="30.0" prefWidth="100.0" style="-fx-background-color: #3B63A5; -fx-background-radius: 10;" text="Confirm" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Roboto" size="13.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
+                     </padding>
+                     <effect>
+                        <DropShadow offsetX="4.0" offsetY="4.0">
+                           <color>
+                              <Color opacity="0.25" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </VBox>
+                  <VBox fx:id="dragNodeView" alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #F1F1F1;">
+                     <children>
+                        <Text fx:id="dragNodeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Drag Node">
+                           <font>
+                              <Font size="32.0" />
+                           </font>
+                        </Text>
+                        <HBox fx:id="coordFields3" spacing="10.0">
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <Label text="X Coordinate:">
+                                       <font>
+                                          <Font name="Roboto" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="dragNodeXField" promptText="X Coordinate:" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" />
+                                 </children>
+                              </VBox>
+                              <Region HBox.hgrow="ALWAYS" />
+                              <VBox>
+                                 <children>
+                                    <Label text="Y Coordinate:">
+                                       <font>
+                                          <Font name="Roboto" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="dragNodeYField" promptText="Y Coordinate:" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Region VBox.vgrow="ALWAYS" />
+                        <HBox alignment="TOP_CENTER" spacing="10.0">
+                           <children>
+                              <MFXButton fx:id="cancelButton3" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #000000; -fx-border-radius: 10;" text="Cancel" />
+                              <MFXButton fx:id="deleteNodeButton3" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #FB0000; -fx-border-radius: 10;" text="Delete" textFill="#fb0000" HBox.hgrow="ALWAYS" />
+                              <MFXButton fx:id="dragConfirmButton" minHeight="30.0" prefWidth="100.0" style="-fx-background-color: #3B63A5; -fx-background-radius: 10;" text="Confirm" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Roboto" size="13.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
+                     </padding>
+                     <effect>
+                        <DropShadow offsetX="4.0" offsetY="4.0">
+                           <color>
+                              <Color opacity="0.25" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </VBox>
+                  <VBox fx:id="editNodeView" alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #F1F1F1;">
                      <children>
                         <Text fx:id="editPageText" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Node">
                            <font>
@@ -191,8 +460,9 @@
                                           <Label text="X Coordinate:">
                                              <font>
                                                 <Font name="Roboto" size="13.0" />
-                                             </font></Label>
-                                          <TextField promptText="X Coordinate:" fx:id="xField" />
+                                             </font>
+                                          </Label>
+                                          <TextField promptText="X Coordinate:" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" fx:id="xField" />
                                        </children>
                                     </VBox>
                                     <Region HBox.hgrow="ALWAYS" />
@@ -201,8 +471,9 @@
                                           <Label text="Y Coordinate:">
                                              <font>
                                                 <Font name="Roboto" size="13.0" />
-                                             </font></Label>
-                                          <TextField fx:id="yField" promptText="Y Coordinate:" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="yField" promptText="Y Coordinate:" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -216,10 +487,11 @@
                                     <Label text="Location Name:">
                                        <font>
                                           <Font name="Roboto" size="13.0" />
-                                       </font></Label>
-                                    <SearchableComboBox fx:id="longNameSelector" maxWidth="1.7976931348623157E308" prefHeight="26.0" promptText="Location Name:" />
+                                       </font>
+                                    </Label>
+                                    <SearchableComboBox fx:id="longNameSelector" maxWidth="1.7976931348623157E308" prefHeight="26.0" promptText="Location Name:" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" />
 
-                                 </children>
+                                       </children>
                               </VBox>
                            </children>
                         </HBox>
@@ -228,21 +500,21 @@
                               <VBox>
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Long Name:" />
-                                    <TextField fx:id="newLongNameField" minWidth="100.0" prefWidth="100.0" promptText="Long Name" />
+                                    <TextField fx:id="newLongNameField" minWidth="100.0" prefWidth="100.0" promptText="Long Name" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" />
                                  </children>
                               </VBox>
                               <Region minWidth="10.0" HBox.hgrow="ALWAYS" />
                               <VBox>
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Long Name:" />
-                                    <TextField fx:id="newLongNameField1" minWidth="100.0" prefWidth="100.0" promptText="Long Name" />
+                                    <TextField fx:id="newLongNameField1" minWidth="100.0" prefWidth="100.0" promptText="Long Name" styleClass="MFXTextField" stylesheets="@../../styles/eStyleSheet.css" />
                                  </children>
                               </VBox>
                               <Region minWidth="10.0" HBox.hgrow="ALWAYS" />
                               <VBox>
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node Type:" />
-                                    <SearchableComboBox fx:id="nodeTypeChoice" minWidth="75.0" prefWidth="0.0" promptText="Type" />
+                                    <SearchableComboBox fx:id="nodeTypeChoice" minWidth="75.0" prefWidth="0.0" promptText="Type" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" />
                                  </children>
                               </VBox>
                            </children>
@@ -252,13 +524,13 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0">
                            <children>
-                              <MFXButton fx:id="addLocationButton" prefWidth="125.0" text="Add Location">
+                              <MFXButton fx:id="addLocationButton" prefWidth="125.0" styleClass="submitButton" stylesheets="@../../styles/eStyleSheet.css" text="Add Location">
                                  <font>
                                     <Font name="Roboto" size="13.0" />
                                  </font>
                               </MFXButton>
                               <Region prefWidth="25.0" />
-                              <MFXButton fx:id="removeLocationButton" layoutX="10.0" layoutY="10.0" prefWidth="125.0" text="Remove Location">
+                              <MFXButton fx:id="removeLocationButton" layoutX="10.0" layoutY="10.0" prefHeight="31.0" prefWidth="130.0" styleClass="resetButton" stylesheets="@../../styles/eStyleSheet.css" text="Remove Location">
                                  <font>
                                     <Font name="Roboto" size="13.0" />
                                  </font>
@@ -277,13 +549,15 @@
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New Edge:">
                                        <font>
                                           <Font name="Roboto" size="13.0" />
-                                       </font></Text>
-                                    <SearchableComboBox fx:id="addEdgeField" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" HBox.hgrow="ALWAYS" />
-                                    <MFXButton fx:id="addEdgeButton" text="Add" HBox.hgrow="ALWAYS">
+                                       </font>
+                                    </Text>
+                                    <SearchableComboBox fx:id="addEdgeField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" HBox.hgrow="ALWAYS" />
+                                    <MFXButton fx:id="addEdgeButton" prefWidth="80.0" styleClass="submitButton" stylesheets="@../../styles/eStyleSheet.css" text="Add" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Roboto" size="13.0" />
-                                       </font></MFXButton>
-                                    <MFXButton fx:id="removeEdgeButton" text="Remove" HBox.hgrow="ALWAYS" />
+                                       </font>
+                                    </MFXButton>
+                                    <MFXButton fx:id="removeEdgeButton" prefWidth="80.0" styleClass="resetButton" stylesheets="@../../styles/eStyleSheet.css" text="Remove" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
                            </children>
@@ -291,19 +565,19 @@
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building:" />
-                              <SearchableComboBox fx:id="buildingSelector" maxHeight="26.0" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                              <SearchableComboBox fx:id="buildingSelector" maxHeight="26.0" maxWidth="1.7976931348623157E308" styleClass="SearchableComboBox" stylesheets="@../../styles/eStyleSheet.css" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                         <Region VBox.vgrow="ALWAYS" />
                         <HBox alignment="TOP_CENTER" spacing="10.0">
                            <children>
-                              <MFXButton fx:id="cancelButton" prefWidth="67.0" style="-fx-background-color: transparent; -fx-border-color: #000000; -fx-border-radius: 10;" text="Cancel" />
-                              <Region HBox.hgrow="ALWAYS" />
-                              <MFXButton fx:id="deleteNodeButton" prefWidth="67.0" style="-fx-background-color: transparent; -fx-border-color: #FB0000; -fx-border-radius: 10;" text="Delete" textFill="#fb0000" HBox.hgrow="ALWAYS" />
-                              <MFXButton fx:id="confirmButton" prefWidth="67.0" style="-fx-background-color: #3B63A5; -fx-background-radius: 10;" text="Confirm" textFill="WHITE" HBox.hgrow="ALWAYS">
+                              <MFXButton fx:id="cancelButton" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #000000; -fx-border-radius: 10;" text="Cancel" />
+                              <MFXButton fx:id="deleteNodeButton" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #FB0000; -fx-border-radius: 10;" text="Delete" textFill="#fb0000" HBox.hgrow="ALWAYS" />
+                              <MFXButton fx:id="editConfirmButton" minHeight="30.0" prefWidth="100.0" style="-fx-background-color: #3B63A5; -fx-background-radius: 10;" text="Confirm" textFill="WHITE" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Roboto" size="13.0" />
-                                 </font></MFXButton>
+                                 </font>
+                              </MFXButton>
                            </children>
                         </HBox>
                      </children>
@@ -322,11 +596,14 @@
                      </opaqueInsets>
                   </VBox>
                </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </AnchorPane>
+            </StackPane>
          </children>
       </HBox>
+      <VBox alignment="CENTER" prefHeight="37.0" prefWidth="92.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0">
+         <children>
+            <Label text="Display Names" />
+            <ToggleSwitch fx:id="locationNameToggle" style="-fx-alignment: center;" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

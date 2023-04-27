@@ -3,10 +3,9 @@ package edu.wpi.teame.controllers.DatabaseEditor;
 import edu.wpi.teame.Database.SQLRepo;
 import edu.wpi.teame.entities.*;
 import edu.wpi.teame.map.*;
-import edu.wpi.teame.utilities.Navigation;
-import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -14,9 +13,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.SearchableComboBox;
 
 public class DatabaseServiceRequestViewController {
-
-  @FXML MFXButton addMealButton;
-
   // Tabs
   @FXML TabPane serviceTableTabs;
   @FXML Tab mealTab;
@@ -24,6 +20,7 @@ public class DatabaseServiceRequestViewController {
   @FXML Tab officeSuppliesTab;
   @FXML Tab conferenceRoomTab;
   @FXML Tab furnitureTab;
+  @FXML Tab medicalSuppliesTab;
 
   // table data for Meals
   @FXML TableView<MealRequestData> mealTable;
@@ -77,7 +74,6 @@ public class DatabaseServiceRequestViewController {
   @FXML TableColumn<ConferenceRequestData, String> conferenceTimeCol;
   @FXML TableColumn<ConferenceRequestData, String> conferenceStaffCol;
   @FXML TableColumn<ConferenceRequestData, String> conferenceRoomChangesCol;
-  @FXML TableColumn<ConferenceRequestData, String> conferenceNumOfHoursCol;
   @FXML TableColumn<ConferenceRequestData, String> conferenceNotesCol;
   @FXML TableColumn<ConferenceRequestData, String> conferenceRoomStatusCol;
 
@@ -93,6 +89,19 @@ public class DatabaseServiceRequestViewController {
   @FXML TableColumn<FurnitureRequestData, String> furnitureNotesCol;
   @FXML TableColumn<FurnitureRequestData, String> furnitureStatusCol;
 
+  // table data for Medical Supplies
+  @FXML TableView<MedicalSuppliesData> medicalSuppliesTable;
+  @FXML TableColumn<MedicalSuppliesData, String> medicalSuppliesRequestIDCol;
+  @FXML TableColumn<MedicalSuppliesData, String> medicalSuppliesNameCol;
+  @FXML TableColumn<MedicalSuppliesData, String> medicalSuppliesRoomCol;
+  @FXML TableColumn<MedicalSuppliesData, String> medicalSuppliesDateCol;
+  @FXML TableColumn<MedicalSuppliesData, String> medicalSuppliesTimeCol;
+  @FXML TableColumn<MedicalSuppliesData, String> medicalSuppliesSupplyCol;
+  @FXML TableColumn<MedicalSuppliesData, String> medicalSuppliesNotesCol;
+  @FXML TableColumn<MedicalSuppliesData, String> medicalSuppliesQuantityCol;
+  @FXML TableColumn<MedicalSuppliesData, String> medicalSuppliesStaffCol;
+  @FXML TableColumn<MedicalSuppliesData, String> medicalSuppliesStatusCol;
+
   // button & combobox for changing status
   @FXML MFXButton confirmButton;
 
@@ -100,13 +109,12 @@ public class DatabaseServiceRequestViewController {
 
   //////////////////////////////////////////
 
-  @FXML MFXButton tableEditorSwapButton;
-
   MealRequestData currentMealRequest;
   FlowerRequestData currentFlowerRequest;
   FurnitureRequestData currentFurnitureRequest;
   OfficeSuppliesData currentOfficeRequest;
   ConferenceRequestData currentConferenceRequest;
+  MedicalSuppliesData currentMedicalRequest;
 
   //          case "MEALDELIVERY":
   //        case "FLOWERDELIVERY":
@@ -129,11 +137,9 @@ public class DatabaseServiceRequestViewController {
     statusComboBox.setItems(FXCollections.observableArrayList(statuses));
 
     confirmButton.setOnMouseClicked(event -> updateDatabaseStatus());
-    tableEditorSwapButton.setOnMouseClicked(
-        event -> Navigation.navigate(Screen.DATABASE_TABLEVIEW));
 
     // fill table for meal requests
-    mealRecipientNameCol.setCellValueFactory(
+    mealRequestIDCol.setCellValueFactory(
         new PropertyValueFactory<MealRequestData, String>("requestID"));
     mealRecipientNameCol.setCellValueFactory(
         new PropertyValueFactory<MealRequestData, String>("name"));
@@ -252,8 +258,6 @@ public class DatabaseServiceRequestViewController {
         new PropertyValueFactory<ConferenceRequestData, String>("assignedStaff"));
     conferenceRoomChangesCol.setCellValueFactory(
         new PropertyValueFactory<ConferenceRequestData, String>("roomRequest"));
-    conferenceNumOfHoursCol.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRequestData, String>("numberOfHours"));
     conferenceNotesCol.setCellValueFactory(
         new PropertyValueFactory<ConferenceRequestData, String>("notes"));
     conferenceRoomStatusCol.setCellValueFactory(
@@ -302,6 +306,40 @@ public class DatabaseServiceRequestViewController {
               }
             });
     furnitureTable.setEditable(true);
+
+    // fill table for medical supply requests
+    medicalSuppliesRequestIDCol.setCellValueFactory(
+        new PropertyValueFactory<MedicalSuppliesData, String>("requestID"));
+    medicalSuppliesNameCol.setCellValueFactory(
+        new PropertyValueFactory<MedicalSuppliesData, String>("name"));
+    medicalSuppliesRoomCol.setCellValueFactory(
+        new PropertyValueFactory<MedicalSuppliesData, String>("room"));
+    medicalSuppliesDateCol.setCellValueFactory(
+        new PropertyValueFactory<MedicalSuppliesData, String>("deliveryDate"));
+    medicalSuppliesTimeCol.setCellValueFactory(
+        new PropertyValueFactory<MedicalSuppliesData, String>("deliverytime"));
+    medicalSuppliesSupplyCol.setCellValueFactory(
+        new PropertyValueFactory<MedicalSuppliesData, String>("medicalSupply"));
+    medicalSuppliesNotesCol.setCellValueFactory(
+        new PropertyValueFactory<MedicalSuppliesData, String>("notes"));
+    medicalSuppliesQuantityCol.setCellValueFactory(
+        new PropertyValueFactory<MedicalSuppliesData, String>("quantity"));
+    medicalSuppliesStaffCol.setCellValueFactory(
+        new PropertyValueFactory<MedicalSuppliesData, String>("assignedStaff"));
+    medicalSuppliesStatusCol.setCellValueFactory(
+        new PropertyValueFactory<MedicalSuppliesData, String>("requestStatus"));
+
+    medicalSuppliesTable.setItems(FXCollections.observableArrayList(dC.getMedicalSuppliesList()));
+    medicalSuppliesTable
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (obs, oldSelection, newSelection) -> {
+              if (newSelection != null) {
+                displayEditMedicalSupplies(newSelection);
+              }
+            });
+    medicalSuppliesTable.setEditable(true);
   }
 
   private void updateDatabaseStatus() {
@@ -331,6 +369,13 @@ public class DatabaseServiceRequestViewController {
             currentFurnitureRequest, "status", statusComboBox.getValue());
         initialize();
         break;
+      case "MEDICALSUPPLYDELIVERY":
+        SQLRepo.INSTANCE.updateServiceRequest(
+            currentMedicalRequest, "status", statusComboBox.getValue());
+        initialize();
+        break;
+      default:
+        throw new NoSuchElementException("No Service Request Of This Type");
     }
   }
 
@@ -362,6 +407,12 @@ public class DatabaseServiceRequestViewController {
     showEditServiceRequestButtons();
     currentMealRequest = newSelection;
     currentStatus = "MEALDELIVERY";
+  }
+
+  private void displayEditMedicalSupplies(MedicalSuppliesData newSelection) {
+    showEditServiceRequestButtons();
+    currentMedicalRequest = newSelection;
+    currentStatus = "MEDICALSUPPLYDELIVERY";
   }
 
   private void showEditServiceRequestButtons() {
