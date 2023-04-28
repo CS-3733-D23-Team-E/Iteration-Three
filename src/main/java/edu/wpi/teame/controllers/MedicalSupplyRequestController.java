@@ -12,8 +12,11 @@ import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class MedicalSupplyRequestController {
   @FXML private MFXButton clear;
@@ -69,6 +72,184 @@ public class MedicalSupplyRequestController {
 
   int item6 = 0;
 
+  public void initializeButtons() {
+
+    // Item 1
+    this.item1Quantity.setText(Integer.toString(item1));
+    item1Quantity.setFloatingText("Quantity");
+    item1Quantity.setAlignment(Pos.CENTER);
+    item1Quantity.setStyle(
+        "-fx-border-radius: 0;-fx-background-radius: 0;-fx-border-color: BLACK; -fx-border-width: 3 0 3 0");
+    item1Quantity.setFont(Font.font("Ariel", FontWeight.BOLD, 15));
+    item1Plus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
+    item1Plus.setStyle(
+        "-fx-background-radius:  0 20 20 0; -fx-background-color: #012D5A; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 0 20 20 0");
+    item1Minus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
+    item1Minus.setStyle(
+        "-fx-background-radius: 20 0 0 20; -fx-background-color: #AAAAAA; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 20 0 0 20");
+
+    this.item1Minus.setOnAction(
+        event -> {
+          item1--;
+          if (item1 < 0) {
+            item1 = 0;
+          }
+
+          this.item1Quantity.setText(Integer.toString(item1));
+        });
+    this.item1Plus.setOnAction(
+        event -> {
+          item1++;
+          this.item1Quantity.setText(Integer.toString(item1));
+        });
+
+    // Item 2
+    this.item2Quantity.setText(Integer.toString(item2));
+    item2Quantity.setFloatingText("Quantity");
+    item2Quantity.setAlignment(Pos.CENTER);
+    item2Quantity.setStyle(
+        "-fx-border-radius: 0;-fx-background-radius: 0;-fx-border-color: BLACK; -fx-border-width: 3 0 3 0");
+    item2Quantity.setFont(Font.font("Ariel", FontWeight.BOLD, 15));
+    item2Plus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
+    item2Plus.setStyle(
+        "-fx-background-radius:  0 20 20 0; -fx-background-color: #012D5A; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 0 20 20 0");
+    item2Minus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
+    item2Minus.setStyle(
+        "-fx-background-radius: 20 0 0 20; -fx-background-color: #AAAAAA; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 20 0 0 20");
+
+    this.item2Minus.setOnAction(
+        event -> {
+          item2--;
+          if (item2 < 0) {
+            item2 = 0;
+          }
+
+          this.item2Quantity.setText(Integer.toString(item2));
+        });
+    this.item2Plus.setOnAction(
+        event -> {
+          item2++;
+          this.item2Quantity.setText(Integer.toString(item2));
+        });
+
+    // Item 3
+    this.item3Quantity.setText(Integer.toString(item3));
+
+    item3Quantity.setFloatingText("Quantity");
+    item3Quantity.setAlignment(Pos.CENTER);
+    item3Quantity.setStyle(
+        "-fx-border-radius: 0;-fx-background-radius: 0;-fx-border-color: BLACK; -fx-border-width: 3 0 3 0");
+    item3Quantity.setFont(Font.font("Ariel", FontWeight.BOLD, 15));
+    item3Plus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
+    item3Plus.setStyle(
+        "-fx-background-radius:  0 20 20 0; -fx-background-color: #012D5A; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 0 20 20 0");
+    item3Minus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
+    item3Minus.setStyle(
+        "-fx-background-radius: 20 0 0 20; -fx-background-color: #AAAAAA; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 20 0 0 20");
+
+    this.item3Minus.setOnAction(
+        event -> {
+          item3--;
+          if (item3 < 0) {
+            item3 = 0;
+          }
+
+          this.item3Quantity.setText(Integer.toString(item3));
+        });
+    this.item3Plus.setOnAction(
+        event -> {
+          item3++;
+          this.item3Quantity.setText(Integer.toString(item3));
+        });
+    // Item 4
+    this.item4Quantity.setText(Integer.toString(item4));
+
+    item4Quantity.setFloatingText("Quantity");
+    item4Quantity.setAlignment(Pos.CENTER);
+    item4Quantity.setStyle(
+        "-fx-border-radius: 0;-fx-background-radius: 0;-fx-border-color: BLACK; -fx-border-width: 3 0 3 0");
+    item4Quantity.setFont(Font.font("Ariel", FontWeight.BOLD, 15));
+    item4Plus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
+    item4Plus.setStyle(
+        "-fx-background-radius:  0 20 20 0; -fx-background-color: #012D5A; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 0 20 20 0");
+    item4Minus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
+    item4Minus.setStyle(
+        "-fx-background-radius: 20 0 0 20; -fx-background-color: #AAAAAA; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 20 0 0 20");
+
+    this.item4Minus.setOnAction(
+        event -> {
+          item4--;
+          if (item4 < 0) {
+            item4 = 0;
+          }
+
+          this.item4Quantity.setText(Integer.toString(item4));
+        });
+    this.item4Plus.setOnAction(
+        event -> {
+          item4++;
+          this.item4Quantity.setText(Integer.toString(item4));
+        });
+    // Item 5
+    this.item5Quantity.setText(Integer.toString(item5));
+
+    item5Quantity.setFloatingText("Quantity");
+    item5Quantity.setAlignment(Pos.CENTER);
+    item5Quantity.setStyle(
+        "-fx-border-radius: 0;-fx-background-radius: 0;-fx-border-color: BLACK; -fx-border-width: 3 0 3 0");
+    item5Quantity.setFont(Font.font("Ariel", FontWeight.BOLD, 15));
+    item5Plus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
+    item5Plus.setStyle(
+        "-fx-background-radius:  0 20 20 0; -fx-background-color: #012D5A; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 0 20 20 0");
+    item5Minus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
+    item5Minus.setStyle(
+        "-fx-background-radius: 20 0 0 20; -fx-background-color: #AAAAAA; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 20 0 0 20");
+
+    this.item5Minus.setOnAction(
+        event -> {
+          item5--;
+          if (item5 < 0) {
+            item5 = 0;
+          }
+
+          this.item5Quantity.setText(Integer.toString(item5));
+        });
+    this.item5Plus.setOnAction(
+        event -> {
+          item5++;
+          this.item5Quantity.setText(Integer.toString(item5));
+        });
+    // Item 6
+    this.item6Quantity.setText(Integer.toString(item6));
+
+    item6Quantity.setFloatingText("Quantity");
+    item6Quantity.setAlignment(Pos.CENTER);
+    item6Quantity.setStyle(
+        "-fx-border-radius: 0;-fx-background-radius: 0;-fx-border-color: BLACK; -fx-border-width: 3 0 3 0");
+    item6Quantity.setFont(Font.font("Ariel", FontWeight.BOLD, 15));
+    item6Plus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
+    item6Plus.setStyle(
+        "-fx-background-radius:  0 20 20 0; -fx-background-color: #012D5A; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 0 20 20 0");
+    item6Minus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
+    item6Minus.setStyle(
+        "-fx-background-radius: 20 0 0 20; -fx-background-color: #AAAAAA; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 20 0 0 20");
+
+    this.item6Minus.setOnAction(
+        event -> {
+          item6--;
+          if (item6 < 0) {
+            item6 = 0;
+          }
+
+          this.item6Quantity.setText(Integer.toString(item6));
+        });
+    this.item6Plus.setOnAction(
+        event -> {
+          item6++;
+          this.item6Quantity.setText(Integer.toString(item6));
+        });
+  }
+
   public void initializeImages() {
     File file1 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/bandaid.png");
     Image image1 = new Image(file1.toURI().toString());
@@ -96,6 +277,7 @@ public class MedicalSupplyRequestController {
   }
 
   public void initialize() {
+    initializeButtons();
     initializeImages();
 
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
@@ -130,102 +312,6 @@ public class MedicalSupplyRequestController {
     hours.setItems(hoursList);
     minutes.setItems(minutesList);
     ampm.setItems(ampmList);
-
-    this.item1Quantity.setText(Integer.toString(item1));
-    this.item1Minus.setOnAction(
-        event -> {
-          item1--;
-          if (item1 < 0) {
-            item1 = 0;
-          }
-
-          this.item1Quantity.setText(Integer.toString(item1));
-        });
-    this.item1Plus.setOnAction(
-        event -> {
-          item1++;
-          this.item1Quantity.setText(Integer.toString(item1));
-        });
-
-    this.item2Quantity.setText(Integer.toString(item2));
-    this.item2Minus.setOnAction(
-        event -> {
-          item2--;
-          if (item2 < 0) {
-            item2 = 0;
-          }
-
-          this.item2Quantity.setText(Integer.toString(item2));
-        });
-    this.item2Plus.setOnAction(
-        event -> {
-          item2++;
-          this.item2Quantity.setText(Integer.toString(item2));
-        });
-
-    this.item3Quantity.setText(Integer.toString(item3));
-    this.item3Minus.setOnAction(
-        event -> {
-          item3--;
-          if (item3 < 0) {
-            item3 = 0;
-          }
-
-          this.item3Quantity.setText(Integer.toString(item3));
-        });
-    this.item3Plus.setOnAction(
-        event -> {
-          item3++;
-          this.item3Quantity.setText(Integer.toString(item3));
-        });
-
-    this.item4Quantity.setText(Integer.toString(item4));
-    this.item4Minus.setOnAction(
-        event -> {
-          item4--;
-          if (item4 < 0) {
-            item4 = 0;
-          }
-
-          this.item4Quantity.setText(Integer.toString(item4));
-        });
-    this.item4Plus.setOnAction(
-        event -> {
-          item4++;
-          this.item4Quantity.setText(Integer.toString(item4));
-        });
-
-    this.item5Quantity.setText(Integer.toString(item5));
-    this.item5Minus.setOnAction(
-        event -> {
-          item5--;
-          if (item5 < 0) {
-            item5 = 0;
-          }
-
-          this.item5Quantity.setText(Integer.toString(item5));
-        });
-    this.item5Plus.setOnAction(
-        event -> {
-          item5++;
-          this.item5Quantity.setText(Integer.toString(item5));
-        });
-
-    this.item6Quantity.setText(Integer.toString(item6));
-    this.item6Minus.setOnAction(
-        event -> {
-          item6--;
-          if (item6 < 0) {
-            item6 = 0;
-          }
-
-          this.item6Quantity.setText(Integer.toString(item6));
-        });
-    this.item6Plus.setOnAction(
-        event -> {
-          item6++;
-          this.item6Quantity.setText(Integer.toString(item6));
-        });
   }
 
   public void sendRequest() {

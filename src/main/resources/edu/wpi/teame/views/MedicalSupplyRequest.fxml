@@ -40,6 +40,13 @@
                               <FlowPane alignment="CENTER" prefWidth="300.0">
                                  <children>
                                     <FlowPane alignment="CENTER" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
+                                       <effect>
+                                          <DropShadow height="50.0" radius="24.5" width="50.0">
+                                             <color>
+                                                <Color red="0.35" green="0.35" blue="0.35" />
+                                             </color>
+                                          </DropShadow>
+                                       </effect>
                                        <children>
                                           <ImageView fx:id="item1Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" >
                                           </ImageView>
@@ -52,7 +59,7 @@
                                     </MFXButton>
                                     <MFXTextField fx:id="item1Quantity" prefHeight="60.0" prefWidth="100.0">
                                        <FlowPane.margin>
-                                          <Insets left="10.0" right="10.0" top="20.0" />
+                                          <Insets top="20.0" />
                                        </FlowPane.margin>
                                     </MFXTextField>
                                     <MFXButton fx:id="item1Plus" prefHeight="60.0" prefWidth="60.0" text="+">
@@ -68,6 +75,13 @@
                               <FlowPane alignment="CENTER" prefWidth="300.0">
                                  <children>
                                     <FlowPane alignment="CENTER" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
+                                       <effect>
+                                          <DropShadow height="50.0" radius="24.5" width="50.0">
+                                             <color>
+                                                <Color red="0.35" green="0.35" blue="0.35" />
+                                             </color>
+                                          </DropShadow>
+                                       </effect>
                                        <children>
                                           <ImageView fx:id="item2Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
@@ -79,7 +93,7 @@
                                     </MFXButton>
                                     <MFXTextField fx:id="item2Quantity" prefHeight="60.0" prefWidth="100.0">
                                        <FlowPane.margin>
-                                          <Insets left="10.0" right="10.0" top="20.0" />
+                                          <Insets top="20.0" />
                                        </FlowPane.margin>
                                     </MFXTextField>
                                     <MFXButton fx:id="item2Plus" prefHeight="60.0" prefWidth="60.0" text="+">
@@ -95,6 +109,13 @@
                               <FlowPane alignment="CENTER" prefWidth="300.0">
                                  <children>
                                     <FlowPane alignment="CENTER" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
+                                       <effect>
+                                          <DropShadow height="50.0" radius="24.5" width="50.0">
+                                             <color>
+                                                <Color red="0.35" green="0.35" blue="0.35" />
+                                             </color>
+                                          </DropShadow>
+                                       </effect>
                                        <children>
                                           <ImageView fx:id="item3Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
@@ -106,7 +127,7 @@
                                     </MFXButton>
                                     <MFXTextField fx:id="item3Quantity" prefHeight="60.0" prefWidth="100.0">
                                        <FlowPane.margin>
-                                          <Insets left="10.0" right="10.0" top="20.0" />
+                                          <Insets top="20.0" />
                                        </FlowPane.margin>
                                     </MFXTextField>
                                     <MFXButton fx:id="item3Plus" prefHeight="60.0" prefWidth="60.0" text="+">
@@ -122,6 +143,13 @@
                               <FlowPane alignment="CENTER" prefWidth="300.0">
                                  <children>
                                     <FlowPane alignment="CENTER" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
+                                       <effect>
+                                          <DropShadow height="50.0" radius="24.5" width="50.0">
+                                             <color>
+                                                <Color red="0.35" green="0.35" blue="0.35" />
+                                             </color>
+                                          </DropShadow>
+                                       </effect>
                                        <children>
                                           <ImageView fx:id="item4Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
@@ -133,7 +161,7 @@
                                     </MFXButton>
                                     <MFXTextField fx:id="item4Quantity" prefHeight="60.0" prefWidth="100.0">
                                        <FlowPane.margin>
-                                          <Insets left="10.0" right="10.0" top="20.0" />
+                                          <Insets top="20.0" />
                                        </FlowPane.margin>
                                     </MFXTextField>
                                     <MFXButton fx:id="item4Plus" prefHeight="60.0" prefWidth="60.0" text="+">
@@ -149,6 +177,13 @@
                               <FlowPane alignment="CENTER" prefWidth="300.0">
                                  <children>
                                     <FlowPane alignment="CENTER" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
+                                       <effect>
+                                          <DropShadow height="50.0" radius="24.5" width="50.0">
+                                             <color>
+                                                <Color red="0.35" green="0.35" blue="0.35" />
+                                             </color>
+                                          </DropShadow>
+                                       </effect>
                                        <children>
                                           <ImageView fx:id="item5Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" visible="true" preserveRatio="true">
                                              <image></image>
@@ -162,7 +197,7 @@
                                     </MFXButton>
                                     <MFXTextField fx:id="item5Quantity" prefHeight="60.0" prefWidth="100.0">
                                        <FlowPane.margin>
-                                          <Insets left="10.0" right="10.0" top="20.0" />
+                                          <Insets top="20.0" />
                                        </FlowPane.margin>
                                     </MFXTextField>
                                     <MFXButton fx:id="item5Plus" prefHeight="60.0" prefWidth="60.0" text="+">
@@ -178,6 +213,13 @@
                               <FlowPane alignment="CENTER" prefWidth="300.0">
                                  <children>
                                     <FlowPane alignment="CENTER" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
+                                       <effect>
+                                          <DropShadow height="50.0" radius="24.5" width="50.0">
+                                             <color>
+                                                <Color red="0.35" green="0.35" blue="0.35" />
+                                             </color>
+                                          </DropShadow>
+                                       </effect>
                                        <children>
                                           <ImageView fx:id="item6Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
@@ -189,7 +231,7 @@
                                     </MFXButton>
                                     <MFXTextField fx:id="item6Quantity" prefHeight="60.0" prefWidth="100.0">
                                        <FlowPane.margin>
-                                          <Insets left="10.0" right="10.0" top="20.0" />
+                                          <Insets top="20.0" />
                                        </FlowPane.margin>
                                     </MFXTextField>
                                     <MFXButton fx:id="item6Plus" prefHeight="60.0" prefWidth="60.0" text="+">
@@ -343,7 +385,7 @@
           </Tab>
         </tabs>
          <BorderPane.margin>
-            <Insets left="125.0" />
+            <Insets left="100.0" top="75" />
          </BorderPane.margin>
       </TabPane>
    </center>

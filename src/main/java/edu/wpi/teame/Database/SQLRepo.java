@@ -336,6 +336,7 @@ public enum SQLRepo {
   public List<MedicalSuppliesData> getMedicalSuppliesList() {
     return this.medicalsuppliesDAO.get();
   }
+
   public List<MedicalSupplyData> getMedicalSupply() {
     return this.medicalSupplyDAO.get();
   }
@@ -506,10 +507,10 @@ public enum SQLRepo {
     } else if (obj instanceof MedicalSuppliesData) {
       MedicalSuppliesData addMed = (MedicalSuppliesData) obj;
       this.medicalsuppliesDAO.add(addMed);
-    } else if (obj instanceof  MedicalSupplyData) {
+    } else if (obj instanceof MedicalSupplyData) {
       MedicalSupplyData addMededice = (MedicalSupplyData) obj;
       this.medicalSupplyDAO.add(addMededice);
-    }else {
+    } else {
       throw new NoSuchElementException("No Service Request of this type");
     }
   }
