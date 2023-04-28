@@ -24,9 +24,6 @@
                   <HBox prefHeight="500.0" prefWidth="730.0">
                      <children>
                         <VBox maxHeight="600.0" prefHeight="500.0" prefWidth="301.0" spacing="50.0">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
                            <children>
                               <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
                                  <children>
@@ -46,9 +43,6 @@
                                     </HBox>
                                     <TextField fx:id="recipientName" maxHeight="70.0" prefHeight="70.0" styleClass="MFXTextField" stylesheets="@../styles/eStyleSheet.css" />
                                  </children>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
                               </VBox>
                               <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
                                  <children>
@@ -125,9 +119,6 @@
                            </HBox.margin>
                         </Line>
                         <VBox maxHeight="600.0" prefHeight="460.0" prefWidth="298.0" spacing="50.0">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
                            <children>
                               <VBox maxHeight="70.0" maxWidth="300.0" prefHeight="70.0" prefWidth="267.0">
                                  <children>
@@ -165,7 +156,7 @@
                                           <Font name="Roboto" size="24.0" />
                                        </font>
                                     </Text>
-                                    <TextField fx:id="notes" maxHeight="30.0" prefHeight="70.0" styleClass="MFXTextField" stylesheets="@../styles/eStyleSheet.css" />
+<!--                                    <TextField fx:id="notes" maxHeight="30.0" prefHeight="70.0" styleClass="MFXTextField" stylesheets="@../styles/eStyleSheet.css" />-->
                                  </children>
                               </VBox>
                            </children>
@@ -205,9 +196,6 @@
                      </VBox.margin>
                   </HBox>
                </children>
-               <StackPane.margin>
-                  <Insets />
-               </StackPane.margin>
             </VBox>
             <VBox fx:id="requestSubmittedBox" alignment="CENTER" maxHeight="400.0" maxWidth="400.0" prefHeight="732.0" prefWidth="627.0" spacing="10.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 25; -fx-border-color: #012d5a; -fx-border-radius: 25; -fx-border-width: 5;">
                <children>

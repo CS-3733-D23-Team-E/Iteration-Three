@@ -48,8 +48,8 @@
                                           </DropShadow>
                                        </effect>
                                        <children>
-                                          <ImageView fx:id="item1Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" >
-                                          </ImageView>
+<!--                                          <ImageView fx:id="item1Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" >-->
+<!--                                          </ImageView>-->
                                        </children>
                                     </FlowPane>
                                     <MFXButton fx:id="item1Minus" prefHeight="60.0" prefWidth="60.0" text="-">
@@ -83,7 +83,7 @@
                                           </DropShadow>
                                        </effect>
                                        <children>
-                                          <ImageView fx:id="item2Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+<!--                                          <ImageView fx:id="item2Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />-->
                                        </children>
                                     </FlowPane>
                                     <MFXButton fx:id="item2Minus" prefHeight="60.0" prefWidth="60.0" text="-">
@@ -117,7 +117,7 @@
                                           </DropShadow>
                                        </effect>
                                        <children>
-                                          <ImageView fx:id="item3Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+<!--                                          <ImageView fx:id="item3Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />-->
                                        </children>
                                     </FlowPane>
                                     <MFXButton fx:id="item3Minus" prefHeight="60.0" prefWidth="60.0" text="-">
@@ -151,7 +151,7 @@
                                           </DropShadow>
                                        </effect>
                                        <children>
-                                          <ImageView fx:id="item4Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+<!--                                          <ImageView fx:id="item4Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />-->
                                        </children>
                                     </FlowPane>
                                     <MFXButton fx:id="item4Minus" prefHeight="60.0" prefWidth="60.0" text="-">
@@ -185,9 +185,9 @@
                                           </DropShadow>
                                        </effect>
                                        <children>
-                                          <ImageView fx:id="item5Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" visible="true" preserveRatio="true">
-                                             <image></image>
-                                          </ImageView>
+<!--                                      <ImageView fx:id="item5Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" visible="true" preserveRatio="true">-->
+<!--                                             <image></image>-->
+<!--                                          </ImageView>-->
                                        </children>
                                     </FlowPane>
                                     <MFXButton fx:id="item5Minus" prefHeight="60.0" prefWidth="60.0" text="-">
@@ -221,7 +221,7 @@
                                           </DropShadow>
                                        </effect>
                                        <children>
-                                          <ImageView fx:id="item6Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+<!--                                          <ImageView fx:id="item6Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />-->
                                        </children>
                                     </FlowPane>
                                     <MFXButton fx:id="item6Minus" prefHeight="60.0" prefWidth="60.0" text="-">
