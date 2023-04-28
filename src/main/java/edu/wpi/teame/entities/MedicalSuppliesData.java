@@ -12,12 +12,6 @@ public class MedicalSuppliesData extends ServiceRequestData {
   @Getter @Setter private String medicalSupply;
   @Getter @Setter private String notes;
   @Getter @Setter private String quantity;
-  @Getter @Setter private String bandaid;
-  @Getter @Setter private String covidTest;
-  @Getter @Setter private String epipen;
-  @Getter @Setter private String gloves;
-  @Getter @Setter private String sthetiscope;
-  @Getter @Setter private String syringe;
 
   public MedicalSuppliesData(
       int requestID,

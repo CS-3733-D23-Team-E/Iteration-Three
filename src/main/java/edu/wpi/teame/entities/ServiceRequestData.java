@@ -36,6 +36,7 @@ public abstract class ServiceRequestData {
     OFFICESUPPLIESDELIVERY,
     FURNITUREDELIVERY,
     CONFERENCEROOM,
+    MEDICALSUPPLY,
     MEDICALSUPPLIESDELIVERY;
 
     public static RequestType stringToRequestType(String rt) {
@@ -48,9 +49,10 @@ public abstract class ServiceRequestData {
           return OFFICESUPPLIESDELIVERY;
         case "CONFERENCEROOM":
           return CONFERENCEROOM;
-        case " MEDICALSUPPLIESDELIVERY":
+        case "MEDICALSUPPLIESDELIVERY":
           return MEDICALSUPPLIESDELIVERY;
-
+        case "MEDICALSUPPLY":
+          return MEDICALSUPPLY;
         default:
           throw new NoSuchElementException("No such service request found");
       }
@@ -68,6 +70,8 @@ public abstract class ServiceRequestData {
           return "CONFERENCEROOM";
         case MEDICALSUPPLIESDELIVERY:
           return "MEDICALSUPPLIESDELIVERY";
+        case MEDICALSUPPLY:
+          return "MEDICALSUPPLY";
         default:
           throw new NoSuchElementException("No such service request found");
       }
