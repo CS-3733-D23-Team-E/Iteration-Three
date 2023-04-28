@@ -9,6 +9,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
@@ -48,8 +49,10 @@
                                           </DropShadow>
                                        </effect>
                                        <children>
-<!--                                          <ImageView fx:id="item1Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" >-->
-<!--                                          </ImageView>-->
+                                          <ImageView fx:id="item1Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/medicalSupply/bandaid.png" />
+                                             </image></ImageView>
                                        </children>
                                     </FlowPane>
                                     <MFXButton fx:id="item1Minus" prefHeight="60.0" prefWidth="60.0" text="-">

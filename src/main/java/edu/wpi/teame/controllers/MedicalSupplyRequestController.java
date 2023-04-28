@@ -1,12 +1,12 @@
 package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Database.SQLRepo;
+import edu.wpi.teame.Main;
 import edu.wpi.teame.entities.Employee;
 import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.utilities.Navigation;
 import edu.wpi.teame.utilities.Screen;
 import io.github.palexdev.materialfx.controls.*;
-import java.io.File;
 import java.util.List;
 import java.util.stream.Stream;
 import javafx.collections.FXCollections;
@@ -251,29 +251,32 @@ public class MedicalSupplyRequestController {
   }
 
   public void initializeImages() {
-    File file1 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/bandaid.png");
-    Image image1 = new Image(file1.toURI().toString());
-    item1Img.setImage(image1);
+  //  Image image1 =
+   //     new Image(String.valueOf(Main.class.getResource("images/medicalSupply/bandaid.png")));
+   // item1Img.setImage(image1);
 
-    File file2 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/covidTest.png");
-    Image image2 = new Image(file2.toURI().toString());
-    item2Img.setImage(image2);
-
-    File file3 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/epipen.png");
-    Image image3 = new Image(file3.toURI().toString());
-    item3Img.setImage(image3);
-
-    File file4 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/gloves.png");
-    Image image4 = new Image(file4.toURI().toString());
-    item4Img.setImage(image4);
-
-    File file5 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/sthetiscope.png");
-    Image image5 = new Image(file5.toURI().toString());
-    item5Img.setImage(image5);
-
-    File file6 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/syringe.png");
-    Image image6 = new Image(file6.toURI().toString());
-    item6Img.setImage(image6);
+    //    File file2 = new
+    // File("src/main/resources/edu/wpi/teame/images/medicalSupply/covidTest.png");
+    //    Image image2 = new Image(file2.toURI().toString());
+    //    item2Img.setImage(image2);
+    //
+    //    File file3 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/epipen.png");
+    //    Image image3 = new Image(file3.toURI().toString());
+    //    item3Img.setImage(image3);
+    //
+    //    File file4 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/gloves.png");
+    //    Image image4 = new Image(file4.toURI().toString());
+    //    item4Img.setImage(image4);
+    //
+    //    File file5 = new
+    // File("src/main/resources/edu/wpi/teame/images/medicalSupply/sthetiscope.png");
+    //    Image image5 = new Image(file5.toURI().toString());
+    //    item5Img.setImage(image5);
+    //
+    //    File file6 = new
+    // File("src/main/resources/edu/wpi/teame/images/medicalSupply/syringe.png");
+    //    Image image6 = new Image(file6.toURI().toString());
+    //    item6Img.setImage(image6);
   }
 
   public void initialize() {
