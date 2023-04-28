@@ -145,3 +145,39 @@
  .toggle-switch:selected .thumb-area{
      -fx-background-color: #001A3C;
  }
+
+ .itemQuantity {
+     -fx-floating-text: "Quantity";
+     -fx-alignment: center;
+     -fx-border-radius: 0;
+     -fx-background-radius: 0;
+     -fx-border-color: black;
+     -fx-border-width: 3 0 3 0;
+     -fx-font-family: "Arial";
+     -fx-font-weight: bold;
+     -fx-font-size: 30px;
+ }
+
+ .itemPlus {
+     -fx-font-family: "Arial";
+     -fx-font-weight: bold;
+     -fx-font-size: 28px;
+     -fx-background-radius: 0 20 20 0;
+     -fx-background-color: #012D5A;
+     -fx-text-fill: white;
+     -fx-border-color: black;
+     -fx-border-width: 3;
+     -fx-border-radius: 0 20 20 0;
+ }
+
+ .itemMinus {
+     -fx-font-family: "Arial";
+     -fx-font-weight: bold;
+     -fx-font-size: 28px;
+     -fx-background-radius: 20 0 0 20;
+     -fx-background-color: #AAAAAA;
+     -fx-text-fill: white;
+     -fx-border-color: black;
+     -fx-border-width: 3;
+     -fx-border-radius: 20 0 0 20;
+ }

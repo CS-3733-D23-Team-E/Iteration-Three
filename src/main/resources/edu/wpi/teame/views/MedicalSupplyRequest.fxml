@@ -8,6 +8,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -18,9 +19,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.MedicalSupplyRequestController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../styles/aarshtest.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teame.controllers.MedicalSupplyRequestController">
    <center>
-      <TabPane tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="250.0" tabMinHeight="50.0" tabMinWidth="250.0" BorderPane.alignment="CENTER">
+      <TabPane stylesheets="@../styles/eStyleSheet.css" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="250.0" tabMinHeight="50.0" tabMinWidth="250.0" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="Medical Supply">
                <content>
@@ -28,7 +29,7 @@
                      <center>
                         <FlowPane style="-fx-background-color: E6E6E6; -fx-background-radius: 30;" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
-                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                              <Insets bottom="50.0" left="50.0" right="50.0" top="25.0" />
                            </BorderPane.margin>
                            <effect>
                               <DropShadow height="50.0" radius="24.5" width="50.0">
@@ -55,17 +56,56 @@
                                              </image></ImageView>
                                        </children>
                                     </FlowPane>
-                                    <MFXButton fx:id="item1Minus" prefHeight="60.0" prefWidth="60.0" text="-">
+                                    <MFXButton fx:id="item1Minus" prefHeight="60.0" prefWidth="60.0" styleClass="itemMinus" stylesheets="@../styles/eStyleSheet.css" text="-">
                                        <FlowPane.margin>
                                           <Insets top="20.0" />
                                        </FlowPane.margin>
                                     </MFXButton>
-                                    <MFXTextField fx:id="item1Quantity" prefHeight="60.0" prefWidth="100.0">
+                                    <MFXTextField fx:id="item1Quantity" alignment="CENTER" borderGap="0.0" floatingTextGap="0.0" graphicTextGap="0.0" maxHeight="60.0" maxWidth="100.0" measureUnitGap="0.0" prefHeight="49.0" prefWidth="185.0" styleClass="itemQuantity" stylesheets="@../styles/eStyleSheet.css">
                                        <FlowPane.margin>
                                           <Insets top="20.0" />
                                        </FlowPane.margin>
                                     </MFXTextField>
-                                    <MFXButton fx:id="item1Plus" prefHeight="60.0" prefWidth="60.0" text="+">
+                                    <MFXButton fx:id="item1Plus" prefHeight="60.0" prefWidth="60.0" styleClass="itemPlus" stylesheets="@../styles/eStyleSheet.css" text="+">
+                                       <FlowPane.margin>
+                                          <Insets top="20.0" />
+                                       </FlowPane.margin>
+                                    </MFXButton>
+                                    <TextField />
+                                 </children>
+                                 <FlowPane.margin>
+                                    <Insets left="50.0" top="50.0" />
+                                 </FlowPane.margin>
+                              </FlowPane>
+                              <FlowPane alignment="CENTER" prefWidth="300.0">
+                                 <children>
+                                    <FlowPane alignment="CENTER" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
+                                       <effect>
+                                          <DropShadow height="50.0" radius="24.5" width="50.0">
+                                             <color>
+                                                <Color red="0.35" green="0.35" blue="0.35" />
+                                             </color>
+                                          </DropShadow>
+                                       </effect>
+                                       <children>
+                                          <ImageView fx:id="item1Img1" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/medicalSupply/covidTest.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </FlowPane>
+                                    <MFXButton fx:id="item2Minus" prefHeight="60.0" prefWidth="60.0" styleClass="itemMinus" stylesheets="@../styles/eStyleSheet.css" text="-">
+                                       <FlowPane.margin>
+                                          <Insets top="20.0" />
+                                       </FlowPane.margin>
+                                    </MFXButton>
+                                    <MFXTextField fx:id="item2Quantity" prefHeight="60.0" prefWidth="100.0" styleClass="itemQuantity" stylesheets="@../styles/eStyleSheet.css">
+                                       <FlowPane.margin>
+                                          <Insets top="20.0" />
+                                       </FlowPane.margin>
+                                    </MFXTextField>
+                                    <MFXButton fx:id="item2Plus" prefHeight="60.0" prefWidth="60.0" styleClass="itemPlus" stylesheets="@../styles/eStyleSheet.css" text="+">
                                        <FlowPane.margin>
                                           <Insets top="20.0" />
                                        </FlowPane.margin>
@@ -86,20 +126,24 @@
                                           </DropShadow>
                                        </effect>
                                        <children>
-<!--                                          <ImageView fx:id="item2Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />-->
+                                          <ImageView fx:id="item1Img2" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/medicalSupply/epipen.png" />
+                                             </image>
+                                          </ImageView>
                                        </children>
                                     </FlowPane>
-                                    <MFXButton fx:id="item2Minus" prefHeight="60.0" prefWidth="60.0" text="-">
+                                    <MFXButton fx:id="item3Minus" prefHeight="60.0" prefWidth="60.0" styleClass="itemMinus" stylesheets="@../styles/eStyleSheet.css" text="-">
                                        <FlowPane.margin>
                                           <Insets top="20.0" />
                                        </FlowPane.margin>
                                     </MFXButton>
-                                    <MFXTextField fx:id="item2Quantity" prefHeight="60.0" prefWidth="100.0">
+                                    <MFXTextField fx:id="item3Quantity" prefHeight="60.0" prefWidth="100.0" styleClass="itemQuantity" stylesheets="@../styles/eStyleSheet.css">
                                        <FlowPane.margin>
                                           <Insets top="20.0" />
                                        </FlowPane.margin>
                                     </MFXTextField>
-                                    <MFXButton fx:id="item2Plus" prefHeight="60.0" prefWidth="60.0" text="+">
+                                    <MFXButton fx:id="item3Plus" prefHeight="60.0" prefWidth="60.0" styleClass="itemPlus" stylesheets="@../styles/eStyleSheet.css" text="+">
                                        <FlowPane.margin>
                                           <Insets top="20.0" />
                                        </FlowPane.margin>
@@ -120,20 +164,24 @@
                                           </DropShadow>
                                        </effect>
                                        <children>
-<!--                                          <ImageView fx:id="item3Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />-->
+                                          <ImageView fx:id="item1Img3" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/medicalSupply/gloves.png" />
+                                             </image>
+                                          </ImageView>
                                        </children>
                                     </FlowPane>
-                                    <MFXButton fx:id="item3Minus" prefHeight="60.0" prefWidth="60.0" text="-">
+                                    <MFXButton fx:id="item4Minus" prefHeight="60.0" prefWidth="60.0" styleClass="itemMinus" stylesheets="@../styles/eStyleSheet.css" text="-">
                                        <FlowPane.margin>
                                           <Insets top="20.0" />
                                        </FlowPane.margin>
                                     </MFXButton>
-                                    <MFXTextField fx:id="item3Quantity" prefHeight="60.0" prefWidth="100.0">
+                                    <MFXTextField fx:id="item4Quantity" prefHeight="60.0" prefWidth="100.0" styleClass="itemQuantity" stylesheets="@../styles/eStyleSheet.css">
                                        <FlowPane.margin>
                                           <Insets top="20.0" />
                                        </FlowPane.margin>
                                     </MFXTextField>
-                                    <MFXButton fx:id="item3Plus" prefHeight="60.0" prefWidth="60.0" text="+">
+                                    <MFXButton fx:id="item4Plus" prefHeight="60.0" prefWidth="60.0" styleClass="itemPlus" stylesheets="@../styles/eStyleSheet.css" text="+">
                                        <FlowPane.margin>
                                           <Insets top="20.0" />
                                        </FlowPane.margin>
@@ -154,20 +202,24 @@
                                           </DropShadow>
                                        </effect>
                                        <children>
-<!--                                          <ImageView fx:id="item4Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />-->
+                                          <ImageView fx:id="item1Img4" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/medicalSupply/sthetiscope.png" />
+                                             </image>
+                                          </ImageView>
                                        </children>
                                     </FlowPane>
-                                    <MFXButton fx:id="item4Minus" prefHeight="60.0" prefWidth="60.0" text="-">
+                                    <MFXButton fx:id="item5Minus" prefHeight="60.0" prefWidth="60.0" styleClass="itemMinus" stylesheets="@../styles/eStyleSheet.css" text="-">
                                        <FlowPane.margin>
                                           <Insets top="20.0" />
                                        </FlowPane.margin>
                                     </MFXButton>
-                                    <MFXTextField fx:id="item4Quantity" prefHeight="60.0" prefWidth="100.0">
+                                    <MFXTextField fx:id="item5Quantity" prefHeight="60.0" prefWidth="100.0" styleClass="itemQuantity" stylesheets="@../styles/eStyleSheet.css">
                                        <FlowPane.margin>
                                           <Insets top="20.0" />
                                        </FlowPane.margin>
                                     </MFXTextField>
-                                    <MFXButton fx:id="item4Plus" prefHeight="60.0" prefWidth="60.0" text="+">
+                                    <MFXButton fx:id="item5Plus" prefHeight="60.0" prefWidth="60.0" styleClass="itemPlus" stylesheets="@../styles/eStyleSheet.css" text="+">
                                        <FlowPane.margin>
                                           <Insets top="20.0" />
                                        </FlowPane.margin>
@@ -188,56 +240,24 @@
                                           </DropShadow>
                                        </effect>
                                        <children>
-<!--                                      <ImageView fx:id="item5Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" visible="true" preserveRatio="true">-->
-<!--                                             <image></image>-->
-<!--                                          </ImageView>-->
+                                          <ImageView fx:id="item1Img5" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/medicalSupply/syringe.png" />
+                                             </image>
+                                          </ImageView>
                                        </children>
                                     </FlowPane>
-                                    <MFXButton fx:id="item5Minus" prefHeight="60.0" prefWidth="60.0" text="-">
+                                    <MFXButton fx:id="item6Minus" prefHeight="60.0" prefWidth="60.0" styleClass="itemMinus" stylesheets="@../styles/eStyleSheet.css" text="-">
                                        <FlowPane.margin>
                                           <Insets top="20.0" />
                                        </FlowPane.margin>
                                     </MFXButton>
-                                    <MFXTextField fx:id="item5Quantity" prefHeight="60.0" prefWidth="100.0">
+                                    <MFXTextField fx:id="item6Quantity" prefHeight="60.0" prefWidth="100.0" styleClass="itemQuantity" stylesheets="@../styles/eStyleSheet.css">
                                        <FlowPane.margin>
                                           <Insets top="20.0" />
                                        </FlowPane.margin>
                                     </MFXTextField>
-                                    <MFXButton fx:id="item5Plus" prefHeight="60.0" prefWidth="60.0" text="+">
-                                       <FlowPane.margin>
-                                          <Insets top="20.0" />
-                                       </FlowPane.margin>
-                                    </MFXButton>
-                                 </children>
-                                 <FlowPane.margin>
-                                    <Insets left="50.0" top="50.0" />
-                                 </FlowPane.margin>
-                              </FlowPane>
-                              <FlowPane alignment="CENTER" prefWidth="300.0">
-                                 <children>
-                                    <FlowPane alignment="CENTER" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
-                                       <effect>
-                                          <DropShadow height="50.0" radius="24.5" width="50.0">
-                                             <color>
-                                                <Color red="0.35" green="0.35" blue="0.35" />
-                                             </color>
-                                          </DropShadow>
-                                       </effect>
-                                       <children>
-<!--                                          <ImageView fx:id="item6Img" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />-->
-                                       </children>
-                                    </FlowPane>
-                                    <MFXButton fx:id="item6Minus" prefHeight="60.0" prefWidth="60.0" text="-">
-                                       <FlowPane.margin>
-                                          <Insets top="20.0" />
-                                       </FlowPane.margin>
-                                    </MFXButton>
-                                    <MFXTextField fx:id="item6Quantity" prefHeight="60.0" prefWidth="100.0">
-                                       <FlowPane.margin>
-                                          <Insets top="20.0" />
-                                       </FlowPane.margin>
-                                    </MFXTextField>
-                                    <MFXButton fx:id="item6Plus" prefHeight="60.0" prefWidth="60.0" text="+">
+                                    <MFXButton fx:id="item6Plus" prefHeight="60.0" prefWidth="60.0" styleClass="itemPlus" stylesheets="@../styles/eStyleSheet.css" text="+">
                                        <FlowPane.margin>
                                           <Insets top="20.0" />
                                        </FlowPane.margin>
@@ -251,7 +271,7 @@
                         </FlowPane>
                      </center>
                      <right>
-                        <StackPane prefWidth="550.0" style="-fx-background-color: E6E6e6; -fx-background-radius: 30;" BorderPane.alignment="CENTER">
+                        <StackPane prefWidth="550.0" style="-fx-background-color: E6E6e6; -fx-background-radius: 30;" stylesheets="@../styles/eStyleSheet.css" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
                               <Insets bottom="50.0" right="50.0" top="50.0" />
                            </BorderPane.margin>
@@ -263,14 +283,36 @@
                               </DropShadow>
                            </effect>
                            <children>
-                              <FlowPane opacity="0.77" StackPane.alignment="TOP_LEFT">
+                              <FlowPane prefHeight="182.0" prefWidth="550.0" StackPane.alignment="BOTTOM_CENTER">
+                                 <StackPane.margin>
+                                    <Insets top="770.0" />
+                                 </StackPane.margin>
+                                 <children>
+                                    <MFXButton fx:id="clear" prefHeight="60.0" prefWidth="130.0" styleClass="resetButton" stylesheets="@../styles/eStyleSheet.css" text="Clear">
+                                       <FlowPane.margin>
+                                          <Insets left="50.0" top="50.0" />
+                                       </FlowPane.margin>
+                                    </MFXButton>
+                                    <MFXButton fx:id="cancel" prefHeight="60.0" prefWidth="130.0" text="Cancel">
+                                       <FlowPane.margin>
+                                          <Insets left="30.0" top="50.0" />
+                                       </FlowPane.margin>
+                                    </MFXButton>
+                                    <MFXButton fx:id="submit" prefHeight="60.0" prefWidth="130.0" styleClass="submitButton" text="Submit">
+                                       <FlowPane.margin>
+                                          <Insets left="30.0" top="50.0" />
+                                       </FlowPane.margin>
+                                    </MFXButton>
+                                 </children>
+                              </FlowPane>
+                              <FlowPane opacity="0.77" prefHeight="742.0" prefWidth="550.0" StackPane.alignment="TOP_LEFT">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recepients Name:" wrappingWidth="450.0">
                                        <font>
                                           <Font size="30.0" />
                                        </font>
                                        <FlowPane.margin>
-                                          <Insets left="50.0" top="50.0" />
+                                          <Insets left="50.0" top="25.0" />
                                        </FlowPane.margin>
                                     </Text>
                                     <MFXTextField fx:id="recipientsName" prefHeight="60.0" prefWidth="450.0">
@@ -348,37 +390,15 @@
                                           <Insets left="50.0" top="10.0" />
                                        </FlowPane.margin>
                                     </Text>
-                                    <MFXTextField fx:id="notes" prefHeight="100.0" prefWidth="450.0">
+                                    <MFXTextField fx:id="notes" prefHeight="75.0" prefWidth="450.0">
                                        <FlowPane.margin>
                                           <Insets left="50.0" top="10.0" />
                                        </FlowPane.margin>
                                     </MFXTextField>
                                  </children>
                                  <StackPane.margin>
-                                    <Insets bottom="150.0" />
+                                    <Insets bottom="200.0" />
                                  </StackPane.margin>
-                              </FlowPane>
-                              <FlowPane StackPane.alignment="BOTTOM_CENTER">
-                                 <StackPane.margin>
-                                    <Insets top="770.0" />
-                                 </StackPane.margin>
-                                 <children>
-                                    <MFXButton fx:id="clear" prefHeight="60.0" prefWidth="130.0" text="Clear">
-                                       <FlowPane.margin>
-                                          <Insets left="50.0" top="50.0" />
-                                       </FlowPane.margin>
-                                    </MFXButton>
-                                    <MFXButton fx:id="cancel" prefHeight="60.0" prefWidth="130.0" text="Cancel">
-                                       <FlowPane.margin>
-                                          <Insets left="30.0" top="50.0" />
-                                       </FlowPane.margin>
-                                    </MFXButton>
-                                    <MFXButton fx:id="submit" prefHeight="60.0" prefWidth="130.0" text="Submit">
-                                       <FlowPane.margin>
-                                          <Insets left="30.0" top="50.0" />
-                                       </FlowPane.margin>
-                                    </MFXButton>
-                                 </children>
                               </FlowPane>
                            </children>
                         </StackPane>

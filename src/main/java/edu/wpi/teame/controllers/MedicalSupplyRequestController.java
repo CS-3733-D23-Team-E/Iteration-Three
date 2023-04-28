@@ -1,7 +1,6 @@
 package edu.wpi.teame.controllers;
 
 import edu.wpi.teame.Database.SQLRepo;
-import edu.wpi.teame.Main;
 import edu.wpi.teame.entities.Employee;
 import edu.wpi.teame.map.LocationName;
 import edu.wpi.teame.utilities.Navigation;
@@ -12,11 +11,7 @@ import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 public class MedicalSupplyRequestController {
   @FXML private MFXButton clear;
@@ -75,19 +70,6 @@ public class MedicalSupplyRequestController {
   public void initializeButtons() {
 
     // Item 1
-    this.item1Quantity.setText(Integer.toString(item1));
-    item1Quantity.setFloatingText("Quantity");
-    item1Quantity.setAlignment(Pos.CENTER);
-    item1Quantity.setStyle(
-        "-fx-border-radius: 0;-fx-background-radius: 0;-fx-border-color: BLACK; -fx-border-width: 3 0 3 0");
-    item1Quantity.setFont(Font.font("Ariel", FontWeight.BOLD, 15));
-    item1Plus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
-    item1Plus.setStyle(
-        "-fx-background-radius:  0 20 20 0; -fx-background-color: #012D5A; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 0 20 20 0");
-    item1Minus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
-    item1Minus.setStyle(
-        "-fx-background-radius: 20 0 0 20; -fx-background-color: #AAAAAA; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 20 0 0 20");
-
     this.item1Minus.setOnAction(
         event -> {
           item1--;
@@ -104,18 +86,6 @@ public class MedicalSupplyRequestController {
         });
 
     // Item 2
-    this.item2Quantity.setText(Integer.toString(item2));
-    item2Quantity.setFloatingText("Quantity");
-    item2Quantity.setAlignment(Pos.CENTER);
-    item2Quantity.setStyle(
-        "-fx-border-radius: 0;-fx-background-radius: 0;-fx-border-color: BLACK; -fx-border-width: 3 0 3 0");
-    item2Quantity.setFont(Font.font("Ariel", FontWeight.BOLD, 15));
-    item2Plus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
-    item2Plus.setStyle(
-        "-fx-background-radius:  0 20 20 0; -fx-background-color: #012D5A; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 0 20 20 0");
-    item2Minus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
-    item2Minus.setStyle(
-        "-fx-background-radius: 20 0 0 20; -fx-background-color: #AAAAAA; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 20 0 0 20");
 
     this.item2Minus.setOnAction(
         event -> {
@@ -135,18 +105,6 @@ public class MedicalSupplyRequestController {
     // Item 3
     this.item3Quantity.setText(Integer.toString(item3));
 
-    item3Quantity.setFloatingText("Quantity");
-    item3Quantity.setAlignment(Pos.CENTER);
-    item3Quantity.setStyle(
-        "-fx-border-radius: 0;-fx-background-radius: 0;-fx-border-color: BLACK; -fx-border-width: 3 0 3 0");
-    item3Quantity.setFont(Font.font("Ariel", FontWeight.BOLD, 15));
-    item3Plus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
-    item3Plus.setStyle(
-        "-fx-background-radius:  0 20 20 0; -fx-background-color: #012D5A; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 0 20 20 0");
-    item3Minus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
-    item3Minus.setStyle(
-        "-fx-background-radius: 20 0 0 20; -fx-background-color: #AAAAAA; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 20 0 0 20");
-
     this.item3Minus.setOnAction(
         event -> {
           item3--;
@@ -163,18 +121,6 @@ public class MedicalSupplyRequestController {
         });
     // Item 4
     this.item4Quantity.setText(Integer.toString(item4));
-
-    item4Quantity.setFloatingText("Quantity");
-    item4Quantity.setAlignment(Pos.CENTER);
-    item4Quantity.setStyle(
-        "-fx-border-radius: 0;-fx-background-radius: 0;-fx-border-color: BLACK; -fx-border-width: 3 0 3 0");
-    item4Quantity.setFont(Font.font("Ariel", FontWeight.BOLD, 15));
-    item4Plus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
-    item4Plus.setStyle(
-        "-fx-background-radius:  0 20 20 0; -fx-background-color: #012D5A; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 0 20 20 0");
-    item4Minus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
-    item4Minus.setStyle(
-        "-fx-background-radius: 20 0 0 20; -fx-background-color: #AAAAAA; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 20 0 0 20");
 
     this.item4Minus.setOnAction(
         event -> {
@@ -193,18 +139,6 @@ public class MedicalSupplyRequestController {
     // Item 5
     this.item5Quantity.setText(Integer.toString(item5));
 
-    item5Quantity.setFloatingText("Quantity");
-    item5Quantity.setAlignment(Pos.CENTER);
-    item5Quantity.setStyle(
-        "-fx-border-radius: 0;-fx-background-radius: 0;-fx-border-color: BLACK; -fx-border-width: 3 0 3 0");
-    item5Quantity.setFont(Font.font("Ariel", FontWeight.BOLD, 15));
-    item5Plus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
-    item5Plus.setStyle(
-        "-fx-background-radius:  0 20 20 0; -fx-background-color: #012D5A; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 0 20 20 0");
-    item5Minus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
-    item5Minus.setStyle(
-        "-fx-background-radius: 20 0 0 20; -fx-background-color: #AAAAAA; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 20 0 0 20");
-
     this.item5Minus.setOnAction(
         event -> {
           item5--;
@@ -222,18 +156,6 @@ public class MedicalSupplyRequestController {
     // Item 6
     this.item6Quantity.setText(Integer.toString(item6));
 
-    item6Quantity.setFloatingText("Quantity");
-    item6Quantity.setAlignment(Pos.CENTER);
-    item6Quantity.setStyle(
-        "-fx-border-radius: 0;-fx-background-radius: 0;-fx-border-color: BLACK; -fx-border-width: 3 0 3 0");
-    item6Quantity.setFont(Font.font("Ariel", FontWeight.BOLD, 15));
-    item6Plus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
-    item6Plus.setStyle(
-        "-fx-background-radius:  0 20 20 0; -fx-background-color: #012D5A; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 0 20 20 0");
-    item6Minus.setFont(Font.font("Ariel", FontWeight.BOLD, 28));
-    item6Minus.setStyle(
-        "-fx-background-radius: 20 0 0 20; -fx-background-color: #AAAAAA; -fx-text-fill: WHITE; -fx-border-color:BLACK; -fx-border-width: 3; -fx-border-radius: 20 0 0 20");
-
     this.item6Minus.setOnAction(
         event -> {
           item6--;
@@ -250,38 +172,8 @@ public class MedicalSupplyRequestController {
         });
   }
 
-  public void initializeImages() {
-  //  Image image1 =
-   //     new Image(String.valueOf(Main.class.getResource("images/medicalSupply/bandaid.png")));
-   // item1Img.setImage(image1);
-
-    //    File file2 = new
-    // File("src/main/resources/edu/wpi/teame/images/medicalSupply/covidTest.png");
-    //    Image image2 = new Image(file2.toURI().toString());
-    //    item2Img.setImage(image2);
-    //
-    //    File file3 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/epipen.png");
-    //    Image image3 = new Image(file3.toURI().toString());
-    //    item3Img.setImage(image3);
-    //
-    //    File file4 = new File("src/main/resources/edu/wpi/teame/images/medicalSupply/gloves.png");
-    //    Image image4 = new Image(file4.toURI().toString());
-    //    item4Img.setImage(image4);
-    //
-    //    File file5 = new
-    // File("src/main/resources/edu/wpi/teame/images/medicalSupply/sthetiscope.png");
-    //    Image image5 = new Image(file5.toURI().toString());
-    //    item5Img.setImage(image5);
-    //
-    //    File file6 = new
-    // File("src/main/resources/edu/wpi/teame/images/medicalSupply/syringe.png");
-    //    Image image6 = new Image(file6.toURI().toString());
-    //    item6Img.setImage(image6);
-  }
-
   public void initialize() {
     initializeButtons();
-    initializeImages();
 
     Stream<LocationName> locationStream = LocationName.allLocations.values().stream();
     ObservableList<String> names =
